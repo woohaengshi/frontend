@@ -53,16 +53,22 @@
     /* background-color: blueviolet; */
 }
 
+/* 저장, 과목 편집 */
 .subject_edit_form_btn_wrap {
     display: flex;
+    height: 150px;
     justify-content: space-between;
     width: 100%;
     padding: 10px;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .closeButton, .backButton {
     cursor: pointer;
     color: black;
+    width: 50px;
 }
 
 /* 과목 박스 전체 */
@@ -72,10 +78,16 @@
     height: 80%;
     display: flex;
     align-items: flex-start;
+
+
+    flex-wrap: wrap; /* 여러 줄로 표시 */
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .subject_item{
-    padding: 10px 20px;
+    position: relative; /* 삭제 버튼 위치 지정 */
+    padding: 10px 40px 10px 10px; /* 버튼 공간 확보 */
     margin: 0px 8px;
     background-color: #f1f1ff;
     color: #8274ea;
@@ -95,8 +107,6 @@
     color: white;
     border-radius: 4px;
   }
-  
-
 
 /* 과목선택 텍스트 */
 .subject_choice_text_wrap{
@@ -108,20 +118,13 @@
     padding-left: 15px;
 }
 
-/* 저장, 과목 편집 */
 
-.subject_edit_form_btn_wrap{
-    height: 130px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .subject_edit_form_btn_save,.subject_edit_form_btn_modify{
    width: 95%;
-   height: 40%;
+   height: 45%;
    border-radius: 4px;
-   background-color: aquamarine;
+   font-size: 16px;
 }
 
 .subject_edit_form_btn_save{
@@ -139,30 +142,6 @@
 
 /* 테스트 */
 
-/* .subject_choice_box {
-    padding: 10px;
-    background-color: white;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  } */
-  
-  /* .subject_item {
-    padding: 10px;
-    margin: 5px 0;
-    background-color: #f1f1ff;
-    color: #8274ea;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-   */
-  .subject_item.selected {
-    background-color: #8274ea;
-    color: white;
-  }
-  
   .subject_add_box {
     position: relative; /* 상대적 위치 지정 */
     display: flex;
@@ -193,11 +172,6 @@
     background-color: #665bb2;
   }
   
-  .subject_edit_form_btn_wrap {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
   
   .subject_edit_form_btn_save, .subject_edit_form_btn_modify {
     padding: 10px 20px;
@@ -212,6 +186,31 @@
   .subject_edit_form_btn_save:hover, .subject_edit_form_btn_modify:hover {
     background-color: #665bb2;
   }
+
+  /* 삭제버튼 */
+
+  .delete_button {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .delete_button:hover {
+    background-color: darkred;
+  }
+
+  
   
 
 

@@ -22,10 +22,17 @@ export default function SubjectEditForm({ closeSubjectEditForm }) {
   };
 
   const handleSave = () => {
-    // 편집 모드를 종료하고 저장
     setIsEditing(false);
-    // 저장된 상태를 유지하는 추가 로직이 필요하면 여기에 작성
     console.log('저장된 과목 목록:', subjects);
+  };
+
+  const handleDeleteSubject = (subjectToDelete) => {
+    if (isEditing) {
+      setSubjects(subjects.filter(subject => subject !== subjectToDelete));
+      if (selectedSubject === subjectToDelete) {
+        setSelectedSubject(null); // 선택된 과목이 삭제된 경우 선택 해제
+      }
+    }
   };
 
   return (
@@ -37,7 +44,6 @@ export default function SubjectEditForm({ closeSubjectEditForm }) {
         <Text size="8"
           onClick={() => {
             if (window.innerWidth <= 768) {
-              // 모바일 화면 체크
               closeSubjectEditForm();
             }
           }}
@@ -65,14 +71,23 @@ export default function SubjectEditForm({ closeSubjectEditForm }) {
         )}
         <div className={styles.subject_choice_box}>
           {subjects.map((subject, index) => (
-            <Text
-              size="3"
-              key={index}
-              className={`${styles.subject_item} ${selectedSubject === subject ? styles.selected : ''}`}
-              onClick={() => handleClick(subject)}
-            >
-              {subject}
-            </Text>
+            <div key={index} className={styles.subject_item}>
+              <Text
+                size="3"
+                className={`${styles.subject_item_text} ${selectedSubject === subject ? styles.selected : ''}`}
+                onClick={() => handleClick(subject)}
+              >
+                {subject}
+              </Text>
+              {isEditing && (
+                <button
+                  className={styles.delete_button}
+                  onClick={() => handleDeleteSubject(subject)}
+                >
+                  -
+                </button>
+              )}
+            </div>
           ))}
         </div>
         <div className={styles.subject_edit_form_btn_wrap}>
