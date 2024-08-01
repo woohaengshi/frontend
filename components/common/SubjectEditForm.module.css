@@ -4,23 +4,21 @@
     top: 0; left: 0;
     overflow: hidden;
     width: 100%;
-    height: 90vh; /* 부모 요소도 전체 높이를 차지하도록 설정 */
+    height: 90vh; 
     box-sizing: border-box;
-    background-color: aqua;
+    background-color: rgb(182, 182, 182);
 }
 
-/* 모달 */
+/* 과목 편집 컴포넌트 */
 .formContainer {
     position: absolute;
     top: 0; bottom: 0;
     right: -100%;
-    /* 처음에는 화면 밖에 숨겨져 있음 */
     transition: right 0.5s ease-in-out;
     width: 100%;
     max-width: 645px;
     background-color: rgb(255, 255, 255);
-    height: 100%; /* 브라우저 전체 높이 */
-    /* 애니메이션 */
+    height: 100%; 
 }
 
 .formContainer.show {
@@ -50,19 +48,29 @@
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
-    /* background-color: blueviolet; */
 }
 
-/* 저장, 과목 편집 */
+/* 과목 선택, 편집 텍스트 */
+
+.subject_choice_text_wrap {
+  padding-top: 10px;
+  width: 95%;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: 15px;
+}
+
+/* 저장, 과목 버튼 편집 */
 .subject_edit_form_btn_wrap {
     display: flex;
-    height: 150px;
+    height: 130px;
     justify-content: space-between;
-    width: 100%;
+    width: 98%;
     padding: 10px;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
 }
 
 .closeButton, .backButton {
@@ -71,82 +79,73 @@
     width: 50px;
 }
 
+
 /* 과목 박스 전체 */
-.subject_choice_box{
-    background-color: white;
-    width: 100%;
-    height: 80%;
-    display: flex;
-    align-items: flex-start;
-
-
-    flex-wrap: wrap; /* 여러 줄로 표시 */
-    padding: 10px;
-    box-sizing: border-box;
+.subject_choice_box {
+  background-color: white;
+  width: 95%;
+  height: 70%;
+  max-height: 500px;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-.subject_item{
-    position: relative; /* 삭제 버튼 위치 지정 */
-    padding: 10px 40px 10px 10px; /* 버튼 공간 확보 */
-    margin: 0px 8px;
-    background-color: #f1f1ff;
-    color: #8274ea;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+.subject_item {
+  position: relative;
+  padding: 15px 20px;
+  margin: 8px;
+  background-color: #f1f1ff;
+  color: var(--main-color-3);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.subject_item_text{
+  text-align: center;
 }
 
 /* 기존 스타일 유지 */
   
-  .subject_item:hover {
-    background-color: #ddd;
-  }
-  
-  .subject_item.selected {
-    background-color: #8274ea;
-    color: white;
-    border-radius: 4px;
-  }
-
-/* 과목선택 텍스트 */
-.subject_choice_text_wrap{
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 15px;
+.subject_item.selected {
+  background-color: var(--main-color-3);
+  color: white;
+  border-radius: 4px;
 }
-
-
 
 .subject_edit_form_btn_save,.subject_edit_form_btn_modify{
    width: 95%;
-   height: 45%;
-   border-radius: 4px;
+   height: 43%;
+   border-radius: 5px;
    font-size: 16px;
 }
 
 .subject_edit_form_btn_save{
-    background-color: #8274ea;
+    background-color: var(--main-color-3);
     color: white;
 }
 
 .subject_edit_form_btn_modify{
     background-color: #f1f1ff;
-    color: #8274ea;
+    color: var(--main-color-3);
 }
-
-
 
 
 /* 테스트 */
 
   .subject_add_box {
     position: relative; /* 상대적 위치 지정 */
+        width: 95%;
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   
   .subject_input {
@@ -160,8 +159,9 @@
   .add_button {
     position: absolute; /* 절대적 위치 지정 */
     right: 10px; /* 오른쪽 여백 */
-    padding: 10px;
-    background-color: #8274ea;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: var(--main-color-3);
     color: white;
     border: none;
     cursor: pointer;
@@ -172,11 +172,8 @@
     background-color: #665bb2;
   }
   
-  
   .subject_edit_form_btn_save, .subject_edit_form_btn_modify {
     padding: 10px 20px;
-    /* background-color: #8274ea;
-    color: white; */
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -193,7 +190,7 @@
     position: absolute;
     top: -5px;
     right: -5px;
-    background: red;
+    background: rgb(247, 83, 83);
     color: white;
     border: none;
     border-radius: 50%;
@@ -203,16 +200,13 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
+    text-align: center;
   }
   
   .delete_button:hover {
     background-color: darkred;
   }
-
-  
-  
-
 
   /* 브라우저 화면일 때 숨기기 */
 @media (min-width: 769px) {

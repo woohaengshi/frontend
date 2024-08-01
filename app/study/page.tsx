@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import SubjectEditForm from '../../components/common/SubjectEditForm';
+import SubjectEditForm from '../../components/common/SubjectEditForm.tsx';
 import styles from '../../components/common/SubjectEditForm.module.css'; // CSS 파일 임포트
 
 export default function Study() {
