@@ -1,3 +1,4 @@
+.header{background-color: #fff;}
 .header > div{height: 75px; border-bottom: 2px solid var(--main-color-3);}
 .logo p{font-size: 28px; font-weight: 300; line-height: 1; color: var(--main-color-3);}
 .logo p i{display:inline-block; font-weight: 700;}

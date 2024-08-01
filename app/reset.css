@@ -1,4 +1,9 @@
 /* reset */
+/* font */
+.radix-themes{
+  --default-font-family:var(--font-notosanskr) !important;
+  background-color: var(--main-color-1) !important;
+}
 * {
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
