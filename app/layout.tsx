@@ -17,13 +17,14 @@ export const metadata: Metadata = {
 const notoSansKr = Noto_Sans_KR({
   subsets: ['latin'],
   weight: ['300', '400', '500', '700', '900'],
+  variable: '--font-notosanskr',
 });
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ko">
-      <body className={notoSansKr.className}>
-        <Theme>
+      <body className={notoSansKr.variable}>
+        <Theme radius="medium">
           <Header />
           {children}
         </Theme>
