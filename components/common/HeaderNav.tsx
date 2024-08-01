@@ -7,7 +7,7 @@ import styles from './Header.module.css';
 
 export default function HeaderNav() {
   const pathname = usePathname();
-  console.log(pathname.startsWith('/study'));
+
   return (
     <Flex align="center" gap="9" asChild>
       <ul>
