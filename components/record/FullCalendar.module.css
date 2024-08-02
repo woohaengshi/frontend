@@ -22,7 +22,7 @@
 .calendar_table .content_row td * {position: relative; z-index: 1;}
 .calendar_table .content_row .date{line-height: 1;}
  
-.month_picker{position:absolute; left:50%; top:50px; transform: translateX(-50%); width: 280px; background-color: #fff; box-shadow: var(--shadow-3); border-radius: 8px;}
+.month_picker{position:absolute; left:50%; top:50px; transform: translateX(-50%); width: 280px; background-color: #fff; box-shadow: var(--shadow-3); border-radius: 8px; z-index: 5;}
 .month_picker .year_list button{display:block; width: 20px; height: 20px; font-size: 0;}
 .month_picker .year_list p{font-weight: 700;}
 .month_picker .month_list ul li{width: 25%; text-align: center;}
