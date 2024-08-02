@@ -52,11 +52,13 @@ export default function FullCalendar() {
     for (let day = 1; day <= monthDays; day++) {
       // 날짜를 두 자리 문자열로 포맷팅 (예: 01, 02, ..., 31)
       const formattedDay = String(day).padStart(2, '0');
-
       row.push(
         <td
           key={day}
           onClick={() => handleDateClick(day)} // 클릭 시 날짜 선택
+          className={
+            today.year == year && today.month - 1 == currentDate.getMonth() && today.date == day ? styles.today : ''
+          }
         >
           {/* 포맷팅된 날짜 표시 */}
           <Text as="p" align="center" className={styles.date}>
