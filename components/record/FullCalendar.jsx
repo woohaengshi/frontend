@@ -50,7 +50,6 @@ export default function FullCalendar() {
 
     // 현재 월의 모든 날짜 추가
     for (let day = 1; day <= monthDays; day++) {
-      // 날짜를 두 자리 문자열로 포맷팅 (예: 01, 02, ..., 31)
       const formattedDay = String(day).padStart(2, '0');
       row.push(
         <td
