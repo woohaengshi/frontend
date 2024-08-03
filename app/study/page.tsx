@@ -28,6 +28,9 @@ export default function Study() {
       </Text>
       <Timer maxTime={10} />
       <Button className={styles.floatingButton} onClick={handleButtonClick}>과목 선택</Button>
+
+       {/* 오버레이 추가 */}
+    {showForm && <div className={stylesEdit.overlay} onClick={closeSubjectEditForm}></div>}
       <div className={`${stylesEdit.formContainer} ${showForm ? stylesEdit.show : ''}`}>
         <SubjectEditForm closeSubjectEditForm={closeSubjectEditForm} />
       </div>
