@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import SubjectEditForm from '../../components/common/SubjectEditForm.tsx';
-import stylesEdit from '../../components/common/SubjectEditForm.module.css'; // CSS 파일 임포트
+import SubjectEditForm from '../../components/study/SubjectEditForm.tsx';
+import stylesEdit from '../../components/study/SubjectEditForm.module.css'; // CSS 파일 임포트
 import Timer from '@/components/study/Timer';
 import {  Button, Container, Text } from '@radix-ui/themes';
 import styles from './page.module.css';
