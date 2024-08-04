@@ -1,7 +1,7 @@
 /* reset */
 /* font */
-.radix-themes{
-  --default-font-family:var(--font-notosanskr) !important;
+.radix-themes {
+  --default-font-family: var(--font-notosanskr) !important;
   background-color: var(--main-color-1) !important;
 }
 * {
@@ -12,13 +12,14 @@
 }
 
 *:before,
-*:after{
+*:after {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   font-size-adjust: none;
   -webkit-font-size-adjust: none;
@@ -27,7 +28,13 @@ html, body {
 }
 
 /*기본폰트 10px*/
-body, th, td, input, select, textarea, button {
+body,
+th,
+td,
+input,
+select,
+textarea,
+button {
   line-height: 1.5;
   color: #333;
   word-break: keep-all;
@@ -39,36 +46,73 @@ caption {
   display: none;
 }
 
-body, div,
-dl, dt, dd, ul, ol, li,
-h1, h2, h3, h4, h5, h6,
-pre, code, form, fieldset, legend, textarea, p, blockquote,
-th, td, input, select, textarea, button,
-header, nav, menu, section, article {
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+textarea,
+p,
+blockquote,
+th,
+td,
+input,
+select,
+textarea,
+button,
+header,
+nav,
+menu,
+section,
+article {
   margin: 0;
   padding: 0;
 }
 
-fieldset, img {
+fieldset,
+img {
   border: 0 none;
   max-width: 100%;
 }
 
-dl, ul, ol, menu, li {
+dl,
+ul,
+ol,
+menu,
+li {
   list-style: none;
   vertical-align: middle;
 }
 
-blockquote, q {
-  quotes: none
+blockquote,
+q {
+  quotes: none;
 }
 
-blockquote:before, blockquote:after, q:before, q:after {
-  content: "";
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
   content: none;
 }
 
-input, textarea {
+input,
+textarea {
   padding: 0 25px;
 }
 
@@ -76,35 +120,48 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px white inset; /* 크롭입력배경색제거 */
 }
 
-input, select, textarea, button {
+input,
+select,
+textarea,
+button {
   vertical-align: middle;
 }
 
-input[type="text"], input[type="password"], input[type="submit"], input[type="search"], input[type="number"] {
+input[type='text'],
+input[type='password'],
+input[type='submit'],
+input[type='search'],
+input[type='number'] {
   -webkit-appearance: none;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none; margin: 0;
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-button, input[type="button"], input[type="submit"], input[type="reset"], input[type="file"] {
+button,
+input[type='button'],
+input[type='submit'],
+input[type='reset'],
+input[type='file'] {
   -webkit-appearance: none;
   border-radius: 0;
   border: none;
 }
 
-input[type="button"] {
+input[type='button'] {
   -webkit-appearance: none;
   border: 0;
 }
 
-input[type="search"]:-webkit-search-cancel-button {
-  -webkit-appearance: none
+input[type='search']:-webkit-search-cancel-button {
+  -webkit-appearance: none;
 }
 
-input[type="radio"], input[type="checkbox"] {
+input[type='radio'],
+input[type='checkbox'] {
   border: none;
 }
 
@@ -114,14 +171,25 @@ button {
   cursor: pointer;
 }
 
-a, a:link, a:visited, a:hover, a:active {
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
   color: inherit;
   text-decoration: none;
 }
 
-address, caption, cite, code, dfn, em, var, i {
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+var,
+i {
   font-style: normal;
-  font-weight: normal
+  font-weight: normal;
 }
 
 table {
@@ -134,7 +202,8 @@ img {
   vertical-align: middle;
 }
 
-legend, caption {
+legend,
+caption {
   display: none;
 }
 
@@ -145,11 +214,11 @@ code {
 
 /* root */
 :root {
-  --bg-color: #F9F9FF;
+  --bg-color: #f9f9ff;
 
-  --main-color-1: #F9F9FF;
-  --main-color-2: #BAB8F6;
-  --main-color-3: #8274EA;
+  --main-color-1: #f9f9ff;
+  --main-color-2: #bab8f6;
+  --main-color-3: #8274ea;
 
-  --br-color:#DDE1EB;
+  --br-color: #dde1eb;
 }
