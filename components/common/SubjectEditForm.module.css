@@ -199,10 +199,6 @@
   transition: background-color 0.3s;
 }
 
-.subject_edit_form_btn_save:hover,
-.subject_edit_form_btn_modify:hover {
-  background-color: #665bb2;
-}
 
 /* 삭제버튼 */
 
