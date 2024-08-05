@@ -1,36 +1,6 @@
 .container {
   background: '#FCFCFE' !important;
-  padding-top: 50px;
-}
-
-.text {
-  width: 250px;
-  color: '#33333';
-  position: relative;
-  margin: 0 auto;
-  font-size: var(--font-size-5);
-}
-
-.text::before,
-.text::after {
-  content: '';
-  position: absolute;
-  width: 36px; /* 이미지의 너비에 맞게 조절 */
-  height: 36px; /* 이미지의 높이에 맞게 조절 */
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.text::before {
-  top: -15px;
-  left: -5px;
-  background-image: url('../../assets/icons/open_double_quote.png'); /* 시작하는 큰따옴표 이미지 경로 */
-}
-
-.text::after {
-  right: 5px;
-  bottom: -15px;
-  background-image: url('../../assets/icons/close_double_quote.png'); /* 끝나는 큰따옴표 이미지 경로 */
+  padding-top: 60px;
 }
 
 .floatingButton {
@@ -54,17 +24,8 @@
     transform 0.3s;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   .container {
-    padding-top: 80px;
-  }
-  .text {
-    width: 200px;
-    font-size: var(--font-size-4);
-  }
-  .text::before,
-  .text::after {
-    width: 30px; /* 이미지의 너비에 맞게 조절 */
-    height: 30px; /* 이미지의 높이에 맞게 조절 */
+    padding-top: 70px;
   }
 }

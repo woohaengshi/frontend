@@ -9,33 +9,56 @@
   align-items: center;
 }
 
+.title {
+  width: 250px;
+  color: '#33333';
+  position: relative;
+  margin: 0 auto;
+  /* font-size: var(--font-size-5); */
+  font-weight: 500;
+}
+
+.title i {
+  color: var(--main-color-3);
+  font-size: var(--font-size-7);
+  font-weight: 600;
+}
+
+.title::before,
+.title::after {
+  content: '';
+  position: absolute;
+  width: 36px; /* 이미지의 너비에 맞게 조절 */
+  height: 36px; /* 이미지의 높이에 맞게 조절 */
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.title::before {
+  top: -32px;
+  left: 14px;
+  background-image: url('../../assets/icons/open_double_quote.png'); /* 시작하는 큰따옴표 이미지 경로 */
+}
+
+.title::after {
+  bottom: -32px;
+  right: 16px;
+  background-image: url('../../assets/icons/close_double_quote.png'); /* 끝나는 큰따옴표 이미지 경로 */
+}
+
 .relativeWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   padding-top: 100%; /* 1:1 aspect ratio */
-  margin-left: 20px;
-  margin-right: 20px;
   position: relative;
-  /* margin-bottom: 1rem; */
+  margin-top: 45px;
+  margin-bottom: 70px;
 }
 
 .svgCircle {
   transition: stroke-dasharray 0.5s ease-in-out;
-}
-
-.innerText {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #333333;
-}
-
-.responsiveText {
-  font-size: var(--font-size-9);
 }
 
 .svgContainer {
@@ -51,34 +74,75 @@
   height: 100%;
 }
 
+.timeWrapper {
+  width: 100%;
+}
+
+.time {
+  margin-top: 15px;
+  color: #333333;
+  font-size: 72px;
+  /* font-weight: 700; */
+}
+
 .toggleButton {
-  width: 180px;
+  width: 160px;
   border: 2px solid #dbdbff;
   color: var(--customBlue);
   padding: 1.4rem 0;
   border-radius: 9999px;
   outline: none;
   transition: background-color 0.3s;
-  margin-bottom: 80px;
   color: #6153b8;
   font-size: 18px;
-  /* font-weight: bold; */
+  font-weight: 500;
 }
 
 .toggleButton.active {
-  border: var(--main-color-3);
+  border: 2px solid var(--main-color-3);
   background: var(--main-color-3);
   color: white;
 }
 
-@media (max-width: 420px) {
-  .responsiveText {
-    font-size: var(--font-size-8);
+@media (max-width: 480px) {
+  .relativeWrapper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .title {
+    width: 200px;
+    font-size: var(--font-size-4);
+  }
+
+  .title::before,
+  .title::after {
+    width: 30px; /* 이미지의 너비에 맞게 조절 */
+    height: 30px; /* 이미지의 높이에 맞게 조절 */
+  }
+
+  .title::before {
+    top: -25px;
+    left: 0px;
+  }
+
+  .title::after {
+    bottom: -20px;
+    right: 5px;
+  }
+
+  .title i {
+    font-size: var(--font-size-6);
+  }
+
+  .time {
+    font-size: 40px;
+    margin: 0;
   }
 
   .toggleButton {
-    width: 150px;
-    padding: 1.2rem 0;
+    width: 120px;
+    padding: 1rem 0;
     font-size: 16px;
   }
 }
