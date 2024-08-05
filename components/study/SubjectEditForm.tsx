@@ -20,6 +20,16 @@ const SubjectEditForm: React.FC<SubjectEditFormProps> = ({ closeSubjectEditForm 
   console.log('선택한 과목', selectedSubjects);
   
 
+  useEffect(() => {
+    // 모달이 열릴 때 body 스크롤 비활성화
+    document.body.style.overflow = 'hidden';
+    return () => {
+      // 컴포넌트 언마운트 시 스크롤 다시 활성화
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+
 
   const [isMobile, setIsMobile] = useState(false);
 
