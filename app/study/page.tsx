@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import SubjectEditForm from '../../components/study/SubjectEditForm';
-import stylesEdit from '../../components/study/SubjectEditForm.module.css'; // CSS 파일 임포트
+import stylesEdit from '../../components/study/SubjectEditForm.module.css'; 
 import Timer from '@/components/study/Timer';
-import {  Button, Container, Text } from '@radix-ui/themes';
+import { Button, Container, Text } from '@radix-ui/themes';
 import styles from './page.module.css';
 
 export default function Study() {
@@ -14,7 +14,6 @@ export default function Study() {
     setShowForm(!showForm);
   };
 
-  // 모달 닫기 함수
   const closeSubjectEditForm = () => {
     setShowForm(false);
   };
@@ -29,9 +28,8 @@ export default function Study() {
       <Timer maxTime={10} />
       <Button className={styles.floatingButton} onClick={handleButtonClick}>과목 선택</Button>
 
-       {/* 오버레이 추가 */}
-    {showForm && <div className={stylesEdit.overlay} onClick={closeSubjectEditForm}></div>}
-      <div className={`${stylesEdit.formContainer} ${showForm ? stylesEdit.show : ''}`}>
+      {showForm && <div className={stylesEdit.overlay} onClick={closeSubjectEditForm}></div>}
+      <div className={`${stylesEdit.formContainer} ${showForm ? stylesEdit.show : stylesEdit.hide}`}>
         <SubjectEditForm closeSubjectEditForm={closeSubjectEditForm} />
       </div>
     </Container>

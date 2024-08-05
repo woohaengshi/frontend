@@ -1,3 +1,12 @@
+.overlay {
+    position: fixed;
+    top: 75px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정색 배경 */
+  }
+
 /* 페이지 전체 콘테이너 */
 .container {
     position: relative;
@@ -55,7 +64,7 @@
 .subject_choice_text_wrap {
   padding-top: 10px;
   width: 95%;
-  height: 50px;
+  height: 40px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -95,7 +104,7 @@
 
 .subject_item {
   position: relative;
-  padding: 15px 20px;
+  padding: 14px 20px;
   margin: 8px;
   background-color: #f1f1ff;
   color: var(--main-color-3);
@@ -181,9 +190,9 @@
     transition: background-color 0.3s;
   }
   
-  .subject_edit_form_btn_save:hover, .subject_edit_form_btn_modify:hover {
+  /* .subject_edit_form_btn_save:hover, .subject_edit_form_btn_modify:hover {
     background-color: #665bb2;
-  }
+  } */
 
   /* 삭제버튼 */
 
