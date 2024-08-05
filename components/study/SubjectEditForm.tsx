@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import styles from './SubjectEditForm.module.css';
 import { Text } from '@radix-ui/themes';
 import Image from 'next/image';
@@ -10,42 +10,47 @@ interface SubjectEditFormProps {
   closeSubjectEditForm: () => void;
 }
 
-const SubjectEditForm: React.FC<SubjectEditFormProps> = function ({ closeSubjectEditForm }) {
+const SubjectEditForm: React.FC<SubjectEditFormProps> = ({ closeSubjectEditForm }) => {
   const [subjects, setSubjects] = useState<string[]>(initialSubjects);
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newSubject, setNewSubject] = useState<string>('');
   const [deletedSubjects, setDeletedSubjects] = useState<string[]>([]); // 삭제된 과목 저장
-  // console.log(deletedSubjects);
-  // console.log('선택한 항목',selectedSubjects);
+  console.log('삭제한 과목',deletedSubjects);
+  console.log('선택한 과목', selectedSubjects);
+  
+
 
   const [isMobile, setIsMobile] = useState(false);
 
-  const handleResize = function () {
+  const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
   };
+
   useEffect(() => {
-    handleResize(); 
-    window.addEventListener('resize', handleResize);
+    handleResize(); // 초기 화면 크기 설정
+    window.addEventListener('resize', handleResize); // 리사이즈 이벤트 리스너 추가
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleResize); // 컴포넌트 언마운트 시 리스너 제거
     };
   }, []);
-
-  const handleClick = function (subject: string) {
+  
+  
+  
+  const handleClick = (subject: string) => {
     setSelectedSubjects((prevSelected) =>
       prevSelected.includes(subject) ? prevSelected.filter((s) => s !== subject) : [...prevSelected, subject],
     );
   };
 
-  const handleAddSubject = function () {
+  const handleAddSubject = () => {
     if (newSubject.trim() !== '') {
       setSubjects([...subjects, newSubject]);
       setNewSubject('');
     }
   };
 
-  const handleSaveSelected = async function () {
+  const handleSaveSelected = async () => {
     alert(`선택한 과목이 저장되었습니다: ${selectedSubjects.join(', ')}`);
     // try {
     //   const response = await fetch('https://your-api-endpoint.com/saveSelectedSubjects', {
@@ -71,7 +76,7 @@ const SubjectEditForm: React.FC<SubjectEditFormProps> = function ({ closeSubject
     closeSubjectEditForm(); // 저장 후 폼 닫기
   };
 
-  const handleSaveEditing = async function () {
+  const handleSaveEditing = async () => {
     setIsEditing(false);
 
     // 삭제된 과목을 서버에 저장하는 부분
@@ -98,7 +103,7 @@ const SubjectEditForm: React.FC<SubjectEditFormProps> = function ({ closeSubject
     // }
   };
 
-  const handleDeleteSubject = function (subjectToDelete: string) {
+  const handleDeleteSubject = (subjectToDelete: string) => {
     if (isEditing) {
       setSubjects(subjects.filter((subject) => subject !== subjectToDelete));
       setSelectedSubjects((prevSelected) => prevSelected.filter((s) => s !== subjectToDelete));
