@@ -92,7 +92,7 @@ export default function FullCalendar() {
 
   return (
     <div className={styles.full_calendar}>
-      <Container size="3" p="3">
+      <Container size="3" p="6">
         <Box p="4" className={styles.container_inner}>
           <div className={styles.calendar_header}>
             <Flex justify="between" align="center">
