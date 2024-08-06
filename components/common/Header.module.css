@@ -1,12 +1,15 @@
-.header{background-color: #fff;}
-.header > div{height: 75px; border-bottom: 2px solid var(--main-color-3);}
+.header{background-color: #fff; border-bottom: 2px solid var(--main-color-3);}
+.header_inner{position:relative;}
+.logo{position:absolute; left:0; top:50%; transform: translateY(-50%);}
 .logo p{font-size: 28px; font-weight: 300; line-height: 1; color: var(--main-color-3);}
 .logo p i{display:inline-block; font-weight: 700;}
 
+.gnb ul{height: 75px; line-height: 75px;}
 .gnb ul li{position:relative;}
 .gnb ul li:before{content:""; display: block; position:absolute; left:-32px; top:50%; margin-top:-2px; width:4px; height:4px; border-radius: 100%; background-color: var(--main-color-2);}
 .gnb ul li:first-of-type:before{display: none;}
 
+.user_info{position:absolute; right:0; top:50%; transform: translateY(-50%);}
 .user_name{background-size: cover; background-position: 50% 50%; border-radius: 100%; overflow: hidden;}
 .user_txt{line-height: 1;}
 .user_txt strong{display: block; font-weight: 500;}
