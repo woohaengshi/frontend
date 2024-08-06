@@ -1,4 +1,4 @@
-import { Grid } from '@radix-ui/themes';
+import { Grid, Text } from '@radix-ui/themes';
 import styles from './topRankingList.module.css';
 import rankingOne from '../../assets/icons/ranking_1.png';
 import rankingTwo from '../../assets/icons/ranking_2.png';
@@ -19,40 +19,41 @@ interface TopRankingsProps {
   rankings: Student[];
 }
 
-function TopRankings({ rankings }: TopRankingsProps) {
-  // 랭킹 배열에서 1등과 2등 학생의 위치를 교환합니다.
+function TopRankings({ rankings, activeTab }: TopRankingsProps & { activeTab: 'daily' | 'weekly' | 'monthly' }) {
   const modifiedRankings = [...rankings];
   if (modifiedRankings.length > 1) {
     [modifiedRankings[0], modifiedRankings[1]] = [modifiedRankings[1], modifiedRankings[0]];
   }
 
+  // 탭에 따라 라벨 설정
+  const timeLabel = activeTab === 'daily' ? '일시간' : activeTab === 'weekly' ? '주시간' : '월시간';
+
   return (
     <Grid columns="3" gap="1" rows="repeat(1, 64px)" className={styles.top_ranking_box_wrap}>
       {modifiedRankings.slice(0, 3).map((student, index) => {
-        // 인덱스에 따라 클래스 설정
         const sizeClass = index === 1 ? styles.size_large : styles.size_small;
-        const medalImage = index === 0 
-        ? rankingTwo
-        : index === 1
-          ? rankingOne
-          : rankingThird;
+        const medalImage = index === 0 ? rankingTwo : index === 1 ? rankingOne : rankingThird;
 
         return (
           <div key={student.id} className={`${styles.top_ranking_box} ${sizeClass}`}>
-            <div className={styles.medal_image_wrap} >
+            <div className={styles.medal_image_wrap}>
               <Image src={medalImage} alt={`${index + 1}등 메달`} className={styles.medal_image} />
             </div>
             <Image src={student.imageUrl} alt={`${student.name} 이미지`} className={styles.student_image} />
-            <Grid columns="1" gap="2" rows="repeat(1, 10px)" >
-                <span className={styles.student_name}>{student.name}</span>
-                <span className={styles.student_class}> {student.class}</span>
+            <Grid columns="1" gap="2" rows="repeat(1, 10px)">
+              <Text className={styles.student_name}>{student.name}</Text>
+              <Text className={styles.student_class}> {student.class}</Text>
             </Grid>
-            <div className={styles.student_info}>
-          
-              <span className={styles.details}>
-                - 공부시간: {student.studyTime}, 누적시간: {student.totalTime}
-              </span>
-            </div>
+            <Grid columns="2" gap="1" cols="repeat(1, 10px)" className={styles.student_info}>
+              <Text as="p" size="2" className={styles.details}>
+                <Text as="p">{timeLabel}</Text>
+                <Text as="p">{student.studyTime}</Text>
+              </Text>
+              <Text as="p" size="2" className={styles.details}>
+                <Text as="p">누적시간</Text>
+                <Text as="p">{student.totalTime}</Text>
+              </Text>
+            </Grid>
           </div>
         );
       })}
