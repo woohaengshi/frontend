@@ -1,5 +1,5 @@
 export default function PwUpdate() {
   return (
-    <div></div>
+    <div>비밀번호 수정</div>
   );
 }
