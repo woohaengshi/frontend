@@ -21,7 +21,7 @@ export default function Study() {
 
   return (
     <Container size="3" className={`${styles.container}`} height="100%">
-      <Timer maxTime={10} />
+      <Timer maxTime={3600} />
       <Button className={styles.floatingButton} onClick={handleButtonClick}>
         과목 선택
       </Button>
