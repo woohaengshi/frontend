@@ -59,8 +59,7 @@ export default function Timer({ maxTime }: ITimer) {
     <div className={styles.container}>
       <Text as="p" className={styles.title} size={'4'} weight={'medium'} align={'center'}>
         다음 레벨업까지
-        <br />
-        <i>02:59:47</i>
+        <p>02:59:47</p>
       </Text>
 
       <div className={styles.relativeWrapper}>
@@ -104,7 +103,7 @@ export default function Timer({ maxTime }: ITimer) {
               onPressedChange={handleToggle}
               className={`${styles.toggleButton} ${isActive && styles.active}`}
             >
-              {isActive ? '정지' : '시작!'}
+              {isActive ? '정지' : '시작!'}
             </Toggle.Root>
           )}
         </Flex>
@@ -116,7 +115,7 @@ export default function Timer({ maxTime }: ITimer) {
           onPressedChange={handleToggle}
           className={`${styles.toggleButton} ${isActive && styles.active}`}
         >
-          {isActive ? '정지' : '시작!'}
+          {isActive ? '정지' : '시작!'}
         </Toggle.Root>
       )}
     </div>

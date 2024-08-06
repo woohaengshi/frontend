@@ -18,7 +18,7 @@
   font-weight: 500;
 }
 
-.title i {
+.title div {
   color: var(--main-color-3);
   font-size: var(--font-size-7);
   font-weight: 600;
