@@ -15,7 +15,7 @@
     /* box-shadow: <수평 이동> <수직 이동> <블러 반경> <그림자 색상>, ... */
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: column;
     padding: 10px;
     border-radius: 20px;
@@ -23,11 +23,36 @@
 
 /* 크기를 다르게 하기 위한 클래스 */
 .size_small {
-    width: 170px;
+    width: 160px;
     height: 190px;
   }
   
   .size_large {
-    width: 200px;
+    width: 190px;
     height: 220px;
   }
+
+  .medal_image_wrap{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .medal_image {
+    width:30px;
+    height:35px;
+    /* position: absolute;
+    top: 8px;
+    right: 8px; */
+  }
+
+  .student_image{
+    width: 55%;
+    height: 45%;
+  }
+
+
+ .student_name, .student_class{
+   font-size: 16px;
+ }
+  
