@@ -5,9 +5,9 @@ import HeaderNav from './HeaderNav';
 
 export default function Header() {
   return (
-    <header className={styles.header}>
-      <Flex justify="between" align="center" asChild>
-        <Box className="inner" px="5">
+    <Box px="5" asChild>  
+      <header className={styles.header}>
+        <Box className={styles.header_inner}>
           <Heading as="h1" className={styles.logo}>
             <Text as="p">
               <i>우</i>리들의<i>행</i>복한<i>시</i>간
@@ -16,7 +16,7 @@ export default function Header() {
           <nav className={styles.gnb}>
             <HeaderNav />
           </nav>
-          <div className="user_info">
+          <div className={styles.user_info}>
             <Flex align="center" gap="2" asChild>
               <Link href="/mypage">
                 <div
@@ -37,7 +37,7 @@ export default function Header() {
             </Flex>
           </div>
         </Box>
-      </Flex>
-    </header>
+      </header>
+    </Box>
   );
 }
