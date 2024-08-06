@@ -1,0 +1,79 @@
+.ranking_wrap {
+  width: 100%;
+  height: 120vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-color);
+  text-align: center;
+
+}
+
+.ranking_wrap_inner {
+  width: 90%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.date_tap_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.date_tap_btn {
+  background-color: transparent;
+  width: 130px;
+  height: 50px;
+  border: none;
+  font-size: var(--font-size-3);
+  font-weight: bold;
+  position: relative;
+  margin: 0 5px;
+  display: inline-block;
+}
+
+.date_tap_btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--main-color-2);
+  transition: background-color 0.3s ease, height 0.3s ease;
+  box-shadow: 0 2px 0 0 transparent;
+}
+
+.date_tap_btn_active::after {
+  background-color: var(--main-color-3);
+  height: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.top_rankings_wrap {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+.full_ranking_wrap {
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  height: 50%;
+  /* background-color: blue; */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+}
