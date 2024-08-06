@@ -5,10 +5,14 @@ import styles from './layout.module.css';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Container size="2" p="6">
-      <Box p="4" pt="9" className={styles.container_inner}>
+      <Box p="4" pt="9" className={styles.inner}>
         {/* 마이페이지 공통 프로필 영역 */}
         <UserProfile />
-        {children}
+      </Box>
+      <Box mt="3" p="4" className={`${styles.inner} ${styles.content}`} asChild>
+        <section>
+          {children}
+        </section>
       </Box>
     </Container>
   );

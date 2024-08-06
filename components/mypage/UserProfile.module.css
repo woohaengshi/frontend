@@ -1,4 +1,4 @@
-.user_infO{font-size: 0;}
+.user_info{font-size: 0; text-align: center;}
 .img_box {position: relative; display: inline-block;}
 .back_img {background-repeat: no-repeat; background-position: 50% 50%; border-radius: 100%; background-size: cover; overflow: hidden;}
 .back_img span{width: 180px; height: 180px;}
