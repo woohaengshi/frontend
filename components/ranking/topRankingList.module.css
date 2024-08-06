@@ -1,0 +1,33 @@
+.top_ranking_box_wrap{
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.top_ranking_box{
+    width: 170px;
+    height: 200px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), /* 수직 방향 그림자 */
+                0 8px 16px rgba(0, 0, 0, 0.1); /* 더 넓은 그림자 */
+    /* box-shadow: <수평 이동> <수직 이동> <블러 반경> <그림자 색상>, ... */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+/* 크기를 다르게 하기 위한 클래스 */
+.size_small {
+    width: 170px;
+    height: 190px;
+  }
+  
+  .size_large {
+    width: 200px;
+    height: 220px;
+  }
