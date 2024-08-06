@@ -104,7 +104,7 @@ export default function Timer({ maxTime }: ITimer) {
               onPressedChange={handleToggle}
               className={`${styles.toggleButton} ${isActive && styles.active}`}
             >
-              {isActive ? '정지' : '시작!'}
+              {isActive ? '정지' : '시작!'}
             </Toggle.Root>
           )}
         </Flex>
@@ -116,7 +116,7 @@ export default function Timer({ maxTime }: ITimer) {
           onPressedChange={handleToggle}
           className={`${styles.toggleButton} ${isActive && styles.active}`}
         >
-          {isActive ? '정지' : '시작!'}
+          {isActive ? '정지' : '시작!'}
         </Toggle.Root>
       )}
     </div>
