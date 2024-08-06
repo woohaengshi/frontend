@@ -35,6 +35,7 @@ input,
 select,
 textarea,
 button {
+  font-family: var(--font-notosanskr) !important;
   line-height: 1.5;
   color: #333;
   word-break: keep-all;
@@ -113,7 +114,7 @@ q:after {
 
 input,
 textarea {
-  padding: 0 25px;
+  padding: 0 20px;
 }
 
 input:-webkit-autofill {
@@ -133,6 +134,36 @@ input[type='submit'],
 input[type='search'],
 input[type='number'] {
   -webkit-appearance: none;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+input[type="url"]{
+  text-overflow:ellipsis; 
+  overflow:hidden; 
+  display: -webkit-box; 
+  -webkit-box-orient: vertical; 
+  -webkit-line-clamp: 1;
+}
+
+input[type='text'],
+input[type='password']{
+  display: block;
+  width: 100%;
+  height: 60px;
+  line-height: 58px;
+  border-radius: 6px;
+  border: 1px solid var(--br-color);
+  box-sizing: border-box;
+}
+
+input[type='text']::placeholder,
+input[type='password']::placeholder{
+  font-size: 14px;
+  color: #999;
 }
 
 input[type='number']::-webkit-outer-spin-button,
