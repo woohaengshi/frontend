@@ -9,7 +9,7 @@ export default function HeaderNav() {
   const pathname = usePathname();
 
   return (
-    <Flex align="center" gap="9" asChild>
+    <Flex justify="center" align="center" gap="9" asChild>
       <ul>
         <li>
           <Link href="/study" className={pathname.startsWith('/study') ? `${styles.active}` : ''}>

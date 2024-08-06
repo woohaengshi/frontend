@@ -1,0 +1,58 @@
+'use client';
+
+import Link from 'next/link';
+import styles from './MypageTabMenu.module.css';
+import { Box, ChevronDownIcon } from '@radix-ui/themes';
+import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+
+export default function MypageTabMenu() {
+  // 탭을 열고닫는 boolean
+  const [openTab, setOpenTab] = useState(false);
+
+  // path
+  const pathname = usePathname();
+
+  // 탭메뉴 배열
+  const tabMenu = [
+    { link: '/mypage', title: '내 배지 조회' },
+    { link: '/mypage/subjectedit', title: '과목 편집' },
+    { link: '/mypage/pwupdate', title: '비밀번호 수정' },
+  ];
+
+  const [pathTabTitle] = tabMenu.filter((tab)=>{return tab.link == pathname});
+
+  return (
+    <Box mt="6" className={styles.tab_menu}>
+      <a
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          setOpenTab(!openTab);
+        }}
+      >
+        {pathTabTitle.title}
+        <ChevronDownIcon />
+      </a>
+      {openTab && (
+        <ul>
+          {tabMenu.map((tab) => {
+            return (
+              <li>
+                <Link href={tab.link} legacyBehavior>
+                  <a
+                    onClick={() => {
+                      setOpenTab(false);
+                    }}
+                  >
+                    {tab.title}
+                  </a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </Box>
+  );
+}
