@@ -1,15 +1,44 @@
 /* fullRankingList.module.css */
 .full_ranking_table_wrap{
-   width: 100%;
+   width: 90%;
+   margin: 0 auto;
    height: 100%;
     border-collapse: collapse;
    /* background-color: aqua; */
+   /* display: flex;
+   align-items: center;
+   justify-content: space-around; */
 }
 
 .full_ranking_thead_wrap{
-    height: 50px;
+ 
 }
 
+.full_ranking_tr>th{
+    width: 90%;
+    height: 50px;
+    background-color:  #F1F1FF;
+    /* border-top: 1px solid #8274ea;
+    border-bottom: 1px solid #8274ea; */
+}
+
+.full_ranking_tr>th:first-child{
+    width: 90%;
+    height: 50px;
+    background-color:  #F1F1FF;
+    border-radius: 8px 0 0 8px;
+    /* border-left: 1px solid #8274ea;
+    border-right: none; */
+}
+
+.full_ranking_tr>th:last-child{
+    width: 90%;
+    height: 60px;
+    background-color:  #F1F1FF;
+    border-radius: 0px 8px 8px 0px;
+    /* border-left: none;
+    border-right: 1px solid #8274ea; */
+}
 
 .full_ranking_student{
     width: 100%;
