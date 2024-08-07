@@ -65,10 +65,10 @@
   box-sizing: border-box;
 }
 .member_wrap .content .radio input:checked[type='radio'] + label {
-  color: var(--main-blue-1);
+  color: var(--main-color-3);
 }
 .member_wrap .content .radio input:checked[type='radio'] + label::before {
-  border: 1px solid var(--main-blue-1);
+  border: 1px solid var(--main-color-3);
 }
 .member_wrap .content .radio input:checked[type='radio'] + label::after {
   content: '';
@@ -79,7 +79,7 @@
   width: 14px;
   height: 14px;
   margin-top: -7px;
-  background-color: var(--main-blue-1);
+  background-color: var(--main-color-3);
   border-radius: 100%;
 }
 .member_wrap .content .radio input[type='radio'] {
