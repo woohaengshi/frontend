@@ -41,10 +41,10 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps & { activeTab: 'd
             </div>
             <Image src={student.imageUrl} alt={`${student.name} 이미지`} className={styles.student_image} />
             <Grid columns="1" gap="2" rows="repeat(1, 10px)">
-              <Text className={styles.student_name}>{student.name}</Text>
-              <Text className={styles.student_class}> {student.class}</Text>
+              <Text as="p" size="2" weight="medium" className={styles.student_name}>{student.name}</Text>
+              <Text as="p" size="2" className={styles.student_class}> {student.class}</Text>
             </Grid>
-            <Grid columns="2" gap="1" cols="repeat(1, 10px)" className={styles.student_info}>
+            <Grid columns="2" gap="1" className={styles.student_info}>
               <Text as="p" size="2" className={styles.details}>
                 <Text as="p">{timeLabel}</Text>
                 <Text as="p">{student.studyTime}</Text>
