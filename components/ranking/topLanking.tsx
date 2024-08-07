@@ -33,11 +33,12 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps & { activeTab: 'd
       {modifiedRankings.slice(0, 3).map((student, index) => {
         const sizeClass = index === 1 ? styles.size_large : styles.size_small;
         const medalImage = index === 0 ? rankingTwo : index === 1 ? rankingOne : rankingThird;
+        const medalSizeClass = index === 1 ? styles.medal_image_large : styles.medal_image_small;
 
         return (
           <div key={student.id} className={`${styles.top_ranking_box} ${sizeClass}`}>
-            <div className={styles.medal_image_wrap}>
-              <Image src={medalImage} alt={`${index + 1}등 메달`} className={styles.medal_image} />
+           <div className={styles.medal_image_wrap}>
+              <Image src={medalImage} alt={`${index + 1}등 메달`} className={`${styles.medal_image} ${medalSizeClass}`} />
             </div>
             <Image src={student.imageUrl} alt={`${student.name} 이미지`} className={styles.student_image} />
             <Grid columns="1" gap="2" rows="repeat(1, 10px)">

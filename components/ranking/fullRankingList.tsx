@@ -27,7 +27,7 @@ function FullRankingList({ rankings, currentUser }: FullRankingListProps) {
     <div>
       <table className={styles.full_ranking_table_wrap}>
         <thead className={styles.full_ranking_thead_wrap}>
-          <tr>
+          <tr className={styles.full_ranking_tr}>
             <th>순위</th>
             <th>이름</th>
             <th>반</th>
