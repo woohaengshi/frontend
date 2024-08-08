@@ -48,11 +48,11 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps & { activeTab: 'd
             <Grid columns="2" gap="1" className={styles.student_info}>
               <Text as="p" size="2" className={styles.details}>
                 <Text as="p">{timeLabel}</Text>
-                <Text as="p">{student.studyTime}</Text>
+                <Text as="p" className={styles.studyTime}>{student.studyTime}</Text>
               </Text>
               <Text as="p" size="2" className={styles.details}>
                 <Text as="p">누적시간</Text>
-                <Text as="p">{student.totalTime}</Text>
+                <Text as="p" className={styles.totalTime} >{student.totalTime}</Text>
               </Text>
             </Grid>
           </div>
