@@ -1,3 +1,4 @@
+/* topRankingList.module.css */
 .top_ranking_box_wrap {
   width: 60%;
   display: flex;
@@ -9,8 +10,8 @@
 .top_ranking_box {
   width: 100%;
   background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
-    0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,21 +21,20 @@
 }
 
 /* 크기를 다르게 하기 위한 클래스 */
-.size_small {
+.ranking_box_size_small {
   width: 170px;
-  height: 200px;
+  height: 220px;
 }
 
-.size_large {
+.ranking_box_size_large {
   width: 200px;
-  height: 230px;
+  height: 250px;
 }
 
 .medal_image_wrap {
   position: relative;
-
   width: 100%;
-  height: 20%;
+  height: 15%;
   display: flex;
   justify-content: flex-end;
 }
@@ -42,23 +42,23 @@
 .medal_image {
   position: absolute;
   top: 0; right: 0;
-  width: 18%;
-  height: 90%;
+  width: 15%;
+  height: 100%;
 }
 
 .medal_image_small {
-  width: 27px;
-  height: 32px;
+  width: 30px;
+  height: 38px;
 }
 
 .medal_image_large {
   width: 35px;
-  height: 40px;
+  height: 45px;
 }
 
 .student_image {
-  width:45%;
-  height: 45%;
+  width:40%;
+  height:33%;
 }
 
 
@@ -78,12 +78,16 @@
   padding-top: 5%;
 }
 
-/* .styles.details{
-  width: 50px;
-} */
+.details_time{
+  text-align: left;
+}
+
+.accumulate_time{
+  text-align: right;
+}
 
 .studyTime, .totalTime{
-  /* color: rgb(140, 140, 140); */
+  color: rgb(140, 140, 140);
 }
 
 
