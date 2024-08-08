@@ -1,7 +1,7 @@
 /* reset */
 /* font */
 body > .radix-themes{
-  --default-font-family: var(--font-notosanskr) !important;
+  --default-font-family: 'Pretendard', var(--font-notosanskr) !important;
   background-color: var(--main-color-1);
 }
 * {
@@ -35,7 +35,7 @@ input,
 select,
 textarea,
 button {
-  font-family: var(--font-notosanskr) !important;
+  font-family: 'Pretendard', var(--font-notosanskr) !important;
   line-height: 1.5;
   color: #333;
   word-break: keep-all;
