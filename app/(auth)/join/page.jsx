@@ -21,6 +21,12 @@ export default function Join() {
           <form action="">
             <div className={styles.input_box}>
               <div className={styles.row}>
+                <label htmlFor="user_name">이메일</label>
+                <div className={styles.input}>
+                  <input type="text" id="user_email" placeholder="이메일을 입력해주세요." />
+                </div>
+              </div>
+              <div className={styles.row}>
                 <label htmlFor="user_name">이름</label>
                 <div className={styles.input}>
                   <input type="text" id="user_name" placeholder="이름을 입력해주세요." />
