@@ -15,7 +15,7 @@ interface Student {
   totalTime: string;
   class: string;
   rank: number;
-  imageUrl?: string; // Optional property
+  imageUrl?: any; 
 }
 
 function Ranking() {
@@ -68,26 +68,25 @@ function Ranking() {
 
   const rankings: Record<string, Student[]> = {
     daily: [
-      { id: 1, name: '학생A', studyTime: '5시간', totalTime: '20시간', class: '클라우드 서비스', rank: 1, imageUrl: rankingImg },
-      { id: 2, name: '학생 B', studyTime: '4시간', totalTime: '18시간', class: 'AI 엔지니어링', rank: 2, imageUrl: rankingImg },
-      { id: 3, name: '학생 C', studyTime: '3시간', totalTime: '15시간', class: '클라우드 엔지니어링', rank: 3, imageUrl: rankingImg },
-      { id: 4, name: '학생 D', studyTime: '2시간', totalTime: '10시간', class: '클라우드 서비스', rank: 4, imageUrl: rankingImg },
+      { id: 2, name: '학생A', studyTime: '5시간', totalTime: '20시간', class: '클라우드 서비스', rank: 1, imageUrl: rankingImg },
+      { id: 3, name: '학생 B', studyTime: '4시간', totalTime: '18시간', class: 'AI 엔지니어링', rank: 2, imageUrl: rankingImg },
+      { id: 4, name: '학생 C', studyTime: '3시간', totalTime: '15시간', class: '클라우드 엔지니어링', rank: 3, imageUrl: rankingImg },
+      { id: 5, name: '학생 D', studyTime: '2시간', totalTime: '10시간', class: '클라우드 서비스', rank: 4, imageUrl: rankingImg },
     ],
     weekly: [
-      { id: 1, name: '학생 E', studyTime: '15시간', totalTime: '100시간', class: 'AI 엔지니어링', rank: 1, imageUrl: rankingImg },
-      { id: 2, name: '학생 F', studyTime: '12시간', totalTime: '90시간', class: '클라우드 엔지니어링', rank: 2, imageUrl: rankingImg },
-      { id: 3, name: '학생 G', studyTime: '10시간', totalTime: '80시간', class: '클라우드 서비스', rank: 3, imageUrl: rankingImg },
-      { id: 4, name: '학생 H', studyTime: '8시간', totalTime: '70시간', class: 'AI 엔지니어링', rank: 4, imageUrl: rankingImg },
+      { id: 2, name: '학생 E', studyTime: '15시간', totalTime: '100시간', class: 'AI 엔지니어링', rank: 1, imageUrl: rankingImg },
+      { id: 3, name: '학생 F', studyTime: '12시간', totalTime: '90시간', class: '클라우드 엔지니어링', rank: 2, imageUrl: rankingImg },
+      { id: 4, name: '학생 G', studyTime: '10시간', totalTime: '80시간', class: '클라우드 서비스', rank: 3, imageUrl: rankingImg },
+      { id: 5, name: '학생 H', studyTime: '8시간', totalTime: '70시간', class: 'AI 엔지니어링', rank: 4, imageUrl: rankingImg },
     ],
     monthly: [
-      { id: 1, name: '학생 I', studyTime: '50시간', totalTime: '300시간', class: '클라우드 서비스', rank: 1, imageUrl: rankingImg },
-      { id: 2, name: '학생 J', studyTime: '45시간', totalTime: '280시간', class: 'AI 엔지니어링', rank: 2, imageUrl: rankingImg },
-      { id: 3, name: '학생 K', studyTime: '40시간', totalTime: '250시간', class: '클라우드 엔지니어링', rank: 3, imageUrl: rankingImg },
-      { id: 4, name: '학생 L', studyTime: '35시간', totalTime: '240시간', class: '클라우드 서비스', rank: 4, imageUrl: rankingImg },
+      { id: 2, name: '학생 I', studyTime: '50시간', totalTime: '300시간', class: '클라우드 서비스', rank: 1, imageUrl: rankingImg },
+      { id: 3, name: '학생 J', studyTime: '45시간', totalTime: '280시간', class: 'AI 엔지니어링', rank: 2, imageUrl: rankingImg },
+      { id: 4, name: '학생 K', studyTime: '40시간', totalTime: '250시간', class: '클라우드 엔지니어링', rank: 3, imageUrl: rankingImg },
+      { id: 5, name: '학생 L', studyTime: '35시간', totalTime: '240시간', class: '클라우드 서비스', rank: 4, imageUrl: rankingImg },
     ],
   };
 
-    // Get the current user data based on the active tab
     const currentUser = hongGilDongData[activeTab];
 
   return (
@@ -120,7 +119,7 @@ function Ranking() {
       <Grid className={styles.full_ranking_wrap}>
         <FullRankingList
           rankings={rankings[activeTab]}
-          currentUser={currentUser} // Pass currentUser as a prop
+          currentUser={currentUser} 
         />
       </Grid>
     </Grid>
