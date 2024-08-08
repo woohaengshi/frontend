@@ -96,6 +96,9 @@
 .member_wrap .content .btn_box {
   margin-top: 40px;
 }
+.member_wrap .content .btn_box .link {
+  margin-left: auto;
+}
 .member_wrap .content .btn_box .button button,
 .member_wrap .content .btn_box .button a {
   display: block;

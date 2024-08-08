@@ -1,4 +1,4 @@
-import { Box, Container } from '@radix-ui/themes';
+import { Box, Flex, Container } from '@radix-ui/themes';
 import styles from './page.module.css';
 import Link from 'next/link';
 
@@ -29,6 +29,9 @@ export default function Login() {
               <div id="loginBtn" className={styles.button}>
                 <button type="submit">로그인</button>
               </div>
+              <Flex justify={'end'} mt={'5px'}>
+                <Link href={'/pwfind'}>비밀번호 찾기</Link>
+              </Flex>
             </div>
           </form>
           <div className={`${styles.btn_box} ${styles.btn_join}`}>
