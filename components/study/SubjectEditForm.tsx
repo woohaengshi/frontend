@@ -100,9 +100,10 @@ function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFormProps) {
     <div className={styles.subject_edit_form_wrap}>
       <div className={styles.subject_edit_form_close_btn}>
         {!isMobile && (
-          <Text as="p" size="5" onClick={closeSubjectEditForm} className={styles.closeButton}>
+          // button으로 수정
+          <p onClick={closeSubjectEditForm} className={styles.closeButton}>
             <Image src={closeBtn} alt="Close" width={20} height={20} />
-          </Text>
+          </p>
         )}
         <Text
           as="p"

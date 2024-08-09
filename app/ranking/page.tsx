@@ -120,6 +120,7 @@ function Ranking() {
         <FullRankingList
           rankings={rankings[activeTab]}
           currentUser={currentUser} 
+          activeTab={activeTab}
         />
       </Grid>
     </Grid>
