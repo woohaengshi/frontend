@@ -1,8 +1,8 @@
 // app/ranking/page.tsx or app/ranking/Ranking.tsx (depending on your project structure)
 'use client'
 import React, { useEffect, useState } from 'react';
-import TopRankings from '../../components/ranking/topLanking';
-import FullRankingList from '../../components/ranking/fullRankingList';
+import TopRankings from '../../components/ranking/TopLanking';
+import FullRankingList from '../../components/ranking/FullRankingList';
 import { Grid } from '@radix-ui/themes';
 import styles from './ranking.module.css';
 import rankingImg from '../../assets/icons/ranking_profile_img.png';

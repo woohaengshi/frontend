@@ -1,6 +1,5 @@
 /* topRankingList.module.css */
 .top_ranking_box_wrap {
-  width: 60%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,6 +16,7 @@
   justify-content: space-between;
   flex-direction: column;
   padding: 10px;
+  margin: 0 30px;
   border-radius: 10px;
 }
 
