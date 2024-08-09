@@ -1,5 +1,5 @@
 import { Box, Flex, Container } from '@radix-ui/themes';
-import styles from './page.module.css';
+import styles from '../auth.module.css';
 import Link from 'next/link';
 
 export default function Login() {

@@ -1,7 +1,7 @@
 'use client';
 
 import { Container, Flex } from '@radix-ui/themes';
-import styles from '../login/page.module.css';
+import styles from '../auth.module.css';
 import { useState } from 'react';
 
 export default function Join() {
