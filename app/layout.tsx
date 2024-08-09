@@ -6,8 +6,11 @@ import { Noto_Sans_KR } from 'next/font/google';
 import './reset.css';
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
+import styles from './layout.module.css';
 // components
-import Header from '@/components/common/Header';
+
+import MobileHeader from '@/components/common/Header/MobileHeader';
+import Header from '@/components/common/Header/Header';
 
 export const metadata: Metadata = {
   title: '우행시',
@@ -26,7 +29,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={notoSansKr.variable}>
         <Theme radius="medium">
           <Header />
-          {children}
+          <div className={styles.content_wrapper}>
+            {children}
+          </div>
+          <MobileHeader></MobileHeader>
         </Theme>
       </body>
     </html>
