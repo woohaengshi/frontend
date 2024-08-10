@@ -14,7 +14,7 @@ interface Student {
   imageUrl?: string;
 }
 
-// FullRankingListProps 인터페이스 정의
+// FullRankingListProps 인터페이스 정의 
 interface FullRankingListProps {
   rankings: Student[];
   currentUser: Student | null;
