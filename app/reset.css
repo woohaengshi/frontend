@@ -243,6 +243,8 @@ code {
   padding: initial;
 }
 
+label{cursor: pointer;}
+
 /* root */
 :root {
   --bg-color: #f9f9ff;
