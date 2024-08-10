@@ -1,4 +1,4 @@
-import ButtonSubmit from "@/components/common/ButtonSubmit";
+import CommonButton from "@/components/common/CommonButton";
 import { Box, Text } from "@radix-ui/themes";
 
 export default function PwUpdate() {
@@ -24,7 +24,9 @@ export default function PwUpdate() {
               <input type="password" placeholder="새 비밀번호를 다시 한 번 입력해주세요." />
             </Box>
           </Box>
-          <ButtonSubmit />
+          <Box mt="6">
+            <CommonButton type="submit">저장</CommonButton>
+          </Box>
         </form>
       </Box>
     </>
