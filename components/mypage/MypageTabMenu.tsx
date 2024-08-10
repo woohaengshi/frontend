@@ -24,16 +24,14 @@ export default function MypageTabMenu() {
 
   return (
     <Box mt="6" className={styles.tab_menu}>
-      <a
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
+      <button
+        onClick={() => {
           setOpenTab(!openTab);
         }}
       >
         {pathTabTitle.title}
         <ChevronDownIcon />
-      </a>
+      </button>
       {openTab && (
         <ul>
           {tabMenu.map((tab) => {
