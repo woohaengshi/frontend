@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import * as Toggle from '@radix-ui/react-toggle';
 import styles from './Timer.module.css';
 import { Flex, Text } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
+import TimerToggleBtn from './TimerToggleBtn';
 
 interface ITimer {
   maxTime: number;
@@ -107,27 +107,11 @@ export default function Timer({ maxTime }: ITimer) {
         >
           <Text className={styles.time}>{formatTime(time)}</Text>
 
-          {!isMobile && (
-            <Toggle.Root
-              pressed={isActive}
-              onPressedChange={handleToggle}
-              className={`${styles.toggleButton} ${isActive && styles.active}`}
-            >
-              {isActive ? '정지' : '시작!'}
-            </Toggle.Root>
-          )}
+          {!isMobile && <TimerToggleBtn isActive={isActive} onToggle={handleToggle} />}
         </Flex>
       </div>
 
-      {isMobile && (
-        <Toggle.Root
-          pressed={isActive}
-          onPressedChange={handleToggle}
-          className={`${styles.toggleButton} ${isActive && styles.active}`}
-        >
-          {isActive ? '정지' : '시작!'}
-        </Toggle.Root>
-      )}
+      {isMobile && <TimerToggleBtn isActive={isActive} onToggle={handleToggle} />}
     </div>
   );
 }
