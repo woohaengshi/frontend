@@ -105,32 +105,32 @@
 
 @media (max-width: 480px) {
   .relativeWrapper {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
 
   .title {
     width: 200px;
-    font-size: var(--font-size-4);
+    font-size: 16px;
   }
 
   .title::before,
   .title::after {
-    width: 30px; /* 이미지의 너비에 맞게 조절 */
-    height: 30px; /* 이미지의 높이에 맞게 조절 */
+    width: 28px; /* 이미지의 너비에 맞게 조절 */
+    height: 28px; /* 이미지의 높이에 맞게 조절 */
   }
 
   .title::before {
-    top: -25px;
-    left: 0px;
+    top: -15px;
+    left: 10px;
   }
 
   .title::after {
-    bottom: -20px;
-    right: 5px;
+    bottom: -40px;
+    right: 20px;
   }
 
-  .title i {
+  .remainingTime {
     font-size: var(--font-size-6);
   }
 
