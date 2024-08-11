@@ -41,7 +41,7 @@
 
 .title::after {
   bottom: -40px;
-  right: 29px;
+  right: 20px;
   background-image: url('../../assets/icons/close_double_quote.png'); /* 끝나는 큰따옴표 이미지 경로 */
 }
 
@@ -78,7 +78,7 @@
 }
 
 .time {
-  margin-top: 20px;
+  margin-top: 15px;
   color: #333333;
   font-size: 72px;
   /* font-weight: 700; */
@@ -127,7 +127,7 @@
 
   .title::after {
     bottom: -40px;
-    right: 20px;
+    right: 13px;
   }
 
   .remainingTime {
