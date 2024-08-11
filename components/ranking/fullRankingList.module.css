@@ -1,11 +1,33 @@
 
-.full_ranking_table_wrap{
-   width: 100%;
-   margin: 0 auto;
-   height: 100%;
-    border-collapse: collapse;
+.full_ranking_container {
+    position: relative;
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    width: 90%;
 }
 
+.loader {
+    text-align: center;
+    padding: 20px;
+}
+
+
+.full_ranking_table_wrap {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+
+.full_ranking_thead_wrap th {
+    position: sticky;
+    top: 0;
+    background-color: #F1F1FF;
+    z-index: 1;
+}
 
 .full_ranking_tr>th{
     width: 100%;
@@ -27,6 +49,11 @@
     border-radius: 0px 8px 8px 0px;
 }
 
+.full_ranking_student {
+    height: auto;
+    /* Allow row height to adjust based on content */
+}
+
 .full_ranking_student{
     width: 100%;
     height: 50px;
@@ -38,11 +65,7 @@
     border-radius: 50%;
 }
 
-.full_ranking_table_wrap {
-    width: 90%;
-    table-layout: fixed;
-    border-collapse: collapse;
-}
+
 
 .full_ranking_thead_wrap th{
     padding:5px 0px;
@@ -88,6 +111,15 @@
 }
 
 
-@media (max-width: 480px) {
-    
+@media screen and (max-width: 860px) {
+    .full_ranking_thead_wrap{
+        background-color: aqua;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .full_ranking_thead_wrap th:nth-child(5),
+        .full_ranking_tbody_wrap td:nth-child(5) {
+            display: none;
+        }
 }

@@ -1,12 +1,10 @@
-// app/ranking/page.tsx or app/ranking/Ranking.tsx (depending on your project structure)
-'use client'
-import React, { useEffect, useState } from 'react';
+"use client"
+import React, { useEffect, useState, useCallback } from 'react';
 import TopRankings from '../../components/ranking/TopLanking';
 import FullRankingList from '../../components/ranking/FullRankingList';
 import { Grid } from '@radix-ui/themes';
 import styles from './ranking.module.css';
 import rankingImg from '../../assets/icons/ranking_profile_img.png';
-import Image from 'next/image';
 
 interface Student {
   id: number;
@@ -15,12 +13,29 @@ interface Student {
   totalTime: string;
   class: string;
   rank: number;
-  imageUrl?: any; 
+  imageUrl?: any;
 }
+
+// Simulate data generation function
+const generateSimulatedData = (type: 'daily' | 'weekly' | 'monthly') => {
+  const students = Array.from({ length: 100 }, (_, i) => ({
+    id: i + 1,
+    name: `학생 ${String.fromCharCode(65 + (i % 26))}`,
+    studyTime: `${Math.floor(Math.random() * 10) + 1}시간`,
+    totalTime: `${Math.floor(Math.random() * 100) + 10}시간`,
+    class: ['클라우드 서비스', 'AI 엔지니어링', '클라우드 엔지니어링'][i % 3],
+    rank: i + 1,
+    imageUrl: rankingImg,
+  }));
+
+  return students;
+};
 
 function Ranking() {
   const [activeTab, setActiveTab] = useState<'daily' | 'weekly' | 'monthly'>('daily');
-  // const [currentUser, setCurrentUser] = useState<Student | null>(null);
+  const [rankings, setRankings] = useState<Student[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
 
   const hongGilDongData: Record<string, Student> = {
     daily: {
@@ -30,7 +45,7 @@ function Ranking() {
       totalTime: '20시간',
       class: '클라우드 서비스',
       rank: 78,
-      imageUrl: rankingImg, // Optional image URL
+      imageUrl: rankingImg,
     },
     weekly: {
       id: 1,
@@ -52,42 +67,33 @@ function Ranking() {
     },
   };
 
-  // useEffect(() => {
-  //   const fetchCurrentUser = async () => {
-  //     try {
-  //       const response = await fetch('/api/currentUser'); // Update with your actual API endpoint
-  //       const data = await response.json();
-  //       setCurrentUser(data);
-  //     } catch (error) {
-  //       console.error('Failed to fetch current user data:', error);
-  //     }
-  //   };
-
-  //   fetchCurrentUser();
-  // }, []);
-
-  const rankings: Record<string, Student[]> = {
-    daily: [
-      { id: 2, name: '학생A', studyTime: '5시간', totalTime: '20시간', class: '클라우드 서비스', rank: 1, imageUrl: rankingImg },
-      { id: 3, name: '학생 B', studyTime: '4시간', totalTime: '18시간', class: 'AI 엔지니어링', rank: 2, imageUrl: rankingImg },
-      { id: 4, name: '학생 C', studyTime: '3시간', totalTime: '15시간', class: '클라우드 엔지니어링', rank: 3, imageUrl: rankingImg },
-      { id: 5, name: '학생 D', studyTime: '2시간', totalTime: '10시간', class: '클라우드 서비스', rank: 4, imageUrl: rankingImg },
-    ],
-    weekly: [
-      { id: 2, name: '학생 E', studyTime: '15시간', totalTime: '100시간', class: 'AI 엔지니어링', rank: 1, imageUrl: rankingImg },
-      { id: 3, name: '학생 F', studyTime: '12시간', totalTime: '90시간', class: '클라우드 엔지니어링', rank: 2, imageUrl: rankingImg },
-      { id: 4, name: '학생 G', studyTime: '10시간', totalTime: '80시간', class: '클라우드 서비스', rank: 3, imageUrl: rankingImg },
-      { id: 5, name: '학생 H', studyTime: '8시간', totalTime: '70시간', class: 'AI 엔지니어링', rank: 4, imageUrl: rankingImg },
-    ],
-    monthly: [
-      { id: 2, name: '학생 I', studyTime: '50시간', totalTime: '300시간', class: '클라우드 서비스', rank: 1, imageUrl: rankingImg },
-      { id: 3, name: '학생 J', studyTime: '45시간', totalTime: '280시간', class: 'AI 엔지니어링', rank: 2, imageUrl: rankingImg },
-      { id: 4, name: '학생 K', studyTime: '40시간', totalTime: '250시간', class: '클라우드 엔지니어링', rank: 3, imageUrl: rankingImg },
-      { id: 5, name: '학생 L', studyTime: '35시간', totalTime: '240시간', class: '클라우드 서비스', rank: 4, imageUrl: rankingImg },
-    ],
+  const fetchRankings = async (tab: 'daily' | 'weekly' | 'monthly', pageNumber: number) => {
+    const allRankings = generateSimulatedData(tab);
+    const newRankings = allRankings.slice(0, pageNumber * 5);
+    setRankings(newRankings);
+    setHasMore(newRankings.length < allRankings.length);
   };
 
-    const currentUser = hongGilDongData[activeTab];
+  useEffect(() => {
+    setRankings([]);
+    setPage(1);
+    setHasMore(true);
+    fetchRankings(activeTab, 1);
+  }, [activeTab]);
+
+  const loadMore = useCallback(() => {
+    if (hasMore) {
+      setPage((prev) => {
+        const nextPage = prev + 1;
+        fetchRankings(activeTab, nextPage);
+        return nextPage;
+      });
+    }
+  }, [activeTab, hasMore]);
+
+
+
+  const currentUser = hongGilDongData[activeTab];
 
   return (
     <Grid columns="1" gap="2" rows="repeat(1, 100px)" className={styles.ranking_wrap}>
@@ -113,14 +119,16 @@ function Ranking() {
           </button>
         </Grid>
         <Grid className={styles.top_rankings_wrap}>
-          <TopRankings rankings={rankings[activeTab]} activeTab={activeTab} />
+          <TopRankings rankings={rankings} activeTab={activeTab} />
         </Grid>
       </Grid>
       <Grid className={styles.full_ranking_wrap}>
         <FullRankingList
-          rankings={rankings[activeTab]}
-          currentUser={currentUser} 
+          rankings={rankings}
+          currentUser={currentUser}
           activeTab={activeTab}
+          loadMore={loadMore}
+          hasMore={hasMore}
         />
       </Grid>
     </Grid>
