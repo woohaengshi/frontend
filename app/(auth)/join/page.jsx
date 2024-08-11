@@ -40,7 +40,7 @@ export default function Join() {
               </div>
               <div className={styles.row}>
                 <label htmlFor="user_cls">클래스</label>
-                <Flex className={styles.radio_box} justify={'left'} align={'center'}>
+                <Flex className={styles.radio_box} justify="left" align="center">
                   <div className={`${styles.radio} ${styles.row_left}`}>
                     <input
                       type="radio"

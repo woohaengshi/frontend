@@ -29,15 +29,15 @@ export default function Login() {
               <div id="loginBtn" className={styles.button}>
                 <button type="submit">로그인</button>
               </div>
-              <Flex justify={'end'} mt={'5px'}>
-                <Link href={'/pwfind'}>비밀번호 찾기</Link>
+              <Flex justify="end" mt="5px">
+                <Link href="/pwfind">비밀번호 찾기</Link>
               </Flex>
             </div>
           </form>
           <div className={`${styles.btn_box} ${styles.btn_join}`}>
             <p>아직 회원이 아니신가요?</p>
             <div className={styles.button}>
-              <Link href={'/join'}>회원가입</Link>
+              <Link href="/join">회원가입</Link>
             </div>
           </div>
         </section>
