@@ -77,12 +77,12 @@ export default function Timer({ maxTime }: ITimer) {
         <Text as="p" className={styles.title} size="4" weight="medium" align="center">
           다음 레벨업까지
         </Text>
-        <Text as="p" className={styles.remainingTime} size="4" weight="medium" align="center">
+        <Text as="p" className={styles.remaining_time} size="4" weight="medium" align="center">
           {remainingTime > 0 ? formatTime(remainingTime) : formatTime(maxTime)}
         </Text>
 
-        <div className={styles.relativeWrapper}>
-          <div className={styles.svgContainer}>
+        <div className={styles.relative_wrapper}>
+          <div className={styles.svg_container}>
             <svg className={styles.svg} viewBox="0 0 110 100">
               <circle cx="55" cy="50" r={outerRadius} stroke="#F0F0FE" strokeWidth="6.5" fill="none" />
               <circle cx="55" cy="50" r={innerRadius} stroke="#DBDBFF" strokeWidth={innerStroke} fill="none" />
@@ -97,7 +97,7 @@ export default function Timer({ maxTime }: ITimer) {
                   strokeLinecap="round"
                   strokeDasharray={2 * Math.PI * innerRadius} // circumference
                   strokeDashoffset={2 * Math.PI * innerRadius * (1 - progress / 100)} // circumference * (1 - progress)
-                  className={styles.svgCircle}
+                  className={styles.svg_circle}
                   transform="rotate(-90 55 50)"
                 />
               )}
@@ -111,7 +111,7 @@ export default function Timer({ maxTime }: ITimer) {
             position="absolute"
             inset="0"
             gap="5px"
-            className={styles.timerWrapper}
+            className={styles.timer_wrapper}
           >
             <Text className={styles.time}>{formatTime(time)}</Text>
 

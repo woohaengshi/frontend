@@ -18,7 +18,7 @@
   font-weight: 500;
 }
 
-.remainingTime {
+.remaining_time {
   color: var(--main-color-3);
   font-size: var(--font-size-7);
   font-weight: 600;
@@ -46,7 +46,7 @@
   background-image: url('../../assets/icons/close_double_quote.png'); /* 끝나는 큰따옴표 이미지 경로 */
 }
 
-.relativeWrapper {
+.relative_wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,11 +57,11 @@
   margin-bottom: 70px;
 }
 
-.svgCircle {
+.svg_circle {
   transition: stroke-dasharray 0.5s ease-in-out;
 }
 
-.svgContainer {
+.svg_container {
   position: absolute;
   top: 0;
   left: 0;
@@ -74,7 +74,7 @@
   height: 100%;
 }
 
-.timeWrapper {
+.time_wrapper {
   width: 100%;
 }
 
@@ -85,7 +85,7 @@
   /* font-weight: 700; */
 }
 
-.toggleButton {
+.toggle_button {
   width: 160px;
   border: 2px solid #dbdbff;
   color: var(--customBlue);
@@ -98,7 +98,7 @@
   font-weight: 500;
 }
 
-.toggleButton.active {
+.toggle_button.active {
   border: 2px solid var(--main-color-3);
   background: var(--main-color-3);
   color: white;
@@ -113,7 +113,7 @@
 }
 
 @media (max-width: 480px) {
-  .relativeWrapper {
+  .relative_wrapper {
     margin-top: 8px;
     margin-bottom: 8px;
   }
@@ -139,7 +139,7 @@
     right: 13px;
   }
 
-  .remainingTime {
+  .remaining_time {
     font-size: var(--font-size-6);
   }
 
@@ -148,7 +148,7 @@
     margin: 0;
   }
 
-  .toggleButton {
+  .toggle_button {
     width: 120px;
     padding: 1rem 0;
     font-size: 16px;

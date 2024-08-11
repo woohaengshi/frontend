@@ -11,7 +11,7 @@ export default function TimerToggleBtn({ isActive, onToggle }: ITimerToggleBtn) 
     <Root
       pressed={isActive}
       onPressedChange={onToggle}
-      className={`${styles.toggleButton} ${isActive && styles.active}`}
+      className={`${styles.toggle_button} ${isActive && styles.active}`}
     >
       {isActive ? '정지' : '시작!'}
     </Root>
