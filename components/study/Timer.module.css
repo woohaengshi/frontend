@@ -112,6 +112,27 @@
   margin-left: 10px;
 }
 
+.subject_item {
+  position: relative;
+  padding: 14px 20px;
+  margin: 8px;
+  background-color: #f1f1ff;
+  color: var(--main-color-3);
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subject_item_text {
+  text-align: center;
+  white-space: nowrap;
+}
+
 @media (max-width: 480px) {
   .relative_wrapper {
     margin-top: 8px;
@@ -145,12 +166,29 @@
 
   .time {
     font-size: 40px;
-    margin: 0;
+    margin-top: 35px;
   }
 
   .toggle_button {
-    width: 120px;
-    padding: 1rem 0;
-    font-size: 16px;
+    width: 100px;
+    padding: 13px 0;
+    font-size: 15px;
+    margin-top: -3px;
+  }
+
+  .subject_item {
+    position: relative;
+    padding: 10px 16px;
+    margin: 5px;
+    background-color: #f1f1ff;
+    color: var(--main-color-3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

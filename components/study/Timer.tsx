@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './Timer.module.css';
-import subjectStyles from './SubjectEditForm.module.css';
 import { Box, Flex, Text } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
@@ -115,29 +114,29 @@ export default function Timer({ maxTime }: ITimer) {
           >
             <Text className={styles.time}>{formatTime(time)}</Text>
 
-            {!isMobile && <TimerToggleBtn isActive={isActive} onToggle={handleToggle} />}
+            <TimerToggleBtn isActive={isActive} onToggle={handleToggle} />
           </Flex>
         </div>
 
-        {isMobile && <TimerToggleBtn isActive={isActive} onToggle={handleToggle} />}
+        {/* {isMobile && <TimerToggleBtn isActive={isActive} onToggle={handleToggle} />} */}
       </div>
 
       {/* 공부중인 과목 리스트 */}
-      {!isMobile && (
-        <Flex justify="center" align="center" mb="60px" mt="-30px">
-          {/* <Image src={leftBtn} alt="subject" width={30} height={30} className={styles.left_btn} /> */}
-          <Flex align="center" justify="center">
-            {subjects.slice(0, 4).map((subject, index) => (
-              <div key={index} className={subjectStyles.subject_item}>
-                <Text as="p" size="3" className={subjectStyles.subject_item_text}>
-                  # {subject}
-                </Text>
-              </div>
-            ))}
-          </Flex>
-          {/* <Image src={rightBtn} alt="subject" width={30} height={30} className={styles.right_btn} /> */}
+      {/* {!isMobile && ( */}
+      <Flex justify="center" align="center" mb="60px" mt={isMobile ? '3px' : '-30px'}>
+        {/* <Image src={leftBtn} alt="subject" width={30} height={30} className={styles.left_btn} /> */}
+        <Flex align="center" justify="center">
+          {subjects.slice(0, 3).map((subject, index) => (
+            <div key={index} className={styles.subject_item}>
+              <Text as="p" size={isMobile ? '2' : '3'} className={styles.subject_item_text}>
+                # {subject}
+              </Text>
+            </div>
+          ))}
         </Flex>
-      )}
+        {/* <Image src={rightBtn} alt="subject" width={30} height={30} className={styles.right_btn} /> */}
+      </Flex>
+      {/* )} */}
     </Box>
   );
 }
