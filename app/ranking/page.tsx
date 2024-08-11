@@ -16,10 +16,10 @@ interface Student {
   imageUrl?: any;
 }
 
-// Simulate data generation function
+// 목 데이터 임의로 100개 출력 
 const generateSimulatedData = (type: 'daily' | 'weekly' | 'monthly') => {
   const students = Array.from({ length: 100 }, (_, i) => ({
-    id: i + 1,
+    id: i + 2,
     name: `학생 ${String.fromCharCode(65 + (i % 26))}`,
     studyTime: `${Math.floor(Math.random() * 10) + 1}시간`,
     totalTime: `${Math.floor(Math.random() * 100) + 10}시간`,
@@ -37,6 +37,7 @@ function Ranking() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
+  // 현재 유저 홍길동이라고 가정 - 순위 상단에 고정
   const hongGilDongData: Record<string, Student> = {
     daily: {
       id: 1,

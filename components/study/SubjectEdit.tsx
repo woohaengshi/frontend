@@ -24,6 +24,7 @@ function SubjectEdit({ subjects, onAddSubject, onDeleteSubject, onSaveEditing, o
 
   return (
     <div className={styles.subject_edit_form_wrap_inner}>
+
         <div className={styles.subject_edit_form_top}>
           <div className={styles.subject_choice_text_wrap}>
             <Text as="p" size="5" className={styles.test}>
@@ -55,14 +56,15 @@ function SubjectEdit({ subjects, onAddSubject, onDeleteSubject, onSaveEditing, o
             ))}
           </div>
         </div>
-      <div className={styles.subject_edit_form_btn_wrap}>
-        <button className={styles.subject_edit_form_btn_save} onClick={onSaveEditing}>
-          저장
-        </button>
-        <button className={styles.subject_edit_form_btn_modify} onClick={onCancelEditing}>
-          취소
-        </button>
-      </div>
+        <div className={styles.subject_edit_form_btn_wrap}>
+          <button className={styles.subject_edit_form_btn_save} onClick={onSaveEditing}>
+            저장
+          </button>
+          <button className={styles.subject_edit_form_btn_modify} onClick={onCancelEditing}>
+            취소
+          </button>
+        </div>
+
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default function MypageTabMenu() {
   // 탭메뉴 배열
   const tabMenu = [
     { link: '/mypage', title: '내 배지 조회' },
-    { link: '/mypage/subjectedit', title: '과목 편집' },
+    { link: '/mypage/subjectEdit', title: '과목 편집' },
     { link: '/mypage/pwupdate', title: '비밀번호 수정' },
   ];
 
