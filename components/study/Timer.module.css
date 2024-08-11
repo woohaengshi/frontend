@@ -35,14 +35,14 @@
 }
 
 .title::before {
-  top: -32px;
-  left: 14px;
+  top: -18px;
+  left: 18px;
   background-image: url('../../assets/icons/open_double_quote.png'); /* 시작하는 큰따옴표 이미지 경로 */
 }
 
 .title::after {
-  bottom: -32px;
-  right: 16px;
+  bottom: -40px;
+  right: 29px;
   background-image: url('../../assets/icons/close_double_quote.png'); /* 끝나는 큰따옴표 이미지 경로 */
 }
 
