@@ -13,7 +13,6 @@
   width: 250px;
   color: '#33333';
   position: relative;
-  margin: 0 auto;
   /* font-size: var(--font-size-5); */
   font-weight: 500;
 }
@@ -79,7 +78,7 @@
 }
 
 .time {
-  margin-top: 15px;
+  margin-top: 20px;
   color: #333333;
   font-size: 72px;
   /* font-weight: 700; */
