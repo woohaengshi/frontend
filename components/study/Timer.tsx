@@ -66,10 +66,10 @@ export default function Timer({ maxTime }: ITimer) {
 
   return (
     <div className={styles.container}>
-      <Text as="p" className={styles.title} size={'4'} weight={'medium'} align={'center'}>
+      <Text as="p" className={styles.title} size="4" weight="medium" align="center">
         다음 레벨업까지
       </Text>
-      <Text as="p" className={styles.remainingTime} size={'4'} weight={'medium'} align={'center'}>
+      <Text as="p" className={styles.remainingTime} size="4" weight="medium" align="center">
         {remainingTime > 0 ? formatTime(remainingTime) : formatTime(maxTime)}
       </Text>
 
@@ -87,8 +87,8 @@ export default function Timer({ maxTime }: ITimer) {
                 strokeWidth={innerStroke}
                 fill="none"
                 strokeLinecap="round"
-                strokeDasharray={`${2 * Math.PI * innerRadius}`} // circumference
-                strokeDashoffset={`${2 * Math.PI * innerRadius * (1 - progress / 100)}`} // circumference * (1 - progress)
+                strokeDasharray={2 * Math.PI * innerRadius} // circumference
+                strokeDashoffset={2 * Math.PI * innerRadius * (1 - progress / 100)} // circumference * (1 - progress)
                 className={styles.svgCircle}
                 transform="rotate(-90 55 50)"
               />
@@ -99,10 +99,10 @@ export default function Timer({ maxTime }: ITimer) {
         <Flex
           align="center"
           justify="center"
-          direction={'column'}
-          position={'absolute'}
-          inset={'0'}
-          gap={'5px'}
+          direction="column"
+          position="absolute"
+          inset="0"
+          gap="5px"
           className={styles.timerWrapper}
         >
           <Text className={styles.time}>{formatTime(time)}</Text>
