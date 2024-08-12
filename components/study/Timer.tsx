@@ -124,12 +124,12 @@ export default function Timer({ maxTime }: ITimer) {
         justify="center"
         align="center"
         mb="60px"
-        mt={isMobile ? '2px' : '-32px'}
+        mt={isMobile ? '0px' : '-32px'}
         width={isMobile ? '100%' : '80%'}
         wrap="wrap"
         height="auto"
       >
-        {subjects.map((subject, index) => (
+        {subjects.slice(0, 5).map((subject, index) => (
           <div key={index} className={styles.subject_item}>
             <Text as="p" size={isMobile ? '2' : '3'} className={styles.subject_item_text}>
               # {subject}
