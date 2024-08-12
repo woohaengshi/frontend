@@ -25,7 +25,7 @@ const formatTime = (time: number) => {
 };
 
 export default function Timer({ maxTime }: ITimer) {
-  const isMobile = useMediaQuery({ query: '(max-width: 480px)' });
+  const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
   const [isActive, setIsActive] = useState(false);
   const [time, setTime] = useState(0); // 초 단위
   const [progress, setProgress] = useState(0); // 진행률
@@ -35,7 +35,7 @@ export default function Timer({ maxTime }: ITimer) {
   const animationFrameRef = useRef<number | null>(null);
 
   const outerRadius = isMobile ? 45 : 51.7;
-  const innerRadius = isMobile ? 40 : 49.2;
+  const innerRadius = isMobile ? 41 : 49.2;
   const innerStroke = 2.5;
 
   useEffect(() => {
