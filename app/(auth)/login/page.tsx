@@ -21,9 +21,9 @@ export default function Login() {
           <form action="" onSubmit={login}>
             <div className="input_box">
               <Box className="row">
-                <Text as="label" weight="medium" htmlFor="user_name">이름</Text>
+                <Text as="label" weight="medium" htmlFor="user_email">이메일</Text>
                 <Box mt="2">
-                  <input type="text" id="user_name" placeholder="이름을 입력해주세요." />
+                  <input type="text" id="user_email" placeholder="이메일을 입력해주세요." />
                 </Box>
               </Box>
               <Box mt="3" className="row">
