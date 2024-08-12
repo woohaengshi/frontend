@@ -127,13 +127,11 @@ const handleSaveEditing = async () => {
       <div className={styles.subject_edit_form_close_btn}>
         {!isMobile && (
           // button으로 수정
-          <p onClick={closeSubjectEditForm} className={styles.closeButton}>
+          <button onClick={closeSubjectEditForm} className={styles.closeButton}>
             <Image src={closeBtn} alt="Close" width={20} height={20} />
-          </p>
+          </button>
         )}
-        <Text
-          as="p"
-          size="8"
+        <button 
           onClick={() => {
             if (isMobile) {
               closeSubjectEditForm();
@@ -142,7 +140,7 @@ const handleSaveEditing = async () => {
           className={styles.backButton}
         >
           →
-        </Text>
+        </button>
       </div>
       {isEditing ? (
         <SubjectEdit

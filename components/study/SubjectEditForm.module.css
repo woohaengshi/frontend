@@ -29,6 +29,8 @@
   transition: transform 0.5s ease-in-out;
   transform: translateX(100%);
   padding: 0px 30px;
+  box-sizing: border-box;
+  z-index: 10;
 }
 
 
@@ -45,10 +47,6 @@
   flex-direction: column;
 }
 
-.subject_edit_form_close_btn {
-  position: fixed;
-  top: 20px; left: 10px;
-}
 
 .subject_edit_form_wrap_inner {
   width: 100%;
@@ -74,15 +72,28 @@
 }
 
 /* 저장, 과목 버튼 편집 */
+
 .subject_edit_form_btn_wrap {
   width: 100%;
 }
 
+
+/* 뒤로가기 버튼 */
+.subject_edit_form_close_btn {
+  position: fixed;
+  top: 20px; left: 10px;
+}
+
+
 .closeButton,
 .backButton {
   display: block;
-  width: 50px;
   cursor: pointer;
+}
+
+.backButton{
+  font-size: 25px;
+  line-height: 20px;
 }
 
 .subject_edit_form_top {
@@ -97,7 +108,6 @@
   align-items: flex-start;
   flex-wrap: wrap;
   box-sizing: border-box;
-  overflow-y: auto;
   padding-top: 5px;
   gap: 15px;
   row-gap: 15px;
