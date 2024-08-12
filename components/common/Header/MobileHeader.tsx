@@ -32,7 +32,7 @@ export default function MobileHeader() {
                     />
                   </svg>
                 </div>
-                <Text as="p" size="2" weight="medium" mt="1">
+                <Text as="p" size="2" weight="medium" mt="2">
                   공부하기
                 </Text>
               </Link>
@@ -54,7 +54,7 @@ export default function MobileHeader() {
                     />
                   </svg>
                 </div>
-                <Text as="p" size="2" weight="medium" mt="1">
+                <Text as="p" size="2" weight="medium" mt="2">
                   순위확인
                 </Text>
               </Link>
@@ -98,7 +98,7 @@ export default function MobileHeader() {
                     />
                   </svg>
                 </div>
-                <Text as="p" size="2" weight="medium" mt="1">
+                <Text as="p" size="2" weight="medium" mt="2">
                   기록확인
                 </Text>
               </Link>
@@ -118,7 +118,7 @@ export default function MobileHeader() {
                     />
                   </svg>
                 </div>
-                <Text as="p" size="2" weight="medium" mt="1">
+                <Text as="p" size="2" weight="medium" mt="2">
                   마이페이지
                 </Text>
               </Link>
