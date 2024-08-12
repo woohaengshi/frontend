@@ -125,7 +125,7 @@ export default function Timer({ maxTime }: ITimer) {
         align="center"
         mb="60px"
         mt={isMobile ? '0px' : '-32px'}
-        width={isMobile ? '100%' : '80%'}
+        width={isMobile ? '90%' : '80%'}
         wrap="wrap"
         height="auto"
       >
