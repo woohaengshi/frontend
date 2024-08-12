@@ -28,4 +28,8 @@
   .container {
     padding-top: 55px;
   }
+
+  .floatingButton {
+    bottom: 80px; /* 화면 하단에서의 거리 조정 */
+  }
 }
