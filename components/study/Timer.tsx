@@ -71,7 +71,7 @@ export default function Timer({ maxTime }: ITimer) {
   const handleToggle = () => setIsActive((prev) => !prev);
 
   return (
-    <Box>
+    <Flex direction="column" align="center" justify="center">
       <div className={styles.container}>
         <Text as="p" className={styles.title} size="4" weight="medium" align="center">
           다음 레벨업까지
@@ -117,26 +117,26 @@ export default function Timer({ maxTime }: ITimer) {
             <TimerToggleBtn isActive={isActive} onToggle={handleToggle} />
           </Flex>
         </div>
-
-        {/* {isMobile && <TimerToggleBtn isActive={isActive} onToggle={handleToggle} />} */}
       </div>
 
       {/* 공부중인 과목 리스트 */}
-      {/* {!isMobile && ( */}
-      <Flex justify="center" align="center" mb="60px" mt={isMobile ? '3px' : '-30px'}>
-        {/* <Image src={leftBtn} alt="subject" width={30} height={30} className={styles.left_btn} /> */}
-        <Flex align="center" justify="center">
-          {subjects.slice(0, 3).map((subject, index) => (
-            <div key={index} className={styles.subject_item}>
-              <Text as="p" size={isMobile ? '2' : '3'} className={styles.subject_item_text}>
-                # {subject}
-              </Text>
-            </div>
-          ))}
-        </Flex>
-        {/* <Image src={rightBtn} alt="subject" width={30} height={30} className={styles.right_btn} /> */}
+      <Flex
+        justify="center"
+        align="center"
+        mb="60px"
+        mt={isMobile ? '2px' : '-32px'}
+        width={isMobile ? '100%' : '80%'}
+        wrap="wrap"
+        height="auto"
+      >
+        {subjects.map((subject, index) => (
+          <div key={index} className={styles.subject_item}>
+            <Text as="p" size={isMobile ? '2' : '3'} className={styles.subject_item_text}>
+              # {subject}
+            </Text>
+          </div>
+        ))}
       </Flex>
-      {/* )} */}
-    </Box>
+    </Flex>
   );
 }
