@@ -1,6 +1,6 @@
 'use client';
 
-import SubjectEdit from '../../../components/study/SubjectEdit';
+import SubjectEdit from '@/components/study/SubjectEdit';
 import { useState } from 'react';
 
 const initialSubjects: string[] = ['html', 'css', 'javascript'];

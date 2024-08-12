@@ -5,8 +5,8 @@
     "prettier/prettier": [
       "error",
       {
-        "endOfLine":"auto",
-      },
+        "endOfLine": "auto"
+      }
     ],
     "func-style": ["error", "expression"] // 함수 표현식 사용을 강제 (선택 사항)
   }
