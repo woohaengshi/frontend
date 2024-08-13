@@ -108,7 +108,7 @@
     }
 
     .full_ranking_student>td {
-        height: 30px;
+        height: 25px;
         font-size: var(--font-size-2);
     }
 

@@ -109,7 +109,7 @@ const handleSaveEditing = async () => {
     // console.log('서버에서 응답:', data);
 
     // 삭제된 과목을 알림창으로 표시
-    alert(`편집된 과목이 저장되었습니다: ${deletedSubjects.join(', ')}`);
+    alert(`삭제한 과목은 ${deletedSubjects.join(', ')} 입니다`);
   } catch (error) {
     console.error('저장 중 오류 발생:', error);
     alert('저장 중 오류가 발생했습니다.');

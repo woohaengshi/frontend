@@ -20,7 +20,7 @@ function SubjectSelect({ subjects, selectedSubjects, onSelectSubject, onEditClic
       {/* 제목 + 과목 카드 */}
       <div className={styles.subject_edit_form_top}>
         <div className={styles.subject_choice_text_wrap}>
-          <Text as="p" size="5" className={styles.test}>
+          <Text as="p" size="5" weight="medium" className={styles.test}>
             과목 선택
           </Text>
         </div>
@@ -49,7 +49,7 @@ function SubjectSelect({ subjects, selectedSubjects, onSelectSubject, onEditClic
         <button  type="submit"  className={styles.subject_edit_form_btn_save} onClick={onSaveClick}>
           저장
         </button>
-
+     
         <button className={styles.subject_edit_form_btn_modify} onClick={onEditClick}>
           과목편집
         </button>

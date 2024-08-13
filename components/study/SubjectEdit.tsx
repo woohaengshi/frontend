@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectEditForm.module.css';
+import CommonButton from '@/components/common/CommonButton';
 
 interface SubjectEditProps {
   subjects: string[];
@@ -27,7 +28,7 @@ function SubjectEdit({ subjects, onAddSubject, onDeleteSubject, onSaveEditing, o
 
         <div className={styles.subject_edit_form_top}>
           <div className={styles.subject_choice_text_wrap}>
-            <Text as="p" size="5" className={styles.test}>
+            <Text as="p" size="5" weight="medium" className={styles.test}>
               과목 편집
             </Text>
           </div>
@@ -56,8 +57,14 @@ function SubjectEdit({ subjects, onAddSubject, onDeleteSubject, onSaveEditing, o
             ))}
           </div>
         </div>
+
+        {/* <Box mt="6" className="btn_join">
+              <CommonButton type="submit" style="dark_purple">
+                회원가입
+              </CommonButton>
+            </Box> */}
         <div className={styles.subject_edit_form_btn_wrap}>
-          <button className={styles.subject_edit_form_btn_save} onClick={onSaveEditing}>
+          <button type="submit" className={styles.subject_edit_form_btn_save} onClick={onSaveEditing}>
             저장
           </button>
           <button className={styles.subject_edit_form_btn_modify} onClick={onCancelEditing}>
