@@ -1,8 +1,9 @@
 // SubjectSelect.tsx
 'use client';
 import React from 'react';
-import { Text } from '@radix-ui/themes';
+import { Text,Box } from '@radix-ui/themes';
 import styles from './SubjectEditForm.module.css';
+import CommonButton from '@/components/common/CommonButton';
 
 interface SubjectSelectProps {
   subjects: string[];
@@ -38,10 +39,17 @@ function SubjectSelect({ subjects, selectedSubjects, onSelectSubject, onEditClic
       </div>
 
       {/* 버튼 */}
+      {/* <Box mt="6" className="btn_join">
+              <CommonButton type="submit">회원가입</CommonButton>
+            </Box> */}
+
+
       <div className={styles.subject_edit_form_btn_wrap}>
-        <button className={styles.subject_edit_form_btn_save} onClick={onSaveClick}>
+
+        <button  type="submit"  className={styles.subject_edit_form_btn_save} onClick={onSaveClick}>
           저장
         </button>
+
         <button className={styles.subject_edit_form_btn_modify} onClick={onEditClick}>
           과목편집
         </button>
