@@ -78,12 +78,10 @@
 }
 
 
-/* 뒤로가기 버튼 */
-.subject_edit_form_close_btn {
+.closeButton{
   position: fixed;
   top: 20px; left: 10px;
 }
-
 
 .closeButton,
 .backButton {
@@ -92,8 +90,9 @@
 }
 
 .backButton{
-
-  font-size: 25px;
+  position: fixed;
+  top: 20px; right: 30px;
+  font-size: 26px;
   line-height: 20px;
 }
 
@@ -119,7 +118,7 @@
   padding: 14px 20px;
   background-color: #f1f1ff;
   color: var(--main-color-3);
-  border-radius: 4px;
+  border-radius: 8  px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   display: flex;
@@ -144,7 +143,7 @@
 .subject_edit_form_btn_modify {
   width: 100%;
   height: 50px;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
   margin-top: 10px;
 }
@@ -157,6 +156,14 @@
 .subject_edit_form_btn_modify {
   background-color: #f1f1ff;
   color: var(--main-color-3);
+}
+
+
+.subject_edit_form_btn_save:hover{
+  background-color: #a19dec;
+}
+.subject_edit_form_btn_modify:hover{
+  background-color: #f1f1ff;
 }
 
 
@@ -220,6 +227,7 @@
   font-size: 20px;
   text-align: center;
 }
+
 
 .delete_button:hover {
   background-color: darkred;

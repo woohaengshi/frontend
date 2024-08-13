@@ -15,6 +15,9 @@ import Header from '@/components/common/Header/Header';
 export const metadata: Metadata = {
   title: '우행시',
   description: '우리들의 행복한 시간',
+  icons: {
+    icon: "/timeout.png",
+  },
 };
 
 const notoSansKr = Noto_Sans_KR({

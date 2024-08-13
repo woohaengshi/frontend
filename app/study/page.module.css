@@ -30,9 +30,10 @@
   }
 
   .floatingButton {
-    width: 66px; /* 버튼의 너비 */
-    height: 66px; /* 버튼의 높이 */
-    bottom: 80px; /* 화면 하단에서의 거리 조정 */
+    width: 60px;
+    height: 60px;
+    bottom: 80px;
     font-size: 14px;
+    line-height: 1.3;
   }
 }
