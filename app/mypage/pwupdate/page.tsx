@@ -1,5 +1,5 @@
-import CommonButton from "@/components/common/CommonButton";
-import { Box, Text } from "@radix-ui/themes";
+import CommonButton from '@/components/common/CommonButton';
+import { Box, Text } from '@radix-ui/themes';
 
 export default function PwUpdate() {
   return (
@@ -7,25 +7,33 @@ export default function PwUpdate() {
       <Box className="form_box">
         <form action="">
           <Box className="row">
-            <Text as="label" weight="medium">현재 비밀번호</Text>
+            <Text as="label" weight="medium">
+              현재 비밀번호
+            </Text>
             <Box mt="2">
               <input type="password" placeholder="현재 비밀번호를 입력해주세요." />
             </Box>
           </Box>
           <Box mt="3" className="row">
-            <Text as="label" weight="medium">새 비밀번호</Text>
+            <Text as="label" weight="medium">
+              새 비밀번호
+            </Text>
             <Box mt="2">
               <input type="password" placeholder="새로운 비밀번호를 입력해주세요." />
             </Box>
           </Box>
           <Box mt="3" className="row">
-            <Text as="label" weight="medium">새 비밀번호 확인</Text>
+            <Text as="label" weight="medium">
+              새 비밀번호 확인
+            </Text>
             <Box mt="2">
               <input type="password" placeholder="새 비밀번호를 다시 한 번 입력해주세요." />
             </Box>
           </Box>
           <Box mt="6">
-            <CommonButton type="submit">저장</CommonButton>
+            <CommonButton type="submit" style="dark_purple">
+              저장
+            </CommonButton>
           </Box>
         </form>
       </Box>
