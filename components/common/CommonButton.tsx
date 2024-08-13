@@ -1,17 +1,24 @@
-'use client'
+'use client';
 
-import { Box } from '@radix-ui/themes';
 import styles from './CommonButton.module.css';
 import Link from 'next/link';
 
-export default function CommonButton({type, href, children}) {
-    return (
-        <>
-            {
-                type == "submit" ?
-                <button type="submit" className={styles.btn_submit}>{children}</button> :
-                <Link href={href} className={styles.btn_link}>{children}</Link>
-            }
-        </>        
-    );
+export default function CommonButton({ type, href, style, children }) {
+  return (
+    <>
+      {type == 'submit' ? (
+        <button type="submit" className={styles[style]}>
+          {children}
+        </button>
+      ) : type == 'button' ? (
+        <button type="button" className={styles[style]}>
+          {children}
+        </button>
+      ) : (
+        <Link href={href} className={styles[style]}>
+          {children}
+        </Link>
+      )}
+    </>
+  );
 }
