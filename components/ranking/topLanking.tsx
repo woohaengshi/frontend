@@ -1,27 +1,29 @@
-//topLanking.tsx
 import { Grid, Text } from '@radix-ui/themes';
 import styles from './topRankingList.module.css';
 import rankingOne from '../../assets/icons/ranking_1.png';
 import rankingTwo from '../../assets/icons/ranking_2.png';
 import rankingThird from '../../assets/icons/ranking_3.png';
-import Image from 'next/image'; 
+import Image from 'next/image';
 
 interface Student {
   id: number;
   name: string;
-  studyTime: string;
-  totalTime: string;
-  class: string; 
-  imageUrl?: any;
-  isCurrentUser?: boolean; 
+  studyTime: number; 
+  totalTime: number; 
+  course: string; 
+  imageUrl?: string;
+  isCurrentUser?: boolean;
 }
 
 interface TopRankingsProps {
   rankings: Student[];
+  activeTab: 'daily' | 'weekly' | 'monthly';
 }
 
-function TopRankings({ rankings, activeTab }: TopRankingsProps & { activeTab: 'daily' | 'weekly' | 'monthly' }) {
+function TopRankings({ rankings, activeTab }: TopRankingsProps) {
   const modifiedRankings = [...rankings];
+
+  // 랭킹 순서 변경
   if (modifiedRankings.length > 1) {
     [modifiedRankings[0], modifiedRankings[1]] = [modifiedRankings[1], modifiedRankings[0]];
   }
@@ -35,6 +37,10 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps & { activeTab: 'd
         const sizeClass = index === 1 ? styles.ranking_box_size_large : styles.ranking_box_size_small;
         const medalImage = index === 0 ? rankingTwo : index === 1 ? rankingOne : rankingThird;
         const medalSizeClass = index === 1 ? styles.medal_image_large : styles.medal_image_small;
+
+        // 시간 포맷팅
+        const formattedStudyTime = `${Math.floor(student.studyTime / 60)}시간 ${student.studyTime % 60}분`;
+        const formattedTotalTime = `${Math.floor(student.totalTime / 60)}시간 ${student.totalTime % 60}분`;
 
         return (
           <div key={student.id} className={`${styles.top_ranking_box} ${sizeClass}`}>
@@ -51,8 +57,7 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps & { activeTab: 'd
                 {student.name}
               </Text>
               <Text as="p" size="2" className={styles.student_class}>
-                {' '}
-                {student.class}
+                {student.course} {/* 'class'를 'course'로 변경 */}
               </Text>
             </Grid>
             <Grid columns="2" gap="1" className={styles.student_info}>
@@ -61,7 +66,7 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps & { activeTab: 'd
                   {timeLabel}
                 </Text>
                 <Text as="p" className={styles.studyTime}>
-                  {student.studyTime}
+                  {formattedStudyTime}
                 </Text>
               </Text>
               <Text as="p" size="2" className={styles.accumulate_time}>
@@ -69,7 +74,7 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps & { activeTab: 'd
                   누적시간
                 </Text>
                 <Text as="p" className={styles.totalTime}>
-                  {student.totalTime}
+                  {formattedTotalTime}
                 </Text>
               </Text>
             </Grid>

@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useEffect, useState, useCallback } from 'react';
 import TopRankings from '../../components/ranking/TopLanking';
 import FullRankingList from '../../components/ranking/FullRankingList';
@@ -11,90 +11,103 @@ interface Student {
   name: string;
   studyTime: string;
   totalTime: string;
-  class: string;
+  course: string;
   rank: number;
-  imageUrl?: any;
+  imageUrl?: string;
 }
 
-// 목 데이터 임의로 100개 출력 
-const generateSimulatedData = (type: 'daily' | 'weekly' | 'monthly') => {
-  const students = Array.from({ length: 100 }, (_, i) => ({
-    id: i + 2,
-    name: `학생 ${String.fromCharCode(65 + (i % 26))}`,
-    studyTime: `${Math.floor(Math.random() * 10) + 1}시간`,
-    totalTime: `${Math.floor(Math.random() * 100) + 10}시간`,
-    class: ['클라우드 서비스', 'AI 엔지니어링', '클라우드 엔지니어링'][i % 3],
-    rank: i + 1,
-    imageUrl: rankingImg,
-  }));
+interface ApiResponse {
+  member: {
+    id: number;
+    name: string;
+    course: string;
+    rank: number;
+    image: any;
+    studyTime: number;
+    totalTime: number;
+  };
+  ranking: {
+    hasNext: boolean;
+    ranks: Student[];
+  };
+}
 
-  return students;
+const fetchRankingsAndCurrentUserFromServer = async (
+  tab: 'daily' | 'weekly' | 'monthly',
+  pageNumber: number,
+  size: number = 10, // 기본적으로 한 번에 가져올 수
+): Promise<ApiResponse> => {
+  try {
+    const response = await fetch(`/api/v1/rank?page=${pageNumber}&type=${tab}&size=${size}`);
+    if (!response.ok) throw new Error('Network response was not ok');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      member: {
+        id: -1,
+        name: 'Unknown User',
+        course: 'Unknown Class',
+        rank: -1,
+        image: rankingImg,
+        studyTime: 0,
+        totalTime: 0,
+      },
+      ranking: { hasNext: false, ranks: [] },
+    };
+  }
 };
 
 function Ranking() {
   const [activeTab, setActiveTab] = useState<'daily' | 'weekly' | 'monthly'>('daily');
   const [rankings, setRankings] = useState<Student[]>([]);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
-
-  // 현재 유저 홍길동이라고 가정 - 순위 상단에 고정
-  const hongGilDongData: Record<string, Student> = {
-    daily: {
-      id: 1,
-      name: '홍길동',
-      studyTime: '5시간',
-      totalTime: '20시간',
-      class: '클라우드 서비스',
-      rank: 78,
-      imageUrl: rankingImg,
-    },
-    weekly: {
-      id: 1,
-      name: '홍길동',
-      studyTime: '20시간',
-      totalTime: '70시간',
-      class: '클라우드 서비스',
-      rank: 78,
-      imageUrl: rankingImg,
-    },
-    monthly: {
-      id: 1,
-      name: '홍길동',
-      studyTime: '80시간',
-      totalTime: '250시간',
-      class: '클라우드 서비스',
-      rank: 78,
-      imageUrl: rankingImg,
-    },
-  };
-
-  const fetchRankings = async (tab: 'daily' | 'weekly' | 'monthly', pageNumber: number) => {
-    const allRankings = generateSimulatedData(tab);
-    const newRankings = allRankings.slice(0, pageNumber * 5);
-    setRankings(newRankings);
-    setHasMore(newRankings.length < allRankings.length);
-  };
+  const [page, setPage] = useState(0); // 페이지 번호를 0부터 시작
+  const [currentUser, setCurrentUser] = useState<Student | null>(null);
+  const size = 10; // 한 번에 가져올 랭킹 수
 
   useEffect(() => {
-    setRankings([]);
-    setPage(1);
-    setHasMore(true);
-    fetchRankings(activeTab, 1);
+    const fetchData = async () => {
+      setRankings([]);
+      setPage(0);
+      setHasMore(true);
+
+      const {
+        member,
+        ranking: { ranks: initialRankings, hasNext },
+      } = await fetchRankingsAndCurrentUserFromServer(activeTab, 0, size);
+
+      const currentUserData: Student = {
+        id: member.id,
+        name: member.name,
+        studyTime: `${member.studyTime}시간`,
+        totalTime: `${member.totalTime}시간`,
+        course: member.course,
+        rank: member.rank,
+        imageUrl: member.image,
+      };
+
+      setRankings(initialRankings);
+      setHasMore(hasNext);
+      setCurrentUser(currentUserData);
+    };
+
+    fetchData();
   }, [activeTab]);
 
-  const loadMore = useCallback(() => {
+  const loadMore = useCallback(async () => {
     if (hasMore) {
-      setPage((prev) => {
-        const nextPage = prev + 1;
-        fetchRankings(activeTab, nextPage);
-        return nextPage;
-      });
+      const nextPage = page + 1; // 페이지 번호 증가
+      const {
+        ranking: { ranks: newRankings, hasNext },
+      } = await fetchRankingsAndCurrentUserFromServer(activeTab, nextPage, size);
+
+      setRankings((prevRankings) => [...prevRankings, ...newRankings]);
+      setHasMore(hasNext);
+      setPage(nextPage); // 페이지 업데이트
     }
-  }, [activeTab, hasMore]);
-
-
-
-  const currentUser = hongGilDongData[activeTab];
+  }, [activeTab, hasMore, page]);
 
   return (
     <Grid columns="1" gap="2" rows="repeat(1, 100px)" className={styles.ranking_wrap}>
