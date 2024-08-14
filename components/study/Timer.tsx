@@ -2,20 +2,19 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './Timer.module.css';
-import { Box, Flex, Text } from '@radix-ui/themes';
+import { Flex, Text } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
-import leftBtn from '../../assets/icons/left_btn.png';
-import rightBtn from '../../assets/icons/right_btn.png';
-import Image from 'next/image';
 
 interface ITimer {
   maxTime: number;
+  data: any; // 테스트를 위해 임시로 any로 설정
 }
 
 const subjects = ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js', 'Express', 'MongoDB', 'TypeScript'];
 
 const loadingColor = '#8274EA';
+const innerStroke = 2.5;
 
 const formatTime = (time: number) => {
   const hours = String(Math.floor(time / 3600)).padStart(2, '0');
@@ -24,7 +23,7 @@ const formatTime = (time: number) => {
   return time >= 3600 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
 };
 
-export default function Timer({ maxTime }: ITimer) {
+export default function Timer({ maxTime, data }: ITimer) {
   const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
   const [isActive, setIsActive] = useState(false);
   const [time, setTime] = useState(0); // 초 단위
@@ -36,7 +35,6 @@ export default function Timer({ maxTime }: ITimer) {
 
   const outerRadius = isMobile ? 45 : 51.7;
   const innerRadius = isMobile ? 41 : 49.2;
-  const innerStroke = 2.5;
 
   useEffect(() => {
     if (isActive) {
@@ -69,6 +67,8 @@ export default function Timer({ maxTime }: ITimer) {
   }, [isActive, maxTime]);
 
   const handleToggle = () => setIsActive((prev) => !prev);
+
+  console.log(data);
 
   return (
     <Flex direction="column" align="center" justify="center">
