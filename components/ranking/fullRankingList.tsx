@@ -9,7 +9,7 @@ interface Student {
   name: string;
   studyTime: string;
   totalTime: string;
-  class: string;
+  course: string;
   rank: number;
   imageUrl?: string;
 }
