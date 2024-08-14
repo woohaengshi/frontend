@@ -10,6 +10,8 @@ interface SubjectEditProps {
   onSaveEditing: () => void;
   showCancelButton?: boolean; // 취소 버튼 표시 여부
   onCancelEditing?: () => void; // 취소 버튼 클릭 시 호출할 함수
+  style?: React.CSSProperties; // 스타일 prop 추가
+  subjectChoiceBoxStyle?: React.CSSProperties; // 추가된 부분
 }
 
 function SubjectEdit({
@@ -19,6 +21,8 @@ function SubjectEdit({
   onSaveEditing,
   showCancelButton = true, // 기본값은 true
   onCancelEditing,
+  style,
+  subjectChoiceBoxStyle, // 추가된 부분
 }: SubjectEditProps) {
   const [newSubject, setNewSubject] = useState<string>('');
 
@@ -30,14 +34,14 @@ function SubjectEdit({
   };
 
   return (
-    <div className={styles.subject_edit_form_wrap_inner}>
+    <div className={styles.subject_edit_form_wrap_inner} style={style}>
       <div className={styles.subject_edit_form_top}>
         <div className={styles.subject_choice_text_wrap}>
           <Text as="p" size="5" weight="medium" className={styles.test}>
             과목 편집
           </Text>
         </div>
-        <div className={styles.subject_add_box}>
+        <div className={styles.subject_add_box} >
           <input
             type="text"
             value={newSubject}
@@ -49,7 +53,7 @@ function SubjectEdit({
             +
           </button>
         </div>
-        <div className={styles.subject_choice_box}>
+        <div className={styles.subject_choice_box} style={subjectChoiceBoxStyle} >
           {subjects.map((subject, index) => (
             <div key={index} className={styles.subject_item}>
               <Text as="p" size="3" className={styles.subject_item_text}>
@@ -63,7 +67,7 @@ function SubjectEdit({
         </div>
       </div>
 
-      <div className={styles.subject_edit_form_btn_wrap}>
+      <div className={styles.subject_edit_form_btn_wrap} >
         <button type="submit" className={styles.subject_edit_form_btn_save} onClick={onSaveEditing}>
           저장
         </button>

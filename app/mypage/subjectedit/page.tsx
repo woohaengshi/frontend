@@ -23,6 +23,14 @@ export default function Page() {
     setIsEditing(false);
   };
 
+const customStyle = { 
+  height: '400px', 
+};
+
+const subjectChoiceBoxStyle = { 
+  maxHeight: '200px', // 원하는 높이 설정
+};
+
   return (
     <SubjectEdit
       subjects={subjects}
@@ -30,6 +38,8 @@ export default function Page() {
       onDeleteSubject={handleDeleteSubject}
       onSaveEditing={handleSaveEditing}
       showCancelButton={false} // 취소 버튼 숨김
+      style={customStyle} // 스타일 전달
+      subjectChoiceBoxStyle={subjectChoiceBoxStyle}
     />
   );
 }
