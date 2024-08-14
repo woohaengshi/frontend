@@ -1,4 +1,28 @@
 /* SubjectEditForm.module.css */
+
+/* 과목 선택 버튼 */
+.floatingButton {
+  position: fixed;
+  bottom: 30px; /* 화면 하단에서의 거리 조정 */
+  right: 20px; /* 화면 우측에서의 거리 조정 */
+  width: 76px; /* 버튼의 너비 */
+  height: 76px; /* 버튼의 높이 */
+  border-radius: 50%; /* 동그란 모양 */
+  background-color: var(--main-color-3); /* 버튼 배경색 */
+  color: white; /* 버튼 텍스트 색상 */
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+
+/* 오버레이 */
 .overlay {
   position: fixed;
   top: 0px;
@@ -23,7 +47,7 @@
   top: 0;
   right: 0;
   width: 100%;
-  max-width:440px;
+  max-width: 440px;
   background-color: rgb(255, 255, 255);
   height: 100vh;
   transition: transform 0.5s ease-in-out;
@@ -32,7 +56,6 @@
   box-sizing: border-box;
   z-index: 101;
 }
-
 
 .formContainer.show {
   transform: translateX(0);
@@ -47,7 +70,6 @@
   flex-direction: column;
 }
 
-
 .subject_edit_form_wrap_inner {
   width: 100%;
   height: 90%;
@@ -55,11 +77,10 @@
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-
 }
 
-.subject_edit_form_layout{
-    padding: 10px 50px;
+.subject_edit_form_layout {
+  padding: 10px 50px;
 }
 /* 과목 선택, 편집 텍스트 */
 
@@ -77,10 +98,10 @@
   width: 100%;
 }
 
-
-.closeButton{
+.closeButton {
   position: fixed;
-  top: 20px; left: 10px;
+  top: 20px;
+  left: 10px;
 }
 
 .closeButton,
@@ -89,9 +110,10 @@
   cursor: pointer;
 }
 
-.backButton{
+.backButton {
   position: fixed;
-  top: 20px; right: 30px;
+  top: 20px;
+  right: 30px;
   font-size: 26px;
   line-height: 20px;
 }
@@ -118,20 +140,19 @@
   padding: 14px 20px;
   background-color: #f1f1ff;
   color: var(--main-color-3);
-  border-radius: 8  px;
+  border-radius: 8 px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-
 
 .subject_item_text {
   text-align: center;
 }
-
 
 .subject_item.selected {
   background-color: var(--main-color-3);
@@ -158,14 +179,12 @@
   color: var(--main-color-3);
 }
 
-
-.subject_edit_form_btn_save:hover{
+.subject_edit_form_btn_save:hover {
   background-color: #a19dec;
 }
-.subject_edit_form_btn_modify:hover{
+.subject_edit_form_btn_modify:hover {
   background-color: #f1f1ff;
 }
-
 
 .subject_add_box {
   position: relative;
@@ -228,7 +247,6 @@
   text-align: center;
 }
 
-
 .delete_button:hover {
   background-color: darkred;
 }
@@ -237,5 +255,15 @@
 @media (min-width: 769px) {
   .backButton {
     display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .floatingButton {
+    width: 60px;
+    height: 60px;
+    bottom: 80px;
+    font-size: 14px;
+    line-height: 1.3;
   }
 }
