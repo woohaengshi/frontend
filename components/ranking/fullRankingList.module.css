@@ -26,6 +26,7 @@
 }
 
 .full_ranking_tr>th:first-child {
+
     border-radius: 8px 0 0 8px;
 }
 
@@ -95,11 +96,7 @@
     /* Enable scrolling */
 }
 
-@media screen and (max-width: 860px) {
-    .full_ranking_thead_wrap {
-        background-color: aqua;
-    }
-}
+
 
 @media screen and (max-width: 680px) {
     .full_ranking_tr>th {

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import styles from './fullRankingList.module.css';
@@ -9,7 +9,7 @@ interface Student {
   name: string;
   studyTime: string;
   totalTime: string;
-  class: string;
+  course: string;
   rank: number;
   imageUrl?: string;
 }
@@ -25,7 +25,7 @@ interface FullRankingListProps {
 function FullRankingList({ rankings, currentUser, activeTab, loadMore, hasMore }: FullRankingListProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const otherRankings = rankings.filter((student) => student.name !== currentUser?.name);
+  const otherRankings = rankings.filter((student) => student.id !== currentUser?.id);
   const allRankings = currentUser ? [currentUser, ...otherRankings] : otherRankings;
 
   const timeLabel = activeTab === 'daily' ? '일간시간' : activeTab === 'weekly' ? '주간시간' : '월간시간';

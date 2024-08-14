@@ -70,6 +70,7 @@
   flex-direction: column;
 }
 
+/* 스터디 과목 선택 컴포넌트 height값 */
 .subject_edit_form_wrap_inner {
   width: 100%;
   height: 90%;
@@ -125,7 +126,7 @@
 /* 과목 박스 전체 */
 .subject_choice_box {
   background-color: white;
-  max-height: 500px;
+  max-height: 400px;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -133,6 +134,8 @@
   padding-top: 5px;
   gap: 15px;
   row-gap: 15px;
+  overflow-y: auto; 
+  overflow-x: hidden; 
 }
 
 .subject_item {
@@ -140,7 +143,7 @@
   padding: 14px 20px;
   background-color: #f1f1ff;
   color: var(--main-color-3);
-  border-radius: 8 px;
+  border-radius: 8px;
   cursor: pointer;
   transition:
     background-color 0.3s,
@@ -188,7 +191,7 @@
 
 .subject_add_box {
   position: relative;
-  width: 95%;
+  width: 100%;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
@@ -220,11 +223,14 @@
 
 .subject_edit_form_btn_save,
 .subject_edit_form_btn_modify {
-  padding: 10px 20px;
+  font-size: 18px;
+  height: 60px;
+  line-height: 60px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-weight: 700;
 }
 
 /* 삭제버튼 */
