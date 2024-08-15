@@ -10,17 +10,11 @@ export const signIn = async ({ email, password }: { email: string; password: str
 };
 
 export const refreshToken = async (refreshToken: string) => {
-  try {
-    const response = await instance('reissue', {
-      body: JSON.stringify({ refreshToken }),
-      method: 'POST',
-    });
-    return response;
-  } catch (error) {
-    // Handle the error here
-    console.error('Error while posting timer:', error);
-    throw error;
-  }
+  const response = await instance('reissue', {
+    body: JSON.stringify({ refreshToken }),
+    method: 'POST',
+  });
+  return response;
 };
 
 export const signUp = async ({
