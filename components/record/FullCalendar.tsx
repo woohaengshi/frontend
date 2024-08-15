@@ -1,13 +1,12 @@
 'use client';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
-import { Box, Button, Container, Flex, Heading, Text } from '@radix-ui/themes';
-import { useCallback, useEffect, useState } from 'react';
+import { Box, Container, Flex, Heading, Text } from '@radix-ui/themes';
+import { useCallback, useState } from 'react';
 import styles from './FullCalendar.module.css';
 import MonthPicker from './MonthPicker';
 import { useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
 import { useRouter } from 'next/navigation';
-import { getRecordMonthly } from '@/api/record';
 
 export default function FullCalendar({monthlyData}) {
   const today = useTodayStore();

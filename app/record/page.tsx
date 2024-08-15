@@ -8,7 +8,7 @@ export default async function Record({ searchParams }) {
   const month = searchParams.month ? parseInt(searchParams.month) : new Date().getMonth() + 1;
 
   // 유효성 검사
-  if (month < 1 || month > 12) {
+  if (year < 2020 || month < 1 || month > 12) {
     if (typeof window !== 'undefined') {
       alert('올바르지 않은 년도 또는 월입니다.');
     }
