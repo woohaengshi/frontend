@@ -1,112 +1,57 @@
 // SubjectEditForm.tsx
 'use client';
-import React, { useState, useEffect } from 'react';
-import { Text } from '@radix-ui/themes';
-import Image from 'next/image';
-import closeBtn from '/assets/icons/subject_edit_close_btn.png';
+import React from 'react';
 import SubjectSelect from './SubjectSelect';
 import SubjectEdit from './SubjectEdit';
 import styles from './SubjectEditForm.module.css';
-
-const initialSubjects: string[] = ['html', 'css', 'javascript'];
+import { useSubjectStore } from '../../store/subjectStore';
 
 interface SubjectEditFormProps {
   closeSubjectEditForm: () => void;
 }
 
 function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFormProps) {
-  const [subjects, setSubjects] = useState<string[]>(initialSubjects);
-  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [deletedSubjects, setDeletedSubjects] = useState<string[]>([]);
-  const [isMobile, setIsMobile] = useState(false);
+  const { subjects, selectedSubjects, isEditing, setEditing, saveSelected, saveEditing } = useSubjectStore((state) => ({
+    subjects: state.subjects,
+    selectedSubjects: state.selectedSubjects,
+    isEditing: state.isEditing,
+    setEditing: state.setEditing,
+    saveSelected: state.saveSelected,
+    saveEditing: state.saveEditing,
+  }));
 
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= 768);
-  };
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const handleSelectSubject = (subject: string) => {
-    setSelectedSubjects((prevSelected) =>
-      prevSelected.includes(subject) ? prevSelected.filter((s) => s !== subject) : [...prevSelected, subject],
-    );
-  };
-
-  const handleAddSubject = (subject: string) => {
-    setSubjects([...subjects, subject]);
-  };
-
-  const handleDeleteSubject = (subjectToDelete: string) => {
-    setSubjects(subjects.filter((subject) => subject !== subjectToDelete));
-    setSelectedSubjects((prevSelected) => prevSelected.filter((s) => s !== subjectToDelete));
-    setDeletedSubjects((prevDeleted) => [...prevDeleted, subjectToDelete]);
-  };
-
-  const handleSaveSelected = async () => {
-    try {
-      alert(`선택한 과목이 저장되었습니다: ${selectedSubjects.join(', ')}`);
-    } catch (error) {
-      console.error('저장 중 오류 발생:', error);
-      alert('저장 중 오류가 발생했습니다.');
-    } finally {
-      closeSubjectEditForm();
+  const handleSaveAndClose = () => {
+    if (isEditing) {
+      saveEditing(); // 편집 저장
+    } else {
+      saveSelected(); // 선택 저장
     }
-  };
-
-  const handleSaveEditing = async () => {
-    try {
-      alert(`삭제한 과목은 ${deletedSubjects.join(', ')} 입니다`);
-    } catch (error) {
-      console.error('저장 중 오류 발생:', error);
-      alert('저장 중 오류가 발생했습니다.');
-    } finally {
-      setDeletedSubjects([]);
-      setIsEditing(false);
-    }
+    closeSubjectEditForm(); // 모달 닫기
   };
 
   return (
     <div className={styles.subject_edit_form_wrap}>
       <div className={styles.subject_edit_form_close_btn}>
-        {!isMobile && (
-          <button onClick={closeSubjectEditForm} className={styles.closeButton}>
-            <Image src={closeBtn} alt="Close" width={20} height={20} />
-          </button>
-        )}
-        <button 
-          onClick={() => {
-            if (isMobile) {
-              closeSubjectEditForm();
-            }
-          }}
-          className={styles.backButton}
-        >
+        <button onClick={closeSubjectEditForm} className={styles.closeButton}>
           →
         </button>
       </div>
       {isEditing ? (
         <SubjectEdit
           subjects={subjects}
-          onAddSubject={handleAddSubject}
-          onDeleteSubject={handleDeleteSubject}
-          onSaveEditing={handleSaveEditing}
-          showCancelButton={true} // 취소 버튼 활성화
-          onCancelEditing={() => setIsEditing(false)} // 취소 버튼 클릭 시 편집 모드 종료
+          onAddSubject={(subject) => useSubjectStore.getState().addSubject(subject)}
+          onDeleteSubject={(subject) => useSubjectStore.getState().deleteSubject(subject)}
+          onSaveEditing={handleSaveAndClose} // 저장 및 모달 닫기
+          showCancelButton={true}
+          onCancelEditing={() => setEditing(false)}
         />
       ) : (
         <SubjectSelect
           subjects={subjects}
           selectedSubjects={selectedSubjects}
-          onSelectSubject={handleSelectSubject}
-          onEditClick={() => setIsEditing(true)}
-          onSaveClick={handleSaveSelected}
+          onSelectSubject={(subject) => useSubjectStore.getState().selectSubject(subject)}
+          onEditClick={() => setEditing(true)}
+          onSaveClick={handleSaveAndClose} // 저장 및 모달 닫기
         />
       )}
     </div>

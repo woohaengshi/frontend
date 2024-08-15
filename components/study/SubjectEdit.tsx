@@ -1,34 +1,25 @@
+// SubjectEdit.tsx
 'use client';
 import React, { useState } from 'react';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectEditForm.module.css';
+import { useSubjectStore } from '../../store/subjectStore';
 
 interface SubjectEditProps {
-  subjects: string[];
-  onAddSubject: (subject: string) => void;
-  onDeleteSubject: (subject: string) => void;
-  onSaveEditing: () => void;
-  showCancelButton?: boolean; // 취소 버튼 표시 여부
-  onCancelEditing?: () => void; // 취소 버튼 클릭 시 호출할 함수
-  style?: React.CSSProperties; // 스타일 prop 추가
-  subjectChoiceBoxStyle?: React.CSSProperties; // 추가된 부분
+  showCancelButton?: boolean;
+  onCancelEditing?: () => void;
+  style?: React.CSSProperties;
+  subjectChoiceBoxStyle?: React.CSSProperties;
+  onSaveEditing: () => void; // 수정된 부분
 }
 
-function SubjectEdit({
-  subjects,
-  onAddSubject,
-  onDeleteSubject,
-  onSaveEditing,
-  showCancelButton = true, // 기본값은 true
-  onCancelEditing,
-  style,
-  subjectChoiceBoxStyle, // 추가된 부분
-}: SubjectEditProps) {
+function SubjectEdit({ showCancelButton = true, onCancelEditing, style, subjectChoiceBoxStyle,   onSaveEditing, }: SubjectEditProps) {
   const [newSubject, setNewSubject] = useState<string>('');
+  const { subjects, addSubject, deleteSubject, saveEditing } = useSubjectStore();
 
   const handleAddSubject = () => {
     if (newSubject.trim() !== '') {
-      onAddSubject(newSubject);
+      addSubject(newSubject);
       setNewSubject('');
     }
   };
@@ -41,7 +32,7 @@ function SubjectEdit({
             과목 편집
           </Text>
         </div>
-        <div className={styles.subject_add_box} >
+        <div className={styles.subject_add_box}>
           <input
             type="text"
             value={newSubject}
@@ -53,13 +44,13 @@ function SubjectEdit({
             +
           </button>
         </div>
-        <div className={styles.subject_choice_box} style={subjectChoiceBoxStyle} >
+        <div className={styles.subject_choice_box} style={subjectChoiceBoxStyle}>
           {subjects.map((subject, index) => (
             <div key={index} className={styles.subject_item}>
               <Text as="p" size="3" className={styles.subject_item_text}>
                 {subject}
               </Text>
-              <button className={styles.delete_button} onClick={() => onDeleteSubject(subject)}>
+              <button className={styles.delete_button} onClick={() => deleteSubject(subject)}>
                 -
               </button>
             </div>
@@ -67,11 +58,11 @@ function SubjectEdit({
         </div>
       </div>
 
-      <div className={styles.subject_edit_form_btn_wrap} >
-        <button type="submit" className={styles.subject_edit_form_btn_save} onClick={onSaveEditing}>
+      <div className={styles.subject_edit_form_btn_wrap}>
+        <button type="submit" className={styles.subject_edit_form_btn_save} onClick={saveEditing}>
           저장
         </button>
-        {showCancelButton && onCancelEditing && ( // 취소 버튼 조건부 렌더링
+        {showCancelButton && onCancelEditing && (
           <button className={styles.subject_edit_form_btn_modify} onClick={onCancelEditing}>
             취소
           </button>

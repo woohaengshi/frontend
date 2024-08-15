@@ -1,28 +1,23 @@
 // SubjectSelect.tsx
 'use client';
 import React from 'react';
-import { Text, Box } from '@radix-ui/themes';
+import { Text } from '@radix-ui/themes';
 import styles from './SubjectEditForm.module.css';
-import CommonButton from '@/components/common/CommonButton';
+import { useSubjectStore } from '../../store/subjectStore';
 
 interface SubjectSelectProps {
-  subjects: string[];
-  selectedSubjects: string[];
-  onSelectSubject: (subject: string) => void;
   onEditClick: () => void;
-  onSaveClick: () => void;
+  onSaveClick: () => void; // 수정된 부분
 }
 
 const SubjectSelect = ({
-  subjects,
-  selectedSubjects,
-  onSelectSubject,
   onEditClick,
-  onSaveClick,
+  onSaveClick, // 수정된 부분
 }: SubjectSelectProps) => {
+  const { subjects, selectedSubjects, selectSubject } = useSubjectStore();
+
   return (
     <div className={styles.subject_edit_form_wrap_inner}>
-      {/* 제목 + 과목 카드 */}
       <div className={styles.subject_edit_form_top}>
         <div className={styles.subject_choice_text_wrap}>
           <Text as="p" size="5" weight="medium" className={styles.test}>
@@ -34,8 +29,9 @@ const SubjectSelect = ({
             <div
               key={index}
               className={`${styles.subject_item} ${selectedSubjects.includes(subject) ? styles.selected : ''}`}
+              onClick={() => selectSubject(subject)}
             >
-              <Text as="p" size="3" className={styles.subject_item_text} onClick={() => onSelectSubject(subject)}>
+              <Text as="p" size="3" className={styles.subject_item_text}>
                 {subject}
               </Text>
             </div>
@@ -43,16 +39,10 @@ const SubjectSelect = ({
         </div>
       </div>
 
-      {/* 버튼 */}
-      {/* <Box mt="6" className="btn_join">
-              <CommonButton type="submit">회원가입</CommonButton>
-            </Box> */}
-
       <div className={styles.subject_edit_form_btn_wrap}>
         <button type="submit" className={styles.subject_edit_form_btn_save} onClick={onSaveClick}>
           저장
         </button>
-
         <button className={styles.subject_edit_form_btn_modify} onClick={onEditClick}>
           과목편집
         </button>

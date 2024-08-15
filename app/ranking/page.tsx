@@ -1,12 +1,13 @@
 'use client';
 import React, { useEffect, useState, useCallback } from 'react';
-import TopRankings from '../../components/ranking/TopLanking';
-import FullRankingList from '../../components/ranking/FullRankingList';
+import TopRankings from '../../components/ranking/topLanking';
+import FullRankingList from '../../components/ranking/fullRankingList';
 import { Grid } from '@radix-ui/themes';
 import styles from './ranking.module.css';
 import rankingImg from '../../assets/icons/ranking_profile_img.png';
+import { fetchRankingsAndCurrentUserFromServer } from '../../api/ranking';
 
-interface Student {
+export interface Student {
   id: number;
   name: string;
   studyTime: string;
@@ -16,7 +17,7 @@ interface Student {
   imageUrl?: string;
 }
 
-interface ApiResponse {
+export interface ApiResponse {
   member: {
     id: number;
     name: string;
@@ -32,32 +33,6 @@ interface ApiResponse {
   };
 }
 
-const fetchRankingsAndCurrentUserFromServer = async (
-  tab: 'daily' | 'weekly' | 'monthly',
-  pageNumber: number,
-  size: number = 10, // 기본적으로 한 번에 가져올 수
-): Promise<ApiResponse> => {
-  try {
-    const response = await fetch(`/api/v1/rank?page=${pageNumber}&type=${tab}&size=${size}`);
-    if (!response.ok) throw new Error('Network response was not ok');
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return {
-      member: {
-        id: -1,
-        name: 'Unknown User',
-        course: 'Unknown Class',
-        rank: -1,
-        image: rankingImg,
-        studyTime: 0,
-        totalTime: 0,
-      },
-      ranking: { hasNext: false, ranks: [] },
-    };
-  }
-};
 
 function Ranking() {
   const [activeTab, setActiveTab] = useState<'daily' | 'weekly' | 'monthly'>('daily');
@@ -73,24 +48,29 @@ function Ranking() {
       setPage(0);
       setHasMore(true);
 
-      const {
-        member,
-        ranking: { ranks: initialRankings, hasNext },
-      } = await fetchRankingsAndCurrentUserFromServer(activeTab, 0, size);
+      try {
+        const {
+          member,
+          ranking: { ranks: initialRankings, hasNext },
+        } = await fetchRankingsAndCurrentUserFromServer(activeTab, 0, size);
 
-      const currentUserData: Student = {
-        id: member.id,
-        name: member.name,
-        studyTime: `${member.studyTime}시간`,
-        totalTime: `${member.totalTime}시간`,
-        course: member.course,
-        rank: member.rank,
-        imageUrl: member.image,
-      };
+        const currentUserData: Student = {
+          id: member.id,
+          name: member.name,
+          studyTime: `${member.studyTime}시간`,
+          totalTime: `${member.totalTime}시간`,
+          course: member.course,
+          rank: member.rank,
+          imageUrl: member.image || rankingImg, // 이미지가 없는 경우 기본 이미지 설정
+        };
 
-      setRankings(initialRankings);
-      setHasMore(hasNext);
-      setCurrentUser(currentUserData);
+        setRankings(initialRankings);
+        setHasMore(hasNext);
+        setCurrentUser(currentUserData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // 에러 핸들링 (예: 사용자에게 알림 표시)
+      }
     };
 
     fetchData();
@@ -99,13 +79,18 @@ function Ranking() {
   const loadMore = useCallback(async () => {
     if (hasMore) {
       const nextPage = page + 1; // 페이지 번호 증가
-      const {
-        ranking: { ranks: newRankings, hasNext },
-      } = await fetchRankingsAndCurrentUserFromServer(activeTab, nextPage, size);
+      try {
+        const {
+          ranking: { ranks: newRankings, hasNext },
+        } = await fetchRankingsAndCurrentUserFromServer(activeTab, nextPage, size);
 
-      setRankings((prevRankings) => [...prevRankings, ...newRankings]);
-      setHasMore(hasNext);
-      setPage(nextPage); // 페이지 업데이트
+        setRankings((prevRankings) => [...prevRankings, ...newRankings]);
+        setHasMore(hasNext);
+        setPage(nextPage); // 페이지 업데이트
+      } catch (error) {
+        console.error('Error loading more data:', error);
+        // 에러 핸들링 (예: 사용자에게 알림 표시)
+      }
     }
   }, [activeTab, hasMore, page]);
 
