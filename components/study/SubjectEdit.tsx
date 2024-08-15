@@ -14,7 +14,7 @@ interface SubjectEditProps {
   subjectChoiceBoxStyle?: React.CSSProperties; // 추가된 부분
 }
 
-function SubjectEdit({
+export default function SubjectEdit({
   subjects,
   onAddSubject,
   onDeleteSubject,
@@ -41,7 +41,7 @@ function SubjectEdit({
             과목 편집
           </Text>
         </div>
-        <div className={styles.subject_add_box} >
+        <div className={styles.subject_add_box}>
           <input
             type="text"
             value={newSubject}
@@ -53,7 +53,7 @@ function SubjectEdit({
             +
           </button>
         </div>
-        <div className={styles.subject_choice_box} style={subjectChoiceBoxStyle} >
+        <div className={styles.subject_choice_box} style={subjectChoiceBoxStyle}>
           {subjects.map((subject, index) => (
             <div key={index} className={styles.subject_item}>
               <Text as="p" size="3" className={styles.subject_item_text}>
@@ -67,18 +67,17 @@ function SubjectEdit({
         </div>
       </div>
 
-      <div className={styles.subject_edit_form_btn_wrap} >
+      <div className={styles.subject_edit_form_btn_wrap}>
         <button type="submit" className={styles.subject_edit_form_btn_save} onClick={onSaveEditing}>
           저장
         </button>
-        {showCancelButton && onCancelEditing && ( // 취소 버튼 조건부 렌더링
-          <button className={styles.subject_edit_form_btn_modify} onClick={onCancelEditing}>
-            취소
-          </button>
-        )}
+        {showCancelButton &&
+          onCancelEditing && ( // 취소 버튼 조건부 렌더링
+            <button className={styles.subject_edit_form_btn_modify} onClick={onCancelEditing}>
+              취소
+            </button>
+          )}
       </div>
     </div>
   );
 }
-
-export default SubjectEdit;

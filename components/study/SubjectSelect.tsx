@@ -1,5 +1,6 @@
 // SubjectSelect.tsx
 'use client';
+
 import React from 'react';
 import { Text, Box } from '@radix-ui/themes';
 import styles from './SubjectEditForm.module.css';
@@ -30,7 +31,7 @@ const SubjectSelect = ({
           </Text>
         </div>
         <div className={styles.subject_choice_box}>
-          {subjects.map((subject, index) => (
+          {subjects?.map((subject, index) => (
             <div
               key={index}
               className={`${styles.subject_item} ${selectedSubjects.includes(subject) ? styles.selected : ''}`}

@@ -1,5 +1,6 @@
 // SubjectEditForm.tsx
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Text } from '@radix-ui/themes';
 import Image from 'next/image';
@@ -7,15 +8,18 @@ import closeBtn from '/assets/icons/subject_edit_close_btn.png';
 import SubjectSelect from './SubjectSelect';
 import SubjectEdit from './SubjectEdit';
 import styles from './SubjectEditForm.module.css';
-
-const initialSubjects: string[] = ['html', 'css', 'javascript'];
+import { Subject } from '@/types/study';
 
 interface SubjectEditFormProps {
   closeSubjectEditForm: () => void;
+  initialSubjects: Subject[];
 }
 
-function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFormProps) {
-  const [subjects, setSubjects] = useState<string[]>(initialSubjects);
+const SubjectEditForm: React.FC<SubjectEditFormProps> = ({
+  closeSubjectEditForm,
+  initialSubjects,
+}: SubjectEditFormProps) => {
+  const [subjects, setSubjects] = useState<string[]>(initialSubjects?.map((subject: Subject) => subject.name));
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [deletedSubjects, setDeletedSubjects] = useState<string[]>([]);
@@ -80,7 +84,7 @@ function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFormProps) {
             <Image src={closeBtn} alt="Close" width={20} height={20} />
           </button>
         )}
-        <button 
+        <button
           onClick={() => {
             if (isMobile) {
               closeSubjectEditForm();
@@ -111,6 +115,6 @@ function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFormProps) {
       )}
     </div>
   );
-}
+};
 
 export default SubjectEditForm;
