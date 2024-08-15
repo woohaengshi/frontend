@@ -14,7 +14,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <Container size="2" p="6">
       <Box p="8" className={styles.inner}>
-        <section>{children}</section>
+        {children}
       </Box>
     </Container>
   );
