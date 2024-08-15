@@ -36,9 +36,6 @@ export default function FullCalendar({monthlyData}) {
     
     // 페이지 이동
     router.replace(`/record?year=${newYear}&month=${newMonth}`);
-
-    // API 호출
-    // const monthlyResponse = await getRecordMonthly(newYear, newMonth);
   }, [selectedMonth, selectedYear, router]);
 
   console.log(`selectedYear: ${selectedYear}`);
@@ -60,9 +57,6 @@ export default function FullCalendar({monthlyData}) {
 
     // 페이지 이동
     router.replace(`/record?year=${newYear}&month=${newMonth}`);
-    
-    // API 호출
-    // const monthlyResponse = await getRecordMonthly(newYear, newMonth);
   }, [selectedMonth, selectedYear, router]);
 
   const returnDay = useCallback(() => {
