@@ -3,16 +3,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import styles from './fullRankingList.module.css';
 import InfiniteScroll from 'react-infinite-scroller';
-
-interface Student {
-  id: number;
-  name: string;
-  studyTime: string;
-  totalTime: string;
-  course: string;
-  rank: number;
-  image?: string;
-}
+import { Student } from '../../types/rankingType'; // Student 타입 import
 
 interface FullRankingListProps {
   rankings: Student[];
@@ -29,6 +20,13 @@ function FullRankingList({ rankings, currentUser, activeTab, loadMore, hasMore }
   const allRankings = currentUser ? [currentUser, ...otherRankings] : otherRankings;
 
   const timeLabel = activeTab === 'DAILY' ? '일간시간' : activeTab === 'WEEKLY' ? '주간시간' : '월간시간';
+
+  // 시간 포맷팅 함수 - 초를 시간과 분으로 변환
+  const formatTime = (timeInSeconds: number) => {
+    const hours = Math.floor(timeInSeconds / 3600); // 초를 시간으로 변환
+    const minutes = Math.floor((timeInSeconds % 3600) / 60); // 나머지 초를 분으로 변환
+    return `${hours}시간 ${minutes}분`;
+  };
 
   return (
     <div className={styles.full_ranking_container}>
@@ -76,8 +74,8 @@ function FullRankingList({ rankings, currentUser, activeTab, loadMore, hasMore }
                   </td>
                   <td></td>
                   <td>{student.course}</td>
-                  <td>{student.studyTime}</td>
-                  <td>{student.totalTime}</td>
+                  <td>{formatTime(student.studyTime)}</td>
+                  <td>{formatTime(student.totalTime)}</td>
                 </tr>
               ))}
             </tbody>

@@ -3,8 +3,8 @@
 export interface Student {
   id: number;
   name: string;
-  studyTime: string;
-  totalTime: string;
+  studyTime: number;
+  totalTime: number;
   course: string;
   rank: number;
   image?: string;

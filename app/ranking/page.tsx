@@ -1,4 +1,3 @@
-// Ranking.tsx
 import React, { useEffect, useState, useCallback } from 'react';
 import TopRankings from '../../components/ranking/topLanking';
 import FullRankingList from '../../components/ranking/fullRankingList';
@@ -6,7 +5,7 @@ import { Grid } from '@radix-ui/themes';
 import styles from './ranking.module.css';
 import rankingImg from '../../assets/icons/ranking_profile_img.png';
 import { fetchRankingsAndCurrentUserFromServer } from '../../api/rankingApi';
-import { Student, ApiResponse } from '../../types/rankingType'; 
+import { Student, ApiResponse } from '../../types/rankingType';
 
 function Ranking() {
   const [activeTab, setActiveTab] = useState<'DAILY' | 'WEEKLY' | 'MONTHLY'>('DAILY');
@@ -26,13 +25,17 @@ function Ranking() {
         const {
           member,
           ranking: { ranks: initialRankings, hasNext },
-        }: ApiResponse = await fetchRankingsAndCurrentUserFromServer(activeTab, 0, size);
+        }: ApiResponse = await fetchRankingsAndCurrentUserFromServer({
+          tab: activeTab,
+          pageNumber: 0,
+          size,
+        });
 
         const currentUserData: Student = {
           id: member.id,
           name: member.name,
-          studyTime: `${member.studyTime}시간`,
-          totalTime: `${member.totalTime}시간`,
+          studyTime: member.studyTime,
+          totalTime: member.totalTime,
           course: member.course,
           rank: member.rank,
           image: member.image || rankingImg,
@@ -55,7 +58,11 @@ function Ranking() {
       try {
         const {
           ranking: { ranks: newRankings, hasNext },
-        }: ApiResponse = await fetchRankingsAndCurrentUserFromServer(activeTab, nextPage, size);
+        }: ApiResponse = await fetchRankingsAndCurrentUserFromServer({
+          tab: activeTab,
+          pageNumber: nextPage,
+          size,
+        });
 
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);
         setHasMore(hasNext);
