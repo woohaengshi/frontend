@@ -1,3 +1,5 @@
+//rankingType.ts
+
 export interface Student {
   id: number;
   name: string;
@@ -5,7 +7,7 @@ export interface Student {
   totalTime: string;
   course: string;
   rank: number;
-  imageUrl?: string;
+  image?: string;
 }
 
 export interface ApiResponse {

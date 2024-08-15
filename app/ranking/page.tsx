@@ -1,46 +1,20 @@
-'use client';
+// Ranking.tsx
 import React, { useEffect, useState, useCallback } from 'react';
 import TopRankings from '../../components/ranking/topLanking';
 import FullRankingList from '../../components/ranking/fullRankingList';
 import { Grid } from '@radix-ui/themes';
 import styles from './ranking.module.css';
 import rankingImg from '../../assets/icons/ranking_profile_img.png';
-import { fetchRankingsAndCurrentUserFromServer } from '../../api/ranking';
-
-export interface Student {
-  id: number;
-  name: string;
-  studyTime: string;
-  totalTime: string;
-  course: string;
-  rank: number;
-  imageUrl?: string;
-}
-
-export interface ApiResponse {
-  member: {
-    id: number;
-    name: string;
-    course: string;
-    rank: number;
-    image: any;
-    studyTime: number;
-    totalTime: number;
-  };
-  ranking: {
-    hasNext: boolean;
-    ranks: Student[];
-  };
-}
-
+import { fetchRankingsAndCurrentUserFromServer } from '../../api/rankingApi';
+import { Student, ApiResponse } from '../../types/rankingType'; 
 
 function Ranking() {
-  const [activeTab, setActiveTab] = useState<'daily' | 'weekly' | 'monthly'>('daily');
+  const [activeTab, setActiveTab] = useState<'DAILY' | 'WEEKLY' | 'MONTHLY'>('DAILY');
   const [rankings, setRankings] = useState<Student[]>([]);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(0); // 페이지 번호를 0부터 시작
+  const [page, setPage] = useState(0);
   const [currentUser, setCurrentUser] = useState<Student | null>(null);
-  const size = 10; // 한 번에 가져올 랭킹 수
+  const size = 10;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +26,7 @@ function Ranking() {
         const {
           member,
           ranking: { ranks: initialRankings, hasNext },
-        } = await fetchRankingsAndCurrentUserFromServer(activeTab, 0, size);
+        }: ApiResponse = await fetchRankingsAndCurrentUserFromServer(activeTab, 0, size);
 
         const currentUserData: Student = {
           id: member.id,
@@ -61,7 +35,7 @@ function Ranking() {
           totalTime: `${member.totalTime}시간`,
           course: member.course,
           rank: member.rank,
-          imageUrl: member.image || rankingImg, // 이미지가 없는 경우 기본 이미지 설정
+          image: member.image || rankingImg,
         };
 
         setRankings(initialRankings);
@@ -69,7 +43,6 @@ function Ranking() {
         setCurrentUser(currentUserData);
       } catch (error) {
         console.error('Error fetching data:', error);
-        // 에러 핸들링 (예: 사용자에게 알림 표시)
       }
     };
 
@@ -78,18 +51,17 @@ function Ranking() {
 
   const loadMore = useCallback(async () => {
     if (hasMore) {
-      const nextPage = page + 1; // 페이지 번호 증가
+      const nextPage = page + 1;
       try {
         const {
           ranking: { ranks: newRankings, hasNext },
-        } = await fetchRankingsAndCurrentUserFromServer(activeTab, nextPage, size);
+        }: ApiResponse = await fetchRankingsAndCurrentUserFromServer(activeTab, nextPage, size);
 
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);
         setHasMore(hasNext);
-        setPage(nextPage); // 페이지 업데이트
+        setPage(nextPage);
       } catch (error) {
         console.error('Error loading more data:', error);
-        // 에러 핸들링 (예: 사용자에게 알림 표시)
       }
     }
   }, [activeTab, hasMore, page]);
@@ -99,20 +71,20 @@ function Ranking() {
       <Grid columns="1" gap="3" rows="repeat(1, 64px)" className={styles.ranking_wrap_inner}>
         <Grid columns="3" gap="1" rows="repeat(1, 64px)" className={styles.date_tap_wrap}>
           <button
-            className={`${styles.date_tap_btn} ${activeTab === 'daily' ? styles.date_tap_btn_active : ''}`}
-            onClick={() => setActiveTab('daily')}
+            className={`${styles.date_tap_btn} ${activeTab === 'DAILY' ? styles.date_tap_btn_active : ''}`}
+            onClick={() => setActiveTab('DAILY')}
           >
             일간
           </button>
           <button
-            className={`${styles.date_tap_btn} ${activeTab === 'weekly' ? styles.date_tap_btn_active : ''}`}
-            onClick={() => setActiveTab('weekly')}
+            className={`${styles.date_tap_btn} ${activeTab === 'WEEKLY' ? styles.date_tap_btn_active : ''}`}
+            onClick={() => setActiveTab('WEEKLY')}
           >
             주간
           </button>
           <button
-            className={`${styles.date_tap_btn} ${activeTab === 'monthly' ? styles.date_tap_btn_active : ''}`}
-            onClick={() => setActiveTab('monthly')}
+            className={`${styles.date_tap_btn} ${activeTab === 'MONTHLY' ? styles.date_tap_btn_active : ''}`}
+            onClick={() => setActiveTab('MONTHLY')}
           >
             월간
           </button>

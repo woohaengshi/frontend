@@ -11,13 +11,13 @@ interface Student {
   studyTime: number; 
   totalTime: number; 
   course: string; 
-  imageUrl?: string;
+  image?: string;
   isCurrentUser?: boolean;
 }
 
 interface TopRankingsProps {
   rankings: Student[];
-  activeTab: 'daily' | 'weekly' | 'monthly';
+  activeTab: 'DAILY' | 'WEEKLY' | 'MONTHLY';
 }
 
 function TopRankings({ rankings, activeTab }: TopRankingsProps) {
@@ -29,7 +29,7 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps) {
   }
 
   // 탭에 따라 라벨 설정
-  const timeLabel = activeTab === 'daily' ? '일시간' : activeTab === 'weekly' ? '주시간' : '월시간';
+  const timeLabel = activeTab === 'DAILY' ? '일시간' : activeTab === 'WEEKLY' ? '주시간' : '월시간';
 
   return (
     <Grid columns="3" gap="1" rows="repeat(1, 64px)" className={styles.top_ranking_box_wrap}>
@@ -51,7 +51,7 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps) {
                 className={`${styles.medal_image} ${medalSizeClass}`}
               />
             </div>
-            <Image src={student.imageUrl} alt={`${student.name} 이미지`} className={styles.student_image} />
+            <Image src={student.image} alt={`${student.name} 이미지`} className={styles.student_image} />
             <Grid columns="1" gap="2" rows="repeat(1, 10px)">
               <Text as="p" size="2" weight="medium" className={styles.student_name}>
                 {student.name}

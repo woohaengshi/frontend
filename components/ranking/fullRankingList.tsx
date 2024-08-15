@@ -11,13 +11,13 @@ interface Student {
   totalTime: string;
   course: string;
   rank: number;
-  imageUrl?: string;
+  image?: string;
 }
 
 interface FullRankingListProps {
   rankings: Student[];
   currentUser: Student | null;
-  activeTab: 'daily' | 'weekly' | 'monthly';
+  activeTab: 'DAILY' | 'WEEKLY' | 'MONTHLY';
   loadMore: () => void;
   hasMore: boolean;
 }
@@ -28,7 +28,7 @@ function FullRankingList({ rankings, currentUser, activeTab, loadMore, hasMore }
   const otherRankings = rankings.filter((student) => student.id !== currentUser?.id);
   const allRankings = currentUser ? [currentUser, ...otherRankings] : otherRankings;
 
-  const timeLabel = activeTab === 'daily' ? '일간시간' : activeTab === 'weekly' ? '주간시간' : '월간시간';
+  const timeLabel = activeTab === 'DAILY' ? '일간시간' : activeTab === 'WEEKLY' ? '주간시간' : '월간시간';
 
   return (
     <div className={styles.full_ranking_container}>
@@ -64,8 +64,8 @@ function FullRankingList({ rankings, currentUser, activeTab, loadMore, hasMore }
                 <tr key={student.id} className={styles.full_ranking_student}>
                   <td>{student.rank}</td>
                   <td>
-                    {student.imageUrl && (
-                      <Image src={student.imageUrl} alt="Student Image" className={styles.student_image} />
+                    {student.image && (
+                      <Image src={student.image} alt="Student Image" className={styles.student_image} />
                     )}
                   </td>
                   <td>
@@ -75,7 +75,7 @@ function FullRankingList({ rankings, currentUser, activeTab, loadMore, hasMore }
                     )}
                   </td>
                   <td></td>
-                  <td>{student.class}</td>
+                  <td>{student.course}</td>
                   <td>{student.studyTime}</td>
                   <td>{student.totalTime}</td>
                 </tr>

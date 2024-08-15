@@ -1,17 +1,20 @@
 import instance from './instance';
-import { ApiResponse } from '../types/ranking';
+import { ApiResponse } from '../types/rankingType';
 import rankingImg from '../assets/icons/ranking_profile_img.png';
 
-export const fetchRankingsAndCurrentUserFromServer = async (
-  tab: 'daily' | 'weekly' | 'monthly',
-  pageNumber: number,
-  size: number = 10, // 기본적으로 한 번에 가져올 수
-): Promise<ApiResponse> => {
+export const fetchRankingsAndCurrentUserFromServer = async ({
+  tab,
+  pageNumber,
+  size = 10, // 기본적으로 한 번에 가져올 수
+}: {
+  tab: 'DAILY' | 'WEEKLY' | 'MONTHLY';
+  pageNumber: number;
+  size?: number;
+}): Promise<ApiResponse> => {
   try {
-    // API 요청 URL 구성
     const url = `api/v1/rank?page=${pageNumber}&type=${tab}&size=${size}`;
-    // API 요청
-    const response = await instance.get(url, {
+    const response = await instance(url, {
+      method: 'GET', // HTTP 메서드를 POST로 설정
       credentials: 'include', // 자격 증명(쿠키 등)을 포함하도록 설정
     });
 
