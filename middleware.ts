@@ -13,18 +13,7 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // 헤더에 토큰을 추가하여 다음 미들웨어나 API로 전달
-  const modifiedRequest = new Request(request.url, {
-    ...request,
-    headers: {
-      ...request.headers,
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return NextResponse.next({
-    request: modifiedRequest,
-  });
+  return NextResponse.next();
 }
 
 // 미들웨어가 적용될 경로 설정
