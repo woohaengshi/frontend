@@ -5,15 +5,18 @@ import CommonButton from '@/components/common/CommonButton';
 import { Box, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 import AuthFormLayout from './AuthFormLayout';
-import { useState } from 'react';
 import { useLoginStore } from '@/store/authStore';
 
-export default function LoginForm() {
+interface LoginFormProps {
+  onLogin: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+export default function LoginForm({ onLogin }: LoginFormProps) {
   const { email, password, setEmail, setPassword } = useLoginStore();
 
   return (
     <AuthFormLayout title="로그인">
-      <form>
+      <form onSubmit={onLogin}>
         <div className="input_box">
           <InputField
             label="이메일"

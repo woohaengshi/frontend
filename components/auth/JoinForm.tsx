@@ -6,18 +6,17 @@ import { Box, Flex, RadioGroup, Text } from '@radix-ui/themes';
 import AuthFormLayout from './AuthFormLayout';
 import { useJoinStore } from '@/store/authStore';
 
-export default function JoinForm() {
-  const { email, name, password, passwordCheck, setEmail, setName, setPassword, setPasswordCheck } = useJoinStore();
+interface JoinFormProps {
+  onJoin: (e: React.FormEvent<HTMLFormElement>) => void;
+}
 
-  const handleJoin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // const form = e.target;
-    // console.log(form.user_cls.value);
-  };
+export default function JoinForm({ onJoin }: JoinFormProps) {
+  const { email, name, password, passwordCheck, setEmail, setName, setPassword, setPasswordCheck, setCourse } =
+    useJoinStore();
 
   return (
     <AuthFormLayout title="회원가입">
-      <form onSubmit={handleJoin}>
+      <form onSubmit={onJoin}>
         <div className="input_box">
           <InputField
             label="이메일"
@@ -64,14 +63,19 @@ export default function JoinForm() {
               className="radio_box"
               asChild
             >
-              <RadioGroup.Root defaultValue="ai" name="user_cls" size="3">
-                <RadioGroup.Item id="user_cls_ai" value="ai">
+              <RadioGroup.Root
+                defaultValue="ai"
+                name="user_cls"
+                size="3"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCourse(e.target.value)}
+              >
+                <RadioGroup.Item id="user_cls_ai" value="AI 엔지니어링">
                   AI 엔지니어링
                 </RadioGroup.Item>
-                <RadioGroup.Item id="user_cls_cloud" value="cloud">
+                <RadioGroup.Item id="user_cls_cloud" value="클라우드 엔지니어링">
                   클라우드 엔지니어링
                 </RadioGroup.Item>
-                <RadioGroup.Item id="user_cls_service" value="service">
+                <RadioGroup.Item id="user_cls_service" value="클라우드 서비스">
                   클라우드 서비스 개발
                 </RadioGroup.Item>
               </RadioGroup.Root>
