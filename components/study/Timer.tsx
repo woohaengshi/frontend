@@ -6,8 +6,8 @@ import { Flex, Text } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
 import { useSelectedSubjectStore } from '@/store/studyStore';
-import { postTimer } from '@/api/study';
-import { Subject } from '@/types/study';
+import { postTimer } from '@/api/studyApi';
+import { Subject } from '@/types/studyTypes';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 
 interface ITimer {

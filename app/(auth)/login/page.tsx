@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn } from '@/api/auth';
+import { signIn } from '@/api/authApi';
 import LoginForm from '@/components/auth/LoginForm';
 import { useLoginStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
