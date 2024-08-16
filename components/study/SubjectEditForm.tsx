@@ -1,25 +1,34 @@
-// SubjectEdit.tsx
 'use client';
 import React, { useState } from 'react';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
-import { useSubjectStore } from '@/store/subjectStore';
 
 interface SubjectEditProps {
-  showCancelButton?: boolean;
-  onCancelEditing?: () => void;
-  style?: React.CSSProperties;
-  subjectChoiceBoxStyle?: React.CSSProperties;
-  onSaveEditing: () => void; // 수정된 부분
+  subjects: string[];
+  onAddSubject: (subject: string) => void;
+  onDeleteSubject: (subject: string) => void;
+  onSaveEditing: () => void;
+  showCancelButton?: boolean; // 취소 버튼 표시 여부
+  onCancelEditing?: () => void; // 취소 버튼 클릭 시 호출할 함수
+  style?: React.CSSProperties; // 스타일 prop 추가
+  subjectChoiceBoxStyle?: React.CSSProperties; // 추가된 부분
 }
 
-function SubjectEdit({ showCancelButton = true, onCancelEditing, style, subjectChoiceBoxStyle,   onSaveEditing, }: SubjectEditProps) {
+export default function SubjectEdit({
+  subjects,
+  onAddSubject,
+  onDeleteSubject,
+  onSaveEditing,
+  showCancelButton = true, // 기본값은 true
+  onCancelEditing,
+  style,
+  subjectChoiceBoxStyle, // 추가된 부분
+}: SubjectEditProps) {
   const [newSubject, setNewSubject] = useState<string>('');
-  const { subjects, addSubject, deleteSubject, saveEditing } = useSubjectStore();
 
   const handleAddSubject = () => {
     if (newSubject.trim() !== '') {
-      addSubject(newSubject);
+      onAddSubject(newSubject);
       setNewSubject('');
     }
   };
@@ -50,7 +59,7 @@ function SubjectEdit({ showCancelButton = true, onCancelEditing, style, subjectC
               <Text as="p" size="3" className={styles.subject_item_text}>
                 {subject}
               </Text>
-              <button className={styles.delete_button} onClick={() => deleteSubject(subject)}>
+              <button className={styles.delete_button} onClick={() => onDeleteSubject(subject)}>
                 -
               </button>
             </div>
@@ -59,17 +68,16 @@ function SubjectEdit({ showCancelButton = true, onCancelEditing, style, subjectC
       </div>
 
       <div className={styles.subject_edit_form_btn_wrap}>
-        <button type="submit" className={styles.subject_edit_form_btn_save} onClick={saveEditing}>
+        <button type="submit" className={styles.subject_edit_form_btn_save} onClick={onSaveEditing}>
           저장
         </button>
-        {showCancelButton && onCancelEditing && (
-          <button className={styles.subject_edit_form_btn_modify} onClick={onCancelEditing}>
-            취소
-          </button>
-        )}
+        {showCancelButton &&
+          onCancelEditing && ( // 취소 버튼 조건부 렌더링
+            <button className={styles.subject_edit_form_btn_modify} onClick={onCancelEditing}>
+              취소
+            </button>
+          )}
       </div>
     </div>
   );
 }
-
-export default SubjectEdit;

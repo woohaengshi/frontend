@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState, useCallback } from 'react';
 import TopRankings from '@/components/ranking/topLanking';
 import FullRankingList from '@/components/ranking/fullRankingList';
@@ -8,7 +8,7 @@ import rankingImg from '@/assets/icons/ranking_profile_img.png';
 import { fetchRankingsAndCurrentUserFromServer } from '@/api/rankingApi';
 import { Student, ApiResponse } from '@/types/rankingType';
 
-function Ranking() {
+export default function Ranking() {
   const [activeTab, setActiveTab] = useState<'DAILY' | 'WEEKLY' | 'MONTHLY'>('DAILY');
   const [rankings, setRankings] = useState<Student[]>([]);
   const [hasMore, setHasMore] = useState(true);
@@ -113,5 +113,3 @@ function Ranking() {
     </Grid>
   );
 }
-
-export default Ranking;

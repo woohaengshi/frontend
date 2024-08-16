@@ -1,3 +1,5 @@
+'use client';
+
 import { Root } from '@radix-ui/react-toggle';
 import styles from './Timer.module.css';
 
