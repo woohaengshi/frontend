@@ -1,8 +1,8 @@
 // Page.tsx
 'use client';
 
-import SubjectEdit from '@/components/study/SubjectEdit';
-import { useSubjectStore } from '../../../store/subjectStore';
+import SubjectEdit from '@/components/study/SubjectEditForm';
+import { useSubjectStore } from '@/store/subjectStore';
 
 export default function Page() {
   // Zustand 스토어에서 상태와 액션 가져오기

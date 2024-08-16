@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import TopRankings from '../../components/ranking/topLanking';
-import FullRankingList from '../../components/ranking/fullRankingList';
+import TopRankings from '@/components/ranking/topLanking';
+import FullRankingList from '@/components/ranking/fullRankingList';
 import { Grid } from '@radix-ui/themes';
 import styles from './ranking.module.css';
-import rankingImg from '../../assets/icons/ranking_profile_img.png';
-import { fetchRankingsAndCurrentUserFromServer } from '../../api/rankingApi';
-import { Student, ApiResponse } from '../../types/rankingType';
+import rankingImg from '@/assets/icons/ranking_profile_img.png';
+import { fetchRankingsAndCurrentUserFromServer } from '@/api/rankingApi';
+import { Student, ApiResponse } from '@/types/rankingType';
 
 function Ranking() {
   const [activeTab, setActiveTab] = useState<'DAILY' | 'WEEKLY' | 'MONTHLY'>('DAILY');

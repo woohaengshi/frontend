@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import styles from './fullRankingList.module.css';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Student } from '../../types/rankingType'; // Student 타입 import
+import { Student } from '@/types/rankingType'; // Student 타입 import
 
 interface FullRankingListProps {
   rankings: Student[];

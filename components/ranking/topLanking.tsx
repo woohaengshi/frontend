@@ -1,10 +1,10 @@
 import { Grid, Text } from '@radix-ui/themes';
 import styles from './topRankingList.module.css';
-import rankingOne from '../../assets/icons/ranking_1.png';
-import rankingTwo from '../../assets/icons/ranking_2.png';
-import rankingThird from '../../assets/icons/ranking_3.png';
+import rankingOne from '@/assets/icons/ranking_1.png';
+import rankingTwo from '@/assets/icons/ranking_2.png';
+import rankingThird from '@/assets/icons/ranking_3.png';
 import Image from 'next/image';
-import { Student } from '../../types/rankingType'; // 타입 가져오기
+import { Student } from '@/types/rankingType'; // 타입 가져오기
 
 interface TopRankingsProps {
   rankings: Student[];

@@ -2,8 +2,8 @@
 'use client';
 import React from 'react';
 import { Text } from '@radix-ui/themes';
-import styles from './SubjectEditForm.module.css';
-import { useSubjectStore } from '../../store/subjectStore';
+import styles from './SubjectForm.module.css';
+import { useSubjectStore } from '@/store/subjectStore';
 
 interface SubjectSelectProps {
   onEditClick: () => void;
