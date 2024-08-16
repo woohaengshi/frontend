@@ -49,7 +49,7 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps) {
                 className={`${styles.medal_image} ${medalSizeClass}`}
               />
             </div>
-            <Image src={student.image} alt={`${student.name} 이미지`} className={styles.student_image} />
+            { student.image ? <Image src={student.image} alt={`${student.name} 이미지`} className={styles.student_image} /> : null}
             <Grid columns="1" gap="2" rows="repeat(1, 10px)">
               <Text as="p" size="2" weight="medium" className={styles.student_name}>
                 {student.name}

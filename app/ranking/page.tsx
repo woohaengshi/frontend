@@ -57,22 +57,24 @@ export default function Ranking() {
     if (hasMore) {
       const nextPage = page + 1;
       try {
-        const {
-          ranking: { ranks: newRankings, hasNext },
-        }: ApiResponse = await fetchRankingsAndCurrentUserFromServer({
+        const response: ApiResponse = await fetchRankingsAndCurrentUserFromServer({
           tab: activeTab,
           pageNumber: nextPage,
           size,
         });
-
+  
+        console.log('API Response:', response); // 추가된 로그
+        const newRankings = response.ranking.ranks; // API 응답에서 랭킹 데이터 추출
+  
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);
-        setHasMore(hasNext);
+        setHasMore(response.ranking.hasNext);
         setPage(nextPage);
       } catch (error) {
         console.error('Error loading more data:', error);
       }
     }
   }, [activeTab, hasMore, page]);
+  
 
   return (
     <Grid columns="1" gap="2" rows="repeat(1, 100px)" className={styles.ranking_wrap}>

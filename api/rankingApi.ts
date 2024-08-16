@@ -1,4 +1,4 @@
-import instance from './instance';
+  import {instance} from './instance';
 import { ApiResponse } from '../types/rankingType';
 import rankingImg from '../assets/icons/ranking_profile_img.png';
 
@@ -12,7 +12,7 @@ export const fetchRankingsAndCurrentUserFromServer = async ({
   size?: number;
 }): Promise<ApiResponse> => {
   try {
-    const url = `api/v1/rank?page=${pageNumber}&type=${tab}&size=${size}`;
+    const url = `rank?page=${pageNumber}&type=${tab}&size=${size}`;
     const response = await instance(url, {
       method: 'GET', // HTTP 메서드를 POST로 설정
       credentials: 'include', // 자격 증명(쿠키 등)을 포함하도록 설정
