@@ -1,3 +1,5 @@
+'use server'
+
 import { cookies } from 'next/headers'; // 서버 사이드에서 쿠키를 처리하기 위한 내장 모듈
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL + 'api/v1/';

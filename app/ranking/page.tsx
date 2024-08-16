@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState, useCallback } from 'react';
 import TopRankings from '@/components/ranking/topLanking';
 import FullRankingList from '@/components/ranking/fullRankingList';
