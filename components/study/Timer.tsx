@@ -5,13 +5,24 @@ import styles from './Timer.module.css';
 import { Flex, Text } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
+import { useSelectedSubjectStore } from '@/store/studyStore';
+import { postTimer } from '@/api/study';
+import { Subject } from '@/types/study';
+
+// 추후 리팩토링
+const getCurrentDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
+  const day = String(today.getDate() - (today.getHours() < 5 ? 1 : 0)).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+};
 
 interface ITimer {
   maxTime: number;
-  data: any; // 테스트를 위해 임시로 any로 설정
+  currentTime: number;
 }
-
-const subjects = ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js', 'Express', 'MongoDB', 'TypeScript'];
 
 const loadingColor = '#8274EA';
 const innerStroke = 2.5;
@@ -23,12 +34,13 @@ const formatTime = (time: number) => {
   return time >= 3600 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
 };
 
-export default function Timer({ maxTime, data }: ITimer) {
+export default function Timer({ maxTime, currentTime }: ITimer) {
   const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
+  const { selectedSubjects } = useSelectedSubjectStore();
   const [isActive, setIsActive] = useState(false);
-  const [time, setTime] = useState(0); // 초 단위
-  const [progress, setProgress] = useState(0); // 진행률
-  const [remainingTime, setRemainingTime] = useState(0);
+  const [time, setTime] = useState(currentTime); // 초 단위
+  const [progress, setProgress] = useState((currentTime / maxTime) * 100);
+  const [remainingTime, setRemainingTime] = useState(maxTime - (currentTime % maxTime));
 
   const startTimeRef = useRef<number | null>(null);
   const animationFrameRef = useRef<number | null>(null);
@@ -66,9 +78,27 @@ export default function Timer({ maxTime, data }: ITimer) {
     };
   }, [isActive, maxTime]);
 
-  const handleToggle = () => setIsActive((prev) => !prev);
+  const handleTimer = async (time: number, subjects: Subject[]) => {
+    const date = getCurrentDate();
+    const subjectIds = subjects.map((subject) => subject.id);
+    const response = await postTimer({ date, time, subjects: subjectIds });
 
-  console.log(data);
+    console.log(date, time, subjectIds);
+
+    if (response.error) {
+      alert(response.error.message);
+    } else {
+      alert('기록이 저장되었습니다.');
+    }
+  };
+
+  const handleToggle = () => {
+    setIsActive((prev) => !prev);
+
+    if (isActive) {
+      handleTimer(time, selectedSubjects);
+    }
+  };
 
   return (
     <Flex direction="column" align="center" justify="center">
@@ -129,10 +159,10 @@ export default function Timer({ maxTime, data }: ITimer) {
         wrap="wrap"
         height="auto"
       >
-        {subjects.slice(0, 5).map((subject, index) => (
+        {selectedSubjects.map((subject, index) => (
           <div key={index} className={styles.subject_item}>
             <Text as="p" size={isMobile ? '2' : '3'} className={styles.subject_item_text}>
-              # {subject}
+              # {subject.name}
             </Text>
           </div>
         ))}

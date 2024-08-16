@@ -1,3 +1,5 @@
+'use server';
+
 import { cookies } from 'next/headers'; // 서버 사이드에서 쿠키를 처리하기 위한 내장 모듈
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL + 'api/v1/';
@@ -23,43 +25,44 @@ const fetchInstance = async (url: string, options: RequestOptions = {}) => {
   }
 
   try {
+    const headers: RequestOptions['headers'] = {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     const response = await fetch(BASE_URL + url, {
       ...options,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-        ...options.headers,
-      },
+      headers,
     });
 
     // 토큰 만료 등의 경우 401 처리
     if (response.status === 401) {
       if (typeof window !== 'undefined') {
-        // 클라이언트 사이드에서만 쿠키 제거
-        document.cookie = 'whs-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        alert('로그인이 만료되었습니다. 다시 로그인해주세요.');
+        // 리프레시 토큰
       }
     }
 
     if (!response.ok) {
       const errorResponse = await response.json();
-      console.log('Fetch Error: 에러');
-      console.log('errorResponse:', errorResponse);
-      throw new Error(errorResponse.message || 'Something went wrong');
+      // throw errorResponse;
+      return { error: errorResponse };
     }
 
-    return await response.json();
+    // Content-Type이 JSON이면 JSON으로 파싱
+    if (response.headers.get('Content-Type')?.includes('application/json')) {
+      return await response.json();
+    } else {
+      console.log('Response is not JSON');
+      return await response.text();
+    }
   } catch (error) {
     console.error('Fetch Error:', error);
     throw error;
   }
 };
 
-const instance = {
-  get: (url: string, options?: RequestOptions) => fetchInstance(url, { ...options, method: 'GET' }),
-  post: (url: string, options?: RequestOptions) => fetchInstance(url, { ...options, method: 'POST' }),
-  put: (url: string, options?: RequestOptions) => fetchInstance(url, { ...options, method: 'PUT' }),
-  delete: (url: string, options?: RequestOptions) => fetchInstance(url, { ...options, method: 'DELETE' }),
-};
-
-export default instance;
+export const instance = fetchInstance;
