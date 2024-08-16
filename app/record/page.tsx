@@ -1,25 +1,26 @@
-import { getRecordMonthly } from '@/api/record';
+'use client';
+
+import { getRecordMonthly } from '@/api/recordApi';
 import FullCalendar from '@/components/record/FullCalendar';
-import { redirect } from 'next/navigation';
+import { useSelectedMonthStore, useSelectedYearStore } from '@/store/recordStore';
+import useSWR from 'swr';
 
-export default async function Record({ searchParams }) {
-  // 서치 파라미터로 조회할 해당년도와 월을 받아옴
-  const year = searchParams.year ? parseInt(searchParams.year) : new Date().getFullYear();
-  const month = searchParams.month ? parseInt(searchParams.month) : new Date().getMonth() + 1;
+export default function Record() {
+  const { selectedYear } = useSelectedYearStore();
+  const { selectedMonth } = useSelectedMonthStore();
 
-  // 유효성 검사
-  if (year < 2020 || month < 1 || month > 12) {
-    if (typeof window !== 'undefined') {
-      alert('올바르지 않은 년도 또는 월입니다.');
-    }
-    redirect('/record');
+  const {
+    data: monthlyData,
+    error: monthlyError,
+    isLoading: monthlyLoading,
+  } = useSWR(['MonthlyRecord', selectedYear, selectedMonth], async () => {
+    const result = await getRecordMonthly(selectedYear, selectedMonth);
+    return result;
+  });
+
+  if (monthlyData?.error) {
+    alert(monthlyData.error.message);
   }
 
-  const monthlyResponse = await getRecordMonthly(year, month);
-
-  return (
-    <section>
-      <FullCalendar monthlyData={monthlyResponse}/>
-    </section>
-  );
+  return <section>{!monthlyLoading && <FullCalendar monthlyData={monthlyData} />}</section>;
 }

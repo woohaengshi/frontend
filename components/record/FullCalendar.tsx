@@ -6,14 +6,16 @@ import { useCallback, useState } from 'react';
 import styles from './FullCalendar.module.css';
 import MonthPicker from './MonthPicker';
 import { useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
-import { useRouter } from 'next/navigation';
+import CalendarRecord from './CalendarRecord';
 
-export default function FullCalendar({monthlyData}) {
+export default function FullCalendar({ monthlyData }) {
   const today = useTodayStore();
   const { selectedYear, setSelectedYear } = useSelectedYearStore();
   const { selectedMonth, setSelectedMonth } = useSelectedMonthStore();
 
-  const router = useRouter();
+  // 받아온 데이터 배열
+  const records = monthlyData.records;
+  // console.log(records);
 
   // 매월 시작일 index (0 ~ 6)
   const startDay = new Date(selectedYear, selectedMonth - 1, 1).getDay();
@@ -33,13 +35,7 @@ export default function FullCalendar({monthlyData}) {
     // 상태 업데이트
     setSelectedYear(newYear);
     setSelectedMonth(newMonth);
-    
-    // 페이지 이동
-    router.replace(`/record?year=${newYear}&month=${newMonth}`);
-  }, [selectedMonth, selectedYear, router]);
-
-  console.log(`selectedYear: ${selectedYear}`);
-  console.log(`selectedMonth: ${selectedMonth}`);
+  }, [selectedMonth, selectedYear]);
 
   // 다음달 보기
   const nextMonth = useCallback(async () => {
@@ -54,15 +50,13 @@ export default function FullCalendar({monthlyData}) {
     // 상태 업데이트
     setSelectedYear(newYear);
     setSelectedMonth(newMonth);
-
-    // 페이지 이동
-    router.replace(`/record?year=${newYear}&month=${newMonth}`);
-  }, [selectedMonth, selectedYear, router]);
+  }, [selectedMonth, selectedYear]);
 
   const returnDay = useCallback(() => {
     let days = [];
     let daysArr = [];
     let keyCnt = 0;
+
     // 실질적인 날짜
     let nowDate = 0;
     let nowDay = 0;
@@ -80,10 +74,15 @@ export default function FullCalendar({monthlyData}) {
                 today.year == selectedYear && today.month == selectedMonth && today.date == nowDate ? styles.today : ''
               }
             >
-              {/* 포멧팅된 날짜 표시 */}
-              <Text as="p" align="center" className={styles.date}>
-                {nowDate}
-              </Text>
+              <Flex direction="column" gap="10px" className={styles.cell}>
+                {/* 포멧팅된 날짜 표시 */}
+                <Text as="p" align="center" className={styles.date}>
+                  {nowDate}
+                </Text>
+                {records.map((record) => {
+                  return record.day == nowDate && <CalendarRecord nowDate={nowDate} record={record} />;
+                })}
+              </Flex>
             </td>,
           );
           keyCnt++;
@@ -135,10 +134,6 @@ export default function FullCalendar({monthlyData}) {
             {/* 월 선택기 렌더링 */}
             {isMonthPickerOpen && (
               <MonthPicker
-                today={today}
-                selectedYear={selectedYear}
-                onSelectYear={setSelectedYear}
-                onSelectMonth={setSelectedMonth}
                 onClose={() => {
                   toggleMonthPicker();
                 }}
@@ -160,7 +155,7 @@ export default function FullCalendar({monthlyData}) {
               </thead>
               <tbody>
                 <tr className={styles.blank_row}>
-                  <td colSpan="7"></td>
+                  <td key={`daysBlank`} colSpan="7"></td>
                 </tr>
                 {returnDay()}
               </tbody>
