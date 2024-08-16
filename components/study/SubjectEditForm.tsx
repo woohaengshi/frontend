@@ -12,6 +12,7 @@ interface SubjectEditProps {
   onCancelEditing?: () => void; // 취소 버튼 클릭 시 호출할 함수
   style?: React.CSSProperties; // 스타일 prop 추가
   subjectChoiceBoxStyle?: React.CSSProperties; // 추가된 부분
+  mypageSaveBtn?: React.CSSProperties;
 }
 
 export default function SubjectEdit({
@@ -22,7 +23,8 @@ export default function SubjectEdit({
   showCancelButton = true, // 기본값은 true
   onCancelEditing,
   style,
-  subjectChoiceBoxStyle, // 추가된 부분
+  subjectChoiceBoxStyle,
+  mypageSaveBtn // 추가된 부분
 }: SubjectEditProps) {
   const [newSubject, setNewSubject] = useState<string>('');
 
@@ -37,7 +39,7 @@ export default function SubjectEdit({
     <div className={styles.subject_edit_form_wrap_inner} style={style}>
       <div className={styles.subject_edit_form_top}>
         <div className={styles.subject_choice_text_wrap}>
-          <Text as="p" size="5" weight="medium" className={styles.test}>
+          <Text as="p" size="5" weight="medium" className={styles.test} >
             과목 편집
           </Text>
         </div>
@@ -68,7 +70,7 @@ export default function SubjectEdit({
       </div>
 
       <div className={styles.subject_edit_form_btn_wrap}>
-        <button type="submit" className={styles.subject_edit_form_btn_save} onClick={onSaveEditing}>
+        <button type="submit" className={styles.subject_edit_form_btn_save} onClick={onSaveEditing} style={mypageSaveBtn}>
           저장
         </button>
         {showCancelButton &&

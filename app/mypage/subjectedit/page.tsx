@@ -20,8 +20,13 @@ export default function Page() {
   };
 
   const subjectChoiceBoxStyle = {
-    maxHeight: '200px', // 원하는 높이 설정
+    maxHeight: '200px', 
   };
+
+  const mypageSaveBtn = {
+    height: '60px',
+    fontWeight: '700'
+  }
 
   return (
     <SubjectEdit
@@ -30,11 +35,12 @@ export default function Page() {
       onDeleteSubject={deleteSubject}
       onSaveEditing={() => {
         saveEditing();
-        setEditing(false); // 편집 후 상태를 false로 설정
+        setEditing(false); 
       }}
-      showCancelButton={false} // 취소 버튼 숨김
-      style={customStyle} // 스타일 전달
+      showCancelButton={false} 
+      style={customStyle} 
       subjectChoiceBoxStyle={subjectChoiceBoxStyle}
+      mypageSaveBtn={mypageSaveBtn}
     />
   );
 }

@@ -9,8 +9,7 @@
 .top_ranking_box {
   width: 100%;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
-    0 3px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -91,11 +90,12 @@
 }
 
 
-@media screen and (max-width: 860px) {
-  
+.no_rankings{
+  padding: 125px 0px;
 }
 
-@media screen and (max-width: 680px) {
+
+@media screen and (max-width: 480px) {
   .top_ranking_box {
       padding: 10px;
       margin: 0 30px;
@@ -110,5 +110,9 @@
   .ranking_box_size_large {
     width: 180px;
     height: 230px;
+  }
+
+  .no_rankings{
+    padding: 115px 0px;
   }
 }

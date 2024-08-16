@@ -109,6 +109,11 @@
         font-size: var(--font-size-2);
     }
 
+    .full_ranking_tbody_wrap td {
+        padding: 22px 0;
+    }
+    
+
     /* 이미지 */
     .full_ranking_thead_wrap th:nth-child(2),
     .full_ranking_tbody_wrap td:nth-child(2) {
@@ -146,6 +151,11 @@
 
     .full_ranking_thead_wrap th {
         padding: 0px 0;
+    }
+
+    .full_ranking_tr>th {
+        height: 30px;
+        background-color: #F1F1FF;
     }
 
 

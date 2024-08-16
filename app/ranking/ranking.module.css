@@ -100,4 +100,10 @@
     width: auto;
     padding: 5px 0px;
   }
+
+  .full_ranking_wrap {
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    padding-top: 30px;
+  }
 }

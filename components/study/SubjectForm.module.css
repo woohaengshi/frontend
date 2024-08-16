@@ -101,9 +101,9 @@
 
 
 .closeButton{
-position: fixed;
+  position: fixed;
   top: 20px;
-  right: 30px;
+  right: 29px;
   font-size: 26px;
   line-height: 20px;
   display: block;
@@ -217,13 +217,13 @@ position: fixed;
 .subject_edit_form_btn_save,
 .subject_edit_form_btn_modify {
   font-size: 18px;
-  height: 60px;
-  line-height: 60px;
+  height: 56px;
+  line-height: 30px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 /* 삭제버튼 */
