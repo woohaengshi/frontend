@@ -1,61 +1,30 @@
 'use client';
 
-import { Box, Text, Strong } from '@radix-ui/themes';
-import styles from '../layout.module.css';
-import Link from 'next/link';
-import CommonButton from '@/components/common/CommonButton';
+import { signIn } from '@/api/auth';
+import LoginForm from '@/components/auth/LoginForm';
+import { useLoginStore } from '@/store/authStore';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
-  const login = (e) => {
+  const { email, password, setAllEmpty } = useLoginStore();
+  const route = useRouter();
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target;
+    const response = await signIn({ email, password });
+
+    // response가 error 속성을 가지고 있다면 에러 처리
+    if (response.error) {
+      alert(response.error.message);
+    } else {
+      alert('로그인 되었습니다.');
+      setAllEmpty();
+      route.push('/study');
+
+      // whs-token 쿠키에 토큰 저장
+      document.cookie = `whs-token=${response.accessToken}; path=/`;
+    }
   };
 
-  return (
-    <Box className="member_wrap">
-      <div className={styles.title}>
-        <Strong>로그인</Strong>
-      </div>
-      <Box mt="6" className="content" asChild>
-        <section>
-          <form action="" onSubmit={login}>
-            <div className="input_box">
-              <Box className="row">
-                <Text as="label" weight="medium" htmlFor="user_email">
-                  이메일
-                </Text>
-                <Box mt="2">
-                  <input type="text" id="user_email" placeholder="이메일을 입력해주세요." />
-                </Box>
-              </Box>
-              <Box mt="3" className="row">
-                <Text as="label" weight="medium" htmlFor="user_pw">
-                  비밀번호
-                </Text>
-                <Box mt="2">
-                  <input type="password" id="user_pw" placeholder="비밀번호를 입력해주세요." />
-                </Box>
-              </Box>
-            </div>
-            <Box mt="6" className="btn_login">
-              <CommonButton type="submit" style="dark_purple">
-                로그인
-              </CommonButton>
-              <Text as="p" align="right" mt="3">
-                <Link href={'/pwfind'}>비밀번호 찾기</Link>
-              </Text>
-            </Box>
-          </form>
-          <Box mt="6" className="btn_join">
-            <Text as="p">아직 회원이 아니신가요?</Text>
-            <Box mt="3">
-              <CommonButton type="link" href="/join" style="light_purple">
-                회원가입
-              </CommonButton>
-            </Box>
-          </Box>
-        </section>
-      </Box>
-    </Box>
-  );
+  return <LoginForm onLogin={handleLogin} />;
 }
