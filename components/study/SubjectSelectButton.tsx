@@ -1,9 +1,9 @@
 'use client';
 
 import { Button } from '@radix-ui/themes';
-import SubjectEditForm from './SubjectEditForm';
+import SubjectEditForm from './SubjectForm';
 import { useState } from 'react';
-import styles from './SubjectEditForm.module.css';
+import styles from './SubjectForm.module.css';
 import { Subject } from '@/types/study';
 
 interface SubjectSelectButtonProps {

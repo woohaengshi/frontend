@@ -1,23 +1,14 @@
 import { Grid, Text } from '@radix-ui/themes';
 import styles from './topRankingList.module.css';
-import rankingOne from '../../assets/icons/ranking_1.png';
-import rankingTwo from '../../assets/icons/ranking_2.png';
-import rankingThird from '../../assets/icons/ranking_3.png';
+import rankingOne from '@/assets/icons/ranking_1.png';
+import rankingTwo from '@/assets/icons/ranking_2.png';
+import rankingThird from '@/assets/icons/ranking_3.png';
 import Image from 'next/image';
-
-interface Student {
-  id: number;
-  name: string;
-  studyTime: number; 
-  totalTime: number; 
-  course: string; 
-  imageUrl?: string;
-  isCurrentUser?: boolean;
-}
+import { Student } from '@/types/rankingType'; // 타입 가져오기
 
 interface TopRankingsProps {
   rankings: Student[];
-  activeTab: 'daily' | 'weekly' | 'monthly';
+  activeTab: 'DAILY' | 'WEEKLY' | 'MONTHLY';
 }
 
 function TopRankings({ rankings, activeTab }: TopRankingsProps) {
@@ -29,7 +20,14 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps) {
   }
 
   // 탭에 따라 라벨 설정
-  const timeLabel = activeTab === 'daily' ? '일시간' : activeTab === 'weekly' ? '주시간' : '월시간';
+  const timeLabel = activeTab === 'DAILY' ? '일시간' : activeTab === 'WEEKLY' ? '주시간' : '월시간';
+
+  // 초를 시와 분으로 변환하는 함수
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return `${hours}시간 ${minutes}분`;
+  };
 
   return (
     <Grid columns="3" gap="1" rows="repeat(1, 64px)" className={styles.top_ranking_box_wrap}>
@@ -39,8 +37,8 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps) {
         const medalSizeClass = index === 1 ? styles.medal_image_large : styles.medal_image_small;
 
         // 시간 포맷팅
-        const formattedStudyTime = `${Math.floor(student.studyTime / 60)}시간 ${student.studyTime % 60}분`;
-        const formattedTotalTime = `${Math.floor(student.totalTime / 60)}시간 ${student.totalTime % 60}분`;
+        const formattedStudyTime = formatTime(student.studyTime);
+        const formattedTotalTime = formatTime(student.totalTime);
 
         return (
           <div key={student.id} className={`${styles.top_ranking_box} ${sizeClass}`}>
@@ -51,13 +49,13 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps) {
                 className={`${styles.medal_image} ${medalSizeClass}`}
               />
             </div>
-            <Image src={student.imageUrl} alt={`${student.name} 이미지`} className={styles.student_image} />
+            { student.image ? <Image src={student.image} alt={`${student.name} 이미지`} className={styles.student_image} /> : null}
             <Grid columns="1" gap="2" rows="repeat(1, 10px)">
               <Text as="p" size="2" weight="medium" className={styles.student_name}>
                 {student.name}
               </Text>
               <Text as="p" size="2" className={styles.student_class}>
-                {student.course} {/* 'class'를 'course'로 변경 */}
+                {student.course}
               </Text>
             </Grid>
             <Grid columns="2" gap="1" className={styles.student_info}>
