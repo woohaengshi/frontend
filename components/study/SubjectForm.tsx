@@ -1,10 +1,9 @@
-'use client';
 import React from 'react';
 import SubjectSelect from './SubjectSelectForm';
 import SubjectEdit from './SubjectEditForm';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
-import { subjectFormApi } from '@/api/subjectFormApi'; // subjectFormApi 불러오기
+import { subjectFormApi } from '@/api/subjectFormApi';
 
 interface SubjectEditFormProps {
   closeSubjectEditForm: () => void;
@@ -21,29 +20,35 @@ export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFor
     addSubject,
     deleteSubject,
     selectSubject,
-    deletedSubjects, // 삭제된 과목들 가져오기
+    deletedSubjects,
+    addedSubjects,
+    resetAddedSubjects,
   } = useSubjectStore();
+
+  // 이 함수가 API 호출을 담당합니다.
+  const handleSaveAndSendRequest = async () => {
+    const payload = {
+      addedSubjects: addedSubjects,
+      deletedSubjects: deletedSubjects,
+    };
+
+    const response = await subjectFormApi(payload);
+    if (response.success) {
+      console.log('Subjects updated successfully');
+      resetAddedSubjects();
+      setEditing(false);
+    } else {
+      console.error('Failed to update subjects:', response.error);
+    }
+  };
 
   const handleSaveAndClose = async () => {
     if (isEditing) {
       saveEditing();
+      handleSaveAndSendRequest(); // 여기서 API 호출 함수가 실행.
     } else {
       saveSelected();
-
-      // 과목 저장 및 삭제 API 호출
-      const payload = {
-        savedSubjects: selectedSubjects,
-        deletedSubjects: deletedSubjects,
-      };
-
-      const response = await subjectFormApi(payload);
-      if (response.success) {
-        console.log('Subjects updated successfully');
-      } else {
-        console.error('Failed to update subjects:', response.error);
-      }
-
-      closeSubjectEditForm(); // 모달 닫기
+      closeSubjectEditForm();
     }
   };
 

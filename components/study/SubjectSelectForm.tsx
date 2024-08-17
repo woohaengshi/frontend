@@ -1,4 +1,3 @@
-// SubjectSelectForm.tsx
 'use client';
 
 import React from 'react';
@@ -8,13 +7,10 @@ import { useSubjectStore } from '@/store/subjectStore';
 
 interface SubjectSelectProps {
   onEditClick: () => void;
-  onSaveClick: () => void; 
+  onSaveClick: () => void;
 }
 
-const SubjectSelect = ({
-  onEditClick,
-  onSaveClick, 
-}: SubjectSelectProps) => {
+const SubjectSelect = ({ onEditClick, onSaveClick }: SubjectSelectProps) => {
   const { subjects, selectedSubjects, selectSubject } = useSubjectStore();
 
   return (
@@ -26,14 +22,14 @@ const SubjectSelect = ({
           </Text>
         </div>
         <div className={styles.subject_choice_box}>
-          {subjects?.map((subject, index) => (
+          {subjects?.map((subject) => (
             <div
-              key={index}
-              className={`${styles.subject_item} ${selectedSubjects.includes(subject) ? styles.selected : ''}`}
-              onClick={() => selectSubject(subject)}
+              key={subject.id}
+              className={`${styles.subject_item} ${selectedSubjects.includes(subject.name) ? styles.selected : ''}`}
+              onClick={() => selectSubject(subject.name)} 
             >
               <Text as="p" size="3" className={styles.subject_item_text}>
-                {subject}
+                {subject.name}
               </Text>
             </div>
           ))}
@@ -53,3 +49,4 @@ const SubjectSelect = ({
 };
 
 export default SubjectSelect;
+
