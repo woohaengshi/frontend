@@ -9,14 +9,13 @@ export default function Record() {
   const { selectedYear } = useSelectedYearStore();
   const { selectedMonth } = useSelectedMonthStore();
 
-  const {
-    data: monthlyData,
-    error: monthlyError,
-    isLoading: monthlyLoading,
-  } = useSWR(['MonthlyRecord', selectedYear, selectedMonth], async () => {
-    const result = await getRecordMonthly(selectedYear, selectedMonth);
-    return result;
-  });
+  const { data: monthlyData, isLoading: monthlyLoading } = useSWR(
+    ['MonthlyRecord', selectedYear, selectedMonth],
+    async () => {
+      const result = await getRecordMonthly(selectedYear, selectedMonth);
+      return result;
+    },
+  );
 
   if (monthlyData?.error) {
     alert(monthlyData.error.message);

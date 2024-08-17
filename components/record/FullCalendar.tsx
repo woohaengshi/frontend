@@ -8,14 +8,25 @@ import MonthPicker from './MonthPicker';
 import { useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
 import CalendarRecord from './CalendarRecord';
 
-export default function FullCalendar({ monthlyData }) {
+interface IMonthlyData {
+  year: number;
+  month: number;
+  records: IMonthlyDataRecord[];
+}
+
+interface IMonthlyDataRecord {
+  day: number;
+  time: number;
+  subjects: any[];
+}
+
+export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyData }) {
   const today = useTodayStore();
   const { selectedYear, setSelectedYear } = useSelectedYearStore();
   const { selectedMonth, setSelectedMonth } = useSelectedMonthStore();
 
   // 받아온 데이터 배열
   const records = monthlyData.records;
-  // console.log(records);
 
   // 매월 시작일 index (0 ~ 6)
   const startDay = new Date(selectedYear, selectedMonth - 1, 1).getDay();
@@ -79,8 +90,13 @@ export default function FullCalendar({ monthlyData }) {
                 <Text as="p" align="center" className={styles.date}>
                   {nowDate}
                 </Text>
-                {records.map((record) => {
-                  return record.day == nowDate && <CalendarRecord nowDate={nowDate} record={record} />;
+                {records?.map((record, i) => {
+                  // 현재 일일 데이터가 배열로 들어와서 임시로 넣은 key값
+                  return (
+                    record.day == nowDate && (
+                      <CalendarRecord key={`record${nowDate}_${i}`} nowDate={nowDate} record={record} />
+                    )
+                  );
                 })}
               </Flex>
             </td>,
@@ -155,12 +171,36 @@ export default function FullCalendar({ monthlyData }) {
               </thead>
               <tbody>
                 <tr className={styles.blank_row}>
-                  <td key={`daysBlank`} colSpan="7"></td>
+                  <td key={`daysBlank`} colSpan={7}></td>
                 </tr>
                 {returnDay()}
               </tbody>
             </table>
           </div>
+          <Flex mt="3" gap="20px" className={styles.level_list}>
+            <Text as="p" size="2">
+              레벨 별 누적시간
+            </Text>
+            <Flex gap="10px" asChild>
+              <ul>
+                <li className={styles.level1}>
+                  <Text as="span" size="2">
+                    0 ~ 3
+                  </Text>
+                </li>
+                <li className={styles.level2}>
+                  <Text as="span" size="2">
+                    3 ~ 6
+                  </Text>
+                </li>
+                <li className={styles.level3}>
+                  <Text as="span" size="2">
+                    6 ~
+                  </Text>
+                </li>
+              </ul>
+            </Flex>
+          </Flex>
         </Box>
       </Container>
     </div>
