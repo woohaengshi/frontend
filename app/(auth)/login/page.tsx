@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn } from '@/api/auth';
+import { signIn } from '@/api/authApi';
 import LoginForm from '@/components/auth/LoginForm';
 import { useLoginStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
@@ -18,13 +18,13 @@ export default function Login() {
       alert(response.error.message);
     } else {
       alert('로그인 되었습니다.');
-      setAllEmpty();
-
+      
       // whs-token 쿠키에 토큰 저장
       document.cookie = `whs-token=${response.accessToken}; path=/`;
 
       route.push('/study');
     }
+    setAllEmpty();
   };
 
   return <LoginForm onLogin={handleLogin} />;

@@ -1,6 +1,6 @@
 'use client';
 
-import { signUp } from '@/api/auth';
+import { signUp } from '@/api/authApi';
 import JoinForm from '@/components/auth/JoinForm';
 import { useJoinStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
@@ -15,7 +15,10 @@ export default function Join() {
 
     // response가 error 속성을 가지고 있다면 에러 처리
     if (response.error) {
-      alert(response.error.message);
+      const errorMessages = response.error.errors
+        .map((error: { field: string; message: string }) => error.message)
+        .join('\n');
+      alert(errorMessages);
     } else {
       alert('회원가입 되었습니다.');
       setAllEmpty();

@@ -6,18 +6,9 @@ import { Flex, Text } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
 import { useSelectedSubjectStore } from '@/store/studyStore';
-import { postTimer } from '@/api/study';
-import { Subject } from '@/types/study';
-
-// 추후 리팩토링
-const getCurrentDate = () => {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
-  const day = String(today.getDate() - (today.getHours() < 5 ? 1 : 0)).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-};
+import { postTimer } from '@/api/studyApi';
+import { Subject } from '@/types/studyTypes';
+import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 
 interface ITimer {
   maxTime: number;
@@ -26,13 +17,6 @@ interface ITimer {
 
 const loadingColor = '#8274EA';
 const innerStroke = 2.5;
-
-const formatTime = (time: number) => {
-  const hours = String(Math.floor(time / 3600)).padStart(2, '0');
-  const minutes = String(Math.floor((time % 3600) / 60)).padStart(2, '0');
-  const seconds = String(time % 60).padStart(2, '0');
-  return time >= 3600 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
-};
 
 export default function Timer({ maxTime, currentTime }: ITimer) {
   const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
@@ -83,7 +67,7 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
     const subjectIds = subjects.map((subject) => subject.id);
     const response = await postTimer({ date, time, subjects: subjectIds });
 
-    console.log(date, time, subjectIds);
+    // console.log(date, time, subjectIds);
 
     if (response.error) {
       alert(response.error.message);
