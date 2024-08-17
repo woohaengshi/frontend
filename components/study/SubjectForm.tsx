@@ -4,6 +4,7 @@ import SubjectSelect from './SubjectSelectForm';
 import SubjectEdit from './SubjectEditForm';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
+import { subjectFormApi } from '@/api/subjectFormApi'; // subjectFormApi 불러오기
 
 interface SubjectEditFormProps {
   closeSubjectEditForm: () => void;
@@ -20,13 +21,28 @@ export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFor
     addSubject,
     deleteSubject,
     selectSubject,
+    deletedSubjects, // 삭제된 과목들 가져오기
   } = useSubjectStore();
 
-  const handleSaveAndClose = () => {
+  const handleSaveAndClose = async () => {
     if (isEditing) {
       saveEditing();
     } else {
       saveSelected();
+
+      // 과목 저장 및 삭제 API 호출
+      const payload = {
+        savedSubjects: selectedSubjects,
+        deletedSubjects: deletedSubjects,
+      };
+
+      const response = await subjectFormApi(payload);
+      if (response.success) {
+        console.log('Subjects updated successfully');
+      } else {
+        console.error('Failed to update subjects:', response.error);
+      }
+
       closeSubjectEditForm(); // 모달 닫기
     }
   };

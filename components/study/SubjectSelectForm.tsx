@@ -8,12 +8,12 @@ import { useSubjectStore } from '@/store/subjectStore';
 
 interface SubjectSelectProps {
   onEditClick: () => void;
-  onSaveClick: () => void; // 수정된 부분
+  onSaveClick: () => void; 
 }
 
 const SubjectSelect = ({
   onEditClick,
-  onSaveClick, // 수정된 부분
+  onSaveClick, 
 }: SubjectSelectProps) => {
   const { subjects, selectedSubjects, selectSubject } = useSubjectStore();
 
