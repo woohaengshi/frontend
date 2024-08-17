@@ -1,6 +1,7 @@
 import { Flex, Text } from '@radix-ui/themes';
 import styles from './CalendarRecord.module.css';
 import { levelColor } from '@/utils/levelUtils';
+import { formatTime } from '@/utils/formatTimeUtils';
 
 interface IRecord {
   subjects: any[];
@@ -25,7 +26,7 @@ export default function CalendarRecord({ nowDate, record }: { nowDate: number; r
         </ul>
       </Flex>
       <Text as="p" className={styles.total_time} size="5" weight="medium" align="center">
-        {record.time}
+        {formatTime(record.time)}
       </Text>
     </Flex>
   );

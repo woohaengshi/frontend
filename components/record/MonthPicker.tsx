@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { usePickYearStore, useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
 import useSWR from 'swr';
 import { getRecordYearly } from '@/api/recordApi';
+import { formatTime } from '@/utils/formatTimeUtils';
 
 interface IOnClose {
   onClose: () => void;
@@ -57,7 +58,7 @@ export default function MonthPicker({ onClose }: IOnClose) {
         </Text>
         <Text as="p" className={styles.total_time}>
           {records?.map((record) => {
-            return record.month == index + 1 && <i>{record.total}</i>;
+            return record.month == index + 1 && <i>{formatTime(record.total)}</i>;
           })}
         </Text>
       </Flex>
