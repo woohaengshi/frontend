@@ -1,6 +1,7 @@
 .container {
   height: 1px;
-  min-height: calc(100vh - 77px);  
+  min-height: calc(100vh - 77px);
+  overflow-y: auto;
 }
 
 .container_inner {
