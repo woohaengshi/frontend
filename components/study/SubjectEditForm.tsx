@@ -12,12 +12,12 @@ interface SubjectEditProps {
   subjects: Subject[]; // 타입을 Subject[]로 수정
   onAddSubject: (subject: Subject) => void; // 수정된 타입에 맞게 수정
   onDeleteSubject: (subjectId: number) => void; // 수정된 타입에 맞게 수정
-  onSaveEditing: () => void;
-  showCancelButton?: boolean; // Whether to show the cancel button
-  onCancelEditing?: () => void; // Function to call on cancel
-  style?: React.CSSProperties; // Inline style for the main container
-  subjectChoiceBoxStyle?: React.CSSProperties; // Inline style for the subject choice box
-  saveButtonStyle?: React.CSSProperties; // Inline style for the save button
+  onSaveEditing: () => void; // 과목 편집 저장
+  showCancelButton?: boolean; // 취소 버튼
+  onCancelEditing?: () => void;
+  style?: React.CSSProperties; // 마이페이지 과목 편집 css
+  subjectChoiceBoxStyle?: React.CSSProperties; // 마이페이지 과목 편집 css
+  saveButtonStyle?: React.CSSProperties; // 마이페이지 과목 편집 css
 }
 
 export default function SubjectEdit({

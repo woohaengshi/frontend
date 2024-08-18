@@ -33,6 +33,9 @@ export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFor
       deletedSubjects: deletedSubjects,
     };
 
+    console.log(payload);
+    
+
     const response = await subjectFormApi(payload);
     if (response.success) {
       console.log('Subjects updated successfully');
