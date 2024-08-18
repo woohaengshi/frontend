@@ -22,7 +22,7 @@
   height: 60px;
   line-height: 60px;
   border-radius: 8px;
-  background-color: var(--main-color-1);
+  background-color: #f1f1ff;
   text-align: center;
   font-size: 18px;
   font-weight: 700;
@@ -31,5 +31,5 @@
   transition: all 0.2s linear;
 }
 .light_purple:hover {
-  background-color: #f1f1ff;
+  background-color: #ebebff;
 }
