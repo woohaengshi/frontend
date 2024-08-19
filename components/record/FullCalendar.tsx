@@ -134,11 +134,10 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
                 <Text as="p" align="center" className={styles.date}>
                   {nowDate}
                 </Text>
-                {records?.map((record, i) => {
-                  // 현재 일일 데이터가 배열로 들어와서 임시로 넣은 key값
+                {records?.map((record) => {
                   return (
                     record.day == nowDate && (
-                      <CalendarRecord key={`record${nowDate}_${i}`} nowDate={nowDate} record={record} />
+                      <CalendarRecord key={`record${nowDate}`} nowDate={nowDate} record={record} />
                     )
                   );
                 })}

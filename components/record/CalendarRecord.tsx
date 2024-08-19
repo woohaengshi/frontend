@@ -26,7 +26,7 @@ export default function CalendarRecord({ nowDate, record }: { nowDate: number; r
         </ul>
       </Flex>
       <Text as="p" className={styles.total_time} size="5" weight="medium" align="center">
-        {formatTime(record.time)}
+        {record.time > 0 && formatTime(record.time)}
       </Text>
     </Flex>
   );
