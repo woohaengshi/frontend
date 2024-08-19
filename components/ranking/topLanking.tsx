@@ -3,9 +3,9 @@ import styles from './topRankingList.module.css';
 import rankingOne from '@/assets/icons/ranking_1.png';
 import rankingTwo from '@/assets/icons/ranking_2.png';
 import rankingThird from '@/assets/icons/ranking_3.png';
-import rankingImg from '@/assets/icons/ranking_profile_img.png'; 
+import rankingImg from '@/assets/icons/ranking_profile_img.png';
 import Image from 'next/image';
-import { Student } from '@/types/rankingType'; 
+import { Student } from '@/types/rankingType';
 import { formatTime } from '@/utils/formatTimeUtils';
 
 interface TopRankingsProps {
@@ -23,7 +23,6 @@ export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
 
   // 탭에 따라 라벨 설정
   const timeLabel = activeTab === 'DAILY' ? '일시간' : activeTab === 'WEEKLY' ? '주시간' : '월시간';
-
 
   return (
     <Grid columns="3" gap="1" rows="repeat(1, 64px)" className={styles.top_ranking_box_wrap}>
@@ -47,7 +46,7 @@ export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
                 />
               </div>
               <Image
-                src={student.image || rankingImg} 
+                src={student.image || rankingImg}
                 alt={`${student.name} 이미지`}
                 className={styles.student_image}
               />

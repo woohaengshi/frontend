@@ -13,5 +13,3 @@ export const getCurrentDate = () => {
 
   return `${year}-${month}-${day}`;
 };
-
-

@@ -9,8 +9,6 @@ interface SubjectPayload {
 
 export const subjectFormApi = async (payload: SubjectPayload) => {
   try {
-    
-
     const requestBody: { addedSubjects: string[]; deletedSubjects: number[] } = {
       addedSubjects: [], // 기본값으로 빈 배열 설정
       deletedSubjects: [], // 기본값으로 빈 배열 설정
@@ -25,8 +23,6 @@ export const subjectFormApi = async (payload: SubjectPayload) => {
     if (payload.deletedSubjects.length > 0) {
       requestBody.deletedSubjects = payload.deletedSubjects;
     }
-
-
 
     // 서버로 전송
     const response = await instance('subjects', {

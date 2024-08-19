@@ -66,7 +66,6 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
     alert(`선택한 과목이 저장되었습니다: ${selectedSubjects.join(', ')}`);
   },
 
-
   // 과목 편집
   setEditing: (isEditing) => set({ isEditing }),
 

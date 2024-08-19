@@ -5,7 +5,6 @@
   align-items: center;
 }
 
-
 .top_ranking_box {
   width: 100%;
   background-color: #fff;
@@ -40,7 +39,8 @@
 
 .medal_image {
   position: absolute;
-  top: 0; right: 0;
+  top: 0;
+  right: 0;
   width: 15%;
   height: 100%;
 }
@@ -56,52 +56,50 @@
 }
 
 .student_image {
-  width:40%;
-  height:33%;
+  width: 40%;
+  height: 33%;
 }
-
 
 .student_name,
 .student_class {
   font-size: 15px;
 }
 
-.student_class{
+.student_class {
   color: rgb(140, 140, 140);
 }
 
-.student_info{
+.student_info {
   width: 85%;
   display: flex;
   justify-content: space-between;
   padding-top: 5%;
 }
 
-.details_time{
+.details_time {
   text-align: left;
 }
 
-.accumulate_time{
+.accumulate_time {
   text-align: right;
 }
 
-.studyTime, .totalTime{
+.studyTime,
+.totalTime {
   color: rgb(140, 140, 140);
 }
 
-
-.no_rankings{
+.no_rankings {
   padding: 125px 0px;
 }
 
-
 @media screen and (max-width: 480px) {
   .top_ranking_box {
-      padding: 10px;
-      margin: 0 30px;
-    }
-    
-/* 크기를 다르게 하기 위한 클래스 */
+    padding: 10px;
+    margin: 0 30px;
+  }
+
+  /* 크기를 다르게 하기 위한 클래스 */
   .ranking_box_size_small {
     width: 150px;
     height: 200px;
@@ -112,7 +110,7 @@
     height: 230px;
   }
 
-  .no_rankings{
+  .no_rankings {
     padding: 115px 0px;
   }
 }

@@ -23,8 +23,6 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
 
   const timeLabel = activeTab === 'DAILY' ? '일간시간' : activeTab === 'WEEKLY' ? '주간시간' : '월간시간';
 
-
-
   return (
     <div className={styles.scroll_table}>
       <InfiniteScroll
@@ -84,7 +82,6 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
           </tbody>
         </table>
       </InfiniteScroll>
-
     </div>
   );
 }

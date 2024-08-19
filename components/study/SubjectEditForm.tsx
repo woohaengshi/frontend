@@ -31,7 +31,7 @@ export default function SubjectEditForm({
   onCancelEditing,
   style,
   subjectChoiceBoxStyle,
-  saveButtonStyle
+  saveButtonStyle,
 }: SubjectEditProps) {
   const [newSubjectName, setNewSubjectName] = useState<string>('');
 
@@ -78,7 +78,12 @@ export default function SubjectEditForm({
       </div>
 
       <div className={styles.subject_edit_form_btn_wrap}>
-        <button type="submit" className={styles.subject_edit_form_btn_save} onClick={onSaveEditing} style={saveButtonStyle}>
+        <button
+          type="submit"
+          className={styles.subject_edit_form_btn_save}
+          onClick={onSaveEditing}
+          style={saveButtonStyle}
+        >
           저장
         </button>
         {showCancelButton && onCancelEditing && (

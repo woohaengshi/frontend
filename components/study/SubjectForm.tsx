@@ -26,7 +26,6 @@ export default function SubjectForm({ closeSubjectEditForm }: SubjectEditFormPro
     resetAddedSubjects,
   } = useSubjectStore();
 
-
   // 이 함수가 API 호출을 담당합니다.
   const handleSaveAndSendRequest = async () => {
     const payload = {
@@ -35,7 +34,6 @@ export default function SubjectForm({ closeSubjectEditForm }: SubjectEditFormPro
     };
 
     console.log(payload);
-    
 
     const response = await subjectFormApi(payload);
     if (response.success) {

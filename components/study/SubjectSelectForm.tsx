@@ -47,4 +47,3 @@ export default function SubjectSelectForm({ onEditClick, onSaveClick }: SubjectS
     </div>
   );
 }
-

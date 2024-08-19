@@ -17,7 +17,7 @@
 }
 
 .tab_category button::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -25,12 +25,14 @@
   height: 2px;
   border-radius: 5px;
   background-color: var(--main-color-2);
-  transition: background-color 0.3s ease, height 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    height 0.3s ease;
   /* box-shadow: 0 2px 0 0 transparent; */
 }
 
 .tab_category button.active {
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 .tab_category button.active::after {
@@ -57,17 +59,16 @@
   border-top-right-radius: 30px;
   background-color: #fff;
   border: 1px solid #f1f1ff;
-    
 }
 
-@media screen and (max-width: 860px){
+@media screen and (max-width: 860px) {
   .container {
-    min-height: calc(100vh - 62px);  
+    min-height: calc(100vh - 62px);
   }
 }
 @media screen and (max-width: 680px) {
   .container {
-    min-height: calc(100vh - 122px);  
+    min-height: calc(100vh - 122px);
   }
 
   .tab_category button {
@@ -87,6 +88,8 @@
     padding-top: 30px;
   }
 
-  .btm{padding: 15px; padding-right: 7.5px;}
-
+  .btm {
+    padding: 15px;
+    padding-right: 7.5px;
+  }
 }
