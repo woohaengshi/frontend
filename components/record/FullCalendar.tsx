@@ -2,26 +2,65 @@
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
 import { Box, Container, Flex, Heading, Text } from '@radix-ui/themes';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styles from './FullCalendar.module.css';
 import MonthPicker from './MonthPicker';
 import { useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
 import CalendarRecord from './CalendarRecord';
+import { getRecordMonthly } from '@/api/recordApi';
+import useSWR from 'swr';
 
-export default function FullCalendar({ monthlyData }) {
+interface IMonthlyData {
+  year: number;
+  month: number;
+  records: IMonthlyDataRecord[];
+}
+
+interface IMonthlyDataRecord {
+  day: number;
+  time: number;
+  subjects: any[];
+}
+
+// 달력 이동 버튼을 누를때만 갱신된 데이터 가져옴
+const useRefreshMonthyData = (selectedYear: number, selectedMonth: number, shouldFetch: boolean) => {
+  const { data: refreshMonthlyData, isLoading: refreshMonthlyLoading } = useSWR(
+    shouldFetch ? ['MonthlyRecord', selectedYear, selectedMonth] : null,
+    async () => {
+      const result = await getRecordMonthly(selectedYear, selectedMonth);
+      return result;
+    },
+    {
+      revalidateOnFocus: false, // 화면이 포커스될 때 데이터 재요청 방지
+      revalidateOnReconnect: false, // 네트워크 재연결 시 데이터 재요청 방지
+    },
+  );
+
+  if (refreshMonthlyData?.error) {
+    alert(refreshMonthlyData.error.message);
+  }
+
+  return { refreshMonthlyData, refreshMonthlyLoading };
+};
+
+export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyData }) {
   const today = useTodayStore();
   const { selectedYear, setSelectedYear } = useSelectedYearStore();
   const { selectedMonth, setSelectedMonth } = useSelectedMonthStore();
 
-  // 받아온 데이터 배열
-  const records = monthlyData.records;
-  // console.log(records);
+  // 초기 렌더링시 데이터 패치를 막기 위함
+  const [shouldFetch, setShouldFetch] = useState(false);
+
+  const [records, setRecords] = useState<IMonthlyDataRecord[]>(monthlyData?.records);
 
   // 매월 시작일 index (0 ~ 6)
   const startDay = new Date(selectedYear, selectedMonth - 1, 1).getDay();
   // 매월 말일 날짜 (30, 31)
   const endDate = new Date(selectedYear, selectedMonth, 0).getDate();
   const weekNumber = Math.ceil((startDay + endDate) / 7);
+
+  // 커스텀 훅 호출
+  const { refreshMonthlyData, refreshMonthlyLoading } = useRefreshMonthyData(selectedYear, selectedMonth, shouldFetch);
 
   // 이전달 보기
   const prevMonth = useCallback(async () => {
@@ -35,6 +74,9 @@ export default function FullCalendar({ monthlyData }) {
     // 상태 업데이트
     setSelectedYear(newYear);
     setSelectedMonth(newMonth);
+
+    // 버튼을 눌렀을때 데이터 불러오도록 트리거
+    setShouldFetch(true);
   }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear]);
 
   // 다음달 보기
@@ -50,7 +92,20 @@ export default function FullCalendar({ monthlyData }) {
     // 상태 업데이트
     setSelectedYear(newYear);
     setSelectedMonth(newMonth);
+
+    // 버튼을 눌렀을때 데이터 불러오도록 트리거
+    setShouldFetch(true);
   }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear]);
+
+  useEffect(() => {
+    // 데이터 패치가 갱신됐을때
+    if (refreshMonthlyData) {
+      // records에 새로운 데이터 대입
+      setRecords(refreshMonthlyData.records);
+      // 패치 트리거 false
+      setShouldFetch(false);
+    }
+  }, [refreshMonthlyData]);
 
   const returnDay = useCallback(() => {
     let days = [];
@@ -79,8 +134,12 @@ export default function FullCalendar({ monthlyData }) {
                 <Text as="p" align="center" className={styles.date}>
                   {nowDate}
                 </Text>
-                {records.map((record) => {
-                  return record.day == nowDate && <CalendarRecord nowDate={nowDate} record={record} />;
+                {records?.map((record) => {
+                  return (
+                    record.day == nowDate && (
+                      <CalendarRecord key={`record${nowDate}`} nowDate={nowDate} record={record} />
+                    )
+                  );
                 })}
               </Flex>
             </td>,
@@ -155,12 +214,36 @@ export default function FullCalendar({ monthlyData }) {
               </thead>
               <tbody>
                 <tr className={styles.blank_row}>
-                  <td key={`daysBlank`} colSpan="7"></td>
+                  <td key={`daysBlank`} colSpan={7}></td>
                 </tr>
                 {returnDay()}
               </tbody>
             </table>
           </div>
+          <Flex mt="3" gap="20px" className={styles.level_list}>
+            <Text as="p" size="2">
+              레벨 별 누적시간
+            </Text>
+            <Flex gap="10px" asChild>
+              <ul>
+                <li className={styles.level1}>
+                  <Text as="span" size="2">
+                    0 ~ 3
+                  </Text>
+                </li>
+                <li className={styles.level2}>
+                  <Text as="span" size="2">
+                    3 ~ 6
+                  </Text>
+                </li>
+                <li className={styles.level3}>
+                  <Text as="span" size="2">
+                    6 ~
+                  </Text>
+                </li>
+              </ul>
+            </Flex>
+          </Flex>
         </Box>
       </Container>
     </div>
