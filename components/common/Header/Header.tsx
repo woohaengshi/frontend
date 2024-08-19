@@ -5,7 +5,7 @@ import HeaderNav from './HeaderNav';
 
 export default function Header() {
   return (
-    <Box px="5" asChild>  
+    <Box px="5" asChild>
       <header className={styles.header}>
         <Box className={styles.header_inner}>
           <Heading as="h1" className={styles.logo}>
