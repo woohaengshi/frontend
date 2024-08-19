@@ -9,15 +9,32 @@ import MypageTabMenu from './MypageTabMenu';
 
 export default function UserProfile() {
   const [imgUrl, setImgUrl] = useState('');
-  const imgRef = useRef();
+  const imgRef = useRef<HTMLInputElement>(null);
 
   const onChangeImage = () => {
-    const file = imgRef.current.files[0];
+    if (!imgRef.current) {
+      return; // imgRef.current가 undefined일 경우 함수 종료
+    }
+
+    const file = imgRef.current.files?.[0];
+
+    if (!file) {
+      return; // 파일이 선택되지 않은 경우 함수 종료
+    }
+
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setImgUrl(reader.result);
+      if (typeof reader.result === 'string') {
+        setImgUrl(reader.result);
+      }
     };
+  };
+
+  const imageChangeHandler = () => {
+    if (imgRef.current) {
+      imgRef.current.click(); // imgRef.current가 null이 아닐 때만 클릭 이벤트 발생
+    }
   };
 
   return (
@@ -29,11 +46,7 @@ export default function UserProfile() {
           </div>
           <div className={styles.btn_file}>
             <input type="file" ref={imgRef} onChange={onChangeImage} />
-            <button
-              onClick={() => {
-                imgRef.current.click();
-              }}
-            >
+            <button onClick={imageChangeHandler}>
               <Image src={ico_profile_img_file} alt="프로필 이미지 변경하기" width={18} height={18} />
             </button>
           </div>

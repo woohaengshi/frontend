@@ -1,4 +1,4 @@
-import { Subject } from '@/types/study';
+import { Subject } from '@/types/studyType';
 import { create } from 'zustand';
 
 interface SelectedSubjectState {

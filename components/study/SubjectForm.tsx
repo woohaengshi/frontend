@@ -10,17 +10,7 @@ interface SubjectEditFormProps {
 }
 
 export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFormProps) {
-  const {
-    subjects,
-    selectedSubjects,
-    isEditing,
-    setEditing,
-    saveSelected,
-    saveEditing,
-    addSubject,
-    deleteSubject,
-    selectSubject,
-  } = useSubjectStore();
+  const { subjects, isEditing, setEditing, saveSelected, saveEditing, addSubject, deleteSubject } = useSubjectStore();
 
   const handleSaveAndClose = () => {
     if (isEditing) {
@@ -46,13 +36,7 @@ export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFor
           onCancelEditing={() => setEditing(false)}
         />
       ) : (
-        <SubjectSelect
-          subjects={subjects}
-          selectedSubjects={selectedSubjects}
-          onSelectSubject={selectSubject}
-          onEditClick={() => setEditing(true)}
-          onSaveClick={handleSaveAndClose}
-        />
+        <SubjectSelect onEditClick={() => setEditing(true)} onSaveClick={handleSaveAndClose} />
       )}
     </div>
   );
