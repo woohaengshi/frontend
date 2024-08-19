@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
 import { useSelectedSubjectStore } from '@/store/studyStore';
 import { postTimer } from '@/api/studyApi';
-import { Subject } from '@/types/studyTypes';
+import { Subject } from '@/types/studyType';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 
 interface ITimer {
@@ -60,7 +60,7 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isActive, maxTime]);
+  }, [isActive, maxTime, time]);
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
     const date = getCurrentDate();

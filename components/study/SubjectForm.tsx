@@ -26,6 +26,7 @@ export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFor
     resetAddedSubjects,
   } = useSubjectStore();
 
+
   // 이 함수가 API 호출을 담당합니다.
   const handleSaveAndSendRequest = async () => {
     const payload = {
@@ -71,13 +72,7 @@ export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFor
           onCancelEditing={() => setEditing(false)}
         />
       ) : (
-        <SubjectSelect
-          subjects={subjects}
-          selectedSubjects={selectedSubjects}
-          onSelectSubject={selectSubject}
-          onEditClick={() => setEditing(true)}
-          onSaveClick={handleSaveAndClose}
-        />
+        <SubjectSelect onEditClick={() => setEditing(true)} onSaveClick={handleSaveAndClose} />
       )}
     </div>
   );

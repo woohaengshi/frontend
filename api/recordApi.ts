@@ -19,6 +19,5 @@ export const getRecordYearly = async (year: number) => {
     method: 'GET',
   });
 
-  console.log(`getRecordYearly: ${response}`);
   return response;
 };

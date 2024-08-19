@@ -1,26 +1,20 @@
-'use client';
-
 import { getRecordMonthly } from '@/api/recordApi';
 import FullCalendar from '@/components/record/FullCalendar';
-import { useSelectedMonthStore, useSelectedYearStore } from '@/store/recordStore';
-import useSWR from 'swr';
 
-export default function Record() {
-  const { selectedYear } = useSelectedYearStore();
-  const { selectedMonth } = useSelectedMonthStore();
+export default async function Record() {
+  // 첫 렌더링때 오늘 날짜로 서버에서 미리 받아놓음
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth() + 1;
 
-  const {
-    data: monthlyData,
-    error: monthlyError,
-    isLoading: monthlyLoading,
-  } = useSWR(['MonthlyRecord', selectedYear, selectedMonth], async () => {
-    const result = await getRecordMonthly(selectedYear, selectedMonth);
-    return result;
-  });
+  const monthlyResponse = await getRecordMonthly(year, month);
 
-  if (monthlyData?.error) {
-    alert(monthlyData.error.message);
+  if (monthlyResponse?.error) {
+    alert(monthlyResponse.error.message);
   }
 
-  return <section>{!monthlyLoading && <FullCalendar monthlyData={monthlyData} />}</section>;
+  return (
+    <section>
+      <FullCalendar monthlyData={monthlyResponse} />
+    </section>
+  );
 }

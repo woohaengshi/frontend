@@ -14,7 +14,7 @@ interface FullRankingListProps {
   hasMore: boolean;
 }
 
-function FullRankingList({ rankings, currentUser, activeTab, loadMore, hasMore }: FullRankingListProps) {
+export default function FullRankingList({ rankings, currentUser, activeTab, loadMore, hasMore }: FullRankingListProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const otherRankings = rankings.filter((student) => student.id !== currentUser?.id);
@@ -30,63 +30,65 @@ function FullRankingList({ rankings, currentUser, activeTab, loadMore, hasMore }
   };
 
   return (
-    <div className={styles.full_ranking_container}>
-      <table className={styles.full_ranking_table_wrap}>
-        <thead className={styles.full_ranking_thead_wrap}>
-          <tr className={styles.full_ranking_tr}>
-            <th>순위</th>
-            <th></th>
-            <th>이름</th>
-            <th></th>
-            <th>반</th>
-            <th>{timeLabel}</th>
-            <th>누적시간</th>
-          </tr>
-        </thead>
-      </table>
-      <div className={styles.scrollable_tbody}>
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={loadMore}
-          hasMore={hasMore}
-          loader={
-            <div className={styles.loader} key={0}>
-              Loading...
-            </div>
-          }
-          useWindow={false}
-          getScrollParent={() => containerRef.current}
-        >
-          <table className={styles.full_ranking_table_wrap}>
-            <tbody className={styles.full_ranking_tbody_wrap}>
-              {allRankings.map((student) => (
-                <tr key={student.id} className={styles.full_ranking_student}>
-                  <td>{student.rank}</td>
-                  <td>
-                    <Image
-                      src={student.image || rankingImg} // Use rankingImg if student.image is null
-                      alt="Student Image"
-                      className={styles.student_image}
-                    />
-                  </td>
-                  <td>
-                    {student.name}
-                    {currentUser && student.id === currentUser.id && (
-                      <span className={styles.current_user_label}>(나)</span>
-                    )}
-                  </td>
-                  <td></td>
-                  <td>{student.course}</td>
-                  <td>{formatTime(student.studyTime)}</td>
-                  <td>{formatTime(student.totalTime)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </InfiniteScroll>
-      </div>
+    <div className={styles.scroll_table}>
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={loadMore}
+        hasMore={hasMore}
+        loader={
+          <div className={styles.loader} key={0}>
+            Loading...
+          </div>
+        }
+        useWindow={false}
+        getScrollParent={() => containerRef.current}
+      >
+        <table>
+          <colgroup>
+            <col width="15%" />
+            <col width="50px" />
+            <col width="*" />
+            <col width="20%" />
+            <col width="15%" />
+            <col width="15%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th className={styles.radius_left}>순위</th>
+              <th></th>
+              <th className={styles.name}>이름</th>
+              <th>반</th>
+              <th>{timeLabel}</th>
+              <th className={styles.radius_right}>누적시간</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan={6} className={styles.blank}></td>
+            </tr>
+            {allRankings.map((student) => (
+              <tr key={student.id} className={styles.full_ranking_student}>
+                <td>{student.rank}</td>
+                <td>
+                  {student.image && (
+                    <Image src={student.image} alt={`${student.name} 프로필 이미지`} className={styles.student_image} />
+                  )}
+                </td>
+                <td className={styles.name}>
+                  {student.name}
+                  {currentUser && student.id === currentUser.id && (
+                    <span className={styles.current_user_label}> (나)</span>
+                  )}
+                </td>
+                <td>{student.course}</td>
+                <td>{formatTime(student.studyTime)}</td>
+                <td>{formatTime(student.totalTime)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </InfiniteScroll>
+
     </div>
   );
 }
-
-export default FullRankingList;

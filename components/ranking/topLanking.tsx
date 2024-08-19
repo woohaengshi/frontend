@@ -12,7 +12,7 @@ interface TopRankingsProps {
   activeTab: 'DAILY' | 'WEEKLY' | 'MONTHLY';
 }
 
-function TopRankings({ rankings, activeTab }: TopRankingsProps) {
+export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
   const modifiedRankings = [...rankings];
 
   // 랭킹 순서 변경
@@ -95,5 +95,3 @@ function TopRankings({ rankings, activeTab }: TopRankingsProps) {
     </Grid>
   );
 }
-
-export default TopRankings;

@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import TopRankings from '@/components/ranking/topLanking';
 import FullRankingList from '@/components/ranking/fullRankingList';
-import { Grid } from '@radix-ui/themes';
+import { Box, Flex, Grid } from '@radix-ui/themes';
 import styles from './ranking.module.css';
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
 import { fetchRankingsAndCurrentUserFromServer } from '@/api/rankingApi';
@@ -62,10 +62,10 @@ export default function Ranking() {
           pageNumber: nextPage,
           size,
         });
-  
+
         console.log('API Response:', response); // 추가된 로그
         const newRankings = response.ranking.ranks; // API 응답에서 랭킹 데이터 추출
-  
+
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);
         setHasMore(response.ranking.hasNext);
         setPage(nextPage);
@@ -74,44 +74,55 @@ export default function Ranking() {
       }
     }
   }, [activeTab, hasMore, page]);
-  
 
   return (
-    <Grid columns="1" gap="2" rows="repeat(1, 100px)" className={styles.ranking_wrap}>
-      <Grid columns="1" gap="3" rows="repeat(1, 64px)" className={styles.ranking_wrap_inner}>
-        <Grid columns="3" gap="1" rows="repeat(1, 64px)" className={styles.date_tap_wrap}>
-          <button
-            className={`${styles.date_tap_btn} ${activeTab === 'DAILY' ? styles.date_tap_btn_active : ''}`}
-            onClick={() => setActiveTab('DAILY')}
-          >
-            일간
-          </button>
-          <button
-            className={`${styles.date_tap_btn} ${activeTab === 'WEEKLY' ? styles.date_tap_btn_active : ''}`}
-            onClick={() => setActiveTab('WEEKLY')}
-          >
-            주간
-          </button>
-          <button
-            className={`${styles.date_tap_btn} ${activeTab === 'MONTHLY' ? styles.date_tap_btn_active : ''}`}
-            onClick={() => setActiveTab('MONTHLY')}
-          >
-            월간
-          </button>
-        </Grid>
-        <Grid className={styles.top_rankings_wrap}>
-          <TopRankings rankings={rankings} activeTab={activeTab} />
-        </Grid>
-      </Grid>
-      <Grid className={styles.full_ranking_wrap}>
-        <FullRankingList
-          rankings={rankings}
-          currentUser={currentUser}
-          activeTab={activeTab}
-          loadMore={loadMore}
-          hasMore={hasMore}
-        />
-      </Grid>
-    </Grid>
+    <section className={styles.container}>
+      <Flex direction="column" justify="between" className={styles.container_inner}>
+        <Box className="top">
+          <Box py="5" className={styles.tab_category}>
+            <Flex gap="10px" justify="center" asChild>
+              <ul>
+                <li>
+                  <button
+                    className={`${activeTab === 'DAILY' ? styles.active : ''}`}
+                    onClick={() => setActiveTab('DAILY')}
+                  >
+                    일간
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className={`${activeTab === 'WEEKLY' ? styles.active : ''}`}
+                    onClick={() => setActiveTab('WEEKLY')}
+                  >
+                    주간
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className={`${activeTab === 'MONTHLY' ? styles.active : ''}`}
+                    onClick={() => setActiveTab('MONTHLY')}
+                  >
+                    월간
+                  </button>
+                </li>
+              </ul>
+            </Flex>
+          </Box>
+          <Grid className={styles.top_rankings_wrap}>
+            <TopRankings rankings={rankings} activeTab={activeTab} />
+          </Grid>
+        </Box>
+        <Box p="5" pr="3" className={styles.btm}>
+          <FullRankingList
+            rankings={rankings}
+            currentUser={currentUser}
+            activeTab={activeTab}
+            loadMore={loadMore}
+            hasMore={hasMore}
+          />
+        </Box>
+      </Flex>
+    </section>
   );
 }

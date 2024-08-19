@@ -1,0 +1,25 @@
+name: 'Continuous Integration'
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - '.github/**'
+      - 'package-lock.json'
+      - 'package.json'
+
+jobs:
+  quality:
+    name: 'CI: Check quality'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check typescript
+        run: npm run type:check
+
+      - name: Check eslint
+        run: npm run lint
