@@ -1,153 +1,71 @@
-.full_ranking_container {
-    position: relative;
-    max-height: 500px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    width: 90%;
+.scroll_table {
+  position: relative;
+  max-height: 500px;
+  overflow: hidden;
+}
+.scroll_table > div {
+  padding-right: 12px;
 }
 
-.full_ranking_table_wrap {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
+.scroll_table thead th {
+  position: sticky;
+  top: 0;
+  height: 60px;
+  padding: 0 10px;
+  text-align: center;
+  background-color: #f1f1ff;
+  z-index: 1;
 }
 
-.full_ranking_thead_wrap th {
-    position: sticky;
-    top: 0;
-    background-color: #F1F1FF;
-    z-index: 1;
+.scroll_table thead th.name {
+  text-align: left;
 }
 
-.full_ranking_tr>th {
-    height: 50px;
-    background-color: #F1F1FF;
+.scroll_table thead th.radius_left{
+  border-radius: 8px 0 0 8px;
 }
 
-.full_ranking_tr>th:first-child {
-
-    border-radius: 8px 0 0 8px;
+.scroll_table thead th.radius_right {
+  border-radius: 0 8px 8px 0;
 }
 
-.full_ranking_tr>th:last-child {
-    height: 60px;
-    border-radius: 0 8px 8px 0;
+.scroll_table tbody td {
+  height: 50px;
+  padding: 0 10px;
+  text-align: center;
 }
 
-.full_ranking_student {
-    height: 50px;
-
+.scroll_table tbody td.name {
+  text-align: left;
 }
 
-.full_ranking_student img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+.scroll_table tbody td.blank {
+  height: 0;
+  padding-top: 10px;
 }
 
-.full_ranking_thead_wrap th {
-    padding: 5px 0;
+.scroll_table tbody img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
-.full_ranking_tbody_wrap td {
-    padding: 25px 0;
+.scroll_table {
+  max-height: 400px;
+  overflow-y: auto;
 }
 
-.full_ranking_thead_wrap th:nth-child(1),
-.full_ranking_tbody_wrap td:nth-child(1) {
-    width: 15%;
-}
-
-.full_ranking_thead_wrap th:nth-child(2),
-.full_ranking_tbody_wrap td:nth-child(2) {
-    width: 5%;
-}
-
-.full_ranking_thead_wrap th:nth-child(3),
-.full_ranking_tbody_wrap td:nth-child(3) {
-    width: 8%;
-}
-
-.full_ranking_thead_wrap th:nth-child(4),
-.full_ranking_tbody_wrap td:nth-child(4) {
-    width: 20%;
-}
-
-.full_ranking_thead_wrap th:nth-child(5),
-.full_ranking_tbody_wrap td:nth-child(5) {
-    width: 20%;
-}
-
-.full_ranking_thead_wrap th:nth-child(6),
-.full_ranking_tbody_wrap td:nth-child(6) {
-    width: 15%;
-}
-
-.full_ranking_thead_wrap th:nth-child(7),
-.full_ranking_tbody_wrap td:nth-child(7) {
-    width: 15%;
-}
-
-.scrollable_tbody {
-    max-height: 400px;
-    /* Adjust as needed */
-    overflow-y: auto;
-    /* Enable scrolling */
-}
-
-
+.scroll_table::-webkit-scrollbar {width: 3px;}
+.scroll_table::-webkit-scrollbar-thumb {background: #b9b9b9; border-radius: 3px;}
+.scroll_table::-webkit-scrollbar-track {background: #eee; border-radius: 3px;}
 
 @media screen and (max-width: 680px) {
-    .full_ranking_tr>th {
-        line-height: 1;
-        font-size: var(--font-size-2);
-    }
+  .scroll_table thead th,
+  .scroll_table tbody td {
+    font-size: var(--font-size-2);
+  }
 
-    .full_ranking_student>td {
-        height: 25px;
-        font-size: var(--font-size-2);
-    }
-
-    /* 이미지 */
-    .full_ranking_thead_wrap th:nth-child(2),
-    .full_ranking_tbody_wrap td:nth-child(2) {
-        width: 7%;
-    }
-    
-
-    /* 이름 */
-    .full_ranking_thead_wrap th:nth-child(3),
-    .full_ranking_tbody_wrap td:nth-child(3) {
-        width: 20%;
-    }
-
-    /* 공백 */
-    .full_ranking_thead_wrap th:nth-child(4),
-    .full_ranking_tbody_wrap td:nth-child(4) {
-        width: 10%;
-    }
-
-    .full_ranking_thead_wrap th:nth-child(5),
-    .full_ranking_tbody_wrap td:nth-child(5) {
-        display: none;
-    }
-
-    .full_ranking_thead_wrap th:nth-child(6),
-    .full_ranking_tbody_wrap td:nth-child(6) {
-        width: 20%;
-    }
-
-    .full_ranking_thead_wrap th:nth-child(7),
-    .full_ranking_tbody_wrap td:nth-child(7) {
-        width: 20%;
-    }
-
-
-    .full_ranking_thead_wrap th {
-        padding: 0px 0;
-    }
-
-
+  .scroll_table > div {
+    padding-right: 7.5px;
+  }
 }
-
