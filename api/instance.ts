@@ -11,7 +11,7 @@ interface RequestOptions {
 }
 
 const fetchInstance = async (url: string, options: RequestOptions = {}, isRetry = false) => {
-  const token = cookies().get('whs-token')?.value;
+  const token = cookies().get('whs-access')?.value;
 
   const headers: RequestOptions['headers'] = {
     'Content-Type': 'application/json',

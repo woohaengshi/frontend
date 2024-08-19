@@ -12,8 +12,8 @@ export const signIn = async ({ email, password }: { email: string; password: str
 
   const accessToken = response.accessToken;
   if (accessToken) {
-    cookies().set('whs-token', accessToken, { httpOnly: true, secure: true });
-    cookies().set('whs-name', response.name, { httpOnly: true, secure: true });
+    cookies().set('whs-access', accessToken, { httpOnly: true, secure: true });
+    cookies().set('whs-user', response.name, { httpOnly: true, secure: true });
   }
 
   const cookie = response.cookie;
@@ -25,7 +25,7 @@ export const signIn = async ({ email, password }: { email: string; password: str
     const maxAge = cookie.split(';')[2].split('=')[1];
     const expires = cookie.split(';')[3].split('=')[1];
 
-    cookies().set('whs-refresh-token', refreshToken, {
+    cookies().set('whs-refresh', refreshToken, {
       path,
       maxAge: parseInt(maxAge),
       expires: new Date(expires),
@@ -39,9 +39,9 @@ export const signIn = async ({ email, password }: { email: string; password: str
 };
 
 export const reissueToken = async () => {
-  const refreshToken = cookies().get('whs-refresh-token')?.value;
-  const accessToken = cookies().get('whs-token')?.value;
-  const name = cookies().get('whs-name')?.value;
+  const refreshToken = cookies().get('whs-refresh')?.value;
+  const accessToken = cookies().get('whs-access')?.value;
+  const name = cookies().get('whs-user')?.value;
 
   const response = await instance(
     'reissue',
@@ -57,7 +57,7 @@ export const reissueToken = async () => {
 
   if (!response.error) {
     const { accessToken } = response;
-    cookies().set('whs-token', accessToken, { httpOnly: true, secure: true });
+    cookies().set('whs-access', accessToken, { httpOnly: true, secure: true });
     return accessToken;
   } else {
     console.error('Token reissue failed');
