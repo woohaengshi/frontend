@@ -28,7 +28,7 @@ const SubjectSelectButton = ({ initialSubjects }: SubjectSelectButtonProps) => {
 
       {showForm && <div className={styles.overlay} onClick={closeSubjectEditForm}></div>}
       <div className={`${styles.formContainer} ${showForm ? styles.show : styles.hide}`}>
-        <SubjectEditForm closeSubjectEditForm={closeSubjectEditForm} initialSubjects={initialSubjects} />
+        <SubjectEditForm closeSubjectEditForm={closeSubjectEditForm} />
       </div>
     </>
   );
