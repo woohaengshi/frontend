@@ -60,7 +60,7 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isActive, maxTime]);
+  }, [isActive, maxTime, time]);
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
     const date = getCurrentDate();

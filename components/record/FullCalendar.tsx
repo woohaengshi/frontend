@@ -35,7 +35,7 @@ export default function FullCalendar({ monthlyData }) {
     // 상태 업데이트
     setSelectedYear(newYear);
     setSelectedMonth(newMonth);
-  }, [selectedMonth, selectedYear]);
+  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear]);
 
   // 다음달 보기
   const nextMonth = useCallback(async () => {
@@ -50,7 +50,7 @@ export default function FullCalendar({ monthlyData }) {
     // 상태 업데이트
     setSelectedYear(newYear);
     setSelectedMonth(newMonth);
-  }, [selectedMonth, selectedYear]);
+  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear]);
 
   const returnDay = useCallback(() => {
     let days = [];
@@ -101,7 +101,7 @@ export default function FullCalendar({ monthlyData }) {
     }
 
     return daysArr;
-  }, [selectedYear, selectedMonth, endDate, startDay]);
+  }, [selectedYear, selectedMonth, records, today, weekNumber, endDate, startDay]);
 
   const [isMonthPickerOpen, setIsMonthPickerOpen] = useState(false); // 월 선택기 열림 상태
 

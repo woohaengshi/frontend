@@ -10,9 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <UserProfile />
       </Box>
       <Box mt="3" p="4" py="6" className={styles.inner} asChild>
-        <section>
-          {children}
-        </section>
+        <section>{children}</section>
       </Box>
     </Container>
   );

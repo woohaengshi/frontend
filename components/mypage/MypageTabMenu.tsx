@@ -20,7 +20,9 @@ export default function MypageTabMenu() {
     { link: '/mypage/pwupdate', title: '비밀번호 수정' },
   ];
 
-  const [pathTabTitle] = tabMenu.filter((tab)=>{return tab.link == pathname});
+  const [pathTabTitle] = tabMenu.filter((tab) => {
+    return tab.link == pathname;
+  });
 
   return (
     <Box mt="6" className={styles.tab_menu}>
@@ -34,9 +36,9 @@ export default function MypageTabMenu() {
       </button>
       {openTab && (
         <ul>
-          {tabMenu.map((tab) => {
+          {tabMenu.map((tab, i) => {
             return (
-              <li>
+              <li key={`tabMenu${i}`}>
                 <Link href={tab.link} legacyBehavior>
                   <a
                     onClick={() => {
