@@ -4,7 +4,7 @@ import { Button } from '@radix-ui/themes';
 import SubjectEditForm from './SubjectForm';
 import { useState } from 'react';
 import styles from './SubjectForm.module.css';
-import { Subject } from '@/types/study';
+import { Subject } from '@/types/studyType';
 
 interface SubjectSelectButtonProps {
   initialSubjects: Subject[];

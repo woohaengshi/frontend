@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
 import { useSelectedSubjectStore } from '@/store/studyStore';
 import { postTimer } from '@/api/studyApi';
-import { Subject } from '@/types/studyTypes';
+import { Subject } from '@/types/studyType';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 
 interface ITimer {
