@@ -6,7 +6,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { Student } from '@/types/rankingType'; // Student 타입 import
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
 
-
 interface FullRankingListProps {
   rankings: Student[];
   currentUser: Student | null;
@@ -64,10 +63,10 @@ function FullRankingList({ rankings, currentUser, activeTab, loadMore, hasMore }
                 <tr key={student.id} className={styles.full_ranking_student}>
                   <td>{student.rank}</td>
                   <td>
-                  <Image 
+                    <Image
                       src={student.image || rankingImg} // Use rankingImg if student.image is null
                       alt="Student Image"
-                      className={styles.student_image} 
+                      className={styles.student_image}
                     />
                   </td>
                   <td>
