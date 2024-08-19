@@ -77,7 +77,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
 
     // 버튼을 눌렀을때 데이터 불러오도록 트리거
     setShouldFetch(true);
-  }, [selectedMonth, selectedYear]);
+  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear]);
 
   // 다음달 보기
   const nextMonth = useCallback(async () => {
@@ -95,7 +95,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
 
     // 버튼을 눌렀을때 데이터 불러오도록 트리거
     setShouldFetch(true);
-  }, [selectedMonth, selectedYear]);
+  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear]);
 
   useEffect(() => {
     // 데이터 패치가 갱신됐을때
@@ -161,7 +161,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
     }
 
     return daysArr;
-  }, [selectedYear, selectedMonth, endDate, startDay]);
+  }, [selectedYear, selectedMonth, records, today, weekNumber, endDate, startDay]);
 
   const [isMonthPickerOpen, setIsMonthPickerOpen] = useState(false); // 월 선택기 열림 상태
 

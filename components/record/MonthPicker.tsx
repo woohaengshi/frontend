@@ -38,7 +38,7 @@ export default function MonthPicker({ onClose }: IOnClose) {
 
   useEffect(() => {
     setPickYear(selectedYear);
-  }, []);
+  }, [setPickYear, selectedYear]);
 
   const months = Array.from({ length: 12 }, (_, index) => (
     <li key={index}>
