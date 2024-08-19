@@ -10,7 +10,7 @@ interface SubjectSelectProps {
   onSaveClick: () => void;
 }
 
-const SubjectSelect = ({ onEditClick, onSaveClick }: SubjectSelectProps) => {
+export default function SubjectSelectForm({ onEditClick, onSaveClick }: SubjectSelectProps) {
   const { subjects, selectedSubjects, selectSubject } = useSubjectStore();
 
   return (
@@ -26,7 +26,7 @@ const SubjectSelect = ({ onEditClick, onSaveClick }: SubjectSelectProps) => {
             <div
               key={subject.id}
               className={`${styles.subject_item} ${selectedSubjects.includes(subject.name) ? styles.selected : ''}`}
-              onClick={() => selectSubject(subject.name)} 
+              onClick={() => selectSubject(subject.name)}
             >
               <Text as="p" size="3" className={styles.subject_item_text}>
                 {subject.name}
@@ -46,7 +46,5 @@ const SubjectSelect = ({ onEditClick, onSaveClick }: SubjectSelectProps) => {
       </div>
     </div>
   );
-};
-
-export default SubjectSelect;
+}
 

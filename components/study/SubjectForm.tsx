@@ -10,7 +10,7 @@ interface SubjectEditFormProps {
   closeSubjectEditForm: () => void;
 }
 
-export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFormProps) {
+export default function SubjectForm({ closeSubjectEditForm }: SubjectEditFormProps) {
   const {
     subjects,
     selectedSubjects,

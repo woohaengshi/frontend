@@ -1,3 +1,4 @@
+// SubjectEditForm.tsx
 'use client';
 import React, { useState } from 'react';
 import { Text } from '@radix-ui/themes';
@@ -18,9 +19,10 @@ interface SubjectEditProps {
   style?: React.CSSProperties; // 마이페이지 과목 편집 css
   subjectChoiceBoxStyle?: React.CSSProperties; // 마이페이지 과목 편집 css
   saveButtonStyle?: React.CSSProperties; // 마이페이지 과목 편집 css
+  mypageSaveBtn?: React.CSSProperties;
 }
 
-export default function SubjectEdit({
+export default function SubjectEditForm({
   subjects,
   onAddSubject,
   onDeleteSubject,

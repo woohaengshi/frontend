@@ -15,7 +15,6 @@ export default function Login() {
 
     // response가 error 속성을 가지고 있다면 에러 처리
     if (response.error) {
-      console.log(response); 
       alert(response.error.message);
     } else {
       alert('로그인 되었습니다.');
