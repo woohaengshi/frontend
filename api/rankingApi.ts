@@ -1,4 +1,4 @@
-  import {instance} from './instance';
+import { instance } from './instance';
 import { ApiResponse } from '../types/rankingType';
 import rankingImg from '../assets/icons/ranking_profile_img.png';
 
