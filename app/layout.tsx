@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: '우행시',
   description: '우리들의 행복한 시간',
   icons: {
-    icon: "/timeout.png",
+    icon: '/timeout.png',
   },
 };
 
@@ -32,9 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={notoSansKr.variable}>
         <Theme radius="medium">
           <Header />
-          <div className={styles.content_wrapper}>
-            {children}
-          </div>
+          <div className={styles.content_wrapper}>{children}</div>
           <MobileHeader></MobileHeader>
         </Theme>
       </body>

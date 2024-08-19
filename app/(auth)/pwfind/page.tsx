@@ -1,5 +1,3 @@
 export default function PwFind() {
-  return (
-    <div></div>
-  );
+  return <div></div>;
 }

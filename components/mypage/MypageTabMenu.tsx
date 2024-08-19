@@ -36,9 +36,9 @@ export default function MypageTabMenu() {
       </button>
       {openTab && (
         <ul>
-          {tabMenu.map((tab) => {
+          {tabMenu.map((tab, i) => {
             return (
-              <li>
+              <li key={`tabMenu${i}`}>
                 <Link href={tab.link} legacyBehavior>
                   <a
                     onClick={() => {
