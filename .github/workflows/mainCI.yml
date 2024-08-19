@@ -5,6 +5,8 @@ on:
     types: [opened, synchronize, reopened]
     paths-ignore:
       - '.github/**'
+      - 'package-lock.json'
+      - 'package.json'
 
 jobs:
   quality:
@@ -15,6 +17,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Check typescript
+        run: npm run type:check
 
       - name: Check eslint
         run: npm run lint
