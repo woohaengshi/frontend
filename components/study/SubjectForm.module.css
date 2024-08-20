@@ -3,20 +3,28 @@
 /* 과목 선택 버튼 */
 .floatingButton {
   position: fixed;
-  bottom: 30px; /* 화면 하단에서의 거리 조정 */
-  right: 20px; /* 화면 우측에서의 거리 조정 */
-  width: 76px; /* 버튼의 너비 */
-  height: 76px; /* 버튼의 높이 */
-  border-radius: 50%; /* 동그란 모양 */
-  background-color: var(--main-color-3); /* 버튼 배경색 */
-  color: white; /* 버튼 텍스트 색상 */
+  bottom: 30px;
+  /* 화면 하단에서의 거리 조정 */
+  right: 20px;
+  /* 화면 우측에서의 거리 조정 */
+  width: 76px;
+  /* 버튼의 너비 */
+  height: 76px;
+  /* 버튼의 높이 */
+  border-radius: 50%;
+  /* 동그란 모양 */
+  background-color: var(--main-color-3);
+  /* 버튼 배경색 */
+  color: white;
+  /* 버튼 텍스트 색상 */
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* 그림자 효과 */
   transition:
     background-color 0.3s,
     transform 0.3s;
@@ -83,6 +91,7 @@
 .subject_edit_form_layout {
   padding: 10px 50px;
 }
+
 /* 과목 선택, 편집 텍스트 */
 
 .subject_choice_text_wrap {
@@ -99,18 +108,15 @@
   width: 100%;
 }
 
-
-.closeButton{
-position: fixed;
+.closeButton {
+  position: fixed;
   top: 20px;
-  right: 30px;
+  right: 29px;
   font-size: 26px;
   line-height: 20px;
   display: block;
   cursor: pointer;
 }
-
-
 
 .subject_edit_form_top {
   width: 100%;
@@ -127,8 +133,8 @@ position: fixed;
   padding-top: 5px;
   gap: 15px;
   row-gap: 15px;
-  overflow-y: auto; 
-  overflow-x: hidden; 
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .subject_item {
@@ -178,6 +184,7 @@ position: fixed;
 .subject_edit_form_btn_save:hover {
   background-color: #a19dec;
 }
+
 .subject_edit_form_btn_modify:hover {
   background-color: #f1f1ff;
 }
@@ -217,13 +224,13 @@ position: fixed;
 .subject_edit_form_btn_save,
 .subject_edit_form_btn_modify {
   font-size: 18px;
-  height: 60px;
-  line-height: 60px;
+  height: 56px;
+  line-height: 30px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 /* 삭제버튼 */
