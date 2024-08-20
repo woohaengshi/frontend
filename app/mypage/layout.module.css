@@ -1,1 +1,5 @@
-.inner{border-radius: 8px; background-color: #fff; border: 1px solid var(--br-color);}
+.inner {
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid var(--br-color);
+}

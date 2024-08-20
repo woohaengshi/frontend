@@ -1,15 +1,16 @@
-'use client';
+//SubjectForm.tsx
 import React from 'react';
 import SubjectSelect from './SubjectSelectForm';
 import SubjectEdit from './SubjectEditForm';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
+import { subjectFormApi } from '@/api/subjectFormApi';
 
 interface SubjectEditFormProps {
   closeSubjectEditForm: () => void;
 }
 
-export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFormProps) {
+export default function SubjectForm({ closeSubjectEditForm }: SubjectEditFormProps) {
   const {
     subjects,
     selectedSubjects,
@@ -20,14 +21,37 @@ export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFor
     addSubject,
     deleteSubject,
     selectSubject,
+    deletedSubjects,
+    addedSubjects,
+    resetAddedSubjects,
   } = useSubjectStore();
 
-  const handleSaveAndClose = () => {
+  // 이 함수가 API 호출을 담당합니다.
+  const handleSaveAndSendRequest = async () => {
+    const payload = {
+      addedSubjects: addedSubjects,
+      deletedSubjects: deletedSubjects,
+    };
+
+    console.log(payload);
+
+    const response = await subjectFormApi(payload);
+    if (response.success) {
+      console.log('Subjects updated successfully');
+      resetAddedSubjects();
+      setEditing(false);
+    } else {
+      console.error('Failed to update subjects:', response.error);
+    }
+  };
+
+  const handleSaveAndClose = async () => {
     if (isEditing) {
       saveEditing();
+      handleSaveAndSendRequest(); // 여기서 API 호출 함수가 실행.
     } else {
       saveSelected();
-      closeSubjectEditForm(); // 모달 닫기
+      closeSubjectEditForm();
     }
   };
 
@@ -46,13 +70,7 @@ export default function SubjectEditForm({ closeSubjectEditForm }: SubjectEditFor
           onCancelEditing={() => setEditing(false)}
         />
       ) : (
-        <SubjectSelect
-          subjects={subjects}
-          selectedSubjects={selectedSubjects}
-          onSelectSubject={selectSubject}
-          onEditClick={() => setEditing(true)}
-          onSaveClick={handleSaveAndClose}
-        />
+        <SubjectSelect onEditClick={() => setEditing(true)} onSaveClick={handleSaveAndClose} />
       )}
     </div>
   );

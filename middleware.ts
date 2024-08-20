@@ -5,7 +5,7 @@ export default function middleware(request: NextRequest) {
   console.log('middleware 접속');
 
   // 로그인 토큰을 확인
-  const token = request.cookies.get('whs-token')?.value;
+  const token = request.cookies.get('whs-access')?.value;
 
   // 토큰이 없으면 로그인 페이지로 리다이렉트
   if (!token) {
