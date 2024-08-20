@@ -9,7 +9,7 @@ export default async function Record() {
   const monthlyResponse = await getRecordMonthly(year, month);
 
   if (monthlyResponse?.error) {
-    alert(monthlyResponse.error.message);
+    console.log(monthlyResponse.error.message);
   }
 
   return (
