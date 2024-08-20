@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { cookies } from 'next/headers'; // 서버 사이드에서 쿠키를 처리하기 위한 내장 모듈
 

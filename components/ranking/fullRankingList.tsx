@@ -4,6 +4,8 @@ import Image from 'next/image';
 import styles from './fullRankingList.module.css';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Student } from '@/types/rankingType'; // Student 타입 import
+import rankingImg from '@/assets/icons/ranking_profile_img.png';
+import { formatTime } from '@/utils/formatTimeUtils'; // formatTime 함수
 
 interface FullRankingListProps {
   rankings: Student[];
@@ -20,13 +22,6 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
   const allRankings = currentUser ? [currentUser, ...otherRankings] : otherRankings;
 
   const timeLabel = activeTab === 'DAILY' ? '일간시간' : activeTab === 'WEEKLY' ? '주간시간' : '월간시간';
-
-  // 시간 포맷팅 함수 - 초를 시간과 분으로 변환
-  const formatTime = (timeInSeconds: number) => {
-    const hours = Math.floor(timeInSeconds / 3600); // 초를 시간으로 변환
-    const minutes = Math.floor((timeInSeconds % 3600) / 60); // 나머지 초를 분으로 변환
-    return `${hours}시간 ${minutes}분`;
-  };
 
   return (
     <div className={styles.scroll_table}>

@@ -21,7 +21,7 @@
   text-align: left;
 }
 
-.scroll_table thead th.radius_left{
+.scroll_table thead th.radius_left {
   border-radius: 8px 0 0 8px;
 }
 
@@ -55,9 +55,17 @@
   overflow-y: auto;
 }
 
-.scroll_table::-webkit-scrollbar {width: 3px;}
-.scroll_table::-webkit-scrollbar-thumb {background: #b9b9b9; border-radius: 3px;}
-.scroll_table::-webkit-scrollbar-track {background: #eee; border-radius: 3px;}
+.scroll_table::-webkit-scrollbar {
+  width: 3px;
+}
+.scroll_table::-webkit-scrollbar-thumb {
+  background: #b9b9b9;
+  border-radius: 3px;
+}
+.scroll_table::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 3px;
+}
 
 @media screen and (max-width: 680px) {
   .scroll_table thead th,

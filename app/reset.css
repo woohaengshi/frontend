@@ -1,6 +1,6 @@
 /* reset */
 /* font */
-body > .radix-themes{
+body > .radix-themes {
   --default-font-family: 'Pretendard', var(--font-notosanskr) !important;
   background-color: var(--main-color-1);
 }
@@ -136,32 +136,32 @@ input[type='number'] {
   -webkit-appearance: none;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="tel"],
-input[type="email"],
-input[type="number"],
-input[type="url"]{
-  text-overflow:ellipsis; 
-  overflow:hidden; 
-  display: -webkit-box; 
-  -webkit-box-orient: vertical; 
+input[type='text'],
+input[type='password'],
+input[type='tel'],
+input[type='email'],
+input[type='number'],
+input[type='url'] {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
 
 input[type='text'],
-input[type='password']{
+input[type='password'] {
   display: block;
   width: 100%;
   height: 60px;
-  line-height:58px;
+  line-height: 58px;
   border-radius: 8px;
   border: 1px solid var(--br-color);
   box-sizing: border-box;
 }
 
 input[type='text']::placeholder,
-input[type='password']::placeholder{
+input[type='password']::placeholder {
   font-size: 14px;
   color: #999;
 }
@@ -243,7 +243,7 @@ code {
   padding: initial;
 }
 
-label{
+label {
   cursor: pointer;
 }
 
