@@ -1,12 +1,14 @@
 // Page.tsx
 'use client';
 
-import SubjectEditForm from '@/components/study/SubjectEditForm';
+import SubjectEdit from '@/components/study/SubjectEditForm';
 import { useSubjectStore } from '@/store/subjectStore';
 export default function Page() {
- 
-  const {  setEditing, addSubject, deleteSubject, saveEditing } = useSubjectStore();
-
+  // Zustand 스토어에서 상태와 액션 가져오기
+  const { setEditing,saveEditing } = useSubjectStore((state) => ({
+    setEditing: state.setEditing, 
+    saveEditing: state.saveEditing,
+  }));
   const customStyle = {
     height: '400px',
   };
@@ -17,11 +19,8 @@ export default function Page() {
     height: '60px',
     fontWeight: '700',
   };
-  
   return (
-    <SubjectEditForm
-      onAddSubject={addSubject}
-      onDeleteSubject={deleteSubject}
+    <SubjectEdit
       onSaveEditing={() => {
         saveEditing();
         setEditing(false);

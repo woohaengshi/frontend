@@ -125,7 +125,7 @@
 /* 과목 박스 전체 */
 .subject_choice_box {
   background-color: white;
-  max-height: 400px;
+  max-height: 350px;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
