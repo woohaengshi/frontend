@@ -5,13 +5,22 @@ import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
 import { subjectFormApi } from '@/api/subjectFormApi'; // API 함수 임포트
 
+export interface Subject {
+  id: number;
+  name: string;
+}
+
 export default function SubjectEditForm({
+  onAddSubject,
+  onDeleteSubject,
   onSaveEditing,
   showCancelButton = true,
   style,
   subjectChoiceBoxStyle,
   saveButtonStyle,
 }: {
+  onAddSubject: (subject: Subject) => void;
+  onDeleteSubject: (id: number) => void;
   onSaveEditing: () => void;
   showCancelButton?: boolean;
   style?: React.CSSProperties;
@@ -71,7 +80,6 @@ export default function SubjectEditForm({
             `추가된 과목은 ${addedSubjects.join(', ')} 입니다`,
         );
 
-        // 부모 컴포넌트에 저장 완료를 알림
         onSaveEditing();
       } else {
         console.error('Failed to update subjects:', response.message);
@@ -121,16 +129,13 @@ export default function SubjectEditForm({
         <button
           type="submit"
           className={styles.subject_edit_form_btn_save}
-          onClick={handleSaveEditing} // 수정된 핸들러 사용
+          onClick={handleSaveEditing}
           style={saveButtonStyle}
         >
           저장
         </button>
         {showCancelButton && (
-          <button
-            className={styles.subject_edit_form_btn_modify}
-            onClick={handleCancelEditing} // 수정된 핸들러 사용
-          >
+          <button className={styles.subject_edit_form_btn_modify} onClick={handleCancelEditing}>
             취소
           </button>
         )}
