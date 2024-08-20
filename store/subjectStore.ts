@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 
-
 interface Subject {
   id: number;
   name: string;
@@ -24,7 +23,7 @@ interface SubjectStoreState {
   resetDeletedSubjects: () => void;
   resetAddedSubjects: () => void;
   revertChanges: () => void;
-  setSubjects: (subjects: Subject[]) => void; 
+  setSubjects: (subjects: Subject[]) => void;
 }
 
 export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
@@ -84,5 +83,5 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
 
   resetAddedSubjects: () => set({ addedSubjects: [] }),
 
-  setSubjects: (subjects) => set({ subjects }), 
+  setSubjects: (subjects) => set({ subjects }),
 }));

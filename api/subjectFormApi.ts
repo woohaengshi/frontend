@@ -32,7 +32,7 @@ export const subjectFormApi = async (payload: SubjectPayload) => {
 
     if (response.error) {
       console.error('과목 처리 중 오류 발생:', response.error);
-       return { success: false, message: '요청을 처리하는 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.' };
+      return { success: false, message: '요청을 처리하는 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.' };
     }
 
     return { success: true };
@@ -41,6 +41,3 @@ export const subjectFormApi = async (payload: SubjectPayload) => {
     return { success: false, message: '요청을 처리하는 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.' };
   }
 };
-
-
-

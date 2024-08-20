@@ -17,7 +17,6 @@ export default function SubjectForm({ closeSubjectEditForm }: SubjectEditFormPro
       saveSelected();
       closeSubjectEditForm();
     }
- 
   };
 
   return (
