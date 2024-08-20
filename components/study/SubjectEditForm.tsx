@@ -17,6 +17,7 @@ export default function SubjectEditForm({
   style?: React.CSSProperties;
   subjectChoiceBoxStyle?: React.CSSProperties;
   saveButtonStyle?: React.CSSProperties;
+  mypageSaveBtn?: React.CSSProperties;
 }) {
   const [newSubjectName, setNewSubjectName] = useState<string>('');
 
