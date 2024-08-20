@@ -29,7 +29,7 @@ const fetchInstance = async (url: string, options: RequestOptions = {}, isRetry 
     });
 
     // 토큰 만료 등의 경우 401 처리
-    if (response.status === 401 && !isRetry) {
+    if (response.status === (401 || 404) && !isRetry) {
       const newToken = await reissueToken();
 
       if (newToken) {
