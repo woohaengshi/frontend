@@ -1,7 +1,6 @@
-// stores/subjectStore.ts
 import { create } from 'zustand';
 
-// Define the type for a subject
+
 interface Subject {
   id: number;
   name: string;
@@ -9,10 +8,13 @@ interface Subject {
 
 interface SubjectStoreState {
   subjects: Subject[];
+  initialSelectedSubjects: string[];
+  initialSubjects: Subject[];
   selectedSubjects: string[];
   addedSubjects: string[];
   isEditing: boolean;
   deletedSubjects: number[];
+  setInitialSubjects: () => void;
   addSubject: (subject: Subject) => void;
   deleteSubject: (subjectId: number) => void;
   selectSubject: (subjectName: string) => void;
@@ -21,27 +23,35 @@ interface SubjectStoreState {
   saveEditing: () => void;
   resetDeletedSubjects: () => void;
   resetAddedSubjects: () => void;
+  revertChanges: () => void;
+  setSubjects: (subjects: Subject[]) => void; 
 }
 
 export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
-  subjects: [
-    { id: 1, name: 'html' },
-    { id: 2, name: 'css' },
-    { id: 3, name: 'javascript' },
-  ],
+  subjects: [],
+  initialSubjects: [],
   selectedSubjects: [],
   addedSubjects: [],
+  initialSelectedSubjects: [],
   isEditing: false,
   deletedSubjects: [],
 
-  // 과목 추가
+  setInitialSubjects: () => set({ initialSubjects: get().subjects, initialSelectedSubjects: get().selectedSubjects }),
+
+  revertChanges: () =>
+    set((state) => ({
+      subjects: state.initialSubjects,
+      selectedSubjects: state.initialSelectedSubjects,
+      addedSubjects: [],
+      deletedSubjects: [],
+    })),
+
   addSubject: (subject) =>
     set((state) => ({
       subjects: [...state.subjects, subject],
       addedSubjects: [...state.addedSubjects, subject.name],
     })),
 
-  // 과목 삭제
   deleteSubject: (subjectId) =>
     set((state) => {
       const subjectIndex = state.subjects.findIndex((s) => s.id === subjectId);
@@ -52,7 +62,6 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
       };
     }),
 
-  // 선택한 과목
   selectSubject: (subjectName) =>
     set((state) => ({
       selectedSubjects: state.selectedSubjects.includes(subjectName)
@@ -60,25 +69,20 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
         : [...state.selectedSubjects, subjectName],
     })),
 
-  // 선택한 과목 저장
   saveSelected: () => {
     const { selectedSubjects } = get();
     alert(`선택한 과목이 저장되었습니다: ${selectedSubjects.join(', ')}`);
   },
 
-  // 과목 편집
   setEditing: (isEditing) => set({ isEditing }),
 
-  // 편집된 과목 저장
   saveEditing: () => {
-    const { deletedSubjects, addedSubjects } = get();
-    alert(`삭제한 과목 ID는 ${deletedSubjects.join(', ')} 입니다\n추가된 과목은 ${addedSubjects.join(', ')} 입니다`);
     set({ deletedSubjects: [], addedSubjects: [], isEditing: false });
   },
 
-  // 삭제된 과목 리셋
   resetDeletedSubjects: () => set({ deletedSubjects: [] }),
 
-  // 추가한 과목 리셋
   resetAddedSubjects: () => set({ addedSubjects: [] }),
+
+  setSubjects: (subjects) => set({ subjects }), 
 }));
