@@ -12,34 +12,34 @@ export default function Mypage() {
         <Flex asChild justify="center" align="center" gap="65px">
           <ul>
             <li>
-              <Tooltip content={`7월 3주차`}>
-                <Box>
-                  <Image src={'/imgs/medal_first_on.svg'} width={120} height={150} alt="1등 뱃지" />
-                  <Text as="p" mt="3" weight="medium">
-                    1회
-                  </Text>
-                </Box>
-              </Tooltip>
+              {/* <Tooltip content={`7월 3주차`}> */}
+              <Box>
+                <Image src={'/imgs/medal_first_off.svg'} width={120} height={150} alt="1등 뱃지" />
+                <Text as="p" mt="3" weight="medium">
+                  0회
+                </Text>
+              </Box>
+              {/* </Tooltip> */}
             </li>
             <li>
-              <Tooltip content={`7월 3주차`}>
-                <Box>
-                  <Image src={'/imgs/medal_second_off.svg'} width={120} height={150} alt="2등 뱃지" />
-                  <Text as="p" mt="3" weight="medium">
-                    0회
-                  </Text>
-                </Box>
-              </Tooltip>
+              {/* <Tooltip content={`7월 3주차`}> */}
+              <Box>
+                <Image src={'/imgs/medal_second_off.svg'} width={120} height={150} alt="2등 뱃지" />
+                <Text as="p" mt="3" weight="medium">
+                  0회
+                </Text>
+              </Box>
+              {/* </Tooltip> */}
             </li>
             <li>
-              <Tooltip content={`7월 3주차`}>
-                <Box>
-                  <Image src={'/imgs/medal_third_off.svg'} width={120} height={150} alt="3등 뱃지" />
-                  <Text as="p" mt="3" weight="medium">
-                    0회
-                  </Text>
-                </Box>
-              </Tooltip>
+              {/* <Tooltip content={`7월 3주차`}> */}
+              <Box>
+                <Image src={'/imgs/medal_third_off.svg'} width={120} height={150} alt="3등 뱃지" />
+                <Text as="p" mt="3" weight="medium">
+                  0회
+                </Text>
+              </Box>
+              {/* </Tooltip> */}
             </li>
           </ul>
         </Flex>

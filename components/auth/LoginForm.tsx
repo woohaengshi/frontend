@@ -38,9 +38,9 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
           <CommonButton type="submit" style="dark_purple">
             로그인
           </CommonButton>
-          <Text as="p" align="right" mt="2">
+          {/* <Text as="p" align="right" mt="2">
             <Link href={'/pwfind'}>비밀번호 찾기</Link>
-          </Text>
+          </Text> */}
         </Box>
       </form>
       <Box mt="6" className="btn_join">
