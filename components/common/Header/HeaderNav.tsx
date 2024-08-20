@@ -14,14 +14,14 @@ export default function HeaderNav() {
         <li>
           <Link href="/study" className={pathname.startsWith('/study') ? `${styles.active}` : ''}>
             <Text as="p" size="4" weight="bold">
-              공부하기
+              공부시작
             </Text>
           </Link>
         </li>
         <li>
           <Link href="/ranking" className={pathname.startsWith('/ranking') ? `${styles.active}` : ''}>
             <Text as="p" size="4" weight="bold">
-              순위확인
+              순위조회
             </Text>
           </Link>
         </li>
