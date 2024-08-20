@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Avatar, Box, Flex, Heading, Strong, Text } from '@radix-ui/themes';
+import { Box, Flex, Heading, Strong, Text } from '@radix-ui/themes';
 import styles from './Header.module.css';
 import HeaderNav from './HeaderNav';
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
@@ -29,7 +29,7 @@ export default function Header() {
                   }}
                 >
                   {/* 기본 이미지 */}
-                  <Image src={rankingImg.src} alt={`프로필 이미지`} width={40} height={40} />
+                  <Image src={rankingImg} alt={`프로필 이미지`} width={40} height={40} />
                 </div>
                 <div className={styles.user_txt}>
                   <Strong>홍길동</Strong>

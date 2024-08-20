@@ -43,8 +43,10 @@ export default function UserProfile() {
     <section className="user_profile">
       <div className={styles.user_info}>
         <div className={styles.img_box}>
-          <div className={styles.back_img} style={{ backgroundImage: `url(${imgUrl ? imgUrl : rankingImg.src})` }}>
-            <Avatar size="8" fallback="" radius="full"></Avatar>
+          {/* 유저 프로필 이미지 */}
+          <div className={styles.back_img} style={{ backgroundImage: `url(${imgUrl ? imgUrl : ''})` }}>
+            {/* 기본 이미지 */}
+            <Image src={rankingImg} alt={`프로필 이미지`} width={180} height={180} />
           </div>
           {/* <div className={styles.btn_file}>
             <input type="file" ref={imgRef} onChange={onChangeImage} />
