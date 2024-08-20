@@ -1,17 +1,46 @@
-import { Box, Checkbox, Dialog, Flex, Inset, Strong, Text } from '@radix-ui/themes';
+'use client';
+
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+
+import { Box, Dialog, Flex, Inset, Strong, Text } from '@radix-ui/themes';
 import styles from './Modal.module.css';
 import ModalLink from './ModalLink';
 import { Cross2Icon } from '@radix-ui/react-icons';
 
 export default function Modal({ children }: { children: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(true);
+  const [isHide, setIsHide] = useState(false);
+
+  useEffect(() => {
+    const cookieValue = Cookies.get('isHide');
+    if (cookieValue === 'true') {
+      setIsOpen(false);
+    }
+  }, []);
+
+  const checkedHandler = () => {
+    setIsHide(!isHide);
+    if (!isHide) {
+      closeHandler();
+    }
+  };
+
+  const closeHandler = () => {
+    if (!isHide) {
+      Cookies.set('isHide', 'true', { expires: 1 }); // 1일 동안 쿠키 저장
+    }
+    setIsOpen(false);
+  };
+
   return (
-    <Dialog.Root defaultOpen={true}>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Content maxWidth="640px">
         <Box className={styles.modal_content}>
           <Inset side="x">
             <Flex align="center" className={styles.modal_header}>
               <Flex justify="between" align="center">
-                <Strong>NOTICE</Strong>
+                <Dialog.Title>NOTICE</Dialog.Title>
                 <Flex align="center" gap="10px" className={styles.right}>
                   <ModalLink href="/">사용설명서 바로가기</ModalLink>
                   <Dialog.Close>
@@ -30,7 +59,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
             <Flex justify="end" align="center" className={styles.modal_footer}>
               <Text as="label" size="2" weight="medium">
                 <Flex gap="2">
-                  <Checkbox />
+                  <input type="checkbox" checked={isHide} onChange={checkedHandler} />
                   오늘 하루 이 창을 열지 않음
                 </Flex>
               </Text>
