@@ -5,7 +5,7 @@ import useSWR from 'swr';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
-import { fetchSubjects } from '@/api/subjectFormApi';
+import { getTimer } from '@/api/studyApi';
 
 interface SubjectSelectProps {
   onEditClick: () => void;
@@ -14,7 +14,7 @@ interface SubjectSelectProps {
 
 export default function SubjectSelectForm({ onEditClick, onSaveClick }: SubjectSelectProps) {
   const { subjects, selectedSubjects, selectSubject, setSubjects } = useSubjectStore();
-  const { data, error } = useSWR('subjects', fetchSubjects);
+  const { data, error } = useSWR('subjects', getTimer);
 
   // 데이터가 로드되면 상태를 업데이트
   if (data && data.subjects !== subjects) {

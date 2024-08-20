@@ -43,27 +43,4 @@ export const subjectFormApi = async (payload: SubjectPayload) => {
 };
 
 
-interface Subject {
-  id: number;
-  name: string;
-}
-
-interface SubjectsResponse {
-  subjects: Subject[];
-}
-
-export const fetchSubjects = async (): Promise<SubjectsResponse> => {
-  try {
-    const response = await instance('timer', { method: 'GET' });
-
-    if (response.error) {
-      throw new Error('Error fetching subjects: ' + response.error.message);
-    }
-
-    return response;
-  } catch (error) {
-    console.error('Error in fetchSubjects:', error);
-    throw error;
-  }
-};
 
