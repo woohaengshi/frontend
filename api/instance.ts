@@ -13,6 +13,7 @@ const fetchInstance = async (url: string, options: RequestOptions = {}) => {
 
   const headers: RequestOptions['headers'] = {
     'Content-Type': 'application/json',
+    ...options.headers,
   };
 
   if (accessToken) {

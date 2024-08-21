@@ -1,4 +1,3 @@
-// /app/api/sign-in/route.ts (API Route)
 import { NextResponse } from 'next/server';
 import { signIn } from '@/api/authApi';
 
