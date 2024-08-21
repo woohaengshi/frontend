@@ -1,42 +1,29 @@
-import CommonButton from '@/components/common/CommonButton';
-import { Box, Text } from '@radix-ui/themes';
+'use client';
+
+import { postPwUpdate } from '@/api/memberApi';
+import PwUpdateForm from '@/components/mypage/PwUpdateForm';
+import { usePwUpdateStore } from '@/store/memberStore';
 
 export default function PwUpdate() {
-  return (
-    <>
-      <Box className="form_box">
-        <form action="">
-          <Box className="row">
-            <Text as="label" weight="medium">
-              현재 비밀번호
-            </Text>
-            <Box mt="2">
-              <input type="password" placeholder="현재 비밀번호를 입력해주세요." />
-            </Box>
-          </Box>
-          <Box mt="3" className="row">
-            <Text as="label" weight="medium">
-              새 비밀번호
-            </Text>
-            <Box mt="2">
-              <input type="password" placeholder="새로운 비밀번호를 입력해주세요." />
-            </Box>
-          </Box>
-          <Box mt="3" className="row">
-            <Text as="label" weight="medium">
-              새 비밀번호 확인
-            </Text>
-            <Box mt="2">
-              <input type="password" placeholder="새 비밀번호를 다시 한 번 입력해주세요." />
-            </Box>
-          </Box>
-          <Box mt="6">
-            <CommonButton type="submit" style="dark_purple">
-              저장
-            </CommonButton>
-          </Box>
-        </form>
-      </Box>
-    </>
-  );
+  const { oldPassword, newPassword, setAllEmpty } = usePwUpdateStore();
+  const updateHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const pwUpdateResponse = await postPwUpdate({ oldPassword, newPassword });
+
+    if (pwUpdateResponse?.error) {
+      if (pwUpdateResponse.error.errors) {
+        const errorMessages = pwUpdateResponse.error.errors
+          .map((error: { field: string; message: string }) => error.message)
+          .join('\n');
+        alert(errorMessages);
+      } else {
+        alert(pwUpdateResponse.error.message);
+      }
+    } else {
+      alert('성공적으로 비밀번호가 변경 되었습니다.');
+      setAllEmpty();
+    }
+  };
+  return <PwUpdateForm onUpdate={updateHandler} />;
 }
