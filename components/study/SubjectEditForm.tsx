@@ -4,6 +4,8 @@ import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
 import { subjectFormApi } from '@/api/subjectFormApi'; // API 함수 임포트
+import { fetchSubjects } from '@/api/subjectFormApi';
+import useSWR from 'swr';
 
 export default function SubjectEditForm({
   onSaveEditing,
@@ -25,18 +27,25 @@ export default function SubjectEditForm({
     subjects,
     addSubject,
     deleteSubject,
-    setInitialSubjects,
     revertChanges,
     setEditing,
     resetAddedSubjects,
     resetDeletedSubjects,
     addedSubjects,
     deletedSubjects,
+    setSubjects,
   } = useSubjectStore();
 
-  useEffect(() => {
-    setInitialSubjects(); // 컴포넌트가 마운트될 때 초기 과목 상태를 저장
-  }, []);
+  // SWR을 사용하여 과목 데이터를 가져오고 동기화
+  const { data, error } = useSWR('subjects', fetchSubjects, {
+    onSuccess: (data) => {
+      setSubjects(data.subjects);
+    },
+  });
+
+  if (error) {
+    console.error('Failed to load subjects:', error);
+  }
 
   const handleAddSubject = () => {
     if (newSubjectName.trim() !== '') {
@@ -104,7 +113,7 @@ export default function SubjectEditForm({
           </button>
         </div>
         <div className={styles.subject_choice_box} style={subjectChoiceBoxStyle}>
-          {subjects.map((subject) => (
+          {subjects?.map((subject) => (
             <div key={subject.id} className={styles.subject_item}>
               <Text as="p" size="3" className={styles.subject_item_text}>
                 {subject.name}
@@ -120,16 +129,13 @@ export default function SubjectEditForm({
         <button
           type="submit"
           className={styles.subject_edit_form_btn_save}
-          onClick={handleSaveEditing} // 수정된 핸들러 사용
+          onClick={handleSaveEditing}
           style={saveButtonStyle}
         >
           저장
         </button>
         {showCancelButton && (
-          <button
-            className={styles.subject_edit_form_btn_modify}
-            onClick={handleCancelEditing} // 수정된 핸들러 사용
-          >
+          <button className={styles.subject_edit_form_btn_modify} onClick={handleCancelEditing}>
             취소
           </button>
         )}
