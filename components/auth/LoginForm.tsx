@@ -26,9 +26,9 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
       setEmail('');
       setPassword('');
       router.push('/study');
-      alert('로그인 성공');
+      alert('로그인에 성공했습니다.');
     } else {
-      alert('로그인 실패');
+      alert('로그인에 실패했습니다.');
     }
   };
 
