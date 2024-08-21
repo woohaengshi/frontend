@@ -11,7 +11,6 @@ import Cookies from 'js-cookie';
 import { API_ROUTE_URL } from '@/constants/url';
 import useSWR from 'swr';
 
-
 export default function Header() {
   useSWR('reissue-token', revaildateToken);
 
