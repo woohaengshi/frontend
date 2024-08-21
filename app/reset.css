@@ -2,6 +2,8 @@
 /* font */
 body > .radix-themes {
   --default-font-family: 'Pretendard', var(--font-notosanskr) !important;
+}
+body > .radix-themes:first-of-type {
   background-color: var(--main-color-1);
 }
 * {
