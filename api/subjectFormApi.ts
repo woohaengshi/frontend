@@ -32,14 +32,36 @@ export const subjectFormApi = async (payload: SubjectPayload) => {
 
     if (response.error) {
       console.error('과목 처리 중 오류 발생:', response.error);
-      alert('과목 처리에 실패했습니다. 나중에 다시 시도해 주세요.'); // 사용자에게 알림창 띄우기
-      throw new Error('Failed to process subjects');
+      return { success: false, message: '요청을 처리하는 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.' };
     }
 
     return { success: true };
   } catch (error) {
     console.error('subjectFormApi 에러:', error);
-    alert('요청을 처리하는 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.'); // 사용자에게 알림창 띄우기
-    return { success: false, error };
+    return { success: false, message: '요청을 처리하는 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.' };
+  }
+};
+
+interface Subject {
+  id: number;
+  name: string;
+}
+
+interface SubjectsResponse {
+  subjects: Subject[];
+}
+
+export const fetchSubjects = async (): Promise<SubjectsResponse> => {
+  try {
+    const response = await instance('timer', { method: 'GET' });
+
+    if (response.error) {
+      throw new Error('Error fetching subjects: ' + response.error.message);
+    }
+
+    return response;
+  } catch (error) {
+    console.error('Error in fetchSubjects:', error);
+    throw error;
   }
 };

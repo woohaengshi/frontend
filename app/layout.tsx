@@ -11,6 +11,8 @@ import styles from './layout.module.css';
 
 import MobileHeader from '@/components/common/Header/MobileHeader';
 import Header from '@/components/common/Header/Header';
+import Modal from '@/components/common/Modal/Modal';
+import LanchBody from '@/components/common/Modal/LanchBody';
 
 export const metadata: Metadata = {
   title: '우행시',
@@ -34,6 +36,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Header />
           <div className={styles.content_wrapper}>{children}</div>
           <MobileHeader></MobileHeader>
+          <Modal>
+            <LanchBody />
+          </Modal>
         </Theme>
       </body>
     </html>

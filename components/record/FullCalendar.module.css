@@ -1,4 +1,9 @@
 /* container */
+.full_calendar {
+  min-width: 944px;
+  overflow-x: auto;
+}
+
 .container_inner {
   border-radius: 10px;
   background-color: #fff;
