@@ -5,18 +5,36 @@ import CommonButton from '@/components/common/CommonButton';
 import { Box, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 import AuthFormLayout from './AuthFormLayout';
-import { useLoginStore } from '@/store/authStore';
+import { useState } from 'react';
+import { SignInErrorResponse, SignInSuccessResponse } from '@/types/authType';
+import { useRouter } from 'next/navigation';
 
 interface LoginFormProps {
-  onLogin: (e: React.FormEvent<HTMLFormElement>) => void;
+  onLogin: (email: string, password: string) => Promise<SignInErrorResponse | SignInSuccessResponse>;
 }
 
 export default function LoginForm({ onLogin }: LoginFormProps) {
-  const { email, password, setEmail, setPassword } = useLoginStore();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const response = await onLogin(email, password);
+
+    if ('accessToken' in response) {
+      setEmail('');
+      setPassword('');
+      router.push('/study');
+      alert('로그인 성공');
+    } else {
+      alert('로그인 실패');
+    }
+  };
 
   return (
     <AuthFormLayout title="로그인">
-      <form onSubmit={onLogin}>
+      <form onSubmit={handleLogin}>
         <div className="input_box">
           <InputField
             label="이메일"

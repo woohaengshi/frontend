@@ -1,5 +1,6 @@
 'use server';
 
+import { BASE_URL } from '@/constants/url';
 import { instance } from './instance';
 import { cookies } from 'next/headers';
 
@@ -10,47 +11,26 @@ export const signIn = async ({ email, password }: { email: string; password: str
     method: 'POST',
   });
 
-  const { accessToken, name, cookie } = response;
-  if (accessToken) {
-    const [refreshToken, path, maxAge, expires] = cookie
-      ? cookie.split(';').map((item: string) => item.split('=')[1])
-      : [null, null, null, null];
-
-    setCookies(accessToken, name, refreshToken, path, maxAge, expires);
-  }
-
   return response;
 };
 
 export const reissueToken = async () => {
-  const refreshToken = cookies().get('whs-refresh')?.value;
+  const refreshToken = cookies().get('refresh_token')?.value;
 
-  const response = await instance(
-    'reissue',
-    {
-      headers: {
-        Cookie: `refresh_token=${refreshToken}`,
-      },
-      method: 'POST',
+  // 요청 내용을 출력합니다.
+  const requestOptions = {
+    headers: {
+      'Content-Type': 'application/json',
+      Cookie: `refresh_token=${refreshToken}`,
     },
-    true,
-  ); // 재발급 시도 시 재귀 방지를 위해 isRetry를 true로 설정
+    method: 'POST',
+  };
 
-  if (!response.error) {
-    const { accessToken, name, cookie } = response;
+  // 실제 요청을 보냅니다.
+  const response = await fetch(`${BASE_URL}reissue`, requestOptions);
+  const data = await response.json();
 
-    if (accessToken) {
-      const [refreshToken, path, maxAge, expires] = cookie
-        ? cookie.split(';').map((item: string) => item.split('=')[1])
-        : [null, null, null, null];
-
-      setCookies(accessToken, name, refreshToken, path, maxAge, expires);
-    }
-    return accessToken;
-  } else {
-    console.error('Token reissue failed');
-    return null;
-  }
+  return { ...data, cookie: response.headers.get('set-cookie') };
 };
 
 export const signUp = async ({
@@ -69,27 +49,4 @@ export const signUp = async ({
     method: 'POST',
   });
   return response;
-};
-
-const setCookies = (
-  accessToken: string,
-  name: string,
-  refreshToken?: string,
-  path?: string,
-  maxAge?: string,
-  expires?: string,
-) => {
-  cookies().set('whs-access', accessToken, { httpOnly: true, secure: true });
-  cookies().set('whs-user', name, { httpOnly: true, secure: true });
-
-  if (refreshToken && path && maxAge && expires) {
-    cookies().set('whs-refresh', refreshToken, {
-      path,
-      maxAge: parseInt(maxAge),
-      expires: new Date(expires),
-      secure: true,
-      httpOnly: true,
-      sameSite: 'none',
-    });
-  }
 };
