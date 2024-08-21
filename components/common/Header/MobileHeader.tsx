@@ -33,7 +33,7 @@ export default function MobileHeader() {
                   </svg>
                 </div>
                 <Text as="p" size="2" weight="medium" mt="2">
-                  공부하기
+                  공부시작
                 </Text>
               </Link>
             </li>
@@ -55,7 +55,7 @@ export default function MobileHeader() {
                   </svg>
                 </div>
                 <Text as="p" size="2" weight="medium" mt="2">
-                  순위확인
+                  순위조회
                 </Text>
               </Link>
             </li>

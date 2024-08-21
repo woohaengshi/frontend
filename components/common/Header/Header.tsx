@@ -1,7 +1,9 @@
 import Link from 'next/link';
-import { Avatar, Box, Flex, Heading, Strong, Text } from '@radix-ui/themes';
+import { Box, Flex, Heading, Strong, Text } from '@radix-ui/themes';
 import styles from './Header.module.css';
 import HeaderNav from './HeaderNav';
+import rankingImg from '@/assets/icons/ranking_profile_img.png';
+import Image from 'next/image';
 
 export default function Header() {
   return (
@@ -22,10 +24,12 @@ export default function Header() {
                 <div
                   className={styles.user_name}
                   style={{
-                    backgroundImage: `url('https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop')`,
+                    // 유저 프로필 이미지
+                    backgroundImage: `url('')`,
                   }}
                 >
-                  <Avatar fallback="A" />
+                  {/* 기본 이미지 */}
+                  <Image src={rankingImg} alt={`프로필 이미지`} width={40} height={40} />
                 </div>
                 <div className={styles.user_txt}>
                   <Strong>홍길동</Strong>
