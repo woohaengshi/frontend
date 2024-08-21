@@ -6,7 +6,7 @@ interface PwUpdateState {
   checkPassword: string;
   setOldPassword: (oldPassword: string) => void;
   setNewPassword: (newPassword: string) => void;
-  setCheckPassword: (newPassword: string) => void;
+  setCheckPassword: (checkPassword: string) => void;
   setAllEmpty: () => void;
 }
 
