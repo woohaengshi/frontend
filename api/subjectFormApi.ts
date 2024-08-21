@@ -41,3 +41,27 @@ export const subjectFormApi = async (payload: SubjectPayload) => {
     return { success: false, message: '요청을 처리하는 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.' };
   }
 };
+
+interface Subject {
+  id: number;
+  name: string;
+}
+
+interface SubjectsResponse {
+  subjects: Subject[];
+}
+
+export const fetchSubjects = async (): Promise<SubjectsResponse> => {
+  try {
+    const response = await instance('timer', { method: 'GET' });
+
+    if (response.error) {
+      throw new Error('Error fetching subjects: ' + response.error.message);
+    }
+
+    return response;
+  } catch (error) {
+    console.error('Error in fetchSubjects:', error);
+    throw error;
+  }
+};
