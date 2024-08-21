@@ -1,13 +1,13 @@
 /* modal_content */
 .modal_content {
-  margin:-24px 0;
+  margin: -24px 0;
 }
 
 /* modal_header */
 .modal_header {
   height: 60px;
   padding: 0 24px;
-  border-bottom: 1px solid #DDE1EB;
+  border-bottom: 1px solid #dde1eb;
   box-sizing: border-box;
 }
 .modal_header > div {
@@ -45,14 +45,14 @@
   font-size: 20px;
 }
 .modal_body .title strong:before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   left: -5px;
   right: -5px;
   bottom: -2px;
   height: 12px;
-  background-color: #DBDBFF;
+  background-color: #dbdbff;
   z-index: -1;
 }
 .modal_body .list ul li {
@@ -61,7 +61,7 @@
   font-size: 14px;
 }
 .modal_body .list ul li:before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   left: 0;
@@ -75,7 +75,7 @@
 /* modal_footer */
 .modal_footer {
   height: 40px;
-  padding:0 24px;
+  padding: 0 24px;
   background-color: var(--main-color-3);
 }
 .modal_footer label {
