@@ -52,14 +52,14 @@ export default function SubjectEditForm({
   // 과목 편집 저장 버튼
   const handleAddSubject = () => {
     if (newSubjectName.trim() === '') {
-      return; 
+      return;
     }
 
     // 중복 체크
     const isDuplicate = subjects.some((subject) => subject.name === newSubjectName.trim());
     if (isDuplicate) {
-      alert('이 과목은 이미 존재합니다.'); 
-      return; 
+      alert('이 과목은 이미 존재합니다.');
+      return;
     }
 
     const newSubject = { id: Date.now(), name: newSubjectName }; // 예시로 새로운 ID 생성
@@ -68,12 +68,11 @@ export default function SubjectEditForm({
   };
 
   const handleCancelEditing = () => {
-    revertChanges(); 
-    setEditing(false); 
+    revertChanges();
+    setEditing(false);
   };
 
   const handleSaveEditing = async () => {
-
     const payload = {
       addedSubjects: addedSubjects.map((subject) => subject.name), // 이름만 추출
       deletedSubjects: deletedSubjects.map((subject) => subject.id), // ID만 추출
@@ -82,7 +81,7 @@ export default function SubjectEditForm({
     // 추가된 과목과 삭제된 과목이 모두 비어있는 경우
     if (payload.addedSubjects.length === 0 && payload.deletedSubjects.length === 0) {
       alert('변경된 과목이 없습니다.');
-      setEditing(false); 
+      setEditing(false);
       return;
     }
 
@@ -100,7 +99,6 @@ export default function SubjectEditForm({
             `추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`,
         );
 
-   
         onSaveEditing();
       } else {
         console.error('Failed to update subjects:', response.message);
@@ -108,7 +106,7 @@ export default function SubjectEditForm({
       }
     } catch (error) {
       console.error('Error sending request:', error);
-      alert('요청을 처리하는 중 오류가 발생했습니다.'); 
+      alert('요청을 처리하는 중 오류가 발생했습니다.');
     }
   };
 

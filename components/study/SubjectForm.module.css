@@ -123,7 +123,7 @@
 }
 
 /* 과목 박스 전체 */
-.subject_select_choice_box{
+.subject_select_choice_box {
   max-height: 400px !important;
 }
 
@@ -142,7 +142,6 @@
   overflow-x: hidden;
   padding-right: 10px;
 }
-
 
 .subject_item_wrapper {
   position: relative;
@@ -276,8 +275,6 @@
   transition: background-color 0.3s;
   font-weight: 500;
 }
-
-
 
 /* 브라우저 화면일 때 숨기기 */
 @media (min-width: 769px) {

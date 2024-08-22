@@ -21,8 +21,8 @@ export default function Ranking() {
       setRankings([]);
       setPage(0);
       setHasMore(true);
-      
- try {
+
+      try {
         const {
           member,
           ranking: { ranks: initialRankings, hasNext },
@@ -47,7 +47,8 @@ export default function Ranking() {
         setCurrentUser(currentUserData);
       } catch (error) {
         console.error('Error fetching data:', error);
-      } }
+      }
+    };
 
     fetchData();
   }, [activeTab]);

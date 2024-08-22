@@ -26,7 +26,7 @@ export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
 
   return (
     <Grid columns="3" gap="1" rows="repeat(1, 64px)" className={styles.top_ranking_box_wrap}>
-      {modifiedRankings.length >= 3? (
+      {modifiedRankings.length >= 3 ? (
         modifiedRankings.slice(0, 3).map((student, index) => {
           const sizeClass = index === 1 ? styles.ranking_box_size_large : styles.ranking_box_size_small;
           const medalImage = index === 0 ? rankingTwo : index === 1 ? rankingOne : rankingThird;
