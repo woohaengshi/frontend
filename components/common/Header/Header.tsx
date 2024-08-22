@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Box, Flex, Heading, Strong, Text } from '@radix-ui/themes';
 import styles from './Header.module.css';
@@ -5,7 +7,42 @@ import HeaderNav from './HeaderNav';
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
 import Image from 'next/image';
 
+import Cookies from 'js-cookie';
+import { API_ROUTE_URL } from '@/constants/url';
+import useSWR from 'swr';
+
 export default function Header() {
+  useSWR('reissue-token', revaildateToken);
+
+  // eslint-disable-next-line func-style
+  async function revaildateToken() {
+    const accessToken = Cookies.get('access_token');
+    const refreshToken = Cookies.get('refresh_token');
+
+    if (!accessToken && refreshToken) {
+      const response = await fetch(`${API_ROUTE_URL}/api/reissue-token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Cookie: `refresh_token=${refreshToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Error response from server:', errorText);
+        throw new Error('Failed to login');
+      }
+
+      const data = await response.json();
+
+      // 토큰을 성공적으로 재발급받은 후 페이지 리로드
+      window.location.reload();
+
+      return data;
+    }
+  }
+
   return (
     <Box px="5" asChild>
       <header className={styles.header}>

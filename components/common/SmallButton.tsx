@@ -1,7 +1,14 @@
-'use client';
-
 import styles from './SmallButton.module.css';
 
-export default function SmallButton({ children }: { children: React.ReactNode }) {
-  return <button className={styles.btn_small}>{children}</button>;
+interface SmallButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+}
+
+export default function SmallButton({ children, onClick }: SmallButtonProps) {
+  return (
+    <button className={styles.btn_small} onClick={onClick}>
+      {children}
+    </button>
+  );
 }

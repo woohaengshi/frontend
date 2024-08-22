@@ -32,6 +32,26 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
   const outerRadius = isMobile ? 45 : 51.7;
   const innerRadius = isMobile ? 41 : 49.2;
 
+  const handleTimer = async (time: number, subjects: Subject[]) => {
+    const date = getCurrentDate();
+    const subjectIds = subjects.map((subject) => subject.id);
+    const response = await postTimer({ date, time, subjects: subjectIds });
+
+    if (response.error) {
+      alert(response.error.message);
+    } else {
+      alert('기록이 저장되었습니다.');
+    }
+  };
+
+  const handleToggle = () => {
+    setIsActive((prev) => !prev);
+
+    if (isActive) {
+      handleTimer(time, selectedSubjects);
+    }
+  };
+
   useEffect(() => {
     if (isActive) {
       startTimeRef.current = Date.now() - time * 1000;
@@ -61,28 +81,6 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
       }
     };
   }, [isActive, maxTime, time]);
-
-  const handleTimer = async (time: number, subjects: Subject[]) => {
-    const date = getCurrentDate();
-    const subjectIds = subjects.map((subject) => subject.id);
-    const response = await postTimer({ date, time, subjects: subjectIds });
-
-    // console.log(date, time, subjectIds);
-
-    if (response.error) {
-      alert(response.error.message);
-    } else {
-      alert('기록이 저장되었습니다.');
-    }
-  };
-
-  const handleToggle = () => {
-    setIsActive((prev) => !prev);
-
-    if (isActive) {
-      handleTimer(time, selectedSubjects);
-    }
-  };
 
   return (
     <Flex direction="column" align="center" justify="center">
