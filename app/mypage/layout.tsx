@@ -7,9 +7,11 @@ import SmallButton from '@/components/common/SmallButton';
 import Cookies from 'js-cookie';
 import { signOut } from '@/api/authApi';
 import { useRouter } from 'next/navigation';
+import { useUserInfoStore } from '@/store/memberStore';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const route = useRouter();
+  const { setUserInfo } = useUserInfoStore();
 
   const logoutHandler = async () => {
     // 로그아웃할건지 확인하는 모달창 띄우기
@@ -22,6 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     // 유저 정보 삭제
     localStorage.removeItem('userInfo');
+    setUserInfo(null);
 
     route.push('/login');
   };

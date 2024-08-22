@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { getUserInfo } from '@/api/memberApi';
 import Cookies from 'js-cookie';
 import useSWR from 'swr';
+import { useUserInfoStore } from '@/store/memberStore';
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => Promise<Response>;
@@ -42,9 +43,12 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
 
   // 유저정보조회
   const accessToken = Cookies.get('access_token');
+  const { setUserInfo } = useUserInfoStore();
   const { data } = useSWR(accessToken ? ['userInfo'] : null, async () => {
     const result = await getUserInfo();
-    localStorage.setItem('userInfo', JSON.stringify({ name: result.name, course: result.course, image: result.image }));
+    const storedUserInfo = { name: result.name, course: result.course, image: result.image };
+    localStorage.setItem('userInfo', JSON.stringify(storedUserInfo));
+    setUserInfo(storedUserInfo);
   });
 
   return (

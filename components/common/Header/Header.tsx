@@ -11,9 +11,11 @@ import Cookies from 'js-cookie';
 import { API_ROUTE_URL } from '@/constants/url';
 import useSWR from 'swr';
 import useUserInfo from '@/hook/useUserInfo';
+import { useUserInfoStore } from '@/store/memberStore';
 
 export default function Header() {
   useSWR('reissue-token', revaildateToken);
+  const { setUserInfo } = useUserInfoStore();
 
   // eslint-disable-next-line func-style
   async function revaildateToken() {
@@ -39,18 +41,16 @@ export default function Header() {
 
       // 토큰을 성공적으로 재발급받은 후 페이지 리로드
       window.location.reload();
-
       return data;
     }
 
-    // if (!accessToken && !refreshToken) {
-    //   // 유저 정보 삭제
-    //   localStorage.removeItem('userInfo');
-    // }
+    if (!accessToken && !refreshToken) {
+      localStorage.removeItem('userInfo');
+      setUserInfo(null);
+    }
   }
 
   const userInfo = useUserInfo();
-  console.log(userInfo);
 
   return (
     <Box px="5" asChild>

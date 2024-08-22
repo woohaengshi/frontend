@@ -1,18 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useUserInfoStore } from '@/store/memberStore';
+import { useEffect } from 'react';
 
-interface UserInfo {
-  name: string;
-  course: string;
-}
 const useUserInfo = () => {
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const { userInfo, setUserInfo } = useUserInfoStore();
 
   useEffect(() => {
     const storedUserInfo = localStorage.getItem('userInfo');
     if (storedUserInfo) {
       setUserInfo(JSON.parse(storedUserInfo));
     }
-  }, []);
+  }, [setUserInfo]);
 
   return userInfo;
 };
