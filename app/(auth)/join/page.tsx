@@ -20,7 +20,7 @@ export default function Join() {
         .join('\n');
       alert(errorMessages);
     } else {
-      alert('회원가입 되었습니다.');
+      alert('회원가입이 완료되었습니다.');
       setAllEmpty();
       route.push('/login');
     }

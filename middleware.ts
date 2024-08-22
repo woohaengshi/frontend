@@ -1,14 +1,16 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { cookies } from 'next/headers';
 
 export default function middleware(request: NextRequest) {
   console.log('middleware 접속');
 
   // 로그인 토큰을 확인
-  const token = request.cookies.get('whs-access')?.value;
+  const accessToken = cookies().get('access_token');
+  const refreshToken = cookies().get('refresh_token');
 
   // 토큰이 없으면 로그인 페이지로 리다이렉트
-  if (!token) {
+  if (!accessToken && !refreshToken) {
     console.log('No authToken found, redirecting to /login');
     return NextResponse.redirect(new URL('/login', request.url));
   }
