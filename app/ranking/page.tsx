@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect, useState, useCallback } from 'react';
-import TopRankings from '@/components/ranking/topLanking';
+import TopRankings from '@/components/ranking/topRanking';
 import FullRankingList from '@/components/ranking/fullRankingList';
 import { Box, Flex, Grid } from '@radix-ui/themes';
-import styles from './ranking.module.css';
+import styles from './page.module.css';
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
 import { fetchRankingsAndCurrentUserFromServer } from '@/api/rankingApi';
 import { Student, ApiResponse } from '@/types/rankingType';
@@ -109,9 +109,9 @@ export default function Ranking() {
               </ul>
             </Flex>
           </Box>
-          <Grid className={styles.top_rankings_wrap}>
+          <Box pb="5" className={styles.top_rankings_wrap}>
             <TopRankings rankings={rankings} activeTab={activeTab} />
-          </Grid>
+          </Box>
         </Box>
         <Box p="5" pr="3" className={styles.btm}>
           <FullRankingList
