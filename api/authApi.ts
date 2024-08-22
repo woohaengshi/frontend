@@ -43,3 +43,14 @@ export const signUp = async ({
   });
   return response;
 };
+
+export const signOut = async () => {
+  const refreshToken = cookies().get('refresh_token')?.value;
+
+  const response = await instance('sign-out', {
+    method: 'POST',
+    Cookie: `refresh_token=${refreshToken}`,
+  });
+
+  return response;
+};
