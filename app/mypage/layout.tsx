@@ -20,6 +20,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     Cookies.remove('access_token');
     Cookies.remove('refresh_token');
 
+    // 유저 정보 삭제
+    localStorage.removeItem('userInfo');
+
     route.push('/login');
   };
 

@@ -6,6 +6,9 @@ import { Box, Text } from '@radix-ui/themes';
 import AuthFormLayout from './AuthFormLayout';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getUserInfo } from '@/api/memberApi';
+import Cookies from 'js-cookie';
+import useSWR from 'swr';
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => Promise<Response>;
@@ -36,6 +39,13 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
       alert('로그인에 성공했습니다.');
     }
   };
+
+  // 유저정보조회
+  const accessToken = Cookies.get('access_token');
+  const { data } = useSWR(accessToken ? ['userInfo'] : null, async () => {
+    const result = await getUserInfo();
+    localStorage.setItem('userInfo', JSON.stringify({ name: result.name, course: result.course, image: result.image }));
+  });
 
   return (
     <AuthFormLayout title="로그인">

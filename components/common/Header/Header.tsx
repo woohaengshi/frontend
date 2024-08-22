@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Cookies from 'js-cookie';
 import { API_ROUTE_URL } from '@/constants/url';
 import useSWR from 'swr';
+import useUserInfo from '@/hook/useUserInfo';
 
 export default function Header() {
   useSWR('reissue-token', revaildateToken);
@@ -41,7 +42,15 @@ export default function Header() {
 
       return data;
     }
+
+    // if (!accessToken && !refreshToken) {
+    //   // 유저 정보 삭제
+    //   localStorage.removeItem('userInfo');
+    // }
   }
+
+  const userInfo = useUserInfo();
+  console.log(userInfo);
 
   return (
     <Box px="5" asChild>
@@ -55,28 +64,30 @@ export default function Header() {
           <nav className={styles.gnb}>
             <HeaderNav />
           </nav>
-          <div className={styles.user_info}>
-            <Flex align="center" gap="2" asChild>
-              <Link href="/mypage">
-                <div
-                  className={styles.user_name}
-                  style={{
-                    // 유저 프로필 이미지
-                    backgroundImage: `url('')`,
-                  }}
-                >
-                  {/* 기본 이미지 */}
-                  <Image src={rankingImg} alt={`프로필 이미지`} width={40} height={40} />
-                </div>
-                <div className={styles.user_txt}>
-                  <Strong>홍길동</Strong>
-                  <Text as="p" size="2" mt="1" weight="medium">
-                    클라우드 서비스
-                  </Text>
-                </div>
-              </Link>
-            </Flex>
-          </div>
+          {userInfo && (
+            <div className={styles.user_info}>
+              <Flex align="center" gap="2" asChild>
+                <Link href="/mypage">
+                  <div
+                    className={styles.user_name}
+                    style={{
+                      // 유저 프로필 이미지
+                      backgroundImage: `url('')`,
+                    }}
+                  >
+                    {/* 기본 이미지 */}
+                    <Image src={rankingImg} alt={`프로필 이미지`} width={40} height={40} />
+                  </div>
+                  <div className={styles.user_txt}>
+                    <Strong>{userInfo?.name}</Strong>
+                    <Text as="p" size="2" mt="1" weight="medium">
+                      {userInfo?.course}
+                    </Text>
+                  </div>
+                </Link>
+              </Flex>
+            </div>
+          )}
         </Box>
       </header>
     </Box>

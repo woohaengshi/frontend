@@ -1,13 +1,14 @@
 'use client';
 
 import { Avatar, Box, Strong, Text } from '@radix-ui/themes';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './UserProfile.module.css';
 import ico_profile_img_file from '@/assets/icons/profile_img_file.png';
 import Image from 'next/image';
 import MypageTabMenu from './MypageTabMenu';
 
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
+import useUserInfo from '@/hook/useUserInfo';
 
 export default function UserProfile() {
   const [imgUrl, setImgUrl] = useState('');
@@ -39,6 +40,8 @@ export default function UserProfile() {
     }
   };
 
+  const userInfo = useUserInfo();
+
   return (
     <section className="user_profile">
       <div className={styles.user_info}>
@@ -56,9 +59,9 @@ export default function UserProfile() {
           </div> */}
         </div>
         <Box mt="3" className={styles.txt_box}>
-          <Strong>홍길동</Strong>
+          <Strong>{userInfo?.name}</Strong>
           <Text as="p" size="3" weight="medium">
-            클라우드 서비스
+            {userInfo?.course}
           </Text>
         </Box>
       </div>
