@@ -123,9 +123,14 @@
 }
 
 /* 과목 박스 전체 */
+.subject_select_choice_box{
+  max-height: 400px !important;
+}
+
 .subject_choice_box {
+  position: relative;
   background-color: white;
-  max-height: 350px;
+  max-height: 330px;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -135,6 +140,14 @@
   row-gap: 15px;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-right: 10px;
+}
+
+
+.subject_item_wrapper {
+  position: relative;
+  display: inline-block;
+  max-width: 99%;
 }
 
 .subject_item {
@@ -150,10 +163,41 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  flex: 0 1 auto;
 }
 
 .subject_item_text {
   text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* 삭제버튼 */
+
+.delete_button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: rgb(247, 83, 83);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+  z-index: 2;
+  /* 버튼이 항상 위에 표시되도록 설정 */
+}
+
+.delete_button:hover {
+  background-color: darkred;
 }
 
 .subject_item.selected {
@@ -233,29 +277,7 @@
   font-weight: 500;
 }
 
-/* 삭제버튼 */
 
-.delete_button {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: rgb(247, 83, 83);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 20px;
-  text-align: center;
-}
-
-.delete_button:hover {
-  background-color: darkred;
-}
 
 /* 브라우저 화면일 때 숨기기 */
 @media (min-width: 769px) {
