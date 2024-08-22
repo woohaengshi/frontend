@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
-import { subjectFormApi } from '@/api/subjectFormApi'; // API 함수 임포트
+import { subjectFormApi } from '@/api/subjectFormApi';
 import { fetchSubjects } from '@/api/subjectFormApi';
 import useSWR from 'swr';
 
@@ -52,14 +52,14 @@ export default function SubjectEditForm({
   // 과목 편집 저장 버튼
   const handleAddSubject = () => {
     if (newSubjectName.trim() === '') {
-      return; // 과목 이름이 비어있으면 아무것도 하지 않음
+      return; 
     }
 
     // 중복 체크
     const isDuplicate = subjects.some((subject) => subject.name === newSubjectName.trim());
     if (isDuplicate) {
-      alert('이 과목은 이미 존재합니다.'); // 중복 경고 메시지
-      return; // 중복일 경우 추가하지 않음
+      alert('이 과목은 이미 존재합니다.'); 
+      return; 
     }
 
     const newSubject = { id: Date.now(), name: newSubjectName }; // 예시로 새로운 ID 생성
@@ -68,12 +68,12 @@ export default function SubjectEditForm({
   };
 
   const handleCancelEditing = () => {
-    revertChanges(); // 취소 시 초기 상태로 되돌리기
-    setEditing(false); // 편집 모드 종료
+    revertChanges(); 
+    setEditing(false); 
   };
 
   const handleSaveEditing = async () => {
-    // payload 준비
+
     const payload = {
       addedSubjects: addedSubjects.map((subject) => subject.name), // 이름만 추출
       deletedSubjects: deletedSubjects.map((subject) => subject.id), // ID만 추출
@@ -82,7 +82,7 @@ export default function SubjectEditForm({
     // 추가된 과목과 삭제된 과목이 모두 비어있는 경우
     if (payload.addedSubjects.length === 0 && payload.deletedSubjects.length === 0) {
       alert('변경된 과목이 없습니다.');
-      setEditing(false); // 편집 모드 종료
+      setEditing(false); 
       return;
     }
 
@@ -100,15 +100,15 @@ export default function SubjectEditForm({
             `추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`,
         );
 
-        // 부모 컴포넌트에 저장 완료를 알림
+   
         onSaveEditing();
       } else {
         console.error('Failed to update subjects:', response.message);
-        alert(`업데이트 실패: ${response.message}`); // 오류 메시지를 사용자에게 표시
+        alert(`업데이트 실패: ${response.message}`);
       }
     } catch (error) {
       console.error('Error sending request:', error);
-      alert('요청을 처리하는 중 오류가 발생했습니다.'); // 오류 처리
+      alert('요청을 처리하는 중 오류가 발생했습니다.'); 
     }
   };
 
