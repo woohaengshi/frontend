@@ -7,6 +7,7 @@ const useRefreshMonthlyData = (selectedYear: number, selectedMonth: number, shou
     shouldFetch ? ['MonthlyRecord', selectedYear, selectedMonth] : null,
     async () => {
       const result = await getRecordMonthly(selectedYear, selectedMonth);
+      console.log('useRefreshMonthlyData 호출됨');
       return result;
     },
     {
