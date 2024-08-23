@@ -1,7 +1,7 @@
 'use client';
 
-import { Avatar, Box, Strong, Text } from '@radix-ui/themes';
-import { useEffect, useRef, useState } from 'react';
+import { Box, Strong, Text } from '@radix-ui/themes';
+import { useRef, useState } from 'react';
 import styles from './UserProfile.module.css';
 import ico_profile_img_file from '@/assets/icons/profile_img_file.png';
 import Image from 'next/image';
