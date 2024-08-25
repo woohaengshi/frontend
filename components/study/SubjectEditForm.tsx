@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
-import { subjectFormApi } from '@/api/subjectFormApi';
-import { fetchSubjects } from '@/api/subjectFormApi';
+import { postSubjectItem } from '@/api/subjectFormApi';
+import { getSubjectEditList } from '@/api/subjectFormApi';
 import useSWR from 'swr';
 
 export default function SubjectEditForm({
@@ -36,7 +36,7 @@ export default function SubjectEditForm({
   } = useSubjectStore();
 
   // SWR을 사용하여 과목 데이터를 가져오고 동기화 - 마이페이지 새로 고침 시 저장
-  const { data, error } = useSWR('subjects', fetchSubjects, {
+  const { data, error } = useSWR('subjects', getSubjectEditList, {
     onSuccess: (data) => {
       if (addedSubjects.length === 0 && deletedSubjects.length === 0) {
         setSubjects(data.subjects);
@@ -84,7 +84,7 @@ export default function SubjectEditForm({
       return;
     }
 
-    const response = await subjectFormApi(payload);
+    const response = await postSubjectItem(payload);
     if (response.success) {
       resetAddedSubjects();
       resetDeletedSubjects();

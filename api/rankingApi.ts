@@ -2,7 +2,9 @@ import { instance } from './instance';
 import { ApiResponse } from '../types/rankingType';
 import rankingImg from '../assets/icons/ranking_profile_img.png';
 
-export const fetchRankingsAndCurrentUserFromServer = async ({
+
+//랭킹 조회 api
+export const getMemberRanking = async ({
   tab,
   pageNumber,
   size = 10, // 기본적으로 한 번에 가져올 수
@@ -14,8 +16,8 @@ export const fetchRankingsAndCurrentUserFromServer = async ({
   try {
     const url = `rank?page=${pageNumber}&type=${tab}&size=${size}`;
     const response = await instance(url, {
-      method: 'GET', // HTTP 메서드를 POST로 설정
-      credentials: 'include', // 자격 증명(쿠키 등)을 포함하도록 설정
+      method: 'GET', 
+      credentials: 'include', 
     });
 
     // 데이터 반환

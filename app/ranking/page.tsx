@@ -2,10 +2,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import TopRankings from '@/components/ranking/topRanking';
 import FullRankingList from '@/components/ranking/fullRankingList';
-import { Box, Flex, Grid } from '@radix-ui/themes';
+import { Box, Flex } from '@radix-ui/themes';
 import styles from './page.module.css';
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
-import { fetchRankingsAndCurrentUserFromServer } from '@/api/rankingApi';
+import { getMemberRanking } from '@/api/rankingApi';
 import { Student, ApiResponse } from '@/types/rankingType';
 
 export default function Ranking() {
@@ -25,7 +25,7 @@ export default function Ranking() {
       const {
         member,
         ranking: { ranks: initialRankings, hasNext },
-      }: ApiResponse = await fetchRankingsAndCurrentUserFromServer({
+      }: ApiResponse = await getMemberRanking({
         tab: activeTab,
         pageNumber: 0,
         size,
@@ -53,7 +53,7 @@ export default function Ranking() {
     if (hasMore) {
       const nextPage = page + 1;
       try {
-        const response: ApiResponse = await fetchRankingsAndCurrentUserFromServer({
+        const response: ApiResponse = await getMemberRanking({
           tab: activeTab,
           pageNumber: nextPage,
           size,
