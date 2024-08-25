@@ -7,7 +7,7 @@ interface SubjectPayload {
   deletedSubjects: number[]; // 삭제된 과목 리스트 (과목 ID)
 }
 
-// 삭제한 과목 id, 추가된 과목명 보내기 
+// 삭제한 과목 id, 추가된 과목명 보내기
 export const postSubjectItem = async (payload: SubjectPayload) => {
   const requestBody: { addedSubjects: string[]; deletedSubjects: number[] } = {
     addedSubjects: [], // 기본값으로 빈 배열 설정
@@ -51,17 +51,15 @@ interface SubjectsResponse {
   subjects: Subject[];
 }
 
-// 과목 편집 목록 가져오기 (선택x) 
+// 과목 편집 목록 가져오기 (선택x)
 export const getSubjectEditList = async (): Promise<SubjectsResponse> => {
+  const response = await instance('timer', { method: 'GET' });
 
-    const response = await instance('timer', { method: 'GET' });
+  if (response.error) {
+    throw new Error('Error fetching subjects: ' + response.error.message);
+  }
 
-    if (response.error) {
-      throw new Error('Error fetching subjects: ' + response.error.message);
-    }
-
-    return response;
-
+  return response;
 };
 
-// 선택된 과목명 get?? 
+// 선택된 과목명 get??

@@ -5,7 +5,6 @@ interface Subject {
   name: string;
 }
 
-
 interface SubjectStoreState {
   subjects: Subject[];
   initialSelectedSubjects: Subject[];
@@ -86,7 +85,7 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
         : [...state.selectedSubjects, subject],
     })),
 
-  // 선택한과목 배열 저장 
+  // 선택한과목 배열 저장
   saveSelected: () => {
     const { selectedSubjects } = get();
     alert(`선택한 과목이 저장되었습니다: ${selectedSubjects.map((s) => s.name).join(', ')}`);
