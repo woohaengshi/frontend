@@ -1,59 +1,76 @@
 import { create } from 'zustand';
 
+// Subject 타입 정의
 interface Subject {
   id: number;
   name: string;
 }
 
-
-interface SubjectStoreState {
-  subjects: Subject[];
-  initialSelectedSubjects: Subject[];
-  initialSubjects: Subject[];
-  selectedSubjects: Subject[];
-  addedSubjects: Subject[];
-  isEditing: boolean;
-  deletedSubjects: Subject[];
-  setInitialSubjects: () => void;
-  addSubject: (subject: Subject) => void;
-  deleteSubject: (subjectId: number) => void;
-  selectSubject: (subject: Subject) => void;
-  setEditing: (isEditing: boolean) => void;
-  saveSelected: () => void;
-  saveEditing: () => void;
-  resetDeletedSubjects: () => void;
-  resetAddedSubjects: () => void;
-  revertChanges: () => void;
+// 공통
+interface CommonStoreState {
   setSubjects: (subjects: Subject[]) => void;
+  setInitialSubjects: () => void;
+  setEditing: (isEditing: boolean) => void;
+  subjects: Subject[];
+  initialSubjects: Subject[];
+  initialSelectedSubjects: Subject[];
+  selectedSubjects: Subject[];
+  isEditing: boolean;
+  addedSubjects: Subject[];
+  deletedSubjects: Subject[];
 }
 
-export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
+// 공통
+const createCommonStore = (set: any, get: any): CommonStoreState => ({
   subjects: [],
   initialSubjects: [],
+  initialSelectedSubjects: [],
   selectedSubjects: [],
   addedSubjects: [],
-  initialSelectedSubjects: [],
-  isEditing: false,
   deletedSubjects: [],
+  isEditing: false,
 
-  setInitialSubjects: () => set({ initialSubjects: get().subjects, initialSelectedSubjects: get().selectedSubjects }),
+  setSubjects: (subjects) => set({ subjects }),
 
-  revertChanges: () =>
-    set((state) => ({
-      subjects: state.initialSubjects,
-      selectedSubjects: state.initialSelectedSubjects,
-      addedSubjects: [],
-      deletedSubjects: [],
-    })),
+  setInitialSubjects: () =>
+    set({
+      initialSubjects: get().subjects,
+      initialSelectedSubjects: get().selectedSubjects,
+    }),
 
-  // 과목 추가
+  setEditing: (isEditing) => set({ isEditing }),
+});
+
+// 추가 기능
+interface AddStoreState extends CommonStoreState {
+  addSubject: (subject: Subject) => void;
+  resetAddedSubjects: () => void;
+}
+
+export const useAddStore = create<AddStoreState>((set, get) => ({
+  ...createCommonStore(set, get),
+
+  addedSubjects: [],
+
   addSubject: (subject: Subject) =>
     set((state) => ({
-      subjects: [...state.subjects, subject],
       addedSubjects: [...state.addedSubjects, subject],
+      subjects: [...state.subjects, subject],
     })),
 
-  // 과목 삭제
+  resetAddedSubjects: () => set({ addedSubjects: [] }),
+}));
+
+// 삭제 기능
+interface DeleteStoreState extends CommonStoreState {
+  deleteSubject: (subjectId: number) => void;
+  resetDeletedSubjects: () => void;
+}
+
+export const useDeleteStore = create<DeleteStoreState>((set, get) => ({
+  ...createCommonStore(set, get),
+
+  deletedSubjects: [],
   deleteSubject: (subjectId) =>
     set((state) => {
       const subjectIndex = state.subjects.findIndex((s) => s.id === subjectId);
@@ -78,29 +95,57 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
       };
     }),
 
-  // 선택한과목
-  selectSubject: (subject) =>
-    set((state) => ({
-      selectedSubjects: state.selectedSubjects.includes(subject)
-        ? state.selectedSubjects.filter((s) => s.id !== subject.id)
-        : [...state.selectedSubjects, subject],
-    })),
+  resetDeletedSubjects: () => set({ deletedSubjects: [] }),
+}));
 
-  // 선택한과목 배열 저장 
+// 저장 기능
+interface SaveStoreState extends CommonStoreState {
+  saveSelected: () => void;
+  saveEditing: () => void;
+}
+
+export const useSaveStore = create<SaveStoreState>((set, get) => ({
+  ...createCommonStore(set, get),
+
   saveSelected: () => {
     const { selectedSubjects } = get();
     alert(`선택한 과목이 저장되었습니다: ${selectedSubjects.map((s) => s.name).join(', ')}`);
   },
 
-  setEditing: (isEditing) => set({ isEditing }),
-
   saveEditing: () => {
     set({ deletedSubjects: [], addedSubjects: [], isEditing: false });
   },
+}));
 
-  resetDeletedSubjects: () => set({ deletedSubjects: [] }),
+// 선택 관련 기능
+interface SelectStoreState extends CommonStoreState {
+  selectSubject: (subject: Subject) => void;
+}
 
-  resetAddedSubjects: () => set({ addedSubjects: [] }),
+export const useSelectStore = create<SelectStoreState>((set, get) => ({
+  ...createCommonStore(set, get),
 
-  setSubjects: (subjects) => set({ subjects }),
+  selectSubject: (subject: Subject) =>
+    set((state) => ({
+      selectedSubjects: state.selectedSubjects.includes(subject)
+        ? state.selectedSubjects.filter((s) => s.id !== subject.id)
+        : [...state.selectedSubjects, subject],
+    })),
+}));
+
+// 리셋 기능
+interface ResetStoreState extends CommonStoreState {
+  revertChanges: () => void;
+}
+
+export const useResetStore = create<ResetStoreState>((set, get) => ({
+  ...createCommonStore(set, get),
+
+  revertChanges: () =>
+    set((state) => ({
+      subjects: state.initialSubjects,
+      selectedSubjects: state.initialSelectedSubjects,
+      addedSubjects: [],
+      deletedSubjects: [],
+    })),
 }));

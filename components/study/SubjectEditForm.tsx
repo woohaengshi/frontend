@@ -1,8 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
-import { useSubjectStore } from '@/store/subjectStore';
+import { useAddStore, useDeleteStore, useResetStore } from '@/store/subjectStore';
 import { subjectFormApi } from '@/api/subjectFormApi';
 import { fetchSubjects } from '@/api/subjectFormApi';
 import useSWR from 'swr';
@@ -12,37 +12,31 @@ export default function SubjectEditForm({
   showCancelButton = true,
   style,
   subjectChoiceBoxStyle,
-  mypageSaveBtn,
+  saveButtonStyle,
 }: {
   onSaveEditing: () => void;
   showCancelButton?: boolean;
   style?: React.CSSProperties;
   subjectChoiceBoxStyle?: React.CSSProperties;
+  saveButtonStyle?: React.CSSProperties;
   mypageSaveBtn?: React.CSSProperties;
 }) {
   const [newSubjectName, setNewSubjectName] = useState<string>('');
 
-  const {
-    subjects,
-    addSubject,
-    deleteSubject,
-    revertChanges,
-    setEditing,
-    resetAddedSubjects,
-    resetDeletedSubjects,
-    addedSubjects,
-    deletedSubjects,
-    setSubjects,
-  } = useSubjectStore();
+  const { subjects, addSubject, setEditing, resetAddedSubjects, addedSubjects, deletedSubjects, setSubjects } =
+    useAddStore();
+  const { deleteSubject, resetDeletedSubjects } = useDeleteStore();
+  const { revertChanges } = useResetStore();
 
   // SWR을 사용하여 과목 데이터를 가져오고 동기화 - 마이페이지 새로 고침 시 저장
-  const { data, error } = useSWR('subjects', fetchSubjects, {
-    onSuccess: (data) => {
-      if (addedSubjects.length === 0 && deletedSubjects.length === 0) {
-        setSubjects(data.subjects);
-      }
-    },
-  });
+  const { data, error } = useSWR('subjects', fetchSubjects);
+
+  // 데이터가 로드되면 상태를 업데이트
+  useEffect(() => {
+    if (data && data.subjects) {
+      setSubjects(data.subjects);
+    }
+  }, [data, setSubjects]);
 
   if (error) {
     console.error('Failed to load subjects:', error);
@@ -57,7 +51,7 @@ export default function SubjectEditForm({
     // 중복 체크
     const isDuplicate = subjects.some((subject) => subject.name === newSubjectName.trim());
     if (isDuplicate) {
-      alert(`${newSubjectName.trim()}은 이미 존재합니다.`);
+      alert('이 과목은 이미 존재합니다.');
       return;
     }
 
@@ -84,28 +78,28 @@ export default function SubjectEditForm({
       return;
     }
 
-    const response = await subjectFormApi(payload);
-    if (response.success) {
-      resetAddedSubjects();
-      resetDeletedSubjects();
-      setEditing(false);
+    try {
+      const response = await subjectFormApi(payload);
+      if (response.success) {
+        console.log('Subjects updated successfully');
+        resetAddedSubjects();
+        resetDeletedSubjects();
+        setEditing(false);
 
-      // 알림만:삭제,추가 name으로
-      if (deletedSubjects.length > 0) {
+        // 삭제된 ID와 추가된 과목명을 알림으로 표시
         alert(
-          `삭제한 과목은 ${deletedSubjects.map((subject) => subject.name).join(', ')} 입니다` +
-            (addedSubjects.length > 0
-              ? `\n추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`
-              : ''),
+          `삭제한 과목 ID는 ${deletedSubjects.map((subject) => subject.id).join(', ')} 입니다\n` +
+            `추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`,
         );
+
+        onSaveEditing();
       } else {
-        if (addedSubjects.length > 0) {
-          alert(`추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`);
-        }
+        console.error('Failed to update subjects:', response.message);
+        alert(`업데이트 실패: ${response.message}`);
       }
-      onSaveEditing();
-    } else {
-      alert(`과목 편집 저장 실패: ${response.message}`);
+    } catch (error) {
+      console.error('Error sending request:', error);
+      alert('요청을 처리하는 중 오류가 발생했습니다.');
     }
   };
 
@@ -149,7 +143,7 @@ export default function SubjectEditForm({
           type="submit"
           className={styles.subject_edit_form_btn_save}
           onClick={handleSaveEditing}
-          style={mypageSaveBtn}
+          style={saveButtonStyle}
         >
           저장
         </button>

@@ -2,14 +2,14 @@ import React from 'react';
 import SubjectSelectForm from './SubjectSelectForm';
 import SubjectEditForm from './SubjectEditForm';
 import styles from './SubjectForm.module.css';
-import { useSubjectStore } from '@/store/subjectStore';
+import { useSaveStore } from '@/store/subjectStore';
 
 interface SubjectEditFormProps {
   closeSubjectEditForm: () => void;
 }
 
 export default function SubjectForm({ closeSubjectEditForm }: SubjectEditFormProps) {
-  const { isEditing, setEditing, saveSelected } = useSubjectStore();
+  const { isEditing, setEditing, saveSelected } = useSaveStore();
 
   const handleSaveAndClose = async () => {
     if (isEditing) {

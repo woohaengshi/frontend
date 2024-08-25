@@ -4,7 +4,7 @@ import React from 'react';
 import useSWR from 'swr';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
-import { useSubjectStore } from '@/store/subjectStore';
+import { useSelectStore } from '@/store/subjectStore';
 import { fetchSubjects } from '@/api/subjectFormApi';
 
 interface SubjectSelectProps {
@@ -13,7 +13,7 @@ interface SubjectSelectProps {
 }
 
 export default function SubjectSelectForm({ onEditClick, onSaveClick }: SubjectSelectProps) {
-  const { subjects, selectedSubjects, selectSubject, setSubjects } = useSubjectStore();
+  const { subjects, selectedSubjects, selectSubject, setSubjects } = useSelectStore();
   const { data, error } = useSWR('subjects', fetchSubjects);
 
   // 데이터가 로드되면 상태를 업데이트
