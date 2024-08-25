@@ -1,116 +1,68 @@
 /* topRankingList.module.css */
-.top_ranking_box_wrap {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* common */
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+.color_gray {
+  color: #8c8c8c;
 }
 
-.top_ranking_box {
-  width: 100%;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
-  padding: 10px;
-  margin: 0 30px;
-  border-radius: 10px;
-}
-
-/* 크기를 다르게 하기 위한 클래스 */
-.ranking_box_size_small {
-  width: 170px;
-  height: 220px;
-}
-
-.ranking_box_size_large {
-  width: 200px;
-  height: 250px;
-}
-
-.medal_image_wrap {
+/* ranking_list */
+.ranking_list li:not(.no_ranking) {
   position: relative;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #fff;
   width: 100%;
-  height: 15%;
-  display: flex;
-  justify-content: flex-end;
+  max-width: 200px;
+  height: 250px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.medal_image {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 15%;
+.ranking_list li.no_ranking > div {
   height: 100%;
 }
 
-.medal_image_small {
-  width: 30px;
-  height: 38px;
+/* 2 ~ 3등 크기 */
+.side_box {
+  transform: scale(0.9);
 }
 
-.medal_image_large {
-  width: 35px;
-  height: 45px;
+.img_medal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
-.student_image {
-  width: 40%;
-  height: 33%;
+.user_info {
+  width: 100%;
+  text-align: center;
 }
 
-.student_name,
-.student_class {
-  font-size: 15px;
+.time_info {
+  width: 100%;
 }
-
-.student_class {
-  color: rgb(140, 140, 140);
-}
-
-.student_info {
-  width: 85%;
-  display: flex;
-  justify-content: space-between;
-  padding-top: 5%;
-}
-
-.details_time {
+.time_info .studey_time {
   text-align: left;
 }
-
-.accumulate_time {
+.time_info .total_time {
   text-align: right;
 }
 
-.studyTime,
-.totalTime {
-  color: rgb(140, 140, 140);
+.no_ranking {
+  height: 250px;
 }
 
-.no_rankings {
-  padding: 125px 0px;
-}
-
-@media screen and (max-width: 480px) {
-  .top_ranking_box {
-    padding: 10px;
-    margin: 0 30px;
+@media screen and (max-width: 720px) {
+  .ranking_list {
+    gap: 10px;
   }
-
-  /* 크기를 다르게 하기 위한 클래스 */
-  .ranking_box_size_small {
-    width: 150px;
-    height: 200px;
-  }
-
-  .ranking_box_size_large {
+  .ranking_list li {
     width: 180px;
     height: 230px;
-  }
-
-  .no_rankings {
-    padding: 115px 0px;
   }
 }

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
@@ -58,7 +58,7 @@ export default function SubjectEditForm({
     // 중복 체크
     const isDuplicate = subjects.some((subject) => subject.name === newSubjectName.trim());
     if (isDuplicate) {
-      alert('이 과목은 이미 존재합니다.');
+      alert(`${newSubjectName.trim()}은 이미 존재합니다.`);
       return;
     }
 
@@ -85,30 +85,31 @@ export default function SubjectEditForm({
       return;
     }
 
-    try {
       const response = await subjectFormApi(payload);
       if (response.success) {
-        console.log('Subjects updated successfully');
         resetAddedSubjects();
         resetDeletedSubjects();
         setEditing(false);
 
-        // 삭제된 ID와 추가된 과목명을 알림으로 표시
-        alert(
-          `삭제한 과목 ID는 ${deletedSubjects.map((subject) => subject.id).join(', ')} 입니다\n` +
-            `추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`,
-        );
-
+        // 알림만 id값 안쓰고 모두 과목명으로 알림
+        if (deletedSubjects.length > 0) {
+          alert(
+            `삭제한 과목은 ${deletedSubjects.map((subject) => subject.name).join(', ')} 입니다` +
+              (addedSubjects.length > 0
+                ? `\n추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`
+                : ''),
+          );
+        } else {
+          if (addedSubjects.length > 0) {
+            alert(`추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`);
+          }}
         onSaveEditing();
       } else {
-        console.error('Failed to update subjects:', response.message);
-        alert(`업데이트 실패: ${response.message}`);
-      }
-    } catch (error) {
-      console.error('Error sending request:', error);
-      alert('요청을 처리하는 중 오류가 발생했습니다.');
+        alert(`과목 편집 저장 실패: ${response.message}`);
+      };
+   
     }
-  };
+
 
   return (
     <div className={styles.subject_edit_form_wrap_inner} style={style}>

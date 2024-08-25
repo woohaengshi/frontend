@@ -42,13 +42,6 @@
     0 6px 14px rgba(0, 0, 0, 0.1); */
 }
 
-.top_rankings_wrap {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 30px 0px;
-}
-
 .btm {
   /* width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
@@ -75,11 +68,6 @@
     width: 90px;
     height: 40px;
     font-size: var(--font-size-3);
-  }
-
-  .top_rankings_wrap {
-    width: auto;
-    padding: 5px 0px;
   }
 
   .full_ranking_wrap {

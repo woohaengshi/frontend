@@ -19,6 +19,7 @@ export default function Page() {
     height: '60px',
     fontWeight: '700',
   };
+
   return (
     <SubjectEditForm
       onSaveEditing={() => {

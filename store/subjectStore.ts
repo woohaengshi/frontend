@@ -5,14 +5,17 @@ interface Subject {
   name: string;
 }
 
+
+// selectedSubjects: 선택된 배열 
+// selectSubject: 선택 과목 
 interface SubjectStoreState {
   subjects: Subject[];
   initialSelectedSubjects: Subject[];
   initialSubjects: Subject[];
   selectedSubjects: Subject[];
-  addedSubjects: Subject[]; // Store as objects
+  addedSubjects: Subject[];
   isEditing: boolean;
-  deletedSubjects: Subject[]; // Store as objects
+  deletedSubjects: Subject[];
   setInitialSubjects: () => void;
   addSubject: (subject: Subject) => void;
   deleteSubject: (subjectId: number) => void;
@@ -30,10 +33,10 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
   subjects: [],
   initialSubjects: [],
   selectedSubjects: [],
-  addedSubjects: [], // Store as objects
+  addedSubjects: [],
   initialSelectedSubjects: [],
   isEditing: false,
-  deletedSubjects: [], // Store as objects
+  deletedSubjects: [],
 
   setInitialSubjects: () => set({ initialSubjects: get().subjects, initialSelectedSubjects: get().selectedSubjects }),
 
@@ -45,12 +48,14 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
       deletedSubjects: [],
     })),
 
+  // 과목 추가
   addSubject: (subject: Subject) =>
     set((state) => ({
       subjects: [...state.subjects, subject],
       addedSubjects: [...state.addedSubjects, subject],
     })),
 
+  // 과목 삭제
   deleteSubject: (subjectId) =>
     set((state) => {
       const subjectIndex = state.subjects.findIndex((s) => s.id === subjectId);
@@ -75,6 +80,7 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
       };
     }),
 
+  // 선택한과목
   selectSubject: (subject) =>
     set((state) => ({
       selectedSubjects: state.selectedSubjects.includes(subject)
@@ -82,6 +88,7 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
         : [...state.selectedSubjects, subject],
     })),
 
+  // 선택한과목 배열 저장 
   saveSelected: () => {
     const { selectedSubjects } = get();
     alert(`선택한 과목이 저장되었습니다: ${selectedSubjects.map((s) => s.name).join(', ')}`);
