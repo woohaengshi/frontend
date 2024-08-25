@@ -6,8 +6,6 @@ interface Subject {
 }
 
 
-// selectedSubjects: 선택된 배열 
-// selectSubject: 선택 과목 
 interface SubjectStoreState {
   subjects: Subject[];
   initialSelectedSubjects: Subject[];

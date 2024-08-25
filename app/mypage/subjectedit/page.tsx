@@ -17,7 +17,6 @@ export default function Page() {
   };
   const mypageSaveBtn = {
     height: '60px',
-    fontWeight: '700',
   };
 
   return (

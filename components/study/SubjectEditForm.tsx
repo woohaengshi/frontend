@@ -12,13 +12,12 @@ export default function SubjectEditForm({
   showCancelButton = true,
   style,
   subjectChoiceBoxStyle,
-  saveButtonStyle,
+  mypageSaveBtn,
 }: {
   onSaveEditing: () => void;
   showCancelButton?: boolean;
   style?: React.CSSProperties;
   subjectChoiceBoxStyle?: React.CSSProperties;
-  saveButtonStyle?: React.CSSProperties;
   mypageSaveBtn?: React.CSSProperties;
 }) {
   const [newSubjectName, setNewSubjectName] = useState<string>('');
@@ -85,31 +84,30 @@ export default function SubjectEditForm({
       return;
     }
 
-      const response = await subjectFormApi(payload);
-      if (response.success) {
-        resetAddedSubjects();
-        resetDeletedSubjects();
-        setEditing(false);
+    const response = await subjectFormApi(payload);
+    if (response.success) {
+      resetAddedSubjects();
+      resetDeletedSubjects();
+      setEditing(false);
 
-        // 알림만 id값 안쓰고 모두 과목명으로 알림
-        if (deletedSubjects.length > 0) {
-          alert(
-            `삭제한 과목은 ${deletedSubjects.map((subject) => subject.name).join(', ')} 입니다` +
-              (addedSubjects.length > 0
-                ? `\n추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`
-                : ''),
-          );
-        } else {
-          if (addedSubjects.length > 0) {
-            alert(`추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`);
-          }}
-        onSaveEditing();
+      // 알림만:삭제,추가 name으로
+      if (deletedSubjects.length > 0) {
+        alert(
+          `삭제한 과목은 ${deletedSubjects.map((subject) => subject.name).join(', ')} 입니다` +
+            (addedSubjects.length > 0
+              ? `\n추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`
+              : ''),
+        );
       } else {
-        alert(`과목 편집 저장 실패: ${response.message}`);
-      };
-   
+        if (addedSubjects.length > 0) {
+          alert(`추가된 과목은 ${addedSubjects.map((subject) => subject.name).join(', ')} 입니다`);
+        }
+      }
+      onSaveEditing();
+    } else {
+      alert(`과목 편집 저장 실패: ${response.message}`);
     }
-
+  };
 
   return (
     <div className={styles.subject_edit_form_wrap_inner} style={style}>
@@ -151,7 +149,7 @@ export default function SubjectEditForm({
           type="submit"
           className={styles.subject_edit_form_btn_save}
           onClick={handleSaveEditing}
-          style={saveButtonStyle}
+          style={mypageSaveBtn}
         >
           저장
         </button>

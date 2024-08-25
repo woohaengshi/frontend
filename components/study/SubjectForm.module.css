@@ -96,7 +96,7 @@
 
 .subject_choice_text_wrap {
   width: 100%;
-  height: 60px;
+  height: 57px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -136,6 +136,7 @@
   flex-wrap: wrap;
   box-sizing: border-box;
   padding-top: 5px;
+  padding-bottom: 15px;
   gap: 15px;
   row-gap: 15px;
   overflow-y: auto;
@@ -146,7 +147,7 @@
 .subject_item_wrapper {
   position: relative;
   display: inline-block;
-  max-width: 99%;
+  max-width: 100%;
 }
 
 .subject_item {
@@ -267,7 +268,7 @@
 .subject_edit_form_btn_save,
 .subject_edit_form_btn_modify {
   font-size: 18px;
-  height: 56px;
+  height: 60px;
   line-height: 30px;
   border: none;
   border-radius: 8px;
