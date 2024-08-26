@@ -29,7 +29,7 @@ export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
   return (
     <Flex justify="center" align="center" gap="20px" className={styles.ranking_list} asChild>
       <ul>
-        {modifiedRankings.length >= 0 ? (
+        {modifiedRankings.length > 0 ? (
           modifiedRankings.slice(0, 3).map((student, index) => {
             const sizeClass = index === 1 ? '' : styles.side_box;
             const medalImage = index === 0 ? rankingTwo : index === 1 ? rankingOne : rankingThird;
