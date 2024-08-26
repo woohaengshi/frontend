@@ -5,7 +5,7 @@ import { Box, Container, Flex, Heading, Text } from '@radix-ui/themes';
 import { useCallback, useEffect, useState } from 'react';
 import styles from './FullCalendar.module.css';
 import MonthPicker from './MonthPicker';
-import { useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
+import { useFetchStore, useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
 import CalendarRecord from './CalendarRecord';
 import useRefreshMonthlyData from '@/hook/useRefreshMonthlyData';
 
@@ -27,8 +27,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
   const { selectedMonth, setSelectedMonth } = useSelectedMonthStore();
 
   // 초기 렌더링시 데이터 패치를 막기 위함
-  const [shouldFetch, setShouldFetch] = useState(false);
-
+  const { shouldFetch, setShouldFetch } = useFetchStore();
   const [records, setRecords] = useState<IMonthlyDataRecord[]>(monthlyData?.records);
 
   // 매월 시작일 index (0 ~ 6)
@@ -55,7 +54,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
 
     // 버튼을 눌렀을때 데이터 불러오도록 트리거
     setShouldFetch(true);
-  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear]);
+  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear, setShouldFetch]);
 
   // 다음달 보기
   const nextMonth = useCallback(async () => {
@@ -73,7 +72,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
 
     // 버튼을 눌렀을때 데이터 불러오도록 트리거
     setShouldFetch(true);
-  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear]);
+  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear, setShouldFetch]);
 
   useEffect(() => {
     // 데이터 패치가 갱신됐을때
@@ -83,7 +82,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
       // 패치 트리거 false
       setShouldFetch(false);
     }
-  }, [refreshMonthlyData]);
+  }, [refreshMonthlyData, setShouldFetch]);
 
   const returnDay = useCallback(() => {
     let days = [];

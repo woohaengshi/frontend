@@ -4,7 +4,13 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import { Box, Flex, Text } from '@radix-ui/themes';
 import styles from './MonthPicker.module.css';
 import { useEffect } from 'react';
-import { usePickYearStore, useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
+import {
+  useFetchStore,
+  usePickYearStore,
+  useSelectedMonthStore,
+  useSelectedYearStore,
+  useTodayStore,
+} from '@/store/recordStore';
 import useSWR from 'swr';
 import { getRecordYearly } from '@/api/recordApi';
 import { formatTime } from '@/utils/formatTimeUtils';
@@ -24,7 +30,7 @@ export default function MonthPicker({ onClose }: IOnClose) {
   const { selectedYear, setSelectedYear } = useSelectedYearStore();
   const { setSelectedMonth } = useSelectedMonthStore();
 
-  // 모달을 열었을때 데이터 fetch
+  // 모달을 열었을때 데이터 yearlyData fetch
   const { data: yearlyData, isLoading: yearLoading } = useSWR(['YearlyRecord', pickYear], async () => {
     const result = await getRecordYearly(pickYear);
     return result;
@@ -35,6 +41,7 @@ export default function MonthPicker({ onClose }: IOnClose) {
   }
 
   const records: IYearlyDataRecord[] = yearlyData?.records;
+  const { setShouldFetch } = useFetchStore();
 
   useEffect(() => {
     setPickYear(selectedYear);
@@ -50,6 +57,7 @@ export default function MonthPicker({ onClose }: IOnClose) {
         onClick={() => {
           setSelectedYear(pickYear);
           setSelectedMonth(index + 1);
+          setShouldFetch(true);
           onClose(); // 월 선택기 닫기
         }}
       >
@@ -58,7 +66,7 @@ export default function MonthPicker({ onClose }: IOnClose) {
         </Text>
         <Text as="p" className={styles.total_time}>
           {records?.map((record) => {
-            return record.month == index + 1 && <i>{formatTime(record.total)}</i>;
+            return record.month == index + 1 && <i key={`${pickYear}${index + 1}`}>{formatTime(record.total)}</i>;
           })}
         </Text>
       </Flex>
