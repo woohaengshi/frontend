@@ -8,6 +8,10 @@
   height: 100%;
 }
 
+.tab_category {
+  margin-bottom: 20px;
+}
+
 .tab_category button {
   position: relative;
   display: block;
@@ -38,18 +42,15 @@
 .tab_category button.active::after {
   background-color: var(--main-color-3);
   height: 3.5px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
-    0 6px 14px rgba(0, 0, 0, 0.1); */
 }
 
 .btm {
-  /* width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
-  0 8px 16px rgba(0, 0, 0, 0.1); */
-  /* margin-top: 30px;
-  padding-top: 50px; */
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
   background-color: #fff;
   border: 1px solid #f1f1ff;
 }
@@ -74,10 +75,5 @@
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
     padding-top: 30px;
-  }
-
-  .btm {
-    padding: 15px;
-    padding-right: 7.5px;
   }
 }

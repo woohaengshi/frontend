@@ -5,7 +5,7 @@ import useSWR from 'swr';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
-import { fetchSubjects } from '@/api/subjectFormApi';
+import { getSubjectEditList } from '@/api/subjectFormApi';
 
 interface SubjectSelectProps {
   onEditClick: () => void;
@@ -14,7 +14,7 @@ interface SubjectSelectProps {
 
 export default function SubjectSelectForm({ onEditClick, onSaveClick }: SubjectSelectProps) {
   const { subjects, selectedSubjects, selectSubject, setSubjects } = useSubjectStore();
-  const { data, error } = useSWR('subjects', fetchSubjects);
+  const { data, error } = useSWR('subjects', getSubjectEditList);
 
   // 데이터가 로드되면 상태를 업데이트
   if (data && data.subjects !== subjects) {
@@ -33,12 +33,12 @@ export default function SubjectSelectForm({ onEditClick, onSaveClick }: SubjectS
             과목 선택
           </Text>
         </div>
-        <div className={styles.subject_choice_box}>
+        <div className={`${styles.subject_select_choice_box} ${styles.subject_choice_box}`}>
           {subjects?.map((subject) => (
             <div
               key={subject.id}
-              className={`${styles.subject_item} ${selectedSubjects.includes(subject.name) ? styles.selected : ''}`}
-              onClick={() => selectSubject(subject.name)}
+              className={`${styles.subject_item} ${selectedSubjects.some((s) => s.id === subject.id) ? styles.selected : ''}`}
+              onClick={() => selectSubject(subject)}
             >
               <Text as="p" size="3" className={styles.subject_item_text}>
                 {subject.name}
