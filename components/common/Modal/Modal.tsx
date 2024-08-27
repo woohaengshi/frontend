@@ -3,7 +3,7 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 
-import { Box, Dialog, Flex, Inset, Strong, Text } from '@radix-ui/themes';
+import { Box, Dialog, Flex, Inset, Text } from '@radix-ui/themes';
 import styles from './Modal.module.css';
 import ModalLink from './ModalLink';
 import { Cross2Icon } from '@radix-ui/react-icons';
@@ -42,7 +42,9 @@ export default function Modal({ children }: { children: React.ReactNode }) {
               <Flex justify="between" align="center">
                 <Dialog.Title>NOTICE</Dialog.Title>
                 <Flex align="center" gap="10px" className={styles.right}>
-                  <ModalLink href="/">사용설명서 바로가기</ModalLink>
+                  <ModalLink href="https://ionized-toad-6ee.notion.site/woohaengshi-8e37b80ac8c64feba132ae91bde8d4c8">
+                    사용설명서 바로가기
+                  </ModalLink>
                   <Dialog.Close>
                     <button className={styles.btn_close}>
                       <Cross2Icon />
