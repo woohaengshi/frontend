@@ -30,6 +30,7 @@ export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
 
   const startTimeRef = useRef<number | null>(null);
   const animationFrameRef = useRef<number | null>(null);
+  const lastSaveDateRef = useRef<string | null>(null); // 마지막 저장 날짜 -> 중복 저장 방지
 
   const outerRadius = isMobile ? 45 : 51.7;
   const innerRadius = isMobile ? 41 : 49.2;
@@ -41,6 +42,27 @@ export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
       alert(response!.error.message);
     } else {
       alert('기록이 저장되었습니다.');
+    }
+  };
+
+  const checkAndSaveAt5AM = () => {
+    const now = new Date();
+    const currentDate = now.toDateString();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    if (hours === 5 && (minutes === 0 || minutes === 1) && currentDate !== lastSaveDateRef.current) {
+      const currentTimeInSeconds = Math.floor((Date.now() - startTimeRef.current!) / 1000);
+
+      handleTimer(currentTimeInSeconds, selectedSubjects);
+      lastSaveDateRef.current = currentDate;
+
+      setTime(0);
+      setProgress(0);
+      startTimeRef.current = Date.now();
+
+      console.log('Saved at 5AM');
+      alert('새로운 날이 시작되었습니다. 기록이 저장되었습니다.');
     }
   };
 
@@ -62,10 +84,13 @@ export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
         const newProgress = ((elapsedTime % maxTime) / maxTime) * 100; // 진행률
 
         setTime(newTime);
-        // Cookies.set('time', newTime.toString());
         setProgress(newProgress);
-
         setRemainingTime(maxTime - (newTime % maxTime));
+
+        if (newTime % 30 === 0) {
+          // 30초마다 체크
+          checkAndSaveAt5AM();
+        }
 
         animationFrameRef.current = requestAnimationFrame(animate);
       };
