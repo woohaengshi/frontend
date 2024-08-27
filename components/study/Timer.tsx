@@ -5,21 +5,22 @@ import styles from './Timer.module.css';
 import { Flex, Text } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
-import { postTimer } from '@/api/studyApi';
 import { Subject } from '@/types/studyType';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 import { useSubjectStore } from '@/store/subjectStore';
 import Cookies from 'js-cookie';
+import { ErrorResponse } from '@/types/commonType';
 
 interface ITimer {
   maxTime: number;
   currentTime: number;
+  onSave: (time: number, subjects: Subject[]) => Promise<ErrorResponse | null>;
 }
 
 const loadingColor = '#8274EA';
 const innerStroke = 2.5;
 
-export default function Timer({ maxTime, currentTime }: ITimer) {
+export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
   const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
   const { selectedSubjects, selectSubject } = useSubjectStore();
   const [isActive, setIsActive] = useState(false);
@@ -29,19 +30,39 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
 
   const startTimeRef = useRef<number | null>(null);
   const animationFrameRef = useRef<number | null>(null);
+  const lastSaveDateRef = useRef<string | null>(null); // 마지막 저장 날짜 -> 중복 저장 방지
 
   const outerRadius = isMobile ? 45 : 51.7;
   const innerRadius = isMobile ? 41 : 49.2;
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
-    const date = getCurrentDate();
-    const subjectIds = subjects.map((subject) => subject.id);
-    const response = await postTimer({ date, time, subjects: subjectIds });
+    const response = await onSave(time, subjects);
 
-    if (response.error) {
-      alert(response.error.message);
+    if (response!.error) {
+      alert(response!.error.message);
     } else {
       alert('기록이 저장되었습니다.');
+    }
+  };
+
+  const checkAndSaveAt5AM = () => {
+    const now = new Date();
+    const currentDate = now.toDateString();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    if (hours === 5 && (minutes === 0 || minutes === 1) && currentDate !== lastSaveDateRef.current) {
+      const currentTimeInSeconds = Math.floor((Date.now() - startTimeRef.current!) / 1000);
+
+      handleTimer(currentTimeInSeconds, selectedSubjects);
+      lastSaveDateRef.current = currentDate;
+
+      setTime(0);
+      setProgress(0);
+      startTimeRef.current = Date.now();
+
+      console.log('Saved at 5AM');
+      alert('새로운 날이 시작되었습니다. 기록이 저장되었습니다.');
     }
   };
 
@@ -63,10 +84,13 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
         const newProgress = ((elapsedTime % maxTime) / maxTime) * 100; // 진행률
 
         setTime(newTime);
-        // Cookies.set('time', newTime.toString());
         setProgress(newProgress);
-
         setRemainingTime(maxTime - (newTime % maxTime));
+
+        if (newTime % 30 === 0) {
+          // 30초마다 체크
+          checkAndSaveAt5AM();
+        }
 
         animationFrameRef.current = requestAnimationFrame(animate);
       };
