@@ -62,7 +62,11 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
             </tr>
             {allRankings.map((student) => (
               <tr key={student.id} className={styles.full_ranking_student}>
-                <td>{currentUser && student.id === currentUser.id ? '-' : student.rank}</td>
+                <td>
+                  {currentUser && student.id === currentUser.id && currentUser.rank
+                    ? currentUser.rank
+                    : student.rank || '-'}
+                </td>
                 <td>
                   {student.image && (
                     <Image src={student.image} alt={`${student.name} 프로필 이미지`} className={styles.student_image} />
@@ -71,7 +75,7 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
                 <td className={styles.name}>
                   {student.name}
                   {currentUser && student.id === currentUser.id && (
-                    <span className={styles.current_user_label}> (나)</span>
+                    <span className={styles.current_user_label}>(나)</span>
                   )}
                 </td>
                 <td>{student.course}</td>

@@ -6,7 +6,7 @@ import rankingImg from '../assets/icons/ranking_profile_img.png';
 export const getMemberRanking = async ({
   tab,
   pageNumber,
-  size = 10, // 기본적으로 한 번에 가져올 수
+  size = 100, // 기본적으로 한 번에 가져올 수
 }: {
   tab: 'DAILY' | 'WEEKLY' | 'MONTHLY';
   pageNumber: number;

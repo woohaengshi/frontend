@@ -35,7 +35,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {/* 마이페이지 공통 프로필 영역 */}
         <UserProfile />
       </Box>
-      <Box mt="3" p="4" py="6" className={styles.inner} asChild>
+      <Box mt="3" p="4" className={styles.inner} asChild>
         <section>{children}</section>
       </Box>
       {/* 유저 유틸 버튼 */}
@@ -45,7 +45,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <SmallButton onClick={logoutHandler}>로그아웃</SmallButton>
           </li>
           <li>
-            <SmallButton>회원탈퇴</SmallButton>
+            <SmallButton
+              onClick={() => {
+                alert('추후 업데이트 예정입니다!');
+              }}
+            >
+              회원탈퇴
+            </SmallButton>
           </li>
         </ul>
       </Flex>
