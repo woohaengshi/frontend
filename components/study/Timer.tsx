@@ -5,21 +5,22 @@ import styles from './Timer.module.css';
 import { Flex, Text } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
-import { postTimer } from '@/api/studyApi';
 import { Subject } from '@/types/studyType';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 import { useSubjectStore } from '@/store/subjectStore';
 import Cookies from 'js-cookie';
+import { ErrorResponse } from '@/types/commonType';
 
 interface ITimer {
   maxTime: number;
   currentTime: number;
+  onSave: (time: number, subjects: Subject[]) => Promise<ErrorResponse | null>;
 }
 
 const loadingColor = '#8274EA';
 const innerStroke = 2.5;
 
-export default function Timer({ maxTime, currentTime }: ITimer) {
+export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
   const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
   const { selectedSubjects, selectSubject } = useSubjectStore();
   const [isActive, setIsActive] = useState(false);
@@ -34,12 +35,10 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
   const innerRadius = isMobile ? 41 : 49.2;
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
-    const date = getCurrentDate();
-    const subjectIds = subjects.map((subject) => subject.id);
-    const response = await postTimer({ date, time, subjects: subjectIds });
+    const response = await onSave(time, subjects);
 
-    if (response.error) {
-      alert(response.error.message);
+    if (response!.error) {
+      alert(response!.error.message);
     } else {
       alert('기록이 저장되었습니다.');
     }
