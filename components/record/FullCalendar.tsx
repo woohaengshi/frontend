@@ -5,10 +5,9 @@ import { Box, Container, Flex, Heading, Text } from '@radix-ui/themes';
 import { useCallback, useEffect, useState } from 'react';
 import styles from './FullCalendar.module.css';
 import MonthPicker from './MonthPicker';
-import { useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
+import { useFetchStore, useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
 import CalendarRecord from './CalendarRecord';
-import { getRecordMonthly } from '@/api/recordApi';
-import useSWR from 'swr';
+import useRefreshMonthlyData from '@/hook/useRefreshMonthlyData';
 
 interface IMonthlyData {
   year: number;
@@ -22,35 +21,13 @@ interface IMonthlyDataRecord {
   subjects: any[];
 }
 
-// 달력 이동 버튼을 누를때만 갱신된 데이터 가져옴
-const useRefreshMonthyData = (selectedYear: number, selectedMonth: number, shouldFetch: boolean) => {
-  const { data: refreshMonthlyData, isLoading: refreshMonthlyLoading } = useSWR(
-    shouldFetch ? ['MonthlyRecord', selectedYear, selectedMonth] : null,
-    async () => {
-      const result = await getRecordMonthly(selectedYear, selectedMonth);
-      return result;
-    },
-    {
-      revalidateOnFocus: false, // 화면이 포커스될 때 데이터 재요청 방지
-      revalidateOnReconnect: false, // 네트워크 재연결 시 데이터 재요청 방지
-    },
-  );
-
-  if (refreshMonthlyData?.error) {
-    alert(refreshMonthlyData.error.message);
-  }
-
-  return { refreshMonthlyData, refreshMonthlyLoading };
-};
-
 export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyData }) {
   const today = useTodayStore();
   const { selectedYear, setSelectedYear } = useSelectedYearStore();
   const { selectedMonth, setSelectedMonth } = useSelectedMonthStore();
 
   // 초기 렌더링시 데이터 패치를 막기 위함
-  const [shouldFetch, setShouldFetch] = useState(false);
-
+  const { shouldFetch, setShouldFetch } = useFetchStore();
   const [records, setRecords] = useState<IMonthlyDataRecord[]>(monthlyData?.records);
 
   // 매월 시작일 index (0 ~ 6)
@@ -60,7 +37,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
   const weekNumber = Math.ceil((startDay + endDate) / 7);
 
   // 커스텀 훅 호출
-  const { refreshMonthlyData, refreshMonthlyLoading } = useRefreshMonthyData(selectedYear, selectedMonth, shouldFetch);
+  const { refreshMonthlyData, refreshMonthlyLoading } = useRefreshMonthlyData(selectedYear, selectedMonth, shouldFetch);
 
   // 이전달 보기
   const prevMonth = useCallback(async () => {
@@ -77,7 +54,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
 
     // 버튼을 눌렀을때 데이터 불러오도록 트리거
     setShouldFetch(true);
-  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear]);
+  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear, setShouldFetch]);
 
   // 다음달 보기
   const nextMonth = useCallback(async () => {
@@ -95,7 +72,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
 
     // 버튼을 눌렀을때 데이터 불러오도록 트리거
     setShouldFetch(true);
-  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear]);
+  }, [selectedMonth, selectedYear, setSelectedMonth, setSelectedYear, setShouldFetch]);
 
   useEffect(() => {
     // 데이터 패치가 갱신됐을때
@@ -105,7 +82,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
       // 패치 트리거 false
       setShouldFetch(false);
     }
-  }, [refreshMonthlyData]);
+  }, [refreshMonthlyData, setShouldFetch]);
 
   const returnDay = useCallback(() => {
     let days = [];

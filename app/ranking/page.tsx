@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect, useState, useCallback } from 'react';
-import TopRankings from '@/components/ranking/topLanking';
+import TopRankings from '@/components/ranking/topRanking';
 import FullRankingList from '@/components/ranking/fullRankingList';
-import { Box, Flex, Grid } from '@radix-ui/themes';
-import styles from './ranking.module.css';
+import { Box, Flex } from '@radix-ui/themes';
+import styles from './page.module.css';
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
-import { fetchRankingsAndCurrentUserFromServer } from '@/api/rankingApi';
+import { getMemberRanking } from '@/api/rankingApi';
 import { Student, ApiResponse } from '@/types/rankingType';
 
 export default function Ranking() {
@@ -22,32 +22,28 @@ export default function Ranking() {
       setPage(0);
       setHasMore(true);
 
-      try {
-        const {
-          member,
-          ranking: { ranks: initialRankings, hasNext },
-        }: ApiResponse = await fetchRankingsAndCurrentUserFromServer({
-          tab: activeTab,
-          pageNumber: 0,
-          size,
-        });
+      const {
+        member,
+        ranking: { ranks: initialRankings, hasNext },
+      }: ApiResponse = await getMemberRanking({
+        tab: activeTab,
+        pageNumber: 0,
+        size,
+      });
 
-        const currentUserData: Student = {
-          id: member.id,
-          name: member.name,
-          studyTime: member.studyTime,
-          totalTime: member.totalTime,
-          course: member.course,
-          rank: member.rank,
-          image: member.image || rankingImg,
-        };
+      const currentUserData: Student = {
+        id: member.id,
+        name: member.name,
+        studyTime: member.studyTime,
+        totalTime: member.totalTime,
+        course: member.course,
+        rank: member.rank,
+        image: member.image || rankingImg,
+      };
 
-        setRankings(initialRankings);
-        setHasMore(hasNext);
-        setCurrentUser(currentUserData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+      setRankings(initialRankings);
+      setHasMore(hasNext);
+      setCurrentUser(currentUserData);
     };
 
     fetchData();
@@ -57,7 +53,7 @@ export default function Ranking() {
     if (hasMore) {
       const nextPage = page + 1;
       try {
-        const response: ApiResponse = await fetchRankingsAndCurrentUserFromServer({
+        const response: ApiResponse = await getMemberRanking({
           tab: activeTab,
           pageNumber: nextPage,
           size,
@@ -109,9 +105,9 @@ export default function Ranking() {
               </ul>
             </Flex>
           </Box>
-          <Grid className={styles.top_rankings_wrap}>
+          <Box pb="5" className={styles.top_rankings_wrap}>
             <TopRankings rankings={rankings} activeTab={activeTab} />
-          </Grid>
+          </Box>
         </Box>
         <Box p="5" pr="3" className={styles.btm}>
           <FullRankingList

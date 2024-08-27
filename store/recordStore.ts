@@ -47,3 +47,14 @@ export const usePickYearStore = create<PickYearStoreState>((set) => ({
   pickYear: new Date().getFullYear(),
   setPickYear: (year: number) => set({ pickYear: year }),
 }));
+
+// csr에서 인터렉션 발생시에만 데이터 패치 되도록 하는 boolean state
+interface FetchStoreState {
+  shouldFetch: boolean;
+  setShouldFetch: (shouldFetch: boolean) => void;
+}
+
+export const useFetchStore = create<FetchStoreState>((set) => ({
+  shouldFetch: false,
+  setShouldFetch: (shouldFetch: boolean) => set({ shouldFetch }),
+}));
