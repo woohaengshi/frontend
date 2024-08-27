@@ -49,7 +49,7 @@ export default function SubjectSelectForm({ onEditClick, onSaveClick }: SubjectS
       </div>
 
       <div className={styles.subject_edit_form_btn_wrap}>
-        {/* <button type="submit" className={styles.subject_edit_form_btn_modify} onClick={onSaveClick}>
+        {/* <button type="submit" className={} onClick={onSaveClick}>
           저장
         </button> */}
         <button className={styles.subject_edit_form_btn_save} onClick={onEditClick}>
