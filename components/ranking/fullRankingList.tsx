@@ -75,7 +75,7 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
                 <td className={styles.name}>
                   {student.name}
                   {currentUser && student.id === currentUser.id && (
-                    <span className={styles.current_user_label}> (나)</span>
+                    <span className={styles.current_user_label}>(나)</span>
                   )}
                 </td>
                 <td>{student.course}</td>
