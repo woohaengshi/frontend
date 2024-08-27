@@ -3,7 +3,7 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 
-import { Box, Dialog, Flex, Inset, Strong, Text } from '@radix-ui/themes';
+import { Box, Dialog, Flex, Inset, Text } from '@radix-ui/themes';
 import styles from './Modal.module.css';
 import ModalLink from './ModalLink';
 import { Cross2Icon } from '@radix-ui/react-icons';
