@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { signIn } from '@/api/authApi';
+import { ACCESS_TOKEN_EXPIRES } from '@/constants/token';
 
 // eslint-disable-next-line func-style
 export async function POST(request: Request) {
@@ -23,7 +24,7 @@ export async function POST(request: Request) {
     const headers = new Headers();
     headers.append(
       'Set-Cookie',
-      `access_token=${accessToken}; Path=/; Secure; Expires=${new Date(Date.now() + 1000 * 3540).toUTCString()}`,
+      `access_token=${accessToken}; Path=/; Secure; Expires=${new Date(Date.now() + ACCESS_TOKEN_EXPIRES).toUTCString()}`,
     );
     headers.append(
       'Set-Cookie',
