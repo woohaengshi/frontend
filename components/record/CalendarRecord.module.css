@@ -1,12 +1,22 @@
 .record_box {
   height: 100%;
 }
-.record_box .subject_list li p {
+.record_box .subject_list {
+  width: 100%;
+}
+.record_box .subject_list li {
+  max-width: 100%;
   line-height: 1;
   padding: 5px;
   border-radius: 4px;
   background-color: #f1f1ff;
   color: var(--main-color-3);
+  box-sizing: border-box;
+}
+.record_box .subject_list li p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .record_box .total_time {
   line-height: 1;
