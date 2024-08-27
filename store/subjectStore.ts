@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import Cookies from 'js-cookie';
 
 interface Subject {
   id: number;
@@ -78,12 +79,14 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
     }),
 
   // 선택한과목
-  selectSubject: (subject) =>
+  selectSubject: (subject) => {
     set((state) => ({
       selectedSubjects: state.selectedSubjects.includes(subject)
         ? state.selectedSubjects.filter((s) => s.id !== subject.id)
         : [...state.selectedSubjects, subject],
-    })),
+    }));
+    Cookies.set('selectedSubjects', JSON.stringify(get().selectedSubjects));
+  },
 
   // 선택한과목 배열 저장
   saveSelected: () => {
