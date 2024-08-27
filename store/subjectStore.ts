@@ -81,7 +81,7 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
   // 선택한과목
   selectSubject: (subject) => {
     set((state) => ({
-      selectedSubjects: state.selectedSubjects.includes(subject)
+      selectedSubjects: state.selectedSubjects.some((s) => s.id === subject.id)
         ? state.selectedSubjects.filter((s) => s.id !== subject.id)
         : [...state.selectedSubjects, subject],
     }));
