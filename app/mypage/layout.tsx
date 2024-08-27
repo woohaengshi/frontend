@@ -45,7 +45,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <SmallButton onClick={logoutHandler}>로그아웃</SmallButton>
           </li>
           <li>
-            <SmallButton>회원탈퇴</SmallButton>
+            <SmallButton
+              onClick={() => {
+                alert('추후 업데이트 예정입니다!');
+              }}
+            >
+              회원탈퇴
+            </SmallButton>
           </li>
         </ul>
       </Flex>
