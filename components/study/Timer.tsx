@@ -5,10 +5,10 @@ import styles from './Timer.module.css';
 import { Flex, Text } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
-import { useSelectedSubjectStore } from '@/store/studyStore';
 import { postTimer } from '@/api/studyApi';
 import { Subject } from '@/types/studyType';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
+import { useSubjectStore } from '@/store/subjectStore';
 
 interface ITimer {
   maxTime: number;
@@ -20,7 +20,7 @@ const innerStroke = 2.5;
 
 export default function Timer({ maxTime, currentTime }: ITimer) {
   const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
-  const { selectedSubjects } = useSelectedSubjectStore();
+  const { selectedSubjects } = useSubjectStore();
   const [isActive, setIsActive] = useState(false);
   const [time, setTime] = useState(currentTime); // 초 단위
   const [progress, setProgress] = useState((currentTime / maxTime) * 100);
