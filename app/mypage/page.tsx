@@ -4,7 +4,7 @@ import styles from './page.module.css';
 
 export default function Mypage() {
   return (
-    <Container size="2" className={styles.container}>
+    <Container size="2" py="3" className={styles.container}>
       <div className={styles.title}>
         <Strong>총 월간 배지</Strong>
       </div>
