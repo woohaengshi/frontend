@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 .scroll_table > div {
-  padding-right: 12px;
+  padding-right: 5px;
 }
 
 .scroll_table thead th {
@@ -30,7 +30,7 @@
 }
 
 .scroll_table tbody td {
-  height: 50px;
+  height: 60px;
   padding: 0 10px;
   text-align: center;
 }
