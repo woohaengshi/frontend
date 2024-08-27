@@ -1,21 +1,5 @@
 import { create } from 'zustand';
 
-interface loginState {
-  email: string;
-  password: string;
-  setEmail: (email: string) => void;
-  setPassword: (password: string) => void;
-  setAllEmpty: () => void;
-}
-
-export const useLoginStore = create<loginState>((set) => ({
-  email: '',
-  password: '',
-  setEmail: (email: string) => set({ email }),
-  setPassword: (password: string) => set({ password }),
-  setAllEmpty: () => set({ email: '', password: '' }),
-}));
-
 interface joinState {
   email: string;
   name: string;

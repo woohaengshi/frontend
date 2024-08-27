@@ -1,7 +1,6 @@
-// stores/subjectStore.ts
 import { create } from 'zustand';
+import Cookies from 'js-cookie';
 
-// Define the type for a subject
 interface Subject {
   id: number;
   name: string;
@@ -9,76 +8,101 @@ interface Subject {
 
 interface SubjectStoreState {
   subjects: Subject[];
-  selectedSubjects: string[];
-  addedSubjects: string[];
+  initialSelectedSubjects: Subject[];
+  initialSubjects: Subject[];
+  selectedSubjects: Subject[];
+  addedSubjects: Subject[];
   isEditing: boolean;
-  deletedSubjects: number[];
+  deletedSubjects: Subject[];
+  setInitialSubjects: () => void;
   addSubject: (subject: Subject) => void;
   deleteSubject: (subjectId: number) => void;
-  selectSubject: (subjectName: string) => void;
+  selectSubject: (subject: Subject) => void;
   setEditing: (isEditing: boolean) => void;
   saveSelected: () => void;
   saveEditing: () => void;
   resetDeletedSubjects: () => void;
   resetAddedSubjects: () => void;
+  revertChanges: () => void;
+  setSubjects: (subjects: Subject[]) => void;
 }
 
 export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
-  subjects: [
-    { id: 1, name: 'html' },
-    { id: 2, name: 'css' },
-    { id: 3, name: 'javascript' },
-  ],
+  subjects: [],
+  initialSubjects: [],
   selectedSubjects: [],
   addedSubjects: [],
+  initialSelectedSubjects: [],
   isEditing: false,
   deletedSubjects: [],
 
+  setInitialSubjects: () => set({ initialSubjects: get().subjects, initialSelectedSubjects: get().selectedSubjects }),
+
+  revertChanges: () =>
+    set((state) => ({
+      subjects: state.initialSubjects,
+      selectedSubjects: state.initialSelectedSubjects,
+      addedSubjects: [],
+      deletedSubjects: [],
+    })),
+
   // 과목 추가
-  addSubject: (subject) =>
+  addSubject: (subject: Subject) =>
     set((state) => ({
       subjects: [...state.subjects, subject],
-      addedSubjects: [...state.addedSubjects, subject.name],
+      addedSubjects: [...state.addedSubjects, subject],
     })),
 
   // 과목 삭제
   deleteSubject: (subjectId) =>
     set((state) => {
       const subjectIndex = state.subjects.findIndex((s) => s.id === subjectId);
+      const subjectToDelete = state.subjects.find((s) => s.id === subjectId);
+
+      // 추가된 과목인지 확인
+      const isAddedSubject = state.addedSubjects.some((subject) => subject.id === subjectId);
+
+      // 만약 추가된 과목이라면, 삭제 목록에 포함시키지 않고, 단순히 addedSubjects에서 제거
+      const newAddedSubjects = isAddedSubject
+        ? state.addedSubjects.filter((subject) => subject.id !== subjectId)
+        : state.addedSubjects;
+
       return {
         subjects: state.subjects.filter((s) => s.id !== subjectId),
-        selectedSubjects: state.selectedSubjects.filter((s) => s !== state.subjects[subjectIndex]?.name),
-        deletedSubjects: subjectIndex !== -1 ? [...state.deletedSubjects, subjectId] : state.deletedSubjects,
+        selectedSubjects: state.selectedSubjects.filter((s) => s.id !== subjectId),
+        deletedSubjects:
+          !isAddedSubject && subjectIndex !== -1 && subjectToDelete
+            ? [...state.deletedSubjects, subjectToDelete]
+            : state.deletedSubjects,
+        addedSubjects: newAddedSubjects,
       };
     }),
 
-  // 선택한 과목
-  selectSubject: (subjectName) =>
+  // 선택한과목
+  selectSubject: (subject) => {
     set((state) => ({
-      selectedSubjects: state.selectedSubjects.includes(subjectName)
-        ? state.selectedSubjects.filter((s) => s !== subjectName)
-        : [...state.selectedSubjects, subjectName],
-    })),
-
-  // 선택한 과목 저장
-  saveSelected: () => {
-    const { selectedSubjects } = get();
-    alert(`선택한 과목이 저장되었습니다: ${selectedSubjects.join(', ')}`);
+      selectedSubjects: state.selectedSubjects.some((s) => s.id === subject.id)
+        ? state.selectedSubjects.filter((s) => s.id !== subject.id)
+        : [...state.selectedSubjects, subject],
+    }));
+    Cookies.set('selectedSubjects', JSON.stringify(get().selectedSubjects));
   },
 
-  // 과목 편집
+  // 선택한과목 배열 저장
+  saveSelected: () => {
+    const { selectedSubjects } = get();
+    alert(`선택한 과목이 저장되었습니다: ${selectedSubjects.map((s) => s.name).join(', ')}`);
+  },
+
   setEditing: (isEditing) => set({ isEditing }),
 
-  // 편집된 과목 저장
   saveEditing: () => {
-    const { deletedSubjects, addedSubjects } = get();
-    alert(`삭제한 과목 ID는 ${deletedSubjects.join(', ')} 입니다\n추가된 과목은 ${addedSubjects.join(', ')} 입니다`);
     set({ deletedSubjects: [], addedSubjects: [], isEditing: false });
   },
 
-  // 삭제된 과목 리셋
   resetDeletedSubjects: () => set({ deletedSubjects: [] }),
 
-  // 추가한 과목 리셋
   resetAddedSubjects: () => set({ addedSubjects: [] }),
+
+  setSubjects: (subjects) => set({ subjects }),
 }));

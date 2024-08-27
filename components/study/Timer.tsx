@@ -5,10 +5,11 @@ import styles from './Timer.module.css';
 import { Flex, Text } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
-import { useSelectedSubjectStore } from '@/store/studyStore';
 import { postTimer } from '@/api/studyApi';
 import { Subject } from '@/types/studyType';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
+import { useSubjectStore } from '@/store/subjectStore';
+import Cookies from 'js-cookie';
 
 interface ITimer {
   maxTime: number;
@@ -20,7 +21,7 @@ const innerStroke = 2.5;
 
 export default function Timer({ maxTime, currentTime }: ITimer) {
   const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
-  const { selectedSubjects } = useSelectedSubjectStore();
+  const { selectedSubjects, selectSubject } = useSubjectStore();
   const [isActive, setIsActive] = useState(false);
   const [time, setTime] = useState(currentTime); // 초 단위
   const [progress, setProgress] = useState((currentTime / maxTime) * 100);
@@ -32,6 +33,26 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
   const outerRadius = isMobile ? 45 : 51.7;
   const innerRadius = isMobile ? 41 : 49.2;
 
+  const handleTimer = async (time: number, subjects: Subject[]) => {
+    const date = getCurrentDate();
+    const subjectIds = subjects.map((subject) => subject.id);
+    const response = await postTimer({ date, time, subjects: subjectIds });
+
+    if (response.error) {
+      alert(response.error.message);
+    } else {
+      alert('기록이 저장되었습니다.');
+    }
+  };
+
+  const handleToggle = () => {
+    setIsActive((prev) => !prev);
+
+    if (isActive) {
+      handleTimer(time, selectedSubjects);
+    }
+  };
+
   useEffect(() => {
     if (isActive) {
       startTimeRef.current = Date.now() - time * 1000;
@@ -42,6 +63,7 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
         const newProgress = ((elapsedTime % maxTime) / maxTime) * 100; // 진행률
 
         setTime(newTime);
+        // Cookies.set('time', newTime.toString());
         setProgress(newProgress);
 
         setRemainingTime(maxTime - (newTime % maxTime));
@@ -62,27 +84,21 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
     };
   }, [isActive, maxTime, time]);
 
-  const handleTimer = async (time: number, subjects: Subject[]) => {
-    const date = getCurrentDate();
-    const subjectIds = subjects.map((subject) => subject.id);
-    const response = await postTimer({ date, time, subjects: subjectIds });
+  const flag = useRef(false);
 
-    // console.log(date, time, subjectIds);
-
-    if (response.error) {
-      alert(response.error.message);
-    } else {
-      alert('기록이 저장되었습니다.');
+  useEffect(() => {
+    if (selectedSubjects.length === 0 && !flag.current) {
+      const cookieValue = Cookies.get('selectedSubjects') || '[]'; // 쿠키에서 값 가져오기
+      try {
+        JSON.parse(cookieValue).forEach((subject: Subject) => {
+          selectSubject(subject);
+          flag.current = true;
+        });
+      } catch (error) {
+        console.error('Failed to parse JSON:', error);
+      }
     }
-  };
-
-  const handleToggle = () => {
-    setIsActive((prev) => !prev);
-
-    if (isActive) {
-      handleTimer(time, selectedSubjects);
-    }
-  };
+  });
 
   return (
     <Flex direction="column" align="center" justify="center">
