@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import TopRankings from '@/components/ranking/topRanking';
 import FullRankingList from '@/components/ranking/fullRankingList';
 import { Box, Flex } from '@radix-ui/themes';
@@ -14,42 +14,46 @@ export default function Ranking() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const [currentUser, setCurrentUser] = useState<Student | null>(null);
-  const size = 10;
+  const size = 100;
 
   useEffect(() => {
     const fetchData = async () => {
-      setRankings([]);
-      setPage(0);
-      setHasMore(true);
+      try {
+        setRankings([]);
+        setPage(0);
+        setHasMore(true);
 
-      const {
-        member,
-        ranking: { ranks: initialRankings, hasNext },
-      }: ApiResponse = await getMemberRanking({
-        tab: activeTab,
-        pageNumber: 0,
-        size,
-      });
+        const {
+          member,
+          ranking: { ranks: initialRankings, hasNext },
+        }: ApiResponse = await getMemberRanking({
+          tab: activeTab,
+          pageNumber: 0,
+          size,
+        });
 
-      const currentUserData: Student = {
-        id: member.id,
-        name: member.name,
-        studyTime: member.studyTime,
-        totalTime: member.totalTime,
-        course: member.course,
-        rank: member.rank,
-        image: member.image || rankingImg,
-      };
+        const currentUserData: Student = {
+          id: member.id,
+          name: member.name,
+          studyTime: member.studyTime,
+          totalTime: member.totalTime,
+          course: member.course,
+          rank: member.rank,
+          image: member.image || rankingImg,
+        };
 
-      setRankings(initialRankings);
-      setHasMore(hasNext);
-      setCurrentUser(currentUserData);
+        setRankings(initialRankings);
+        setHasMore(hasNext);
+        setCurrentUser(currentUserData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
 
     fetchData();
   }, [activeTab]);
 
-  const loadMore = useCallback(async () => {
+  const loadMore = async () => {
     if (hasMore) {
       const nextPage = page + 1;
       try {
@@ -59,8 +63,8 @@ export default function Ranking() {
           size,
         });
 
-        console.log('API Response:', response); // 추가된 로그
-        const newRankings = response.ranking.ranks; // API 응답에서 랭킹 데이터 추출
+        console.log('API Response:', response);
+        const newRankings = response.ranking.ranks;
 
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);
         setHasMore(response.ranking.hasNext);
@@ -69,7 +73,7 @@ export default function Ranking() {
         console.error('Error loading more data:', error);
       }
     }
-  }, [activeTab, hasMore, page]);
+  };
 
   return (
     <section className={styles.container}>
@@ -78,30 +82,16 @@ export default function Ranking() {
           <Box py="5" className={styles.tab_category}>
             <Flex gap="10px" justify="center" asChild>
               <ul>
-                <li>
-                  <button
-                    className={`${activeTab === 'DAILY' ? styles.active : ''}`}
-                    onClick={() => setActiveTab('DAILY')}
-                  >
-                    일간
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={`${activeTab === 'WEEKLY' ? styles.active : ''}`}
-                    onClick={() => setActiveTab('WEEKLY')}
-                  >
-                    주간
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={`${activeTab === 'MONTHLY' ? styles.active : ''}`}
-                    onClick={() => setActiveTab('MONTHLY')}
-                  >
-                    월간
-                  </button>
-                </li>
+                {['DAILY', 'WEEKLY', 'MONTHLY'].map((tab) => (
+                  <li key={tab}>
+                    <button
+                      className={`${activeTab === tab ? styles.active : ''}`}
+                      onClick={() => setActiveTab(tab as 'DAILY' | 'WEEKLY' | 'MONTHLY')}
+                    >
+                      {tab === 'DAILY' ? '일간' : tab === 'WEEKLY' ? '주간' : '월간'}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </Flex>
           </Box>
