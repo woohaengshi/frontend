@@ -68,9 +68,11 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
                     : student.rank || '-'}
                 </td>
                 <td>
-                  {student.image && (
-                    <Image src={student.image} alt={`${student.name} 프로필 이미지`} className={styles.student_image} />
-                  )}
+                <Image
+    src={student.image || rankingImg}
+    alt={`${student.name} 프로필 이미지`}
+    className={styles.student_image}
+  />
                 </td>
                 <td className={styles.name}>
                   {student.name}
