@@ -42,7 +42,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
               <Flex justify="between" align="center">
                 <Dialog.Title>NOTICE</Dialog.Title>
                 <Flex align="center" gap="10px" className={styles.right}>
-                  <ModalLink href="https://ionized-toad-6ee.notion.site/woohaengshi-fff4f468c4c480dfa4d2fb0acf9becf8?pvs=4">
+                  <ModalLink href="https://ionized-toad-6ee.notion.site/woohaengshi-8e37b80ac8c64feba132ae91bde8d4c8">
                     사용설명서 바로가기
                   </ModalLink>
                   <Dialog.Close>
