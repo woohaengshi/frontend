@@ -10,23 +10,36 @@ import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 import { useSubjectStore } from '@/store/subjectStore';
 import Cookies from 'js-cookie';
 import { ErrorResponse } from '@/types/commonType';
+import { postTimer } from '@/api/studyApi';
+import { useUserInfoStore } from '@/store/memberStore';
+import useSWR from 'swr';
+import { getUserInfo } from '@/api/memberApi';
 
 interface ITimer {
   maxTime: number;
   currentTime: number;
-  onSave: (time: number, subjects: Subject[]) => Promise<ErrorResponse | null>;
 }
 
 const loadingColor = '#8274EA';
 const innerStroke = 2.5;
 
-export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
+export default function Timer({ maxTime, currentTime }: ITimer) {
   const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
   const { selectedSubjects, selectSubject } = useSubjectStore();
   const [isActive, setIsActive] = useState(false);
   const [time, setTime] = useState(currentTime); // 초 단위
   const [progress, setProgress] = useState((currentTime / maxTime) * 100);
   const [remainingTime, setRemainingTime] = useState(maxTime - (currentTime % maxTime));
+
+  // 유저정보조회
+  const accessToken = Cookies.get('access_token');
+  const { setUserInfo } = useUserInfoStore();
+  const { data } = useSWR(accessToken ? ['userInfo'] : null, async () => {
+    const result = await getUserInfo();
+    const storedUserInfo = { name: result.name, course: result.course, image: result.image };
+    localStorage.setItem('userInfo', JSON.stringify(storedUserInfo));
+    setUserInfo(storedUserInfo);
+  });
 
   const startTimeRef = useRef<number | null>(null);
   const animationFrameRef = useRef<number | null>(null);
@@ -35,8 +48,16 @@ export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
   const outerRadius = isMobile ? 45 : 51.7;
   const innerRadius = isMobile ? 41 : 49.2;
 
+  const saveTimer = async (time: number, subjects: Subject[]) => {
+    const date = getCurrentDate();
+    const subjectIds = subjects.map((subject) => subject.id);
+    const response = await postTimer({ date, time, subjects: subjectIds });
+
+    return response;
+  };
+
   const handleTimer = async (time: number, subjects: Subject[]) => {
-    const response = await onSave(time, subjects);
+    const response = await saveTimer(time, subjects);
 
     if (response!.error) {
       alert(response!.error.message);
