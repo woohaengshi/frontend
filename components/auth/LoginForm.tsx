@@ -18,7 +18,6 @@ interface LoginFormProps {
 export default function LoginForm({ onLogin }: LoginFormProps) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,20 +35,11 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
     } else {
       setEmail('');
       setPassword('');
-      router.push('/study');
+
+      window.location.href = '/study';
       alert('로그인에 성공했습니다.');
     }
   };
-
-  // 유저정보조회
-  const accessToken = Cookies.get('access_token');
-  const { setUserInfo } = useUserInfoStore();
-  const { data } = useSWR(accessToken ? ['userInfo'] : null, async () => {
-    const result = await getUserInfo();
-    const storedUserInfo = { name: result.name, course: result.course, image: result.image };
-    localStorage.setItem('userInfo', JSON.stringify(storedUserInfo));
-    setUserInfo(storedUserInfo);
-  });
 
   return (
     <AuthFormLayout title="로그인">
