@@ -56,8 +56,12 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
   // 과목 삭제
   deleteSubject: (subjectId) =>
     set((state) => {
+      // debugger;
       const subjectIndex = state.subjects.findIndex((s) => s.id === subjectId);
       const subjectToDelete = state.subjects.find((s) => s.id === subjectId);
+
+      // console.log('삭제한 인덱스 값:', subjectIndex);
+      // console.log('삭제한 객체 값:', subjectToDelete);
 
       // 추가된 과목인지 확인
       const isAddedSubject = state.addedSubjects.some((subject) => subject.id === subjectId);
@@ -66,6 +70,8 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
       const newAddedSubjects = isAddedSubject
         ? state.addedSubjects.filter((subject) => subject.id !== subjectId)
         : state.addedSubjects;
+
+        
 
       return {
         subjects: state.subjects.filter((s) => s.id !== subjectId),

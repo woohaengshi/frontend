@@ -14,7 +14,7 @@ export default function Ranking() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const [currentUser, setCurrentUser] = useState<Student | null>(null);
-  const size = 100;
+  const size = 10;
 
   useEffect(() => {
     const fetchData = async () => {

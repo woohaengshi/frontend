@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     await signOut();
     Cookies.remove('access_token');
     Cookies.remove('refresh_token');
-
+    Cookies.remove('selectedSubjects');
     // 유저 정보 삭제
     localStorage.removeItem('userInfo');
     setUserInfo(null);
