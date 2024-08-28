@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "start": "next start",
     "dev:https": "next dev --experimental-https",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint",
     "type:check": "tsc --noEmit"
   },
