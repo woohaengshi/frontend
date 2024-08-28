@@ -132,8 +132,6 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
     }
   });
 
-  console.log(new Date());
-
   return (
     <Flex direction="column" align="center" justify="center">
       <div className={styles.container}>
