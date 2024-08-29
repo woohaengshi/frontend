@@ -23,7 +23,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     Cookies.remove('refresh_token');
     Cookies.remove('selectedSubjects');
 
-    // 유저 정보 삭제
     localStorage.removeItem('userInfo');
     setUserInfo(null);
 

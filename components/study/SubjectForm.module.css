@@ -96,7 +96,6 @@
 
 .subject_choice_text_wrap {
   width: 100%;
-  /* height: 57px; */
   margin-bottom: 15px;
   display: flex;
   justify-content: flex-start;
@@ -123,15 +122,15 @@
   width: 100%;
 }
 
-/* 과목 박스 전체 */
+/* 과목 선택 아이템 박스 */
 .subject_select_choice_box {
-  max-height: 400px !important;
+  max-height: 73vh !important;
 }
 
 .subject_choice_box {
   position: relative;
   background-color: white;
-  max-height: 330px;
+  max-height: 55vh;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -292,5 +291,9 @@
     bottom: 80px;
     font-size: 14px;
     line-height: 1.3;
+  }
+
+  .subject_choice_box {
+    max-height: 45vh;
   }
 }
