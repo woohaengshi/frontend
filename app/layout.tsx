@@ -14,6 +14,8 @@ import Header from '@/components/common/Header/Header';
 import Modal from '@/components/common/Modal/Modal';
 import LanchBody from '@/components/common/Modal/LanchBody';
 
+import { Analytics } from '@vercel/analytics/react';
+
 export const metadata: Metadata = {
   title: '우행시',
   description: '우리들의 행복한 시간',
@@ -40,6 +42,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <LanchBody />
           </Modal>
         </Theme>
+        <Analytics />
       </body>
     </html>
   );
