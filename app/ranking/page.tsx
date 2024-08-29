@@ -63,7 +63,7 @@ export default function Ranking() {
           size,
         });
 
-        console.log('API Response:', response);
+        // console.log('API Response:', response);
         const newRankings = response.ranking.ranks;
 
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);

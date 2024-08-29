@@ -2,25 +2,26 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './Timer.module.css';
-import { Flex, Text } from '@radix-ui/themes';
+import { Flex, Text, Box } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
 import { Subject } from '@/types/studyType';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 import { useSubjectStore } from '@/store/subjectStore';
 import Cookies from 'js-cookie';
-import { ErrorResponse } from '@/types/commonType';
+import { postTimer } from '@/api/studyApi';
+import { useUserInfoStore } from '@/store/memberStore';
+import useSWR from 'swr';
+import { getUserInfo } from '@/api/memberApi';
 
 interface ITimer {
   maxTime: number;
   currentTime: number;
-  onSave: (time: number, subjects: Subject[]) => Promise<ErrorResponse | null>;
 }
 
 const loadingColor = '#8274EA';
-const innerStroke = 2.5;
 
-export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
+export default function Timer({ maxTime, currentTime }: ITimer) {
   const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
   const { selectedSubjects, selectSubject } = useSubjectStore();
   const [isActive, setIsActive] = useState(false);
@@ -28,15 +29,35 @@ export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
   const [progress, setProgress] = useState((currentTime / maxTime) * 100);
   const [remainingTime, setRemainingTime] = useState(maxTime - (currentTime % maxTime));
 
+  // 유저정보조회
+  const accessToken = Cookies.get('access_token');
+  const { setUserInfo } = useUserInfoStore();
+  const { data } = useSWR(accessToken ? ['userInfo'] : null, async () => {
+    const result = await getUserInfo();
+    const storedUserInfo = { name: result.name, course: result.course, image: result.image };
+    localStorage.setItem('userInfo', JSON.stringify(storedUserInfo));
+    setUserInfo(storedUserInfo);
+  });
+
   const startTimeRef = useRef<number | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const lastSaveDateRef = useRef<string | null>(null); // 마지막 저장 날짜 -> 중복 저장 방지
 
-  const outerRadius = isMobile ? 45 : 51.7;
-  const innerRadius = isMobile ? 41 : 49.2;
+  const svgSize = 110;
+  const centerPoint = svgSize / 2;
+  const strokeWidth = 2.5;
+  const radius = svgSize / 2 - strokeWidth / 2;
+
+  const saveTimer = async (time: number, subjects: Subject[]) => {
+    const date = getCurrentDate();
+    const subjectIds = subjects.map((subject) => subject.id);
+    const response = await postTimer({ date, time, subjects: subjectIds });
+
+    return response;
+  };
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
-    const response = await onSave(time, subjects);
+    const response = await saveTimer(time, subjects);
 
     if (response!.error) {
       alert(response!.error.message);
@@ -126,7 +147,7 @@ export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
 
   return (
     <Flex direction="column" align="center" justify="center">
-      <div className={styles.container}>
+      <Box px="5" className={styles.container}>
         <Text as="p" className={styles.title} size="4" weight="medium" align="center">
           다음 레벨업까지
         </Text>
@@ -134,24 +155,43 @@ export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
           {remainingTime > 0 ? formatTime(remainingTime) : formatTime(maxTime)}
         </Text>
 
-        <div className={styles.relative_wrapper}>
+        <Box mt={isMobile ? '25px' : '45px'} className={styles.relative_wrapper}>
           <div className={styles.svg_container}>
-            <svg className={styles.svg} viewBox="0 0 110 100">
-              <circle cx="55" cy="50" r={outerRadius} stroke="#F0F0FE" strokeWidth="6.5" fill="none" />
-              <circle cx="55" cy="50" r={innerRadius} stroke="#DBDBFF" strokeWidth={innerStroke} fill="none" />
+            <svg
+              className={styles.svg}
+              viewBox={`0 0 ${svgSize} ${svgSize}`}
+              width={isMobile ? '90px' : '103.4px'}
+              height={isMobile ? '90px' : '103.4px'}
+            >
+              <circle
+                cx={centerPoint}
+                cy={centerPoint}
+                r={radius}
+                stroke="#F0F0FE"
+                strokeWidth={strokeWidth * 2.6}
+                fill="none"
+              />
+              <circle
+                cx={centerPoint}
+                cy={centerPoint}
+                r={radius - 2}
+                stroke="#DBDBFF"
+                strokeWidth={strokeWidth}
+                fill="none"
+              />
               {(isActive || time > 0) && (
                 <circle
-                  cx="55"
-                  cy="50"
-                  r={innerRadius}
+                  cx={centerPoint}
+                  cy={centerPoint}
+                  r={radius - 2}
                   stroke={loadingColor}
-                  strokeWidth={innerStroke}
+                  strokeWidth={strokeWidth}
                   fill="none"
                   strokeLinecap="round"
-                  strokeDasharray={2 * Math.PI * innerRadius} // circumference
-                  strokeDashoffset={2 * Math.PI * innerRadius * (1 - progress / 100)} // circumference * (1 - progress)
+                  strokeDasharray={2 * Math.PI * radius}
+                  strokeDashoffset={2 * Math.PI * radius * (1 - progress / 100)}
                   className={styles.svg_circle}
-                  transform="rotate(-90 55 50)"
+                  transform={`rotate(-90 ${centerPoint} ${centerPoint})`}
                 />
               )}
             </svg>
@@ -170,15 +210,15 @@ export default function Timer({ maxTime, currentTime, onSave }: ITimer) {
 
             <TimerToggleBtn isActive={isActive} onToggle={handleToggle} />
           </Flex>
-        </div>
-      </div>
+        </Box>
+      </Box>
 
       {/* 공부중인 과목 리스트 */}
       <Flex
         justify="center"
         align="center"
         mb="60px"
-        mt={isMobile ? '0px' : '38px'}
+        mt={isMobile ? '25px' : '45px'}
         width={isMobile ? '90%' : '80%'}
         wrap="wrap"
         height="auto"
