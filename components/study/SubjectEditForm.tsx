@@ -149,7 +149,6 @@ export default function SubjectEditForm({
           type="submit"
           className={styles.subject_edit_form_btn_save}
           onClick={handleSaveEditing}
-
           style={mypageSaveBtn}
         >
           저장

@@ -71,8 +71,6 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
         ? state.addedSubjects.filter((subject) => subject.id !== subjectId)
         : state.addedSubjects;
 
-        
-
       return {
         subjects: state.subjects.filter((s) => s.id !== subjectId),
         selectedSubjects: state.selectedSubjects.filter((s) => s.id !== subjectId),
