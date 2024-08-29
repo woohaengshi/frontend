@@ -17,11 +17,12 @@ import { getUserInfo } from '@/api/memberApi';
 interface ITimer {
   maxTime: number;
   currentTime: number;
+  initialSubjects: Subject[];
 }
 
 const loadingColor = '#8274EA';
 
-export default function Timer({ maxTime, currentTime }: ITimer) {
+export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer) {
   const isMobile = useMediaQuery({ query: '(max-width: 680px)' });
   const { selectedSubjects, selectSubject } = useSubjectStore();
   const [isActive, setIsActive] = useState(false);
@@ -131,19 +132,23 @@ export default function Timer({ maxTime, currentTime }: ITimer) {
 
   const flag = useRef(false);
 
+  // 첫 렌더링 시 쿠키에서 선택 과목 값 가져오기
   useEffect(() => {
     if (selectedSubjects.length === 0 && !flag.current) {
       const cookieValue = Cookies.get('selectedSubjects') || '[]'; // 쿠키에서 값 가져오기
-      try {
-        JSON.parse(cookieValue).forEach((subject: Subject) => {
+      const parsedCookieValue = JSON.parse(cookieValue);
+      if (parsedCookieValue.length > 0 && parsedCookieValue[0].id !== 0) {
+        parsedCookieValue.forEach((subject: Subject) => {
+          if (initialSubjects.findIndex((initialSubject) => initialSubject.id === subject.id) === -1) {
+            return;
+          }
           selectSubject(subject);
           flag.current = true;
         });
-      } catch (error) {
-        console.error('Failed to parse JSON:', error);
       }
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Flex direction="column" align="center" justify="center">
