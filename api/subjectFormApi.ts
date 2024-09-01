@@ -10,8 +10,8 @@ interface SubjectPayload {
 // 삭제한 과목 id, 추가된 과목명 보내기
 export const postSubjectItem = async (payload: SubjectPayload) => {
   const requestBody: { addedSubjects: string[]; deletedSubjects: number[] } = {
-    addedSubjects: [], // 기본값으로 빈 배열 설정
-    deletedSubjects: [], // 기본값으로 빈 배열 설정
+    addedSubjects: [], // 기본값으로 빈 배열
+    deletedSubjects: [], // 기본값으로 빈 배열
   };
 
   // 추가된 과목이 있으면 requestBody에 추가, 빈 배열일 때는 빈 배열만 전송
@@ -24,7 +24,6 @@ export const postSubjectItem = async (payload: SubjectPayload) => {
     requestBody.deletedSubjects = payload.deletedSubjects;
   }
 
-  // 서버로 전송
   const response = await instance('subjects', {
     method: 'POST',
     body: JSON.stringify(requestBody),
@@ -36,7 +35,7 @@ export const postSubjectItem = async (payload: SubjectPayload) => {
   }
 
   if (requestBody.addedSubjects.length === 0 && requestBody.deletedSubjects.length === 0) {
-    return { success: true }; // 변경 사항이 없으므로 성공으로 처리
+    return { success: true };
   }
 
   return { success: true };
@@ -61,5 +60,3 @@ export const getSubjectEditList = async (): Promise<SubjectsResponse> => {
 
   return response;
 };
-
-// 선택된 과목명 get??

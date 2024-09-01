@@ -56,12 +56,8 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
   // 과목 삭제
   deleteSubject: (subjectId) =>
     set((state) => {
-      // debugger;
       const subjectIndex = state.subjects.findIndex((s) => s.id === subjectId);
       const subjectToDelete = state.subjects.find((s) => s.id === subjectId);
-
-      // console.log('삭제한 인덱스 값:', subjectIndex);
-      // console.log('삭제한 객체 값:', subjectToDelete);
 
       // 추가된 과목인지 확인
       const isAddedSubject = state.addedSubjects.some((subject) => subject.id === subjectId);
@@ -82,14 +78,24 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
       };
     }),
 
-  // 선택한과목
+  // 선택한 과목
   selectSubject: (subject) => {
-    set((state) => ({
-      selectedSubjects: state.selectedSubjects.some((s) => s.id === subject.id)
+    set((state) => {
+      const isSelected = state.selectedSubjects.some((s) => s.id === subject.id);
+      const updatedSelectedSubjects = isSelected
         ? state.selectedSubjects.filter((s) => s.id !== subject.id)
-        : [...state.selectedSubjects, subject],
-    }));
-    Cookies.set('selectedSubjects', JSON.stringify(get().selectedSubjects));
+        : [...state.selectedSubjects, subject];
+
+      // 쿠키에 선택한 과목 저장
+      Cookies.set('selectedSubjects', JSON.stringify(updatedSelectedSubjects));
+
+      // 선택한 과목의 이름을 알림창에 표시
+      alert(
+        isSelected ? `과목 ${subject.name}이(가) 선택 해제되었습니다.` : `과목 ${subject.name}이(가) 선택되었습니다.`,
+      );
+
+      return { selectedSubjects: updatedSelectedSubjects };
+    });
   },
 
   // 선택한과목 배열 저장
