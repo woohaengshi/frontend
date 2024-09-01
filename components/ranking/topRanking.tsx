@@ -75,6 +75,7 @@ export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
                   </div>
                   <Box className={styles.img_profile}>
                     <Image
+                      className={styles.student_image}
                       src={student.image || rankingImg}
                       alt={`${student.name || 'Placeholder'} 이미지`}
                       width={80}
@@ -99,7 +100,7 @@ export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
                         size="2"
                         className={styles.color_gray}
                         style={{
-                          textAlign: formattedStudyTime ? 'left' : 'center', 
+                          textAlign: formattedStudyTime ? 'left' : 'center',
                         }}
                       >
                         {formattedStudyTime || '-'}

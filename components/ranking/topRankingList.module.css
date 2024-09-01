@@ -9,6 +9,7 @@
 
 .color_gray {
   color: #8c8c8c;
+  height: 20px;
 }
 
 /* ranking_list */
@@ -65,22 +66,33 @@
 @media screen and (max-width: 720px) {
   .ranking_list {
     gap: 0px;
-    height: 200px;
-    margin: 0 20px;
+    height: 220px;
   }
 
-  .ranking_list li {
-    width: 180px;
-    height: 230px;
+  .side_box {
+    transform: scale(0.85);
+  }
+
+  .student_image {
+    width: 100px;
+    height: 100px;
   }
 
   .ranking_list li:not(.no_ranking) {
     background-color: transparent;
+    width: 130px;
     box-shadow: none;
     height: 150px;
+    margin: 0px 5px;
   }
-  .time_info{
+
+  .time_info {
     display: none;
+  }
+
+  .img_medal {
+    top: -20px;
+    right: 10px;
   }
 
 }
