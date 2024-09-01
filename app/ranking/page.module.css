@@ -44,7 +44,6 @@
   height: 3.5px;
 }
 
-
 .full_rankings_wrap {
   width: 100%;
   height: 500px;
@@ -65,9 +64,8 @@
 
 @media screen and (max-width: 720px) {
   .tab_category {
-      margin-bottom: 0px;
-    }
-
+    margin-bottom: 0px;
+  }
 
   .full_rankings_wrap {
     margin-top: 0px;
@@ -91,6 +89,4 @@
     height: 40px;
     font-size: var(--font-size-3);
   }
-
-
 }

@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 
-.scroll_table>div {
+.scroll_table > div {
   padding: 0px 5px 0px 5px;
 }
 
@@ -70,12 +70,11 @@
   border-radius: 3px;
 }
 
-.loader{
+.loader {
   text-align: center;
 }
 
 @media screen and (max-width: 720px) {
-
   .scroll_table th:nth-child(4),
   .scroll_table td:nth-child(4),
   .scroll_table th:nth-child(6),
@@ -97,8 +96,7 @@
     height: 45px;
   }
 
-  .scroll_table>div {
+  .scroll_table > div {
     padding: 0px 2px 0px 0px;
   }
-
 }
