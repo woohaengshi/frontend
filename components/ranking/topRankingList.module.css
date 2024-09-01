@@ -6,11 +6,13 @@
   white-space: nowrap;
   display: block;
 }
+
 .color_gray {
   color: #8c8c8c;
 }
 
 /* ranking_list */
+
 .ranking_list li:not(.no_ranking) {
   position: relative;
   padding: 15px;
@@ -23,7 +25,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.ranking_list li.no_ranking > div {
+.ranking_list li.no_ranking>div {
   height: 100%;
 }
 
@@ -46,9 +48,11 @@
 .time_info {
   width: 100%;
 }
+
 .time_info .studey_time {
   text-align: left;
 }
+
 .time_info .total_time {
   text-align: right;
 }
@@ -57,12 +61,26 @@
   height: 250px;
 }
 
+
 @media screen and (max-width: 720px) {
   .ranking_list {
-    gap: 10px;
+    gap: 0px;
+    height: 200px;
+    margin: 0 20px;
   }
+
   .ranking_list li {
     width: 180px;
     height: 230px;
   }
+
+  .ranking_list li:not(.no_ranking) {
+    background-color: transparent;
+    box-shadow: none;
+    height: 150px;
+  }
+  .time_info{
+    display: none;
+  }
+
 }

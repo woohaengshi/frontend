@@ -83,7 +83,7 @@ export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
                   </Box>
                   <Box className={styles.user_info}>
                     <Text as="p" size="2" weight="medium" className={styles.ellipsis}>
-                      {student.name || '다음 주인공은 당신'}
+                      {student.name || '주인공은 당신'}
                     </Text>
                     <Text as="p" size="2" className={styles.color_gray}>
                       {student.course || '랭킹에 도전하세요'}
