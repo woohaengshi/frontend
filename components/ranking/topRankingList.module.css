@@ -26,7 +26,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.ranking_list li.no_ranking > div {
+.ranking_list li.no_ranking>div {
   height: 100%;
 }
 
@@ -92,5 +92,11 @@
   .img_medal {
     top: -20px;
     right: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .ranking_list li:not(.no_ranking) {
+    margin: 0px 0px;
   }
 }
