@@ -12,7 +12,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <Container size="2" p="6">
+    <Container size="2" p="6" className={styles.container}>
       <Box p="8" className={styles.inner}>
         {children}
       </Box>
