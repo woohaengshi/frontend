@@ -18,11 +18,6 @@ interface TopRankingsProps {
 export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
   const modifiedRankings = [...rankings];
 
-  // 랭킹 순서 변경
-  if (modifiedRankings.length > 1) {
-    [modifiedRankings[0], modifiedRankings[1]] = [modifiedRankings[1], modifiedRankings[0]];
-  }
-
   // 탭에 따라 라벨 설정
   const timeLabel = activeTab === 'DAILY' ? '일시간' : activeTab === 'WEEKLY' ? '주시간' : '월시간';
 
@@ -46,6 +41,15 @@ export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
   // 빈 자리 채우기 위해 필요한 빈 객체 생성, 집계된 랭킹이 1이상일때만
   const placeholderCount = Math.max(0, 3 - modifiedRankings.length);
   const placeholders = Array.from({ length: placeholderCount }, () => ({}) as Student);
+
+  // 랭킹 순서 변경
+  if (modifiedRankings.length >= 1) {
+    // 랭킹이 1명만 집계된 경우 modifiedRankings[1]에 빈 객체를 할당
+    if (modifiedRankings.length === 1) {
+      modifiedRankings[1] = {} as Student; // 빈 객체를 할당
+    }
+    [modifiedRankings[0], modifiedRankings[1]] = [modifiedRankings[1], modifiedRankings[0]];
+  }
 
   return (
     <Flex justify="center" align="center" gap="20px" className={styles.ranking_list} asChild>
