@@ -44,8 +44,9 @@
   height: 3.5px;
 }
 
-.btm {
+.full_rankings_wrap {
   width: 100%;
+  height: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 30px;
   padding-top: 30px;
@@ -60,6 +61,24 @@
     min-height: calc(100vh - 62px);
   }
 }
+
+@media screen and (max-width: 720px) {
+  .tab_category {
+    margin-bottom: 0px;
+  }
+
+  .full_rankings_wrap {
+    margin-top: 0px;
+    padding-top: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+  }
+
+  .top_rankings_wrap {
+    padding-bottom: 0px;
+  }
+}
+
 @media screen and (max-width: 680px) {
   .container {
     min-height: calc(100vh - 122px);
@@ -69,11 +88,5 @@
     width: 90px;
     height: 40px;
     font-size: var(--font-size-3);
-  }
-
-  .full_ranking_wrap {
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
-    padding-top: 30px;
   }
 }

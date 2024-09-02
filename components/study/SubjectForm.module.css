@@ -106,15 +106,15 @@
   width: 100%;
 }
 
-/* 과목 선택 아이템 박스 */
+/* 과목 선택 ui 박스 전체 */
 .subject_select_choice_box {
-  max-height: 73vh !important;
+  max-height: 550px !important;
 }
 
 .subject_choice_box {
   position: relative;
   background-color: white;
-  max-height: 55vh;
+  max-height: 330px;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -274,9 +274,5 @@
     bottom: 80px;
     font-size: 14px;
     line-height: 1.3;
-  }
-
-  .subject_choice_box {
-    max-height: 45vh;
   }
 }
