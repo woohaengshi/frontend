@@ -5,13 +5,13 @@ import SubjectSelectButton from '@/components/study/SubjectSelectButton';
 import { getTimer } from '@/api/studyApi';
 
 export default async function Study() {
-  const timerResponse = await getTimer();
+  const { time, subjects } = await getTimer();
 
   return (
     <Container size="3" className={styles.container} height="100%">
-      <Timer maxTime={10800} currentTime={timerResponse.time} />
+      <Timer maxTime={10800} currentTime={time} initialSubjects={subjects} />
 
-      <SubjectSelectButton initialSubjects={timerResponse.subjects} />
+      <SubjectSelectButton initialSubjects={subjects} />
     </Container>
   );
 }

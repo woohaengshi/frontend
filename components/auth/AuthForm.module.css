@@ -11,3 +11,9 @@
   line-height: 1.2;
   text-align: center;
 }
+
+@media screen and (max-width: 680px) {
+  .title strong {
+    font-size: 30px;
+  }
+}

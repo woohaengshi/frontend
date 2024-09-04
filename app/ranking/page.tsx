@@ -99,7 +99,7 @@ export default function Ranking() {
             <TopRankings rankings={rankings} activeTab={activeTab} />
           </Box>
         </Box>
-        <Box p="5" pr="3" className={styles.btm}>
+        <Box p="5" className={styles.full_rankings_wrap}>
           <FullRankingList
             rankings={rankings}
             currentUser={currentUser}

@@ -78,14 +78,24 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
       };
     }),
 
-  // 선택한과목
+  // 선택한 과목
   selectSubject: (subject) => {
-    set((state) => ({
-      selectedSubjects: state.selectedSubjects.some((s) => s.id === subject.id)
+    set((state) => {
+      const isSelected = state.selectedSubjects.some((s) => s.id === subject.id);
+      const updatedSelectedSubjects = isSelected
         ? state.selectedSubjects.filter((s) => s.id !== subject.id)
-        : [...state.selectedSubjects, subject],
-    }));
-    Cookies.set('selectedSubjects', JSON.stringify(get().selectedSubjects));
+        : [...state.selectedSubjects, subject];
+
+      // 쿠키에 선택한 과목 저장
+      Cookies.set('selectedSubjects', JSON.stringify(updatedSelectedSubjects));
+
+      // 선택한 과목의 이름을 알림창에 표시
+      alert(
+        isSelected ? `과목 ${subject.name}이(가) 선택 해제되었습니다.` : `과목 ${subject.name}이(가) 선택되었습니다.`,
+      );
+
+      return { selectedSubjects: updatedSelectedSubjects };
+    });
   },
 
   // 선택한과목 배열 저장

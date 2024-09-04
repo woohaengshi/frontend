@@ -3,8 +3,9 @@
   max-height: 500px;
   overflow: hidden;
 }
+
 .scroll_table > div {
-  padding-right: 5px;
+  padding: 0px 5px 0px 5px;
 }
 
 .scroll_table thead th {
@@ -51,29 +52,51 @@
 }
 
 .scroll_table {
-  max-height: 400px;
+  max-height: 450px;
   overflow-y: auto;
 }
 
 .scroll_table::-webkit-scrollbar {
   width: 3px;
 }
+
 .scroll_table::-webkit-scrollbar-thumb {
   background: #b9b9b9;
   border-radius: 3px;
 }
+
 .scroll_table::-webkit-scrollbar-track {
   background: #eee;
   border-radius: 3px;
 }
 
-@media screen and (max-width: 680px) {
+.loader {
+  text-align: center;
+}
+
+@media screen and (max-width: 720px) {
+  .scroll_table th:nth-child(4),
+  .scroll_table td:nth-child(4),
+  .scroll_table th:nth-child(6),
+  .scroll_table td:nth-child(6) {
+    display: none;
+  }
+
   .scroll_table thead th,
   .scroll_table tbody td {
     font-size: var(--font-size-2);
   }
 
+  .scroll_table thead th {
+    height: 55px;
+    padding: 0 10px;
+  }
+
+  .scroll_table tbody td {
+    height: 45px;
+  }
+
   .scroll_table > div {
-    padding-right: 7.5px;
+    padding: 0px 2px 0px 0px;
   }
 }

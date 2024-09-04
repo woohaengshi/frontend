@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './fullRankingList.module.css';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -22,6 +22,19 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
   const allRankings = currentUser ? [currentUser, ...otherRankings] : otherRankings;
 
   const timeLabel = activeTab === 'DAILY' ? '일간시간' : activeTab === 'WEEKLY' ? '주간시간' : '월간시간';
+  const [isMobile, setIsMobile] = useState<boolean>(typeof window !== 'undefined' && window.innerWidth <= 720);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 720);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div className={styles.scroll_table}>
@@ -39,12 +52,12 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
       >
         <table>
           <colgroup>
-            <col width="15%" />
-            <col width="50px" />
-            <col width="*" />
-            <col width="20%" />
-            <col width="15%" />
-            <col width="15%" />
+            <col style={{ width: isMobile ? '20%' : '15%' }} />
+            <col style={{ width: isMobile ? '13%' : '50px' }} />
+            <col style={{ width: isMobile ? '42%' : 'auto' }} />
+            {!isMobile && <col width="20%" />}
+            <col style={{ width: isMobile ? '25%' : '15%' }} />
+            {!isMobile && <col width="20%" />}
           </colgroup>
           <thead>
             <tr>
@@ -52,7 +65,7 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
               <th></th>
               <th className={styles.name}>이름</th>
               <th>반</th>
-              <th>{timeLabel}</th>
+              <th className={isMobile ? styles.radius_right : ''}>{timeLabel}</th>
               <th className={styles.radius_right}>누적시간</th>
             </tr>
           </thead>

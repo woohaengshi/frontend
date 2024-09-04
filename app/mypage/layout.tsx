@@ -23,7 +23,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     Cookies.remove('refresh_token');
     Cookies.remove('selectedSubjects');
 
-    // 유저 정보 삭제
     localStorage.removeItem('userInfo');
     setUserInfo(null);
 
@@ -31,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <Container size="2" p="6">
+    <Container size="2" p="6" className={styles.container}>
       <Box p="4" pt="9" className={styles.inner}>
         {/* 마이페이지 공통 프로필 영역 */}
         <UserProfile />
