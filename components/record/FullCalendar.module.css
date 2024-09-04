@@ -149,7 +149,7 @@
   height: 100%;
   background-color: var(--br-color);
 }
-.calendar_list ul li:not(.blank) {
+.calendar_list > ul:has(.days) > li:not(.blank) {
   display: flex;
   margin-top: 25px;
 }

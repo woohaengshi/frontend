@@ -39,6 +39,14 @@
     border-radius: 8px;
     border: 1px solid var(--br-color);
   }
+  .record_box {
+    gap: 0;
+  }
+
+  .record_box .subject_list {
+    margin-bottom: 10px;
+  }
+
   .record_box .total_time {
     text-align: left;
   }
