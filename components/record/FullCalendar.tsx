@@ -147,12 +147,13 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
     // 실질적인 날짜
     let nowDate = 0;
     let nowDay = 0;
+    console.log(records);
 
     for (let i = 0; i < weekNumber; i++) {
       for (let j = 0; j < 7; j++) {
         if (startDay <= nowDay && nowDate < endDate) {
           nowDate++;
-          if (records[nowDate - 1]?.subjects.length > 0) {
+          if (records[nowDate - 1]?.time > 0) {
             days.push(
               records[nowDate - 1].day == nowDate && (
                 <li

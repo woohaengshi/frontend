@@ -15,19 +15,21 @@ export default function CalendarRecord({ nowDate, record }: { nowDate: number; r
 
   const content = (
     <Flex direction="column" gap="10px" justify="between" className={styles.record_box}>
-      <Flex wrap="wrap" gap="5px" asChild>
-        <ul className={`${styles.subject_list} ${styles[record_color]}`}>
-          {record.subjects.map((subject) => {
-            return (
-              <li key={`${nowDate}${subject.name}`}>
-                <Text as="p" size="2">
-                  #{subject.name}
-                </Text>
-              </li>
-            );
-          })}
-        </ul>
-      </Flex>
+      {record.subjects.length > 0 && (
+        <Flex wrap="wrap" gap="5px" asChild>
+          <ul className={`${styles.subject_list} ${styles[record_color]}`}>
+            {record.subjects.map((subject) => {
+              return (
+                <li key={`${nowDate}${subject.name}`}>
+                  <Text as="p" size="2">
+                    #{subject.name}
+                  </Text>
+                </li>
+              );
+            })}
+          </ul>
+        </Flex>
+      )}
       <Text as="p" className={styles.total_time} size="5" weight="medium" align="center">
         {record.time > 0 && formatTime(record.time)}
       </Text>
