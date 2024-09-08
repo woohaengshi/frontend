@@ -23,7 +23,7 @@ export default function SubjectSelectForm({ onEditClick, onSaveClick }: SubjectS
   }
 
   if (error) {
-    console.error('과목 로딩 실패:', error);
+    console.error('과목 선택 데이터 로딩 실패:', error);
   }
 
   return (

@@ -17,7 +17,7 @@ interface SubjectStoreState {
   setInitialSubjects: () => void;
   addSubject: (subject: Subject) => void;
   deleteSubject: (subjectId: number) => void;
-  selectSubject: (subject: Subject) => void;
+  selectSubject: (subject: Subject, showAlert?: boolean) => void;
   setEditing: (isEditing: boolean) => void;
   saveSelected: () => void;
   saveEditing: () => void;
@@ -79,7 +79,7 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
     }),
 
   // 선택한 과목
-  selectSubject: (subject) => {
+  selectSubject: (subject, showAlert = true) => {
     set((state) => {
       //전에 선택한 과목 배열에 현재 선택한 과목이 존재하는지
       const isSelected = state.selectedSubjects.some((s) => s.id === subject.id);
@@ -88,9 +88,9 @@ export const useSubjectStore = create<SubjectStoreState>((set, get) => ({
         : [...state.selectedSubjects, subject];
 
       // 선택한 과목의 이름을 알림창에 표시
-      alert(
-        isSelected ? `과목 ${subject.name}이(가) 선택 해제되었습니다.` : `과목 ${subject.name}이(가) 선택되었습니다.`,
-      );
+      if (showAlert) {
+        alert(isSelected ? `${subject.name}이(가) 선택 해제되었습니다.` : `${subject.name}이(가) 선택되었습니다.`);
+      }
 
       // 쿠키에 선택한 과목 저장
       Cookies.set('selectedSubjects', JSON.stringify(updatedSelectedSubjects));
