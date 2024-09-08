@@ -67,7 +67,6 @@ export default function SubjectEditForm({
   };
 
   const handleCancelEditing = () => {
-    debugger;
     revertChanges();
     setEditing(false);
   };
