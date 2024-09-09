@@ -47,6 +47,10 @@
     margin-bottom: 10px;
   }
 
+  .record_box .subject_list.blank {
+    display: none;
+  }
+
   .record_box .total_time {
     text-align: left;
   }
