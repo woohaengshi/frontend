@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
@@ -20,7 +20,13 @@ export default function SubjectEditForm({
   subjectChoiceBoxStyle?: React.CSSProperties;
   mypageSaveBtn?: React.CSSProperties;
 }) {
+  interface Subject {
+    id: number;
+    name: string;
+  }
+
   const [newSubjectName, setNewSubjectName] = useState<string>('');
+  const [beforeSelectedSubjects, setBeforeSelectedSubjects] = useState<Subject[]>([]);
 
   const {
     subjects,
@@ -33,7 +39,14 @@ export default function SubjectEditForm({
     addedSubjects,
     deletedSubjects,
     setSubjects,
+    selectedSubjects,
+    selectSubject,
   } = useSubjectStore();
+
+  // 선택한 과목 상태가 바뀔 때마다 이전 상태 저장
+  useEffect(() => {
+    setBeforeSelectedSubjects(selectedSubjects);
+  }, [selectedSubjects]);
 
   // SWR을 사용하여 과목 데이터를 가져오고 동기화 - 마이페이지 새로 고침 시 저장
   const { data, error } = useSWR('subjects', getSubjectEditList, {
@@ -45,12 +58,13 @@ export default function SubjectEditForm({
   });
 
   if (error) {
-    console.error('Failed to load subjects:', error);
+    console.error('과목 편집 데이터 로딩 실패:', error);
   }
 
   // 과목 편집 저장 버튼
   const handleAddSubject = () => {
     if (newSubjectName.trim() === '') {
+      alert('유효한 과목명을 입력하세요.');
       return;
     }
 
@@ -61,15 +75,19 @@ export default function SubjectEditForm({
       return;
     }
 
-    const newSubject = { id: Date.now(), name: newSubjectName }; // 예시로 새로운 ID 생성
+    const newSubject = { id: Date.now(), name: newSubjectName }; //임시 ID 생성
     addSubject(newSubject);
     setNewSubjectName('');
   };
 
   const handleCancelEditing = () => {
-    debugger;
-    revertChanges();
+    revertChanges(); // 편집 상태만 초기화
     setEditing(false);
+
+    // 이전에 선택된 과목 복원
+    beforeSelectedSubjects.forEach((subject) => {
+      selectSubject(subject, false);
+    });
   };
 
   const handleSaveEditing = async () => {

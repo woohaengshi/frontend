@@ -55,7 +55,7 @@ export const getSubjectEditList = async (): Promise<SubjectsResponse> => {
   const response = await instance('timer', { method: 'GET' });
 
   if (response.error) {
-    throw new Error('Error fetching subjects: ' + response.error.message);
+    throw new Error('과목 페치 에러: ' + response.error.message);
   }
 
   return response;

@@ -14,6 +14,7 @@ interface SubjectSelectProps {
 
 export default function SubjectSelectForm({ onEditClick, onSaveClick }: SubjectSelectProps) {
   const { subjects, selectedSubjects, selectSubject, setSubjects } = useSubjectStore();
+
   const { data, error } = useSWR('subjects', getSubjectEditList);
 
   // 데이터가 로드되면 상태를 업데이트
@@ -22,7 +23,7 @@ export default function SubjectSelectForm({ onEditClick, onSaveClick }: SubjectS
   }
 
   if (error) {
-    console.error('Failed to load subjects:', error);
+    console.error('과목 선택 데이터 로딩 실패:', error);
   }
 
   return (

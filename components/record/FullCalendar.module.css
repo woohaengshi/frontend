@@ -1,15 +1,11 @@
 /* container */
-.full_calendar {
-  min-width: 944px;
-  overflow-x: auto;
-}
-
 .container_inner {
   border-radius: 10px;
   background-color: #fff;
   border: 1px solid #f1f1ff;
 }
-/* calendar */
+
+/* calendar_header */
 .calendar_header {
   position: relative;
 }
@@ -19,6 +15,7 @@
   height: 30px;
   border-radius: 100%;
   border: 1px solid var(--br-color);
+  background-color: #fff;
   font-size: 0;
 }
 .calendar_header .btn_open_month_picker {
@@ -33,6 +30,7 @@
   background-color: #eee;
 }
 
+/* calendar_table */
 .calendar_table {
   margin-top: 15px;
 }
@@ -135,4 +133,93 @@
 .level_list ul li span {
   display: block;
   line-height: 1.2;
+}
+
+/* calendar_list */
+.calendar_list > ul {
+  position: relative;
+}
+.calendar_list > ul:has(.days)::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 80px;
+  top: 3px;
+  width: 1px;
+  height: 100%;
+  background-color: var(--br-color);
+}
+.calendar_list > ul:has(.days) > li:not(.blank) {
+  display: flex;
+  margin-top: 25px;
+}
+.calendar_list ul li:first-of-type {
+  margin-top: 0;
+}
+.calendar_list ul li .list_tit {
+  position: relative;
+  width: 80px;
+  flex: none;
+  text-align: center;
+}
+.calendar_list ul li .list_tit::before {
+  content: '';
+  display: block;
+  position: absolute;
+  right: -5px;
+  top: 3px;
+  width: 9px;
+  height: 9px;
+  border-radius: 100%;
+  border: 1px solid var(--br-color);
+  background-color: #fff;
+  box-sizing: border-box;
+}
+.calendar_list ul li.today .list_tit:before {
+  border: 1px solid var(--main-color-3);
+  background-color: var(--main-color-3);
+}
+.calendar_list ul li.today .list_tit:after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: -8px;
+  top: 0px;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  background-color: #cdccff;
+  z-index: -1;
+}
+.calendar_list ul li .list_tit b {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+.calendar_list ul li .list_tit i {
+  display: block;
+  font-size: 12px;
+  font-weight: 300;
+  color: #999;
+  margin-top: 5px;
+  line-height: 1;
+}
+.calendar_list ul li .list_con {
+  width: 100%;
+  padding-left: 30px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 840px) {
+  .full_calendar > div {
+    padding: 20px;
+  }
+
+  .container_inner {
+    border-radius: 0;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+  }
 }
