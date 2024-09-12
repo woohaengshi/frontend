@@ -10,17 +10,18 @@ import Image from 'next/image';
 import useUserInfo from '@/hook/useUserInfo';
 import { useUserInfoStore } from '@/store/memberStore';
 import { useSession } from 'next-auth/react';
-import { useRefreshToken } from '@/hook/useRefreshToken';
 import { useEffect } from 'react';
 
 export default function Header() {
   const userInfo = useUserInfo();
   const { setUserInfo } = useUserInfoStore();
 
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
 
   const accessToken = session?.user?.accessToken;
   const refreshToken = session?.user?.refreshToken;
+
+  // update();
 
   useEffect(() => {
     const storedUserInfo = localStorage.getItem('userInfo');
@@ -29,8 +30,6 @@ export default function Header() {
       setUserInfo(null);
     }
   }, [accessToken, refreshToken, setUserInfo]);
-
-  // useRefreshToken();
 
   return (
     <Box px="5" asChild>

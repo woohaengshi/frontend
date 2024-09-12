@@ -1,5 +1,6 @@
 'use server';
 
+import { BASE_URL } from '@/constants/url';
 import { instance } from './instance';
 
 export const signIn = async ({ email, password }: { email: string; password: string }) => {
@@ -13,9 +14,8 @@ export const signIn = async ({ email, password }: { email: string; password: str
 };
 
 export const reissueToken = async (refresh_token: string) => {
-  console.log('받아와지냐????', refresh_token);
-
-  const response = await fetch('https://dev.woorifisa.shop/api/v1/reissue', {
+  console.log('refresh_token:', refresh_token);
+  const response = await fetch(`${BASE_URL}reissue`, {
     headers: {
       Cookie: `refresh_token=${refresh_token}`,
     },
@@ -24,6 +24,8 @@ export const reissueToken = async (refresh_token: string) => {
 
   if (!response.ok) {
     console.error('Token Expired');
+    console.error('Fetch Error:', await response.json());
+    console.error(response.status);
     return { error: 'Token Expired' };
   }
 

@@ -6,16 +6,7 @@ import { JWT } from 'next-auth/jwt';
 
 const refreshAccessToken = async (token: JWT): Promise<JWT> => {
   try {
-    console.log('호출됨!!!', token.refreshToken!);
-    console.log('호출됨@@22!!!', token.accessToken);
-
-    // return {
-    //   ...token,
-    //   accessToken: token.accessToken,
-    //   refreshToken: token.refreshToken,
-    //   accessTokenExpires: Date.now() + ACCESS_TOKEN_EXPIRES,
-    // };
-
+    console.log('그 함수' + token.refreshToken);
     const response = await reissueToken(token.refreshToken!);
 
     console.log('응답!!!', response);
@@ -27,7 +18,7 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
 
     const { accessToken, cookie } = response;
 
-    const refreshToken = cookie.split(';')[0].split('=')[1];
+    const refreshToken = cookie?.split(';')[0].split('=')[1];
 
     console.log('토큰이 갱신되었습니다.', Date.now() + ACCESS_TOKEN_EXPIRES);
 
@@ -39,10 +30,7 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
     };
   } catch (error) {
     console.error('에러발생!!!', error);
-    return {
-      ...token,
-      error: 'RefreshAccessTokenError',
-    };
+    return token;
   }
 };
 
@@ -70,9 +58,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const { accessToken, cookie } = response;
           const refreshToken = cookie.split(';')[0].split('=')[1];
 
-          console.log('Auth success:', credentials.email);
-          console.log('Access token:', accessToken);
-          console.log('Refresh token:', refreshToken);
+          // console.log('Auth success:', credentials.email);
+          // console.log('Access token:', accessToken);
+          // console.log('Refresh token:', refreshToken);
 
           return {
             id: credentials.email as string,
@@ -89,8 +77,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user, account }) {
+      console.log(`In jwt callback - Token is ${JSON.stringify(token)}`);
+      console.log(`In jwt callback - User is ${JSON.stringify(user)}`);
+      console.log(`In jwt callback - Account is ${JSON.stringify(account)}`);
+
       // Initial sign in
-      if (account && user) {
+      if (account) {
         return {
           ...token,
           accessToken: user.accessToken,
@@ -112,8 +104,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       // Access token has expired, try to update it
       console.log('!!!!!**** Update Refresh token ******');
-      // return token;
-      return await refreshAccessToken(token);
+      const updatedToken = await refreshAccessToken(token);
+      return {
+        ...updatedToken,
+        refreshToken: updatedToken.refreshToken || token.refreshToken,
+      };
     },
     session({ session, token }) {
       // console.log(`In session callback - Token is ${JSON.stringify(token)}`);
