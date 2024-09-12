@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { cookies } from 'next/headers';
 import { auth } from './auth';
 
 export default async function middleware(request: NextRequest) {
@@ -11,6 +10,8 @@ export default async function middleware(request: NextRequest) {
   // 로그인 토큰을 확인
   const accessToken = session?.user?.accessToken;
   const refreshToken = session?.user?.refreshToken;
+
+  console.log('current refreshToken', refreshToken);
 
   // 토큰이 없으면 로그인 페이지로 리다이렉트
   if (!accessToken && !refreshToken) {
