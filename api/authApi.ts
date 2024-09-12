@@ -10,6 +10,7 @@ export const signIn = async ({ email, password }: { email: string; password: str
     method: 'POST',
   });
 
+  console.log('signInFromBackend response', response);
   return response;
 };
 
@@ -45,11 +46,9 @@ export const signUp = async ({
 };
 
 export const signOut = async () => {
-  const refreshToken = cookies().get('refresh_token')?.value;
-
   const response = await instance('sign-out', {
     method: 'POST',
-    Cookie: `refresh_token=${refreshToken}`,
+    Credentials: 'include',
   });
 
   return response;
