@@ -1,8 +1,6 @@
 'use server';
 
-import { auth } from '@/auth';
 import { instance } from './instance';
-import { cookies } from 'next/headers';
 
 export const signIn = async ({ email, password }: { email: string; password: string }) => {
   const response = await instance('sign-in', {
@@ -11,22 +9,28 @@ export const signIn = async ({ email, password }: { email: string; password: str
     method: 'POST',
   });
 
-  // console.log('signInFromBackend response', response);
   return response;
 };
 
-export const reissueToken = async () => {
-  const session = await auth();
-  const refreshToken = session?.user?.refreshToken;
+export const reissueToken = async (refresh_token: string) => {
+  console.log('받아와지냐????', refresh_token);
 
-  const response = await instance('reissue', {
+  const response = await fetch('https://dev.woorifisa.shop/api/v1/reissue', {
     headers: {
-      Cookie: `refresh_token=${refreshToken}`,
+      Cookie: `refresh_token=${refresh_token}`,
     },
     method: 'POST',
   });
 
-  return response;
+  if (!response.ok) {
+    console.error('Token Expired');
+    return { error: 'Token Expired' };
+  }
+
+  const cookie = response.headers.get('Set-Cookie');
+  const { accessToken } = await response.json();
+
+  return { accessToken, cookie };
 };
 
 export const signUp = async ({
