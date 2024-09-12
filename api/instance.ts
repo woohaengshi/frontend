@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers'; // 서버 사이드에서 쿠키를 처리하기 위한 내장 모듈
 import { BASE_URL } from '@/constants/url';
+import { auth } from '@/auth';
 
 interface RequestOptions {
   headers?: Record<string, string>;
@@ -9,7 +10,9 @@ interface RequestOptions {
 }
 
 const fetchInstance = async (url: string, options: RequestOptions = {}) => {
-  const accessToken = cookies().get('access_token')?.value;
+  const session = await auth();
+  const accessToken = session?.user?.accessToken;
+  // console.log('인스턴스로부터', session?.user);
 
   const headers: RequestOptions['headers'] = {
     'Content-Type': 'application/json',

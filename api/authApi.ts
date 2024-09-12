@@ -1,5 +1,6 @@
 'use server';
 
+import { auth } from '@/auth';
 import { instance } from './instance';
 import { cookies } from 'next/headers';
 
@@ -10,12 +11,13 @@ export const signIn = async ({ email, password }: { email: string; password: str
     method: 'POST',
   });
 
-  console.log('signInFromBackend response', response);
+  // console.log('signInFromBackend response', response);
   return response;
 };
 
 export const reissueToken = async () => {
-  const refreshToken = cookies().get('refresh_token')?.value;
+  const session = await auth();
+  const refreshToken = session?.user?.refreshToken;
 
   const response = await instance('reissue', {
     headers: {

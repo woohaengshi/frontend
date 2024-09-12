@@ -12,15 +12,18 @@ import { API_ROUTE_URL } from '@/constants/url';
 import useSWR from 'swr';
 import useUserInfo from '@/hook/useUserInfo';
 import { useUserInfoStore } from '@/store/memberStore';
+import { useSession } from 'next-auth/react';
 
 export default function Header() {
+  const { data: session } = useSession();
+
   useSWR('reissue-token', revaildateToken);
   const { setUserInfo } = useUserInfoStore();
 
   // eslint-disable-next-line func-style
   async function revaildateToken() {
-    const accessToken = Cookies.get('access_token');
-    const refreshToken = Cookies.get('refresh_token');
+    const accessToken = session?.user?.accessToken;
+    const refreshToken = session?.user?.refreshToken;
 
     if (!accessToken && refreshToken) {
       const response = await fetch(`${API_ROUTE_URL}/api/reissue-token`, {
