@@ -1,0 +1,39 @@
+/* modal */
+/* modal_content */
+.modal_content {
+  margin: -24px 0;
+}
+
+/* modal_header */
+.modal_header {
+  height: 60px;
+  padding: 0 24px;
+  border-bottom: 1px solid #dde1eb;
+  box-sizing: border-box;
+}
+.modal_header > div {
+  width: 100%;
+}
+.modal_header h1 {
+  display: block;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 0;
+}
+.modal_header h1:before {
+  display: none;
+}
+.modal_header .right {
+  margin-right: -8px;
+}
+.modal_header .btn_close {
+  display: block;
+  width: 30px;
+  height: 30px;
+  font-size: 0;
+}
+.modal_header .btn_close svg {
+  width: 24px;
+  height: 24px;
+}
