@@ -1,44 +1,60 @@
-/* modal_body */
-.modal_body .title strong {
-  position: relative;
-  display: inline-block;
-  line-height: 1.2;
-  font-size: 20px;
+/* modal_header */
+.level_rank {
+  padding: 0 10px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #f1f1ff;
+  color: var(--main-color-3);
+  border-radius: 4px;
+  text-transform: capitalize;
 }
-.modal_body .title strong:before {
-  content: '';
-  display: block;
-  position: absolute;
-  left: -5px;
-  right: -5px;
-  bottom: -2px;
-  height: 12px;
-  background-color: #dbdbff;
-  z-index: -1;
+.level_rank.level2 {
+  background-color: #cdccff;
+  color: #6153b8;
 }
-.modal_body .list ul li {
-  position: relative;
-  padding-left: 10px;
-  font-size: 14px;
-}
-.modal_body .list ul li:before {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 8px;
-  width: 4px;
-  height: 4px;
-  border-radius: 100%;
+.level_rank.level3 {
   background-color: var(--main-color-3);
+  color: #f1f1ff;
 }
 
-/* modal_footer */
-.modal_footer {
-  height: 40px;
-  padding: 0 24px;
-  background-color: var(--main-color-3);
+/* tab_tit */
+.tab_tit {
+  display: inline-block;  
+  background-color: #f1f1ff;
+  border-radius: 8px;
 }
-.modal_footer label {
+.tab_tit > div {
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: none;
+  overflow: visible;
+}
+.tab_tit button {
+  display: block;
+  width: 150px;
+  height: 48px;
+  line-height: 48px;
+  padding: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+.tab_tit button[data-state='active']{
+  font-weight: 700;
+  background-color: var(--main-color-3);
+  box-shadow: 0px 0px 13px 0px rgba(130, 116, 234, 0.7);
+}
+.tab_tit button[data-state='active']::before{
+  display: none;
+}
+.tab_tit button span {
+  position: static;
+  display: block;
+  padding: 0;
+  text-align: center;
+  color: var(--main-color-3);
+  background-color: transparent;
+}
+.tab_tit button[data-state='active'] span {
   color: #fff;
 }

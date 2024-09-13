@@ -9,8 +9,6 @@
   width: 100%;
   height: 100%;
   backdrop-filter: blur(4px);
-  opacity: 0;
-  transition: all 0.2s linear;
 }
 .record_box .btn_open_modal button {
   display: block;
@@ -47,30 +45,15 @@
 .record_box .subject_list li {
   max-width: 100%;
   line-height: 1;
+}
+.record_box .subject_list li p{
   padding: 5px;
   border-radius: 4px;
-  background-color: #f1f1ff;
-  color: var(--main-color-3);
   box-sizing: border-box;
-}
-.record_box .subject_list li p {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 .record_box .total_time {
   line-height: 1;
   color: var(--main-color-3);
-}
-
-.record_box .subject_list.level2 li {
-  background-color: #cdccff;
-  color: #6153b8;
-}
-
-.record_box .subject_list.level3 li {
-  background-color: var(--main-color-3);
-  color: #f1f1ff;
 }
 @media screen and (max-width: 840px) {
   .mobile_record {
@@ -82,7 +65,6 @@
   .record_box {
     gap: 0;
   }
-
   .record_box .subject_list {
     margin-bottom: 10px;
   }

@@ -24,33 +24,24 @@ export default function CalendarRecord({ nowDate, record }: { nowDate: number; r
       setIsModalOpen(false);
     }
   };
-  const [animation, setAnimation] = useState('fade_out');
+  // const [animation, setAnimation] = useState('fade_out');
   const [hoverButton, setHoverButton] = useState(false);
 
-  const toggleVisibility = () => {
-    if (hoverButton) {
-      setAnimation('fade_out');
-      setTimeout(() => {
-        setHoverButton(false);
-      }, 250);
-    } else {
-      setHoverButton(true);
-      setTimeout(() => {
-        setAnimation('fade_in');
-      }, 250);
-    }
-  };
   const content = (
     <Flex
       direction="column"
       gap="10px"
       justify="between"
       className={styles.record_box}
-      onMouseEnter={toggleVisibility}
-      onMouseLeave={toggleVisibility}
+      onMouseEnter={() => {
+        setHoverButton(true);
+      }}
+      onMouseLeave={() => {
+        setHoverButton(false);
+      }}
     >
       {hoverButton && (
-        <Box className={`${styles.btn_open_modal} ${animation}`}>
+        <Box className={`${styles.btn_open_modal}`}>
           <button
             onClick={() => {
               setIsModalOpen(true);
@@ -62,7 +53,7 @@ export default function CalendarRecord({ nowDate, record }: { nowDate: number; r
       )}
       <Flex wrap="wrap" gap="5px" asChild>
         <ul
-          className={`${styles.subject_list} ${styles[record_color]} ${record.subjects.length == 0 ? styles.blank : ''}`}
+          className={`${styles.subject_list} subject_list ${record_color} ${record.subjects.length == 0 ? styles.blank : ''}`}
         >
           {record.subjects.length > 0 &&
             record.subjects.map((subject) => {
