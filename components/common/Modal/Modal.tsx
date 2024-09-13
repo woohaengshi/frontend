@@ -54,7 +54,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
               </Flex>
             </Flex>
           </Inset>
-          <Box py="5" className={styles.modal_body}>
+          <Box py="5" className={`${styles.modal_body} modal_body`}>
             {children}
           </Box>
           <Inset side="x">

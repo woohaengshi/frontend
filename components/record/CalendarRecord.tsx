@@ -1,10 +1,10 @@
-import { Flex, Text } from '@radix-ui/themes';
+import { Box, Flex, Text } from '@radix-ui/themes';
 import styles from './CalendarRecord.module.css';
 import { levelColor } from '@/utils/levelUtils';
 import { formatTime } from '@/utils/formatTimeUtils';
 import useIsMobile from '@/hook/useIsMobile';
 import CalendarModal from './Modal/CalendarModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useEventStore } from '@/store/recordStore';
 
 export default function CalendarRecord({ nowDate, record }: { nowDate: number; record: IRecord }) {
@@ -24,16 +24,42 @@ export default function CalendarRecord({ nowDate, record }: { nowDate: number; r
       setIsModalOpen(false);
     }
   };
+  const [animation, setAnimation] = useState('fade_out');
+  const [hoverButton, setHoverButton] = useState(false);
 
+  const toggleVisibility = () => {
+    if (hoverButton) {
+      setAnimation('fade_out');
+      setTimeout(() => {
+        setHoverButton(false);
+      }, 250);
+    } else {
+      setHoverButton(true);
+      setTimeout(() => {
+        setAnimation('fade_in');
+      }, 250);
+    }
+  };
   const content = (
-    <Flex direction="column" gap="10px" justify="between" className={styles.record_box}>
-      <button
-        onClick={() => {
-          setIsModalOpen(true);
-        }}
-      >
-        모달오픈
-      </button>
+    <Flex
+      direction="column"
+      gap="10px"
+      justify="between"
+      className={styles.record_box}
+      onMouseEnter={toggleVisibility}
+      onMouseLeave={toggleVisibility}
+    >
+      {hoverButton && (
+        <Box className={`${styles.btn_open_modal} ${animation}`}>
+          <button
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
+          >
+            <i>상세보기</i>
+          </button>
+        </Box>
+      )}
       <Flex wrap="wrap" gap="5px" asChild>
         <ul
           className={`${styles.subject_list} ${styles[record_color]} ${record.subjects.length == 0 ? styles.blank : ''}`}

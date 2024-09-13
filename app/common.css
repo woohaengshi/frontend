@@ -37,3 +37,31 @@
   width: 24px;
   height: 24px;
 }
+
+/* modal_body */
+.modal_body .title strong {
+  position: relative;
+  display: inline-block;
+  line-height: 1.2;
+  font-size: 20px;
+}
+.modal_body .title strong:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -5px;
+  right: -5px;
+  bottom: -2px;
+  height: 12px;
+  background-color: #dbdbff;
+  z-index: -1;
+}
+
+/* transition */
+.fade_in {
+  opacity: 1 !important;
+}
+
+.fade_out {
+  opacity: 0 !important;
+}
