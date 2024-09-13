@@ -4,6 +4,7 @@ import { signIn as signInFromBackend } from './api/authApi';
 import { ACCESS_TOKEN_EXPIRES } from './constants/token';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   providers: [
     Credentials({
       credentials: {
