@@ -3,7 +3,7 @@
 import styles from './CalendarModal.module.css';
 import { Box, Dialog, Flex, Inset, Tabs, Text } from '@radix-ui/themes';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import { useEventStore, useSelectedMonthStore, useSelectedYearStore } from '@/store/recordStore';
+import { useEventStore, useSelectedMonthStore, useSelectedYearStore, useTextareaStore } from '@/store/recordStore';
 import { levelColor } from '@/utils/levelUtils';
 import ModalInTabEdit from './ModalInTabEdit';
 import { useEffect } from 'react';
@@ -23,6 +23,8 @@ export default function CalendarModal({
   const { selectedMonth } = useSelectedMonthStore();
   const { setEventChange } = useEventStore();
 
+  const { textValue, setTextValue } = useTextareaStore();
+
   // 모달 열리면 이벤트 감지 초기화
   useEffect(() => {
     setEventChange(false);
@@ -30,7 +32,7 @@ export default function CalendarModal({
 
   return (
     <Dialog.Root open={true} onOpenChange={onClose}>
-      <Dialog.Content maxWidth="640px" height="600px">
+      <Dialog.Content maxWidth="640px" height="600px" aria-describedby={undefined}>
         <Box className="modal_content">
           <Inset side="x">
             <Flex align="center" className="modal_header">

@@ -35,7 +35,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <Dialog.Content maxWidth="640px">
+      <Dialog.Content maxWidth="640px" aria-describedby={undefined}>
         <Box className="modal_content">
           <Inset side="x">
             <Flex align="center" className="modal_header">
