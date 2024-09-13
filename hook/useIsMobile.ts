@@ -4,30 +4,23 @@ export default function useIsMobile(width: number) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    let tiemout: NodeJS.Timeout;
+    const mediaQuery = window.matchMedia(`(max-width: ${width}px)`);
 
-    const checkScreenSize = () => {
-      if (tiemout) {
-        clearTimeout(tiemout);
-      }
-
-      tiemout = setTimeout(() => {
-        setIsMobile(window.innerWidth <= width);
-      }, 150);
+    const handleMediaQueryChange = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches);
     };
 
-    // 초기 화면 크기를 감지
-    checkScreenSize();
+    // 초기 상태 설정
+    setIsMobile(mediaQuery.matches);
 
-    // 화면 크기가 변경될 때마다 감지
-    window.addEventListener('resize', checkScreenSize);
+    // 미디어 쿼리 변경 감지 리스너 추가
+    mediaQuery.addEventListener('change', handleMediaQueryChange);
 
     // 클린업 함수
     return () => {
-      clearTimeout(tiemout);
-      window.removeEventListener('resize', checkScreenSize);
+      mediaQuery.removeEventListener('change', handleMediaQueryChange);
     };
-  }, []);
+  }, [width]);
 
   return isMobile;
 }

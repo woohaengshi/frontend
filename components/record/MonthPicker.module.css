@@ -3,7 +3,7 @@
   left: 50%;
   top: 50px;
   transform: translateX(-50%);
-  width: 280px;
+  width: 300px;
   background-color: #fff;
   box-shadow: var(--shadow-3);
   border-radius: 8px;
@@ -41,7 +41,7 @@
 }
 .month_picker .month_list ul li .month .total_time i {
   display: block;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1;
   color: #cbc6f1;

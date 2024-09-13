@@ -19,7 +19,7 @@ export default function ModalInTabEdit({ record, onClose }: { record: IRecord; o
 
   useEffect(() => {
     setTextValue('');
-  }, [setTextValue]);
+  }, []);
 
   return (
     <form>
