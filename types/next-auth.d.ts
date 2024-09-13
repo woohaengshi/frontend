@@ -1,27 +1,29 @@
-// types/next-auth.d.ts
-
 import 'next-auth';
 import { User } from 'next-auth';
 import 'next-auth/jwt';
 
-// 커스텀 User 타입 정의
 declare module 'next-auth' {
-  interface User extends DefaultUser {
+  interface User {
     accessToken?: string;
     refreshToken?: string;
   }
 
   interface Session {
-    user: User;
-    error?: 'RefreshTokenError';
+    user: User & {
+      accessToken?: string;
+      refreshToken?: string;
+      expires_at?: number;
+    };
+    error?: 'RefreshAccessTokenError';
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT {
     accessToken?: string;
-    accessTokenExpires: number;
+    expires_at?: number;
     refreshToken?: string;
-    error?: 'RefreshTokenError';
+    error?: 'RefreshAccessTokenError';
+    user?: User;
   }
 }

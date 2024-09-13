@@ -14,7 +14,6 @@ export const signIn = async ({ email, password }: { email: string; password: str
 };
 
 export const reissueToken = async (refresh_token: string) => {
-  console.log('refresh_token:', refresh_token);
   const response = await fetch(`${BASE_URL}reissue`, {
     headers: {
       Cookie: `refresh_token=${refresh_token}`,
@@ -31,8 +30,9 @@ export const reissueToken = async (refresh_token: string) => {
 
   const cookie = response.headers.get('Set-Cookie');
   const { accessToken } = await response.json();
+  const refreshToken = cookie?.split(';')[0].split('=')[1];
 
-  return { accessToken, cookie };
+  return { accessToken, refreshToken };
 };
 
 export const signUp = async ({
