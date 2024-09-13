@@ -1,13 +1,12 @@
 'use client';
 
 import styles from './CalendarModal.module.css';
-import { Box, Card, Dialog, Flex, Inset, ScrollArea, Strong, Tabs, Text } from '@radix-ui/themes';
+import { Box, Dialog, Flex, Inset, Tabs, Text } from '@radix-ui/themes';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { useEventStore, useSelectedMonthStore, useSelectedYearStore, useTextareaStore } from '@/store/recordStore';
 import { levelColor } from '@/utils/levelUtils';
 import ModalInTabEdit from './ModalInTabEdit';
 import { useEffect } from 'react';
-import { formatTime } from '@/utils/formatTimeUtils';
 import ModalInTabView from './ModalInTabView';
 
 export default function CalendarModal({
