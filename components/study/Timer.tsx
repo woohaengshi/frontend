@@ -152,7 +152,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
 
   return (
     <Flex direction="column" align="center" justify="center">
-      <Box pt="30px" className={styles.title_wrap}>
+      <Box pt="35px" className={styles.title_wrap}>
         <Text as="p" className={styles.title} size="3" weight="medium" align="center">
           다음 레벨업까지
         </Text>
@@ -161,7 +161,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         </Text>
       </Box>
       <Box px="9" className={styles.container}>
-        <Box mt={isMobile ? '25px' : '35px'} className={styles.relative_wrapper}>
+        <Box mt={isMobile ? '25px' : '40px'} className={styles.relative_wrapper}>
           <div className={styles.svg_container}>
             <svg
               className={styles.svg}
@@ -223,7 +223,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         justify="center"
         align="center"
         mb="20px"
-        mt="20px"
+        mt="25px"
         width={isMobile ? '90%' : '80%'}
         wrap="wrap"
         height="auto"
