@@ -130,20 +130,20 @@
   white-space: nowrap;
 }
 
-@media screen and (min-width:1580px) {
-  .title_wrap{
+@media screen and (min-width: 1580px) {
+  .title_wrap {
     padding-top: 45px;
   }
   .container {
     max-width: 700px;
   }
-  
-  .relative_wrapper{
+
+  .relative_wrapper {
     margin-top: 50px;
   }
 
   .time {
-    font-size:90px;
+    font-size: 90px;
   }
 
   .toggle_button {
@@ -155,7 +155,6 @@
     margin-top: 30px;
   }
 }
-
 
 @media (max-width: 480px) {
   .title {
