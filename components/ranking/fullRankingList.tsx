@@ -37,7 +37,7 @@ export default function FullRankingList({ rankings, currentUser, activeTab, load
   }, []);
 
   return (
-    <div className={styles.scroll_table}>
+    <div className={styles.scroll_table} ref={containerRef}>
       <InfiniteScroll
         pageStart={0}
         loadMore={loadMore}
