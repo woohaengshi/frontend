@@ -14,7 +14,8 @@ export default function Ranking() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const [currentUser, setCurrentUser] = useState<Student | null>(null);
-  const size = 100;
+  const [loading, setLoading] = useState(false);
+  const size = 10;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,14 +64,15 @@ export default function Ranking() {
           size,
         });
 
-        // console.log('API Response:', response);
         const newRankings = response.ranking.ranks;
 
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);
         setHasMore(response.ranking.hasNext);
         setPage(nextPage);
       } catch (error) {
-        console.error('Error loading more data:', error);
+        console.error('데이터 로드 에러:', error);
+      } finally {
+        setLoading(false); // 로딩 상태 초기화
       }
     }
   };
