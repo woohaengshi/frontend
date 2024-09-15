@@ -42,7 +42,7 @@ export default function Ranking() {
         });
       } else {
         console.log(pageNumber);
-        
+
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);
       }
 
