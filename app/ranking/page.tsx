@@ -41,6 +41,8 @@ export default function Ranking() {
           image: member.image || rankingImg,
         });
       } else {
+        console.log(pageNumber);
+        
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);
       }
 

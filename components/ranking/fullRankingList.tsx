@@ -3,9 +3,9 @@ import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './fullRankingList.module.css';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Student } from '@/types/rankingType'; // Student 타입 import
+import { Student } from '@/types/rankingType'; 
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
-import { formatTime } from '@/utils/formatTimeUtils'; // formatTime 함수
+import { formatTime } from '@/utils/formatTimeUtils'; 
 
 interface FullRankingListProps {
   rankings: Student[];

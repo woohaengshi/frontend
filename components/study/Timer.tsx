@@ -147,7 +147,6 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         });
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -223,7 +222,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         justify="center"
         align="center"
         mb="20px"
-        mt="20px"
+        mt={isMobile ? '25px' : '20px'}
         width={isMobile ? '90%' : '80%'}
         wrap="wrap"
         height="auto"
