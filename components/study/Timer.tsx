@@ -152,28 +152,29 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
 
   return (
     <Flex direction="column" align="center" justify="center">
-      <Box px="5" className={styles.container}>
-        <Text as="p" className={styles.title} size="4" weight="medium" align="center">
+      <Box pt="30px" className={styles.title_wrap}>
+        <Text as="p" className={styles.title} size="3" weight="medium" align="center">
           다음 레벨업까지
         </Text>
-        <Text as="p" className={styles.remaining_time} size="4" weight="medium" align="center">
+        <Text as="p" className={styles.remaining_time} size="3" weight="medium" align="center">
           {remainingTime > 0 ? formatTime(remainingTime) : formatTime(maxTime)}
         </Text>
-
-        <Box mt={isMobile ? '25px' : '45px'} className={styles.relative_wrapper}>
+      </Box>
+      <Box px="9" className={styles.container}>
+        <Box mt={isMobile ? '25px' : '35px'} className={styles.relative_wrapper}>
           <div className={styles.svg_container}>
             <svg
               className={styles.svg}
               viewBox={`0 0 ${svgSize} ${svgSize}`}
-              width={isMobile ? '90px' : '103.4px'}
-              height={isMobile ? '90px' : '103.4px'}
+              width={isMobile ? '90px' : '100px'}
+              height={isMobile ? '90px' : '100px'}
             >
               <circle
                 cx={centerPoint}
                 cy={centerPoint}
                 r={radius}
                 stroke="#F0F0FE"
-                strokeWidth={strokeWidth * 2.6}
+                strokeWidth={strokeWidth * 3}
                 fill="none"
               />
               <circle
@@ -208,7 +209,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
             direction="column"
             position="absolute"
             inset="0"
-            gap="5px"
+            gap="10px"
             className={styles.timer_wrapper}
           >
             <Text className={styles.time}>{formatTime(time)}</Text>
@@ -217,13 +218,12 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
           </Flex>
         </Box>
       </Box>
-
       {/* 공부중인 과목 리스트 */}
       <Flex
         justify="center"
         align="center"
-        mb="60px"
-        mt={isMobile ? '25px' : '45px'}
+        mb="20px"
+        mt="20px"
         width={isMobile ? '90%' : '80%'}
         wrap="wrap"
         height="auto"
