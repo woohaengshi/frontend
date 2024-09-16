@@ -45,13 +45,9 @@ export default function ModalInTabView({ record }: { record: IRecord }) {
             <ScrollArea type="always" scrollbars="vertical" style={{ height: 180 }}>
               <Box p="2" pr="8">
                 <Flex direction="column" gap="4">
-                  <Text as="p">
-                    Three fundamental aspects of typography are legibility, readability, and aesthetics. Although in a
-                    non-technical sense “legible” and “readable” are often used synonymously, typographically they are
-                    separate but related concepts.
-                  </Text>
+                  <Text as="p">회고를 입력해주세요!</Text>
 
-                  <Text as="p">
+                  {/* <Text as="p">
                     Legibility describes how easily individual characters can be distinguished from one another. It is
                     described by Walter Tracy as “the quality of being decipherable and recognisable”. For instance, if
                     a “b” and an “h”, or a “3” and an “8”, are difficult to distinguish at small sizes, this is a
@@ -63,7 +59,7 @@ export default function ModalInTabView({ record }: { record: IRecord }) {
                     use. Brush Script is an example of a font containing many characters that might be difficult to
                     distinguish. The selection of cases influences the legibility of typography because using only
                     uppercase letters (all-caps) reduces legibility.
-                  </Text>
+                  </Text> */}
                 </Flex>
               </Box>
             </ScrollArea>
