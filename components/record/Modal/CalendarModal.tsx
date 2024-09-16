@@ -57,7 +57,7 @@ export default function CalendarModal({
               <Box className={styles.tab_tit}>
                 <Tabs.List>
                   <Tabs.Trigger value="view">그날의 기록</Tabs.Trigger>
-                  <Tabs.Trigger value="edit">편집하기</Tabs.Trigger>
+                  {/* <Tabs.Trigger value="edit">편집하기</Tabs.Trigger> */}
                 </Tabs.List>
               </Box>
               <Box pt="4" className={styles.tab_cont}>
