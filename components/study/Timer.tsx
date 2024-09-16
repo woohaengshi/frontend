@@ -50,9 +50,12 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
   const radius = svgSize / 2 - strokeWidth / 2;
 
   const saveTimer = async (time: number, subjects: Subject[]) => {
+    console.log('saveTimer호출');
+
     const date = getCurrentDate();
     const subjectIds = subjects.map((subject) => subject.id);
     const response = await postTimer({ date, time, subjects: subjectIds });
+    console.log(response);
 
     return response;
   };
@@ -147,7 +150,6 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         });
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -223,7 +225,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         justify="center"
         align="center"
         mb="20px"
-        mt="25px"
+        mt="20px"
         width={isMobile ? '90%' : '80%'}
         wrap="wrap"
         height="auto"

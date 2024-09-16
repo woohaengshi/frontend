@@ -90,8 +90,8 @@
   width: 150px;
   border: 2px solid #dbdbff;
   color: var(--customBlue);
-  padding: 0.9rem 0;
-  border-radius: 9999px;
+  padding: 1rem 0;
+  border-radius: 100px;
   outline: none;
   transition: background-color 0.3s;
   color: #6153b8;
@@ -143,7 +143,7 @@
   }
 
   .time {
-    font-size: 90px;
+    font-size: 85px;
   }
 
   .toggle_button {
