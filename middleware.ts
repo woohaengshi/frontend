@@ -20,36 +20,36 @@ export default async function middleware(request: NextRequest, response: NextRes
 
   console.log('current refreshToken from middleware', refreshToken);
 
-  const sessionCookie = API_ROUTE_URL!.startsWith('https://')
-    ? '__Secure-authjs.session-token'
-    : 'authjs.session-token';
+  // const sessionCookie = API_ROUTE_URL!.startsWith('https://')
+  //   ? '__Secure-authjs.session-token'
+  //   : 'authjs.session-token';
 
-  console.log('sessionCookie', sessionCookie);
+  // console.log('sessionCookie', sessionCookie);
 
-  if (Date.now() >= session?.user?.expires_at!) {
-    const newToken = await reissueToken(session?.user?.refreshToken!); // You'll need to implement your custom token refresh logic
-    const newSessionToken = await encode({
-      secret: process.env.AUTH_SECRET!,
-      token: {
-        ...session,
-        ...newToken,
-        expires_at: Date.now() + ACCESS_TOKEN_EXPIRES,
-      },
-      maxAge: 30 * 24 * 60 * 60, // 30 days
-      salt: process.env.AUTH_SALT!,
-    });
-    const response = NextResponse.next();
-    response.cookies.set(sessionCookie, newSessionToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production' || API_ROUTE_URL!.startsWith('https://'),
-      sameSite: 'lax',
-      maxAge: 30 * 24 * 60 * 60, // 30 days
-      path: '/',
-    });
+  // if (Date.now() >= session?.user?.expires_at!) {
+  //   const newToken = await reissueToken(session?.user?.refreshToken!); // You'll need to implement your custom token refresh logic
+  //   const newSessionToken = await encode({
+  //     secret: process.env.AUTH_SECRET!,
+  //     token: {
+  //       ...session,
+  //       ...newToken,
+  //       expires_at: Date.now() + ACCESS_TOKEN_EXPIRES,
+  //     },
+  //     maxAge: 30 * 24 * 60 * 60, // 30 days
+  //     salt: process.env.AUTH_SALT!,
+  //   });
+  //   const response = NextResponse.next();
+  //   response.cookies.set(sessionCookie, newSessionToken, {
+  //     httpOnly: true,
+  //     secure: process.env.NODE_ENV === 'production' || API_ROUTE_URL!.startsWith('https://'),
+  //     sameSite: 'lax',
+  //     maxAge: 30 * 24 * 60 * 60, // 30 days
+  //     path: '/',
+  //   });
 
-    console.log('토큰 갱신 완료');
-    return response;
-  }
+  //   console.log('토큰 갱신 완료');
+  //   return response;
+  // }
 
   if (session?.error === 'RefreshAccessTokenError') {
     signOutFromAuth(); // 토큰 갱신 오류 시 로그아웃

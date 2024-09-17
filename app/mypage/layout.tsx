@@ -4,7 +4,6 @@ import UserProfile from '@/components/mypage/UserProfile';
 import { Box, Container, Flex } from '@radix-ui/themes';
 import styles from './layout.module.css';
 import SmallButton from '@/components/common/SmallButton';
-import Cookies from 'js-cookie';
 import { signOut as signOutFromBackend } from '@/api/authApi';
 import { signOut as signOutFromAuth } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -21,9 +20,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     await signOutFromBackend();
     await signOutFromAuth();
-    Cookies.remove('access_token');
-    Cookies.remove('refresh_token');
-    Cookies.remove('selectedSubjects');
 
     localStorage.removeItem('userInfo');
     setUserInfo(null);
