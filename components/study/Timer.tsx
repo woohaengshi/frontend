@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './Timer.module.css';
 import { Flex, Text, Box } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
@@ -13,8 +13,8 @@ import { postTimer } from '@/api/studyApi';
 import { useUserInfoStore } from '@/store/memberStore';
 import useSWR from 'swr';
 import { getUserInfo } from '@/api/memberApi';
-import { usePathname, useRouter} from 'next/navigation';
-
+import { useRouter } from 'next/navigation';
+import { instance } from '@/api/instance';
 
 interface ITimer {
   maxTime: number;
@@ -81,6 +81,33 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
     };
     router.events.on('routeChangeStart', handleRouteChange);
   }, [router.events, time]);
+
+  // 브라우저 닫힘 이벤트 처리
+
+// const handleBeforeUnload = useCallback(
+//   (event) => {
+//     const date = getCurrentDate();
+//     const subjectIds = selectedSubjects.map((subject) => subject.id);
+//     const data = { date, time, subjects: subjectIds };
+
+//     // sendBeacon을 사용하여 데이터를 백그라운드로 전송
+//     const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+//     navigator.sendBeacon('/study-record', blob);
+
+//     event.preventDefault();
+//     event.returnValue = ''; // 크롬에서 사용자에게 경고 메시지를 보여주기 위해 필요
+//   },
+//   [time, selectedSubjects],
+// );
+//   // 이벤트
+//   useEffect(() => {
+//     window.addEventListener('beforeunload', handleBeforeUnload);
+//     return () => {
+//       window.removeEventListener('beforeunload', handleBeforeUnload);
+//     };
+//   }, [handleBeforeUnload]);
+
+
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
     const response = await saveTimer(time, subjects);
@@ -174,24 +201,9 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
     }
   }, []);
 
-  // 브라우저 닫힘 이벤트 처리
-  useEffect(() => {
-    const handleUnload = () => {
-      if (time > 0 && selectedSubjects.length > 0) {
-        saveTimer(time, selectedSubjects); // 현재까지 누적된 시간과 선택된 과목을 서버로 전송
-      }
-    };
-
-    window.addEventListener('beforeunload', handleUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-    };
-  }, [time, selectedSubjects]);
-
   return (
     <Flex direction="column" align="center" justify="center">
-      <Box pt="35px" className={styles.title_wrap}>
+      <Box pt={isMobile ? '20px' : '35px'} className={styles.title_wrap}>
         <Text as="p" className={styles.title} size="3" weight="medium" align="center">
           다음 레벨업까지
         </Text>
@@ -200,7 +212,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         </Text>
       </Box>
       <Box px="9" className={styles.container}>
-        <Box mt={isMobile ? '25px' : '40px'} className={styles.relative_wrapper}>
+        <Box mt={isMobile ? '35px' : '40px'} className={styles.relative_wrapper}>
           <div className={styles.svg_container}>
             <svg
               className={styles.svg}
@@ -248,7 +260,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
             direction="column"
             position="absolute"
             inset="0"
-            gap="10px"
+            gap={isMobile ? '15px' : '10px'}
             className={styles.timer_wrapper}
           >
             <Text className={styles.time}>{formatTime(time)}</Text>
@@ -262,7 +274,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         justify="center"
         align="center"
         mb="20px"
-        mt="20px"
+        mt={isMobile ? '30px' : '20px'}
         width={isMobile ? '90%' : '80%'}
         wrap="wrap"
         height="auto"

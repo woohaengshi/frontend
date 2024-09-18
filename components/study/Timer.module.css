@@ -182,12 +182,11 @@
   }
 
   .time {
-    font-size: 45px;
-    margin-top: 5px;
+    font-size: 50px;
   }
 
   .toggle_button {
-    width: 95px;
+    width: 100px;
     padding: 10px 0;
     font-size: 14px;
     margin-top: -10px;
