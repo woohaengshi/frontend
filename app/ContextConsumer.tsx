@@ -13,7 +13,7 @@ const routerEvents: Record<RouterEvent, Array<(url: string, options?: any) => vo
   routeChangeComplete: [],
 };
 
-const ContextConsumer = ({ children }: { children: React.ReactNode }) => {
+export default function ContextConsumer({ children }: { children: React.ReactNode }) {
   const index = useRef(0);
   const routeEventInfo = useRef<{ direction: 'back' | 'forward'; url: string }>();
 
@@ -148,6 +148,4 @@ const ContextConsumer = ({ children }: { children: React.ReactNode }) => {
       }}
     </AppRouterContext.Consumer>
   );
-};
-
-export default ContextConsumer;
+}
