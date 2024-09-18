@@ -39,8 +39,8 @@ export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
   }
 
   // 빈 자리 채우기 위해 필요한 빈 객체 생성, 집계된 랭킹이 1이상일때만
-  const placeholderCount = Math.max(0, 3 - modifiedRankings.length);
-  const placeholders = Array.from({ length: placeholderCount }, () => ({}) as Student);
+  const emptyObjectCount = Math.max(0, 3 - modifiedRankings.length);
+  const emptyObjects = Array.from({ length: emptyObjectCount }, () => ({}) as Student);
 
   // 랭킹 순서 변경
   if (modifiedRankings.length >= 1) {
@@ -55,7 +55,7 @@ export default function TopRankings({ rankings, activeTab }: TopRankingsProps) {
     <Flex justify="center" align="center" gap="20px" className={styles.ranking_list} asChild>
       <ul>
         {modifiedRankings
-          .concat(placeholders)
+          .concat(emptyObjects)
           .slice(0, 3)
           .map((student, index) => {
             const sizeClass = index === 1 ? '' : styles.side_box;

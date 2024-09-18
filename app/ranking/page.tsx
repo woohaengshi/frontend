@@ -14,25 +14,24 @@ export default function Ranking() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const [currentUser, setCurrentUser] = useState<Student | null>(null);
-  const size = 100;
+  const [loading, setLoading] = useState(false);
+  const size = 10;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setRankings([]);
-        setPage(0);
-        setHasMore(true);
+  const fetchData = async (pageNumber: number) => {
+    try {
+      setLoading(true);
+      const {
+        member,
+        ranking: { ranks: newRankings, hasNext },
+      }: ApiResponse = await getMemberRanking({
+        tab: activeTab,
+        pageNumber,
+        size,
+      });
 
-        const {
-          member,
-          ranking: { ranks: initialRankings, hasNext },
-        }: ApiResponse = await getMemberRanking({
-          tab: activeTab,
-          pageNumber: 0,
-          size,
-        });
-
-        const currentUserData: Student = {
+      if (pageNumber === 0) {
+        setRankings(newRankings);
+        setCurrentUser({
           id: member.id,
           name: member.name,
           studyTime: member.studyTime,
@@ -40,38 +39,29 @@ export default function Ranking() {
           course: member.course,
           rank: member.rank,
           image: member.image || rankingImg,
-        };
-
-        setRankings(initialRankings);
-        setHasMore(hasNext);
-        setCurrentUser(currentUserData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, [activeTab]);
-
-  const loadMore = async () => {
-    if (hasMore) {
-      const nextPage = page + 1;
-      try {
-        const response: ApiResponse = await getMemberRanking({
-          tab: activeTab,
-          pageNumber: nextPage,
-          size,
         });
-
-        // console.log('API Response:', response);
-        const newRankings = response.ranking.ranks;
+      } else {
+        console.log(pageNumber);
 
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);
-        setHasMore(response.ranking.hasNext);
-        setPage(nextPage);
-      } catch (error) {
-        console.error('Error loading more data:', error);
       }
+
+      setHasMore(hasNext);
+      setPage(pageNumber);
+    } catch (error) {
+      console.error('데이터 로드 에러:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(0);
+  }, [activeTab]);
+
+  const loadMore = () => {
+    if (hasMore && !loading) {
+      fetchData(page + 1);
     }
   };
 

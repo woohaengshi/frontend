@@ -8,7 +8,7 @@ export default async function Study() {
   const { time, subjects } = await getTimer();
 
   return (
-    <Container size="3" className={styles.container} height="100%">
+    <Container className={styles.container} height="100%">
       <Timer maxTime={10800} currentTime={time} initialSubjects={subjects} />
 
       <SubjectSelectButton initialSubjects={subjects} />

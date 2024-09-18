@@ -2,7 +2,8 @@
 
 .container {
   width: 100%;
-  max-width: 600px; /* 최대 너비 설정 */
+  max-width: 550px;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -15,7 +16,6 @@
   width: 250px;
   color: '#33333';
   position: relative;
-  /* font-size: var(--font-size-5); */
   font-weight: 500;
 }
 
@@ -29,8 +29,8 @@
 .title::after {
   content: '';
   position: absolute;
-  width: 36px; /* 이미지의 너비에 맞게 조절 */
-  height: 36px; /* 이미지의 높이에 맞게 조절 */
+  width: 33px;
+  height: 33px;
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -38,13 +38,15 @@
 .title::before {
   top: -18px;
   left: 18px;
-  background-image: url('../../assets/icons/open_double_quote.png'); /* 시작하는 큰따옴표 이미지 경로 */
+  background-image: url('../../assets/icons/open_double_quote.png');
+  /* 시작하는 큰따옴표 이미지 경로 */
 }
 
 .title::after {
   bottom: -40px;
   right: 20px;
-  background-image: url('../../assets/icons/close_double_quote.png'); /* 끝나는 큰따옴표 이미지 경로 */
+  background-image: url('../../assets/icons/close_double_quote.png');
+  /* 끝나는 큰따옴표 이미지 경로 */
 }
 
 .relative_wrapper {
@@ -52,7 +54,8 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding-top: 100%; /* 1:1 aspect ratio */
+  padding-top: 100%;
+  /* 1:1 aspect ratio */
   position: relative;
 }
 
@@ -79,17 +82,15 @@
 }
 
 .time {
-  margin-top: 35px;
   color: #333333;
-  font-size: 72px;
-  /* font-weight: 700; */
+  font-size: 62px;
 }
 
 .toggle_button {
-  width: 160px;
+  width: 150px;
   border: 2px solid #dbdbff;
   color: var(--customBlue);
-  padding: 1.4rem 0;
+  padding: 0.9rem 0;
   border-radius: 9999px;
   outline: none;
   transition: background-color 0.3s;
@@ -129,6 +130,32 @@
   white-space: nowrap;
 }
 
+@media screen and (min-width: 1580px) {
+  .title_wrap {
+    padding-top: 45px;
+  }
+  .container {
+    max-width: 700px;
+  }
+
+  .relative_wrapper {
+    margin-top: 50px;
+  }
+
+  .time {
+    font-size: 85px;
+  }
+
+  .toggle_button {
+    width: 180px;
+    padding: 20px 0;
+  }
+
+  .subject_item {
+    margin-top: 30px;
+  }
+}
+
 @media (max-width: 480px) {
   .title {
     width: 200px;
@@ -137,8 +164,8 @@
 
   .title::before,
   .title::after {
-    width: 28px; /* 이미지의 너비에 맞게 조절 */
-    height: 28px; /* 이미지의 높이에 맞게 조절 */
+    width: 28px;
+    height: 28px;
   }
 
   .title::before {
@@ -156,15 +183,15 @@
   }
 
   .time {
-    font-size: 40px;
-    margin-top: 35px;
+    font-size: 45px;
+    margin-top: 5px;
   }
 
   .toggle_button {
     width: 95px;
-    padding: 12px 0;
-    font-size: 15px;
-    margin-top: -3px;
+    padding: 10px 0;
+    font-size: 14px;
+    margin-top: -10px;
   }
 
   .subject_item {
