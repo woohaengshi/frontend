@@ -30,8 +30,8 @@ export default function ContextConsumer({ children }: { children: React.ReactNod
     const method = router[field];
 
     Object.defineProperty(router, field, {
-      get: () => {
-        return async (url: string, options?: any) => {
+      get: function () {
+        return async function (url: string, options?: any) {
           try {
             if (!_.isEmpty(routerEvents.routeChangeStart)) {
               const promiseList = routerEvents.routeChangeStart.map((cb) => cb(url, options));
@@ -46,8 +46,8 @@ export default function ContextConsumer({ children }: { children: React.ReactNod
     });
   }
 
-  const eventListenerHandler = useCallback(
-    (listener: EventListenerOrEventListenerObject) => async (event: Event) => {
+  const eventListenerHandler = useCallback(function (listener: EventListenerOrEventListenerObject) {
+    return async function (event: Event) {
       const eventListener = 'handleEvent' in listener ? listener.handleEvent : listener;
 
       if (event.type === 'popstate') {
@@ -87,33 +87,35 @@ export default function ContextConsumer({ children }: { children: React.ReactNod
       }
 
       eventListener(event);
+    };
+  }, []);
+
+  useEffect(
+    function () {
+      const originAddEventListener = window.addEventListener;
+
+      window.addEventListener = function <K extends keyof WindowEventMap>(
+        type: K,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+      ) {
+        originAddEventListener(type, eventListenerHandler(listener), options);
+      };
+
+      return function () {
+        window.addEventListener = originAddEventListener;
+      };
     },
-    [],
+    [eventListenerHandler],
   );
 
-  useEffect(() => {
-    const originAddEventListener = window.addEventListener;
-
-    window.addEventListener = function <K extends keyof WindowEventMap>(
-      type: K,
-      listener: EventListenerOrEventListenerObject,
-      options?: boolean | AddEventListenerOptions,
-    ) {
-      originAddEventListener(type, eventListenerHandler(listener), options);
-    };
-
-    return () => {
-      window.addEventListener = originAddEventListener;
-    };
-  }, [eventListenerHandler]);
-
-  useEffect(() => {
+  useEffect(function () {
     const originalPushState = window.history.pushState;
     const originalReplaceState = window.history.replaceState;
 
     index.current = window.history.state?.index ?? 0;
 
-    window.history.pushState = (data: any, _: string, url?: string | URL | null) => {
+    window.history.pushState = function (data: any, _: string, url?: string | URL | null) {
       const historyIndex = window.history.state?.index ?? 0;
       const nextIndex = historyIndex + 1;
       const state = { ...data, index: nextIndex };
@@ -122,7 +124,7 @@ export default function ContextConsumer({ children }: { children: React.ReactNod
 
       return History.prototype.pushState.apply(window.history, [state, _, url]);
     };
-    window.history.replaceState = (data: any, _: string, url?: string | URL | null) => {
+    window.history.replaceState = function (data: any, _: string, url?: string | URL | null) {
       const historyIndex = window.history.state?.index ?? 0;
       const state = { ...data, index: historyIndex };
 
@@ -131,7 +133,7 @@ export default function ContextConsumer({ children }: { children: React.ReactNod
       return History.prototype.replaceState.apply(window.history, [state, _, url]);
     };
 
-    return () => {
+    return function () {
       window.history.pushState = originalPushState;
       window.history.replaceState = originalReplaceState;
     };
@@ -139,10 +141,12 @@ export default function ContextConsumer({ children }: { children: React.ReactNod
 
   return (
     <AppRouterContext.Consumer>
-      {(router) => {
+      {function (router) {
         if (router) {
           router.events = events;
-          coreMethodFields.forEach((field) => proxy(router, field));
+          coreMethodFields.forEach(function (field) {
+            proxy(router, field);
+          });
         }
         return children;
       }}
