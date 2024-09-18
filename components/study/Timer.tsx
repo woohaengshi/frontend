@@ -13,6 +13,8 @@ import { postTimer } from '@/api/studyApi';
 import { useUserInfoStore } from '@/store/memberStore';
 import useSWR from 'swr';
 import { getUserInfo } from '@/api/memberApi';
+import { usePathname, useRouter} from 'next/navigation';
+
 
 interface ITimer {
   maxTime: number;
@@ -49,16 +51,36 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
   const strokeWidth = 2.5;
   const radius = svgSize / 2 - strokeWidth / 2;
 
+  const router = useRouter();
+
   const saveTimer = async (time: number, subjects: Subject[]) => {
     console.log('saveTimer호출');
 
     const date = getCurrentDate();
     const subjectIds = subjects.map((subject) => subject.id);
     const response = await postTimer({ date, time, subjects: subjectIds });
-    console.log(response);
 
     return response;
   };
+
+  //정지 누르지 않고 다른 탭 이동해도 마지막 누적시간 저장
+  useEffect(() => {
+    const handleRouteChange = async (url: string) => {
+      if (url !== '/study') {
+        localStorage.setItem('timerState', JSON.stringify({ time }));
+        await saveTimer(time, selectedSubjects);
+      } else {
+        // console.log("다시 study로 돌아옴");
+        //    const timerState = localStorage.getItem('timerState');
+        //    if (timerState) {
+        //      console.log("새로운 시간 저장");
+        //      const { time: savedTime } = JSON.parse(timerState);
+        //      setTime(savedTime);
+        //    }
+      }
+    };
+    router.events.on('routeChangeStart', handleRouteChange);
+  }, [router.events, time]);
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
     const response = await saveTimer(time, subjects);
@@ -102,6 +124,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
   useEffect(() => {
     if (isActive) {
       startTimeRef.current = Date.now() - time * 1000;
+
       const animate = () => {
         const now = Date.now(); // 현재 시간
         const elapsedTime = (now - startTimeRef.current!) / 1000; // 경과 시간
@@ -125,7 +148,6 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         cancelAnimationFrame(animationFrameRef.current);
       }
     }
-
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -151,6 +173,21 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
       }
     }
   }, []);
+
+  // 브라우저 닫힘 이벤트 처리
+  useEffect(() => {
+    const handleUnload = () => {
+      if (time > 0 && selectedSubjects.length > 0) {
+        saveTimer(time, selectedSubjects); // 현재까지 누적된 시간과 선택된 과목을 서버로 전송
+      }
+    };
+
+    window.addEventListener('beforeunload', handleUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+    };
+  }, [time, selectedSubjects]);
 
   return (
     <Flex direction="column" align="center" justify="center">
