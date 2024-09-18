@@ -84,30 +84,28 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
 
   // 브라우저 닫힘 이벤트 처리
 
-// const handleBeforeUnload = useCallback(
-//   (event) => {
-//     const date = getCurrentDate();
-//     const subjectIds = selectedSubjects.map((subject) => subject.id);
-//     const data = { date, time, subjects: subjectIds };
+  // const handleBeforeUnload = useCallback(
+  //   (event) => {
+  //     const date = getCurrentDate();
+  //     const subjectIds = selectedSubjects.map((subject) => subject.id);
+  //     const data = { date, time, subjects: subjectIds };
 
-//     // sendBeacon을 사용하여 데이터를 백그라운드로 전송
-//     const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-//     navigator.sendBeacon('/study-record', blob);
+  //     // sendBeacon을 사용하여 데이터를 백그라운드로 전송
+  //     const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+  //     navigator.sendBeacon('/study-record', blob);
 
-//     event.preventDefault();
-//     event.returnValue = ''; // 크롬에서 사용자에게 경고 메시지를 보여주기 위해 필요
-//   },
-//   [time, selectedSubjects],
-// );
-//   // 이벤트
-//   useEffect(() => {
-//     window.addEventListener('beforeunload', handleBeforeUnload);
-//     return () => {
-//       window.removeEventListener('beforeunload', handleBeforeUnload);
-//     };
-//   }, [handleBeforeUnload]);
-
-
+  //     event.preventDefault();
+  //     event.returnValue = ''; // 크롬에서 사용자에게 경고 메시지를 보여주기 위해 필요
+  //   },
+  //   [time, selectedSubjects],
+  // );
+  //   // 이벤트
+  //   useEffect(() => {
+  //     window.addEventListener('beforeunload', handleBeforeUnload);
+  //     return () => {
+  //       window.removeEventListener('beforeunload', handleBeforeUnload);
+  //     };
+  //   }, [handleBeforeUnload]);
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
     const response = await saveTimer(time, subjects);
