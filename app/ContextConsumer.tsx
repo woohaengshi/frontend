@@ -26,12 +26,12 @@ export default function ContextConsumer({ children }: { children: React.ReactNod
     },
   };
 
-  function proxy(router: AppRouterInstance, field: (typeof coreMethodFields)[number]) {
+  const proxy = (router: AppRouterInstance, field: (typeof coreMethodFields)[number]) => {
     const method = router[field];
 
     Object.defineProperty(router, field, {
-      get: function () {
-        return async function (url: string, options?: any) {
+      get: () => {
+        return async (url: string, options?: any) => {
           try {
             if (!_.isEmpty(routerEvents.routeChangeStart)) {
               const promiseList = routerEvents.routeChangeStart.map((cb) => cb(url, options));
@@ -44,7 +44,7 @@ export default function ContextConsumer({ children }: { children: React.ReactNod
         };
       },
     });
-  }
+  };
 
   const eventListenerHandler = useCallback(function (listener: EventListenerOrEventListenerObject) {
     return async function (event: Event) {
