@@ -59,7 +59,6 @@
   position: relative;
   border-right: 1px solid var(--br-color);
   border-bottom: 1px solid var(--br-color);
-  padding: 10px;
   height: 120px;
   box-sizing: border-box;
   vertical-align: top;
@@ -78,22 +77,31 @@
 .calendar_table .content_row:nth-child(2) td {
   border-top: 1px solid var(--br-color);
 }
-.calendar_table .content_row:nth-child(2) td:first-of-type {
+.calendar_table .content_row:nth-child(2) td:first-of-type,
+.calendar_table .content_row:nth-child(2) td:first-of-type > div {
   border-radius: 8px 0 0 0 !important;
+  overflow: hidden;
 }
-.calendar_table .content_row:nth-child(2) td:last-of-type {
+.calendar_table .content_row:nth-child(2) td:last-of-type,
+.calendar_table .content_row:nth-child(2) td:last-of-type > div {
   border-radius: 0 8px 0 0 !important;
+  overflow: hidden;
 }
-.calendar_table .content_row:last-of-type td:first-of-type {
+.calendar_table .content_row:last-of-type td:first-of-type,
+.calendar_table .content_row:last-of-type td:first-of-type > div {
   border-radius: 0 0 0 8px !important;
+  overflow: hidden;
 }
-.calendar_table .content_row:last-of-type td:last-of-type {
+.calendar_table .content_row:last-of-type td:last-of-type,
+.calendar_table .content_row:last-of-type td:last-of-type > div {
   border-radius: 0 0 8px 0 !important;
+  overflow: hidden;
 }
 .calendar_table .content_row td:first-of-type {
   border-left: 1px solid var(--br-color);
 }
-.calendar_table .content_row td * {
+.calendar_table .content_row td > div {
+  padding: 10px;
   position: relative;
   z-index: 1;
 }

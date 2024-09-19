@@ -51,9 +51,11 @@ export default function Header() {
       <header className={styles.header}>
         <Box className={styles.header_inner}>
           <Heading as="h1" className={styles.logo}>
-            <Text as="p">
-              <i>우</i>리들의<i>행</i>복한<i>시</i>간
-            </Text>
+            <Link href="/">
+              <Text as="p">
+                <i>우</i>리들의<i>행</i>복한<i>시</i>간
+              </Text>
+            </Link>
           </Heading>
           <nav className={styles.gnb}>
             <HeaderNav />

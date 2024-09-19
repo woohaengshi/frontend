@@ -147,7 +147,6 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
     // 실질적인 날짜
     let nowDate = 0;
     let nowDay = 0;
-    console.log(records);
 
     for (let i = 0; i < weekNumber; i++) {
       for (let j = 0; j < 7; j++) {

@@ -6,7 +6,7 @@ export default function LanchBody() {
   return (
     <>
       <Box className={styles.box}>
-        <Box className={styles.title}>
+        <Box className="title">
           <Strong>서비스 소개</Strong>
         </Box>
         <Box pt="2" className={styles.typography}>
@@ -25,7 +25,7 @@ export default function LanchBody() {
         </Box>
       </Box>
       <Box mt="5" className={styles.box}>
-        <Box className={styles.title}>
+        <Box className="title">
           <Strong>업데이트 예정</Strong>
         </Box>
         <Box pt="2" className={styles.list}>
@@ -43,7 +43,7 @@ export default function LanchBody() {
         </Box>
       </Box>
       <Box mt="5" className={styles.box}>
-        <Box className={styles.title}>
+        <Box className="title">
           <Strong>에러 제보 및 의견 건의</Strong>
         </Box>
         <Box pt="2" className={styles.typography}>
