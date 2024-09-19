@@ -8,7 +8,7 @@
 }
 @media screen and (max-width: 680px) {
   .content > ul {
-    gap:30px;
+    gap: 30px;
   }
 }
 

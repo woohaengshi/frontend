@@ -31,6 +31,7 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
       setEmail('');
       setPassword('');
 
+      window.location.href = '/study';
       alert('로그인에 성공했습니다.');
     }
   };

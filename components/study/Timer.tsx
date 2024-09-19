@@ -10,9 +10,6 @@ import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 import { useSubjectStore } from '@/store/subjectStore';
 import Cookies from 'js-cookie';
 import { postTimer } from '@/api/studyApi';
-import { useUserInfoStore } from '@/store/memberStore';
-import useSWR from 'swr';
-import { getUserInfo } from '@/api/memberApi';
 
 interface ITimer {
   maxTime: number;
@@ -29,16 +26,6 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
   const [time, setTime] = useState(currentTime); // 초 단위
   const [progress, setProgress] = useState((currentTime / maxTime) * 100);
   const [remainingTime, setRemainingTime] = useState(maxTime - (currentTime % maxTime));
-
-  // 유저정보조회
-  const accessToken = Cookies.get('access_token');
-  const { setUserInfo } = useUserInfoStore();
-  const { data } = useSWR(accessToken ? ['userInfo'] : null, async () => {
-    const result = await getUserInfo();
-    const storedUserInfo = { name: result.name, course: result.course, image: result.image };
-    localStorage.setItem('userInfo', JSON.stringify(storedUserInfo));
-    setUserInfo(storedUserInfo);
-  });
 
   const startTimeRef = useRef<number | null>(null);
   const animationFrameRef = useRef<number | null>(null);
@@ -147,33 +134,33 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         });
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Flex direction="column" align="center" justify="center">
-      <Box px="5" className={styles.container}>
-        <Text as="p" className={styles.title} size="4" weight="medium" align="center">
+      <Box pt="30px" className={styles.title_wrap}>
+        <Text as="p" className={styles.title} size="3" weight="medium" align="center">
           다음 레벨업까지
         </Text>
-        <Text as="p" className={styles.remaining_time} size="4" weight="medium" align="center">
+        <Text as="p" className={styles.remaining_time} size="3" weight="medium" align="center">
           {remainingTime > 0 ? formatTime(remainingTime) : formatTime(maxTime)}
         </Text>
-
-        <Box mt={isMobile ? '25px' : '45px'} className={styles.relative_wrapper}>
+      </Box>
+      <Box px="9" className={styles.container}>
+        <Box mt={isMobile ? '25px' : '35px'} className={styles.relative_wrapper}>
           <div className={styles.svg_container}>
             <svg
               className={styles.svg}
               viewBox={`0 0 ${svgSize} ${svgSize}`}
-              width={isMobile ? '90px' : '103.4px'}
-              height={isMobile ? '90px' : '103.4px'}
+              width={isMobile ? '90px' : '100px'}
+              height={isMobile ? '90px' : '100px'}
             >
               <circle
                 cx={centerPoint}
                 cy={centerPoint}
                 r={radius}
                 stroke="#F0F0FE"
-                strokeWidth={strokeWidth * 2.6}
+                strokeWidth={strokeWidth * 3}
                 fill="none"
               />
               <circle
@@ -208,7 +195,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
             direction="column"
             position="absolute"
             inset="0"
-            gap="5px"
+            gap="10px"
             className={styles.timer_wrapper}
           >
             <Text className={styles.time}>{formatTime(time)}</Text>
@@ -217,13 +204,12 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
           </Flex>
         </Box>
       </Box>
-
       {/* 공부중인 과목 리스트 */}
       <Flex
         justify="center"
         align="center"
-        mb="60px"
-        mt={isMobile ? '25px' : '45px'}
+        mb="20px"
+        mt={isMobile ? '25px' : '20px'}
         width={isMobile ? '90%' : '80%'}
         wrap="wrap"
         height="auto"

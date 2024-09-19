@@ -11,6 +11,7 @@ import useUserInfo from '@/hook/useUserInfo';
 import { useUserInfoStore } from '@/store/memberStore';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
+import { getUserInfo } from '@/api/memberApi';
 
 export default function Header() {
   const userInfo = useUserInfo();
@@ -31,14 +32,30 @@ export default function Header() {
     }
   }, [accessToken, refreshToken, setUserInfo]);
 
+  // 유저정보조회
+  useEffect(() => {
+    (async () => {
+      if (!localStorage.getItem('userInfo') && accessToken && refreshToken) {
+        const result = await getUserInfo();
+        const storedUserInfo = { name: result.name, course: result.course, email: result.email };
+        if (result) {
+          localStorage.setItem('userInfo', JSON.stringify(storedUserInfo));
+          setUserInfo(result);
+        }
+      }
+    })();
+  }, [accessToken, refreshToken, setUserInfo]);
+
   return (
     <Box px="5" asChild>
       <header className={styles.header}>
         <Box className={styles.header_inner}>
           <Heading as="h1" className={styles.logo}>
-            <Text as="p">
-              <i>우</i>리들의<i>행</i>복한<i>시</i>간
-            </Text>
+            <Link href="/">
+              <Text as="p">
+                <i>우</i>리들의<i>행</i>복한<i>시</i>간
+              </Text>
+            </Link>
           </Heading>
           <nav className={styles.gnb}>
             <HeaderNav />
