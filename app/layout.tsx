@@ -43,11 +43,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <ContextConsumer>
             <Header />
             <div className={styles.content_wrapper}>{children}</div>
+            </ContextConsumer>
             <MobileHeader></MobileHeader>
             <Modal>
               <LanchBody />
             </Modal>
-           </ContextConsumer>
+          
           </Theme>
           <Analytics />
         </body>
