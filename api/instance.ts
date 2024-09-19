@@ -2,6 +2,8 @@
 
 import { cookies } from 'next/headers'; // 서버 사이드에서 쿠키를 처리하기 위한 내장 모듈
 import { BASE_URL } from '@/constants/url';
+import { auth } from '@/auth';
+import { redirect } from 'next/dist/server/api-utils';
 
 interface RequestOptions {
   headers?: Record<string, string>;
@@ -9,7 +11,8 @@ interface RequestOptions {
 }
 
 const fetchInstance = async (url: string, options: RequestOptions = {}) => {
-  const accessToken = cookies().get('access_token')?.value;
+  const session = await auth();
+  const accessToken = session?.user?.accessToken;
 
   const headers: RequestOptions['headers'] = {
     'Content-Type': 'application/json',
@@ -28,6 +31,10 @@ const fetchInstance = async (url: string, options: RequestOptions = {}) => {
 
     if (!response.ok) {
       const errorResponse = await response.json();
+      if (response.status === 403) {
+        console.error('Token Expired');
+      }
+      console.error('Fetch Error:', errorResponse);
       return { error: errorResponse };
     }
 

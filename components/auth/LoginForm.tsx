@@ -5,14 +5,9 @@ import CommonButton from '@/components/common/CommonButton';
 import { Box, Text } from '@radix-ui/themes';
 import AuthFormLayout from './AuthFormLayout';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { getUserInfo } from '@/api/memberApi';
-import Cookies from 'js-cookie';
-import useSWR from 'swr';
-import { useUserInfoStore } from '@/store/memberStore';
 
 interface LoginFormProps {
-  onLogin: (email: string, password: string) => Promise<Response>;
+  onLogin: (email: string, password: string) => Promise<{ message: string } | undefined>;
 }
 
 export default function LoginForm({ onLogin }: LoginFormProps) {
@@ -28,7 +23,7 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
 
     const response = await onLogin(email, password);
 
-    if (!response.ok) {
+    if (typeof response === 'object' && response.message) {
       // 응답이 정상적이지 않을 때 오류 처리
       alert('로그인에 실패했습니다.');
       throw new Error('Failed to login');

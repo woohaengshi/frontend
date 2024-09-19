@@ -4,8 +4,8 @@ import UserProfile from '@/components/mypage/UserProfile';
 import { Box, Container, Flex } from '@radix-ui/themes';
 import styles from './layout.module.css';
 import SmallButton from '@/components/common/SmallButton';
-import Cookies from 'js-cookie';
-import { signOut } from '@/api/authApi';
+import { signOut as signOutFromBackend } from '@/api/authApi';
+import { signOut as signOutFromAuth } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useUserInfoStore } from '@/store/memberStore';
 
@@ -18,10 +18,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     const confirmLogout = confirm('로그아웃 하시겠습니까?');
     if (!confirmLogout) return;
 
-    await signOut();
-    Cookies.remove('access_token');
-    Cookies.remove('refresh_token');
-    Cookies.remove('selectedSubjects');
+    await signOutFromBackend();
+    await signOutFromAuth();
 
     localStorage.removeItem('userInfo');
     setUserInfo(null);

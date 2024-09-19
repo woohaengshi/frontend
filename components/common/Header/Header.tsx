@@ -7,50 +7,44 @@ import HeaderNav from './HeaderNav';
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
 import Image from 'next/image';
 
-import Cookies from 'js-cookie';
-import { API_ROUTE_URL } from '@/constants/url';
-import useSWR from 'swr';
 import useUserInfo from '@/hook/useUserInfo';
 import { useUserInfoStore } from '@/store/memberStore';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
+import { getUserInfo } from '@/api/memberApi';
 
 export default function Header() {
-  useSWR('reissue-token', revaildateToken);
+  const userInfo = useUserInfo();
   const { setUserInfo } = useUserInfoStore();
 
-  // eslint-disable-next-line func-style
-  async function revaildateToken() {
-    const accessToken = Cookies.get('access_token');
-    const refreshToken = Cookies.get('refresh_token');
+  const { data: session, update } = useSession();
 
-    if (!accessToken && refreshToken) {
-      const response = await fetch(`${API_ROUTE_URL}/api/reissue-token`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Cookie: `refresh_token=${refreshToken}`,
-        },
-      });
+  const accessToken = session?.user?.accessToken;
+  const refreshToken = session?.user?.refreshToken;
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Error response from server:', errorText);
-        throw new Error('Failed to login');
-      }
+  // update();
 
-      const data = await response.json();
-
-      // 토큰을 성공적으로 재발급받은 후 페이지 리로드
-      window.location.reload();
-      return data;
-    }
-
-    if (!accessToken && !refreshToken) {
+  useEffect(() => {
+    const storedUserInfo = localStorage.getItem('userInfo');
+    if (storedUserInfo && !accessToken && !refreshToken) {
       localStorage.removeItem('userInfo');
       setUserInfo(null);
     }
-  }
+  }, [accessToken, refreshToken, setUserInfo]);
 
-  const userInfo = useUserInfo();
+  // 유저정보조회
+  useEffect(() => {
+    (async () => {
+      if (!localStorage.getItem('userInfo') && accessToken && refreshToken) {
+        const result = await getUserInfo();
+        const storedUserInfo = { name: result.name, course: result.course, email: result.email };
+        if (result) {
+          localStorage.setItem('userInfo', JSON.stringify(storedUserInfo));
+          setUserInfo(result);
+        }
+      }
+    })();
+  }, [accessToken, refreshToken, setUserInfo]);
 
   return (
     <Box px="5" asChild>
