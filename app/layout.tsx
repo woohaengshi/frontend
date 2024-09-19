@@ -34,7 +34,7 @@ const notoSansKr = Noto_Sans_KR({
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <SessionProvider refetchInterval={15}>
+    <SessionProvider>
       <html lang="ko">
         <body className={notoSansKr.variable}>
           <Theme radius="medium">
