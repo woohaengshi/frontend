@@ -16,7 +16,6 @@ import { getUserInfo } from '@/api/memberApi';
 import { useRouter } from 'next/navigation';
 import { instance } from '@/api/instance';
 
-
 interface ITimer {
   maxTime: number;
   currentTime: number;

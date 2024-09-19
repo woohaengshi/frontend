@@ -1,6 +1,6 @@
 /* tab_cont */
 .box .title {
-  padding-left:5px;
+  padding-left: 5px;
 }
 
 .box .content .total_time {
@@ -9,7 +9,7 @@
   line-height: 1;
 }
 
-.box .content .subject_list li > *{
+.box .content .subject_list li > * {
   height: 52px;
   padding: 0 20px;
   border-radius: 8px;
@@ -25,7 +25,7 @@
   display: block;
   position: absolute;
   right: -5px;
-  top:-5px;
+  top: -5px;
   width: 20px;
   height: 20px;
   line-height: 20px;
@@ -36,11 +36,11 @@
   text-align: center;
 }
 .box .content .subject_list.btn_minus button::before {
-  content:"-";
+  content: '-';
   background-color: #f75353;
 }
 .box .content .subject_list.btn_plus button::before {
-  content:"+";
+  content: '+';
   background-color: #51e769;
 }
 

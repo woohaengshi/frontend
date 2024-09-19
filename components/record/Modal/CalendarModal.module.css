@@ -19,7 +19,7 @@
 
 /* tab_tit */
 .tab_tit {
-  display: inline-block;  
+  display: inline-block;
   background-color: #f1f1ff;
   border-radius: 8px;
 }
@@ -39,12 +39,12 @@
   cursor: pointer;
   transition: all 0.2s linear;
 }
-.tab_tit button[data-state='active']{
+.tab_tit button[data-state='active'] {
   font-weight: 700;
   background-color: var(--main-color-3);
   box-shadow: 0px 0px 13px 0px rgba(130, 116, 234, 0.7);
 }
-.tab_tit button[data-state='active']::before{
+.tab_tit button[data-state='active']::before {
   display: none;
 }
 .tab_tit button span {

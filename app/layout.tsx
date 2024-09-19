@@ -35,20 +35,18 @@ const notoSansKr = Noto_Sans_KR({
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-
     <SessionProvider>
       <html lang="ko">
         <body className={notoSansKr.variable}>
           <Theme radius="medium">
             <ContextConsumer>
-            <Header />
-            <div className={styles.content_wrapper}>{children}</div>
+              <Header />
+              <div className={styles.content_wrapper}>{children}</div>
             </ContextConsumer>
             <MobileHeader></MobileHeader>
             <Modal>
               <LanchBody />
             </Modal>
-          
           </Theme>
           <Analytics />
         </body>
