@@ -15,6 +15,7 @@ import useSWR from 'swr';
 import { getUserInfo } from '@/api/memberApi';
 import { useRouter } from 'next/navigation';
 import { instance } from '@/api/instance';
+import { usePathname } from 'next/navigation';
 
 interface ITimer {
   maxTime: number;
@@ -53,49 +54,37 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
     return response;
   };
 
-  //정지 누르지 않고 다른 탭 이동해도 마지막 누적시간 저장
-  useEffect(() => {
-    const handleRouteChange = async (url: string) => {
-      if (url !== '/study') {
-        localStorage.setItem('timerState', JSON.stringify({ time }));
-        await saveTimer(time, selectedSubjects);
-      } else {
-        // console.log("다시 study로 돌아옴");
-        //    const timerState = localStorage.getItem('timerState');
-        //    if (timerState) {
-        //      console.log("새로운 시간 저장");
-        //      const { time: savedTime } = JSON.parse(timerState);
-        //      setTime(savedTime);
-        //    }
-      }
-    };
-    router.events.on('routeChangeStart', handleRouteChange);
-  }, [router.events, time]);
-
   // 브라우저 닫힘 이벤트 처리
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      // 기본 알림 메시지를 설정합니다.
+      event.preventDefault();
+      event.returnValue = '정말로 페이지를 떠나시겠습니까?'; // 보안상 커스텀한 메시지로 알림불가
+    };
 
-  // const handleBeforeUnload = useCallback(
-  //   (event) => {
-  //     const date = getCurrentDate();
-  //     const subjectIds = selectedSubjects.map((subject) => subject.id);
-  //     const data = { date, time, subjects: subjectIds };
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
-  //     // sendBeacon을 사용하여 데이터를 백그라운드로 전송
-  //     const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-  //     navigator.sendBeacon('/study-record', blob);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
-  //     event.preventDefault();
-  //     event.returnValue = ''; // 크롬에서 사용자에게 경고 메시지를 보여주기 위해 필요
-  //   },
-  //   [time, selectedSubjects],
-  // );
-  //   // 이벤트
-  //   useEffect(() => {
-  //     window.addEventListener('beforeunload', handleBeforeUnload);
-  //     return () => {
-  //       window.removeEventListener('beforeunload', handleBeforeUnload);
-  //     };
-  //   }, [handleBeforeUnload]);
+  //10분마다 자동 저장
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    if (isActive) {
+      intervalId = setInterval(() => {
+        // 현재 누적 시간 가져오기
+        const time = Math.floor((Date.now() - startTimeRef.current!) / 1000);
+        saveTimer(time, selectedSubjects);
+      }, 600000);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [isActive, selectedSubjects]);
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
     const response = await saveTimer(time, subjects);
@@ -157,6 +146,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
 
         animationFrameRef.current = requestAnimationFrame(animate);
       };
+
       animationFrameRef.current = requestAnimationFrame(animate);
     } else {
       if (animationFrameRef.current) {

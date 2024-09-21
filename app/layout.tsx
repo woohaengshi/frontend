@@ -14,7 +14,6 @@ import MobileHeader from '@/components/common/Header/MobileHeader';
 import Header from '@/components/common/Header/Header';
 import Modal from '@/components/common/Modal/Modal';
 import LanchBody from '@/components/common/Modal/LanchBody';
-import ContextConsumer from './ContextConsumer';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SessionProvider } from 'next-auth/react';
@@ -39,10 +38,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <html lang="ko">
         <body className={notoSansKr.variable}>
           <Theme radius="medium">
-            <ContextConsumer>
-              <Header />
-              <div className={styles.content_wrapper}>{children}</div>
-            </ContextConsumer>
+            <Header />
+            <div className={styles.content_wrapper}>{children}</div>
             <MobileHeader></MobileHeader>
             <Modal>
               <LanchBody />
