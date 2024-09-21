@@ -56,7 +56,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
 
   // 브라우저 닫힘 이벤트 처리
   useEffect(() => {
-    const handleBeforeUnload = (event) => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       // 기본 알림 메시지를 설정합니다.
       event.preventDefault();
       event.returnValue = '정말로 페이지를 떠나시겠습니까?'; // 보안상 커스텀한 메시지로 알림불가
