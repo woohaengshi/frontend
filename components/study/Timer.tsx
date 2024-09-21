@@ -10,6 +10,9 @@ import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 import { useSubjectStore } from '@/store/subjectStore';
 import Cookies from 'js-cookie';
 import { postTimer } from '@/api/studyApi';
+import { useUserInfoStore } from '@/store/memberStore';
+import useSWR from 'swr';
+import { getUserInfo } from '@/api/memberApi';
 
 interface ITimer {
   maxTime: number;
@@ -26,6 +29,16 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
   const [time, setTime] = useState(currentTime); // 초 단위
   const [progress, setProgress] = useState((currentTime / maxTime) * 100);
   const [remainingTime, setRemainingTime] = useState(maxTime - (currentTime % maxTime));
+
+  // 유저정보조회
+  const accessToken = Cookies.get('access_token');
+  const { setUserInfo } = useUserInfoStore();
+  const { data } = useSWR(accessToken ? ['userInfo'] : null, async () => {
+    const result = await getUserInfo();
+    const storedUserInfo = { name: result.name, course: result.course, image: result.image };
+    localStorage.setItem('userInfo', JSON.stringify(storedUserInfo));
+    setUserInfo(storedUserInfo);
+  });
 
   const startTimeRef = useRef<number | null>(null);
   const animationFrameRef = useRef<number | null>(null);
@@ -53,6 +66,22 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
       alert('기록이 저장되었습니다.');
     }
   };
+
+  // 브라우저 닫힘 이벤트 처리
+  useEffect(() => {
+    const handleUnload = () => {
+      if (time > 0) {
+        saveTimer(time, selectedSubjects); // 현재까지 누적된 시간과 선택된 과목을 서버로 전송
+      }
+    };
+
+    window.addEventListener('beforeunload', handleUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+    };
+  }, [time, selectedSubjects]);
+
 
   const checkAndSaveAt5AM = () => {
     const now = new Date();
