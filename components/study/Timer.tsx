@@ -71,10 +71,10 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
 
   //10분마다 자동 저장
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
+    let timeAutoSave: NodeJS.Timeout;
 
     if (isActive) {
-      intervalId = setInterval(() => {
+      timeAutoSave = setInterval(() => {
         // 현재 누적 시간 가져오기
         const time = Math.floor((Date.now() - startTimeRef.current!) / 1000);
         saveTimer(time, selectedSubjects);
@@ -82,7 +82,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
     }
 
     return () => {
-      clearInterval(intervalId);
+      clearInterval(timeAutoSave);
     };
   }, [isActive, selectedSubjects]);
 
