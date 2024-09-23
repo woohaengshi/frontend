@@ -12,8 +12,6 @@
   height: 20px;
 }
 
-/* ranking_list */
-
 .ranking_list li:not(.no_ranking) {
   position: relative;
   padding: 15px;

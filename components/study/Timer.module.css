@@ -2,8 +2,7 @@
 
 .container {
   width: 100%;
-  max-width: 550px;
-  height: 100%;
+  max-width: 570px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -90,8 +89,8 @@
   width: 150px;
   border: 2px solid #dbdbff;
   color: var(--customBlue);
-  padding: 0.9rem 0;
-  border-radius: 9999px;
+  padding: 1rem 0;
+  border-radius: 100px;
   outline: none;
   transition: background-color 0.3s;
   color: #6153b8;
@@ -134,6 +133,11 @@
   .title_wrap {
     padding-top: 45px;
   }
+
+  .title {
+    font-size: 18px;
+  }
+
   .container {
     max-width: 700px;
   }
@@ -183,12 +187,11 @@
   }
 
   .time {
-    font-size: 45px;
-    margin-top: 5px;
+    font-size: 50px;
   }
 
   .toggle_button {
-    width: 95px;
+    width: 110px;
     padding: 10px 0;
     font-size: 14px;
     margin-top: -10px;

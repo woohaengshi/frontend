@@ -58,15 +58,15 @@
 }
 
 /* subject_list */
-.subject_list li > *{
+.subject_list li > * {
   background-color: #f1f1ff;
   color: var(--main-color-3);
 }
-.subject_list.level2 li > *{
+.subject_list.level2 li > * {
   background-color: #cdccff;
   color: #6153b8;
 }
-.subject_list.level3 li > *{
+.subject_list.level3 li > * {
   background-color: var(--main-color-3);
   color: #f1f1ff;
 }
