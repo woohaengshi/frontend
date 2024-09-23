@@ -3,7 +3,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { auth } from './auth';
 import { signOut as signOutFromAuth } from 'next-auth/react';
-import { signOut as signOutFromBackend } from '@/api/authApi';
+import { signOut as signOutFromBackend } from '@/apis/authApi';
 
 export default async function middleware(request: NextRequest, response: NextResponse) {
   console.log('middleware 접속');

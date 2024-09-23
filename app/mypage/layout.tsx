@@ -4,7 +4,7 @@ import UserProfile from '@/components/mypage/UserProfile';
 import { Box, Container, Flex } from '@radix-ui/themes';
 import styles from './layout.module.css';
 import SmallButton from '@/components/common/SmallButton';
-import { signOut as signOutFromBackend } from '@/api/authApi';
+import { signOut as signOutFromBackend } from '@/apis/authApi';
 import { signOut as signOutFromAuth } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useUserInfoStore } from '@/store/memberStore';
