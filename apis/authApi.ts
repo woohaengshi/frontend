@@ -10,7 +10,15 @@ export const signIn = async ({ email, password }: { email: string; password: str
     method: 'POST',
   });
 
-  return response;
+  if (response.error) {
+    console.error('SignIn error:', response.error);
+    throw new Error('Failed to SignIn');
+  }
+
+  const { accessToken, cookie } = response;
+  const refreshToken = cookie.split(';')[0].split('=')[1];
+
+  return { accessToken, refreshToken };
 };
 
 export const reissueToken = async (refresh_token: string) => {
