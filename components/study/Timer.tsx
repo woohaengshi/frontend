@@ -15,6 +15,7 @@ import useSWR from 'swr';
 import { getUserInfo } from '@/api/memberApi';
 import { useRouter } from 'next/navigation';
 import { instance } from '@/api/instance';
+import { usePathname } from 'next/navigation';
 
 interface ITimer {
   maxTime: number;
@@ -53,26 +54,12 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
     return response;
   };
 
-  // 정지 누르지 않고 다른 탭 이동해도 마지막 누적시간 저장
-  useEffect(() => {
-    const handleRouteChange = async (url: string) => {
-      if (url !== '/study') {
-        localStorage.setItem('timerState', JSON.stringify({ time }));
-        await saveTimer(time, selectedSubjects);
-      } 
-    };
-    router.events.on('routeChangeStart', handleRouteChange);
-  }, [router.events, time]);
-
   // 브라우저 닫힘 이벤트 처리
-
   useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      // 사용자에게 경고 메시지를 표시할 수 있습니다.
-      alert("정말로 떠날거냐!!")
-      const message = '정말로 페이지를 떠나시겠습니까?';
-      event.returnValue = message; // 크롬에서는 이 메시지가 무시됨
-      return message; // 다른 브라우저에서 사용
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      // 기본 알림 메시지를 설정합니다.
+      event.preventDefault();
+      event.returnValue = '정말로 페이지를 떠나시겠습니까?'; // 보안상 커스텀한 메시지로 알림불가
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -82,47 +69,22 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
     };
   }, []);
 
-  const handleBeforeUnload = useCallback(
-    (e: BeforeUnloadEvent) => {
-      if (!isSaved) {
-        e.preventDefault();
-        e.returnValue = true;  // legacy 브라우저를 위해 추가한다.
-      }
-    },
-    [isSaved],
-  );
-   
-  // 이벤트
+  //10분마다 자동 저장
   useEffect(() => {
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return (() => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    });
-  }, [handleBeforeUnload]);
+    let timeAutoSave: NodeJS.Timeout;
 
+    if (isActive) {
+      timeAutoSave = setInterval(() => {
+        // 현재 누적 시간 가져오기
+        const time = Math.floor((Date.now() - startTimeRef.current!) / 1000);
+        saveTimer(time, selectedSubjects);
+      }, 600000);
+    }
 
-  // const handleBeforeUnload = useCallback(
-  //   (event) => {
-  //     const date = getCurrentDate();
-  //     const subjectIds = selectedSubjects.map((subject) => subject.id);
-  //     const data = { date, time, subjects: subjectIds };
-
-  //     // sendBeacon을 사용하여 데이터를 백그라운드로 전송
-  //     const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-  //     navigator.sendBeacon('/study-record', blob);
-
-  //     event.preventDefault();
-  //     event.returnValue = ''; // 크롬에서 사용자에게 경고 메시지를 보여주기 위해 필요
-  //   },
-  //   [time, selectedSubjects],
-  // );
-  //   // 이벤트
-  //   useEffect(() => {
-  //     window.addEventListener('beforeunload', handleBeforeUnload);
-  //     return () => {
-  //       window.removeEventListener('beforeunload', handleBeforeUnload);
-  //     };
-  //   }, [handleBeforeUnload]);
+    return () => {
+      clearInterval(timeAutoSave);
+    };
+  }, [isActive, selectedSubjects]);
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
     const response = await saveTimer(time, subjects);
@@ -184,6 +146,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
 
         animationFrameRef.current = requestAnimationFrame(animate);
       };
+
       animationFrameRef.current = requestAnimationFrame(animate);
     } else {
       if (animationFrameRef.current) {
