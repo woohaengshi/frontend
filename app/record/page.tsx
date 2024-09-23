@@ -1,4 +1,4 @@
-import { getRecordMonthly } from '@/api/recordApi';
+import { getRecordMonthly } from '@/apis/recordApi';
 import FullCalendar from '@/components/record/FullCalendar';
 
 export default async function Record() {

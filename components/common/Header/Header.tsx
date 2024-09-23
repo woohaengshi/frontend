@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { useUserInfoStore } from '@/store/memberStore';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
-import { getUserInfo } from '@/api/memberApi';
+import { getUserInfo } from '@/apis/memberApi';
 
 export default function Header() {
   const { userInfo, setUserInfo } = useUserInfoStore();

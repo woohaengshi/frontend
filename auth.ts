@@ -1,6 +1,6 @@
 import NextAuth, { User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { reissueToken, signIn as signInFromBackend } from './api/authApi';
+import { reissueToken, signIn as signInFromBackend } from './apis/authApi';
 import { ACCESS_TOKEN_EXPIRES } from './constants/token';
 import { JWT } from 'next-auth/jwt';
 

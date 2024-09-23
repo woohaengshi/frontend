@@ -9,7 +9,7 @@ import { Subject } from '@/types/studyType';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 import { useSubjectStore } from '@/store/subjectStore';
 import Cookies from 'js-cookie';
-import { postTimer } from '@/api/studyApi';
+import { postTimer } from '@/apis/studyApi';
 
 interface ITimer {
   maxTime: number;
