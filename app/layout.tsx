@@ -41,8 +41,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Theme radius="medium">
             <ContextConsumer>
               <Header />
+              </ContextConsumer>
               <div className={styles.content_wrapper}>{children}</div>
-            </ContextConsumer>
+          
             <MobileHeader></MobileHeader>
             <Modal>
               <LanchBody />

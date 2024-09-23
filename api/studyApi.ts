@@ -17,5 +17,6 @@ export const postTimer = async ({ date, time, subjects }: { date: string; time: 
     body: JSON.stringify({ date, time, subjects }),
     method: 'POST',
   });
+  revalidatePath('/study');
   return response;
 };

@@ -53,26 +53,53 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
     return response;
   };
 
-  //정지 누르지 않고 다른 탭 이동해도 마지막 누적시간 저장
+  // 정지 누르지 않고 다른 탭 이동해도 마지막 누적시간 저장
   useEffect(() => {
     const handleRouteChange = async (url: string) => {
       if (url !== '/study') {
         localStorage.setItem('timerState', JSON.stringify({ time }));
         await saveTimer(time, selectedSubjects);
-      } else {
-        // console.log("다시 study로 돌아옴");
-        //    const timerState = localStorage.getItem('timerState');
-        //    if (timerState) {
-        //      console.log("새로운 시간 저장");
-        //      const { time: savedTime } = JSON.parse(timerState);
-        //      setTime(savedTime);
-        //    }
-      }
+      } 
     };
     router.events.on('routeChangeStart', handleRouteChange);
   }, [router.events, time]);
 
   // 브라우저 닫힘 이벤트 처리
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      // 사용자에게 경고 메시지를 표시할 수 있습니다.
+      alert("정말로 떠날거냐!!")
+      const message = '정말로 페이지를 떠나시겠습니까?';
+      event.returnValue = message; // 크롬에서는 이 메시지가 무시됨
+      return message; // 다른 브라우저에서 사용
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  const handleBeforeUnload = useCallback(
+    (e: BeforeUnloadEvent) => {
+      if (!isSaved) {
+        e.preventDefault();
+        e.returnValue = true;  // legacy 브라우저를 위해 추가한다.
+      }
+    },
+    [isSaved],
+  );
+   
+  // 이벤트
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return (() => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    });
+  }, [handleBeforeUnload]);
+
 
   // const handleBeforeUnload = useCallback(
   //   (event) => {
