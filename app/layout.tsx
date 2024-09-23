@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 // style
 import './reset.css';
+import './common.css';
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 import styles from './layout.module.css';
@@ -15,6 +16,7 @@ import Modal from '@/components/common/Modal/Modal';
 import LanchBody from '@/components/common/Modal/LanchBody';
 
 import { Analytics } from '@vercel/analytics/react';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
   title: '우행시',
@@ -32,18 +34,20 @@ const notoSansKr = Noto_Sans_KR({
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko">
-      <body className={notoSansKr.variable}>
-        <Theme radius="medium">
-          <Header />
-          <div className={styles.content_wrapper}>{children}</div>
-          <MobileHeader></MobileHeader>
-          <Modal>
-            <LanchBody />
-          </Modal>
-        </Theme>
-        <Analytics />
-      </body>
-    </html>
+    <SessionProvider>
+      <html lang="ko">
+        <body className={notoSansKr.variable}>
+          <Theme radius="medium">
+            <Header />
+            <div className={styles.content_wrapper}>{children}</div>
+            <MobileHeader></MobileHeader>
+            <Modal>
+              <LanchBody />
+            </Modal>
+          </Theme>
+          <Analytics />
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

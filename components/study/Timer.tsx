@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './Timer.module.css';
 import { Flex, Text, Box } from '@radix-ui/themes';
 import { useMediaQuery } from 'react-responsive';
@@ -13,6 +13,9 @@ import { postTimer } from '@/api/studyApi';
 import { useUserInfoStore } from '@/store/memberStore';
 import useSWR from 'swr';
 import { getUserInfo } from '@/api/memberApi';
+import { useRouter } from 'next/navigation';
+import { instance } from '@/api/instance';
+import { usePathname } from 'next/navigation';
 
 interface ITimer {
   maxTime: number;
@@ -30,16 +33,6 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
   const [progress, setProgress] = useState((currentTime / maxTime) * 100);
   const [remainingTime, setRemainingTime] = useState(maxTime - (currentTime % maxTime));
 
-  // 유저정보조회
-  const accessToken = Cookies.get('access_token');
-  const { setUserInfo } = useUserInfoStore();
-  const { data } = useSWR(accessToken ? ['userInfo'] : null, async () => {
-    const result = await getUserInfo();
-    const storedUserInfo = { name: result.name, course: result.course, image: result.image };
-    localStorage.setItem('userInfo', JSON.stringify(storedUserInfo));
-    setUserInfo(storedUserInfo);
-  });
-
   const startTimeRef = useRef<number | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const lastSaveDateRef = useRef<string | null>(null); // 마지막 저장 날짜 -> 중복 저장 방지
@@ -49,13 +42,49 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
   const strokeWidth = 2.5;
   const radius = svgSize / 2 - strokeWidth / 2;
 
+  const router = useRouter();
+
   const saveTimer = async (time: number, subjects: Subject[]) => {
+    console.log('saveTimer호출');
+
     const date = getCurrentDate();
     const subjectIds = subjects.map((subject) => subject.id);
     const response = await postTimer({ date, time, subjects: subjectIds });
 
     return response;
   };
+
+  // 브라우저 닫힘 이벤트 처리
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      // 기본 알림 메시지를 설정합니다.
+      event.preventDefault();
+      event.returnValue = '정말로 페이지를 떠나시겠습니까?'; // 보안상 커스텀한 메시지로 알림불가
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  //10분마다 자동 저장
+  useEffect(() => {
+    let timeAutoSave: NodeJS.Timeout;
+
+    if (isActive) {
+      timeAutoSave = setInterval(() => {
+        // 현재 누적 시간 가져오기
+        const time = Math.floor((Date.now() - startTimeRef.current!) / 1000);
+        saveTimer(time, selectedSubjects);
+      }, 600000);
+    }
+
+    return () => {
+      clearInterval(timeAutoSave);
+    };
+  }, [isActive, selectedSubjects]);
 
   const handleTimer = async (time: number, subjects: Subject[]) => {
     const response = await saveTimer(time, subjects);
@@ -99,6 +128,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
   useEffect(() => {
     if (isActive) {
       startTimeRef.current = Date.now() - time * 1000;
+
       const animate = () => {
         const now = Date.now(); // 현재 시간
         const elapsedTime = (now - startTimeRef.current!) / 1000; // 경과 시간
@@ -116,13 +146,13 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
 
         animationFrameRef.current = requestAnimationFrame(animate);
       };
+
       animationFrameRef.current = requestAnimationFrame(animate);
     } else {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     }
-
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -147,33 +177,33 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
         });
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Flex direction="column" align="center" justify="center">
-      <Box px="5" className={styles.container}>
-        <Text as="p" className={styles.title} size="4" weight="medium" align="center">
+      <Box pt={isMobile ? '20px' : '35px'} className={styles.title_wrap}>
+        <Text as="p" className={styles.title} size="3" weight="medium" align="center">
           다음 레벨업까지
         </Text>
-        <Text as="p" className={styles.remaining_time} size="4" weight="medium" align="center">
+        <Text as="p" className={styles.remaining_time} size="3" weight="medium" align="center">
           {remainingTime > 0 ? formatTime(remainingTime) : formatTime(maxTime)}
         </Text>
-
-        <Box mt={isMobile ? '25px' : '45px'} className={styles.relative_wrapper}>
+      </Box>
+      <Box px="9" className={styles.container}>
+        <Box mt={isMobile ? '35px' : '40px'} className={styles.relative_wrapper}>
           <div className={styles.svg_container}>
             <svg
               className={styles.svg}
               viewBox={`0 0 ${svgSize} ${svgSize}`}
-              width={isMobile ? '90px' : '103.4px'}
-              height={isMobile ? '90px' : '103.4px'}
+              width={isMobile ? '90px' : '100px'}
+              height={isMobile ? '90px' : '100px'}
             >
               <circle
                 cx={centerPoint}
                 cy={centerPoint}
                 r={radius}
                 stroke="#F0F0FE"
-                strokeWidth={strokeWidth * 2.6}
+                strokeWidth={strokeWidth * 3}
                 fill="none"
               />
               <circle
@@ -208,7 +238,7 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
             direction="column"
             position="absolute"
             inset="0"
-            gap="5px"
+            gap={isMobile ? '15px' : '10px'}
             className={styles.timer_wrapper}
           >
             <Text className={styles.time}>{formatTime(time)}</Text>
@@ -217,13 +247,12 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
           </Flex>
         </Box>
       </Box>
-
       {/* 공부중인 과목 리스트 */}
       <Flex
         justify="center"
         align="center"
-        mb="60px"
-        mt={isMobile ? '25px' : '45px'}
+        mb="20px"
+        mt={isMobile ? '30px' : '20px'}
         width={isMobile ? '90%' : '80%'}
         wrap="wrap"
         height="auto"

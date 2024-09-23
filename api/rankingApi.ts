@@ -6,7 +6,7 @@ import rankingImg from '../assets/icons/ranking_profile_img.png';
 export const getMemberRanking = async ({
   tab,
   pageNumber,
-  size = 100, // 기본적으로 한 번에 가져올 수
+  size = 10, // 기본적으로 한 번에 가져올 수
 }: {
   tab: 'DAILY' | 'WEEKLY' | 'MONTHLY';
   pageNumber: number;
@@ -22,7 +22,7 @@ export const getMemberRanking = async ({
     // 데이터 반환
     return response;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('데이터 페치 에러:', error);
     return {
       member: {
         id: -1,

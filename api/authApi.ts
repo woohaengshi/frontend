@@ -1,7 +1,7 @@
 'use server';
 
+import { BASE_URL } from '@/constants/url';
 import { instance } from './instance';
-import { cookies } from 'next/headers';
 
 export const signIn = async ({ email, password }: { email: string; password: string }) => {
   const response = await instance('sign-in', {
@@ -13,17 +13,26 @@ export const signIn = async ({ email, password }: { email: string; password: str
   return response;
 };
 
-export const reissueToken = async () => {
-  const refreshToken = cookies().get('refresh_token')?.value;
-
-  const response = await instance('reissue', {
+export const reissueToken = async (refresh_token: string) => {
+  const response = await fetch(`${BASE_URL}reissue`, {
     headers: {
-      Cookie: `refresh_token=${refreshToken}`,
+      Cookie: `refresh_token=${refresh_token}`,
     },
     method: 'POST',
   });
 
-  return response;
+  if (!response.ok) {
+    console.error('Token Expired');
+    console.error('Fetch Error:', await response.json());
+    console.error(response.status);
+    return { error: 'Token Expired' };
+  }
+
+  const cookie = response.headers.get('Set-Cookie');
+  const { accessToken } = await response.json();
+  const refreshToken = cookie?.split(';')[0].split('=')[1];
+
+  return { accessToken, refreshToken };
 };
 
 export const signUp = async ({
@@ -45,11 +54,9 @@ export const signUp = async ({
 };
 
 export const signOut = async () => {
-  const refreshToken = cookies().get('refresh_token')?.value;
-
   const response = await instance('sign-out', {
     method: 'POST',
-    Cookie: `refresh_token=${refreshToken}`,
+    Credentials: 'include',
   });
 
   return response;
