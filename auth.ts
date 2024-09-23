@@ -1,7 +1,26 @@
 import NextAuth, { User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { signIn as signInFromBackend } from './api/authApi';
+import { reissueToken, signIn as signInFromBackend } from './api/authApi';
 import { ACCESS_TOKEN_EXPIRES } from './constants/token';
+import { JWT } from 'next-auth/jwt';
+
+const refreshAccessToken = async (token: JWT): Promise<JWT> => {
+  const { accessToken, refreshToken } = await reissueToken(token.refreshToken!);
+
+  if (accessToken && refreshToken) {
+    return {
+      ...token,
+      accessToken,
+      refreshToken,
+      expires_at: Date.now() + ACCESS_TOKEN_EXPIRES,
+    };
+  }
+
+  return {
+    ...token,
+    error: 'RefreshAccessTokenError' as const,
+  };
+};
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
@@ -42,28 +61,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
-      if (user) {
-        token.accessToken = user.accessToken;
-        token.refreshToken = user.refreshToken;
-        token.expires_at = Date.now() + ACCESS_TOKEN_EXPIRES;
+    async jwt({ token, user, account }): Promise<JWT | null> {
+      // if (user) {
+      //   token.accessToken = user.accessToken;
+      //   token.refreshToken = user.refreshToken;
+      //   token.expires_at = Date.now() + ACCESS_TOKEN_EXPIRES;
+      // }
+      // return token;
+      if (account && user) {
+        return {
+          ...token,
+          accessToken: user.accessToken,
+          refreshToken: user.refreshToken,
+          expires_at: Date.now() + ACCESS_TOKEN_EXPIRES,
+          user,
+        };
       }
-      return token;
-      //   if (account && user) {
-      //     return {
-      //       ...token,
-      //       accessToken: user.accessToken,
-      //       refreshToken: user.refreshToken,
-      //       expires_at: Date.now() + ACCESS_TOKEN_EXPIRES,
-      //       user,
-      //     };
-      //   }
 
-      //   if (Date.now() < token.expires_at!) {
-      //     return token;
-      //   }
+      if (Date.now() < token.expires_at!) {
+        return token;
+      }
 
-      //   return refreshAccessToken(token);
+      return await refreshAccessToken(token);
     },
     async session({ session, token }) {
       if (token) {
