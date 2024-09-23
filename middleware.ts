@@ -14,8 +14,6 @@ export default async function middleware(request: NextRequest, response: NextRes
   const accessToken = session?.user?.accessToken;
   const refreshToken = session?.user?.refreshToken;
 
-  console.log('current refreshToken from middleware', refreshToken);
-
   if (session?.error === 'RefreshAccessTokenError') {
     signOutFromAuth(); // 토큰 갱신 오류 시 로그아웃
     signOutFromBackend; // 백엔드 로그아웃
@@ -35,5 +33,3 @@ export default async function middleware(request: NextRequest, response: NextRes
 export const config = {
   matcher: ['/', '/ranking', '/record', '/study', '/mypage'],
 };
-
-// export { auth as middleware } from '@/auth';

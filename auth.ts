@@ -5,11 +5,7 @@ import { ACCESS_TOKEN_EXPIRES } from './constants/token';
 import { JWT } from 'next-auth/jwt';
 
 const refreshAccessToken = async (token: JWT): Promise<JWT> => {
-  console.log('토큰이 만료되었습니다.', token.accessToken, token.refreshToken);
-
   const { accessToken, refreshToken } = await reissueToken(token.refreshToken!);
-
-  console.log('토큰이 갱신되었습니다.', accessToken, refreshToken);
 
   if (accessToken && refreshToken) {
     return {
