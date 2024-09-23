@@ -39,13 +39,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             password: credentials.password as string,
           });
 
-          if (response.error) {
-            console.error('SignIn error:', response.error);
-            throw new Error('Failed to SignIn');
-          }
-
-          const { accessToken, cookie } = response;
-          const refreshToken = cookie.split(';')[0].split('=')[1];
+          const { accessToken, refreshToken } = response;
 
           return {
             id: credentials.email as string,
@@ -62,12 +56,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user, account }): Promise<JWT | null> {
-      // if (user) {
-      //   token.accessToken = user.accessToken;
-      //   token.refreshToken = user.refreshToken;
-      //   token.expires_at = Date.now() + ACCESS_TOKEN_EXPIRES;
-      // }
-      // return token;
       if (account && user) {
         return {
           ...token,
