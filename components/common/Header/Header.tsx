@@ -7,15 +7,13 @@ import HeaderNav from './HeaderNav';
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
 import Image from 'next/image';
 
-import useUserInfo from '@/hook/useUserInfo';
 import { useUserInfoStore } from '@/store/memberStore';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { getUserInfo } from '@/api/memberApi';
 
 export default function Header() {
-  const userInfo = useUserInfo();
-  const { setUserInfo } = useUserInfoStore();
+  const { userInfo, setUserInfo } = useUserInfoStore();
 
   const { data: session, update } = useSession();
 
