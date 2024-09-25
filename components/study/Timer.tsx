@@ -40,8 +40,6 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
   const router = useRouter();
 
   const saveTimer = async (time: number, subjects: Subject[]) => {
-    console.log('saveTimer호출');
-
     const date = getCurrentDate();
     const subjectIds = subjects.map((subject) => subject.id);
     const response = await postTimer({ date, time, subjects: subjectIds });
