@@ -57,6 +57,7 @@ export default function Ranking() {
 
   useEffect(() => {
     fetchData(0);
+    setRankings([]);
   }, [activeTab]);
 
   const loadMore = () => {
