@@ -6,7 +6,7 @@ import CalendarModal from './Modal/CalendarModal';
 import { useState } from 'react';
 import { useEventStore } from '@/store/recordStore';
 
-export default function CalendarRecord({ nowDate, record }: { nowDate: number; record: IRecord }) {
+export default function CalendarRecord({ record }: { record: IRecord }) {
   const record_color: string = levelColor(record.time);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { eventChange } = useEventStore();
@@ -55,9 +55,9 @@ export default function CalendarRecord({ nowDate, record }: { nowDate: number; r
             className={`${styles.subject_list} subject_list ${record_color} ${record.subjects.length == 0 ? styles.blank : ''}`}
           >
             {record.subjects.length > 0 &&
-              record.subjects.map((subject) => {
+              record.subjects.map((subject, i) => {
                 return (
-                  <li key={`${nowDate}${subject.name}`}>
+                  <li key={`${subject.name}${i}`}>
                     <Text as="p" size="2">
                       #{subject.name}
                     </Text>
@@ -70,7 +70,7 @@ export default function CalendarRecord({ nowDate, record }: { nowDate: number; r
           {record.time > 0 && formatTime(record.time)}
         </Text>
       </Flex>
-      {isModalOpen && <CalendarModal nowDate={nowDate} record={record} onClose={onClose} />}
+      {isModalOpen && <CalendarModal record={record} onClose={onClose} />}
     </>
   );
 }

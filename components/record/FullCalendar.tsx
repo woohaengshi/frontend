@@ -114,11 +114,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
                   {nowDate}
                 </Text>
                 {records?.map((record) => {
-                  return (
-                    record.day == nowDate && (
-                      <CalendarRecord key={`calendarRecord${nowDate}`} nowDate={nowDate} record={record} />
-                    )
-                  );
+                  return record.day == nowDate && <CalendarRecord key={`calendarRecord${nowDate}`} record={record} />;
                 })}
               </Flex>
             </td>,

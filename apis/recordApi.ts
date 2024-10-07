@@ -1,7 +1,8 @@
+import { revalidatePath } from 'next/cache';
 import { instance } from './instance';
 
 // 캘린더 월간 조회
-export const getRecordMonthly = async (year: number, month: number | String) => {
+export const getRecordMonthly = async (year: number, month: number | string) => {
   if (typeof month === 'number') {
     month = month < 10 ? `0${month}` : `${month}`;
   }
@@ -19,5 +20,20 @@ export const getRecordYearly = async (year: number) => {
     method: 'GET',
   });
 
+  return response;
+};
+
+// 회고 추가 및 수정
+export const patchStudyRecord = async (
+  date: string,
+  addedSubject: number[],
+  deletedSubject: number[],
+  comment: string,
+) => {
+  const response = await instance('study-record', {
+    body: JSON.stringify({ date, addedSubject, deletedSubject, comment }),
+    method: 'PATCH',
+  });
+  revalidatePath('/record');
   return response;
 };

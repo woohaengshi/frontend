@@ -1,28 +1,54 @@
 'use client';
 
-import { useEventStore, useTextareaStore } from '@/store/recordStore';
-import { Box, Card, Flex, Strong, Text } from '@radix-ui/themes';
+import {
+  useEventStore,
+  useSelectedMonthStore,
+  useSelectedYearStore,
+  useCommentStore,
+  useAddedSubjectStore,
+  useDeletedSubjectStore,
+} from '@/store/recordStore';
+import { Box, Card, Flex, Strong } from '@radix-ui/themes';
 import { useEffect, useState } from 'react';
 
 import styles from './ModalInTab.module.css';
 import { levelColor } from '@/utils/levelUtils';
 import CommonButton from '@/components/common/CommonButton';
 
-export default function ModalInTabEdit({ record, onClose }: { record: IRecord; onClose: () => void }) {
+export default function ModalInTabEdit({ record }: { record: IRecord }) {
   const record_color: string = levelColor(record.time);
 
   const [changed, setChanged] = useState(false);
   // 기록 입력시 이벤트 감지
   const { setEventChange } = useEventStore();
   // 탭 이동시에도 회고 value 유지
-  const { textValue, setTextValue } = useTextareaStore();
+  const { comment, setComment } = useCommentStore();
+
+  const { selectedYear } = useSelectedYearStore();
+  const { selectedMonth } = useSelectedMonthStore();
+  const recordDate = `${selectedYear}-${selectedMonth.toString().padStart(2, '0')}-${record.day}`;
 
   useEffect(() => {
-    setTextValue('');
+    setComment('');
   }, []);
 
+  // 오늘 과목
+  const todaySubject = record.subjects.map((subject) => subject.id);
+  console.log(todaySubject);
+
+  // 추가할 과목
+  const { addedSubject, setAddedSubject } = useAddedSubjectStore();
+
+  // 삭제할 과목
+  const { deletedSubject, setDeletedSubject } = useDeletedSubjectStore();
+
+  const recordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('submit');
+  };
+
   return (
-    <form>
+    <form onSubmit={recordSubmit}>
       {record.subjects.length > 0 && (
         <>
           <Box mb="5" className={styles.box}>
@@ -76,9 +102,9 @@ export default function ModalInTabEdit({ record, onClose }: { record: IRecord; o
                   setChanged(true);
                   setEventChange(true);
                 }
-                setTextValue(e.target.value);
+                setComment(e.target.value);
               }}
-              defaultValue={textValue}
+              defaultValue={comment}
             ></textarea>
           </Card>
         </Box>

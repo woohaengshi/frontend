@@ -70,12 +70,34 @@ export const useEventStore = create<EventStoreState>((set) => ({
   setEventChange: (eventChange: boolean) => set({ eventChange }),
 }));
 
-// 회고 textarea value 유지
-interface TextareaStoreState {
-  textValue: string;
-  setTextValue: (textValue: string) => void;
+// 회고 comment 유지
+interface CommentStoreState {
+  comment: string;
+  setComment: (comment: string) => void;
 }
-export const useTextareaStore = create<TextareaStoreState>((set) => ({
-  textValue: '',
-  setTextValue: (textValue: string) => set({ textValue }),
+export const useCommentStore = create<CommentStoreState>((set) => ({
+  comment: '',
+  setComment: (comment: string) => set({ comment }),
+}));
+
+// 회고 추가할 과목
+interface AddedSubjectStoreState {
+  addedSubject: number[];
+  setAddedSubject: (addedSubject: number[]) => void;
+}
+
+export const useAddedSubjectStore = create<AddedSubjectStoreState>((set) => ({
+  addedSubject: [],
+  setAddedSubject: (addedSubject: number[]) => set({ addedSubject }),
+}));
+
+// 회고 삭제할 과목
+interface DeletedSubjectStoreState {
+  deletedSubject: number[];
+  setDeletedSubject: (deletedSubject: number[]) => void;
+}
+
+export const useDeletedSubjectStore = create<DeletedSubjectStoreState>((set) => ({
+  deletedSubject: [],
+  setDeletedSubject: (deletedSubject: number[]) => set({ deletedSubject }),
 }));
