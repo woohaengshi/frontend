@@ -77,16 +77,12 @@ export const signOut = async () => {
 
 //프로필 이미지 업데이트
 export const patchPrpfileImg = async (formData: FormData) => {
+  console.log(typeof(formData));
+  
   const response = await instance('members/image', {
     body: formData,
     method: 'PATCH',
   });
-  // 응답 처리
-  if (!response.ok) {
-    const errorData = await response.json(); // 에러 메시지 받기
-    console.error('프로필 이미지 업데이트 실패', errorData);
-    return { error: errorData }; // 에러를 반환
-  }
-  
+
   return response;
 };

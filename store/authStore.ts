@@ -29,5 +29,5 @@ export const useJoinStore = create<joinState>((set) => ({
   setPasswordCheck: (passwordCheck: string) => set({ passwordCheck }),
   setImage: (image: File | null) => set({ image }),
   setCourse: (course: string) => set({ course }),
-  setAllEmpty: () => set({ email: '', name: '', password: '', passwordCheck: '', image: '', course: '' }),
+  setAllEmpty: () => set({ email: '', name: '', password: '', passwordCheck: '', image: null, course: '' }),
 }));

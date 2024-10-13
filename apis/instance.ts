@@ -17,9 +17,15 @@ const fetchInstance = async (url: string, options: RequestOptions = {}) => {
   const accessToken = session?.user?.accessToken;
 
   const headers: RequestOptions['headers'] = {
-    'Content-Type': options.isMultipart ? 'multipart/form-data' : 'application/json',
     ...options.headers,
   };
+
+  // FormData인 경우 Content-Type 설정 제거
+  if (options.body instanceof FormData) {
+    delete headers['Content-Type'];
+  } else {
+    headers['Content-Type'] = 'application/json';
+  }
 
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`;
@@ -37,7 +43,7 @@ const fetchInstance = async (url: string, options: RequestOptions = {}) => {
         console.error('Token Expired');
       }
       console.error('Fetch Error:', errorResponse);
-      return { error: errorResponse };
+      return response;
     }
 
     if (response.headers.get('Content-Type')?.includes('application/json')) {
@@ -46,6 +52,7 @@ const fetchInstance = async (url: string, options: RequestOptions = {}) => {
     } else {
       return await response.text();
     }
+    
   } catch (error) {
     console.error('Fetch Error:', error);
     throw error;
