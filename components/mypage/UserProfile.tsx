@@ -6,6 +6,7 @@ import styles from './UserProfile.module.css';
 import ico_profile_img_file from '@/assets/icons/profile_img_file.png';
 import Image from 'next/image';
 import MypageTabMenu from './MypageTabMenu';
+import { patchPrpfileImg } from '@/apis/authApi';
 
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
 import useUserInfo from '@/hook/useUserInfo';
@@ -26,9 +27,23 @@ export default function UserProfile() {
     }
 
     const reader = new FileReader();
-    reader.readAsDataURL(file);  
-    reader.onloadend = () => { 
-      setImgUrl(reader.result as string);
+    reader.readAsDataURL(file);
+    reader.onloadend = async() => {
+      const result = reader.result as string; // 이미지 데이터 URL
+      setImgUrl(result); // 읽은 결과를 imgUrl에 설정
+
+        const formData = new FormData();
+        formData.append('image', file);
+
+      const response = await patchPrpfileImg(formData);
+
+      if (response.ok) {
+        console.log('프로필 이미지 업데이트 성공');
+        alert('프로필 이미지가 성공적으로 업데이트 되었습니다.');
+      } else {
+        const errorData = await response.json();
+        console.error('프로필 이미지 업데이트 실패', errorData);
+      }
     };
   };
 

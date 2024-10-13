@@ -3,6 +3,7 @@
 import { BASE_URL } from '@/constants/url';
 import { instance } from './instance';
 
+// 로그인
 export const signIn = async ({ email, password }: { email: string; password: string }) => {
   const response = await instance('sign-in', {
     body: JSON.stringify({ email, password }),
@@ -43,29 +44,49 @@ export const reissueToken = async (refresh_token: string) => {
   return { accessToken, refreshToken };
 };
 
+// 회원가입
 export const signUp = async ({
   name,
   email,
   password,
+  image,
   course,
 }: {
   name: string;
   email: string;
   password: string;
+  image: string;
   course: string;
 }) => {
   const response = await instance('sign-up', {
-    body: JSON.stringify({ name, email, password, course }),
+    body: JSON.stringify({ name, email, password, image, course }),
     method: 'POST',
   });
   return response;
 };
 
+//로그아웃
 export const signOut = async () => {
   const response = await instance('sign-out', {
     method: 'POST',
     Credentials: 'include',
   });
 
+  return response;
+};
+
+//프로필 이미지 업데이트
+export const patchPrpfileImg = async (formData: FormData) => {
+  const response = await instance('members/image', {
+    body: formData,
+    method: 'PATCH',
+  });
+  // 응답 처리
+  if (!response.ok) {
+    const errorData = await response.json(); // 에러 메시지 받기
+    console.error('프로필 이미지 업데이트 실패', errorData);
+    return { error: errorData }; // 에러를 반환
+  }
+  
   return response;
 };
