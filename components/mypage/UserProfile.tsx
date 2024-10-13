@@ -26,11 +26,9 @@ export default function UserProfile() {
     }
 
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      if (typeof reader.result === 'string') {
-        setImgUrl(reader.result);
-      }
+    reader.readAsDataURL(file);  
+    reader.onloadend = () => { 
+      setImgUrl(reader.result as string);
     };
   };
 
@@ -46,17 +44,15 @@ export default function UserProfile() {
     <section className="user_profile">
       <div className={styles.user_info}>
         <div className={styles.img_box}>
-          {/* 유저 프로필 이미지 */}
           <div className={styles.back_img} style={{ backgroundImage: `url(${imgUrl ? imgUrl : ''})` }}>
-            {/* 기본 이미지 */}
-            <Image src={rankingImg} alt={`프로필 이미지`} width={180} height={180} />
+            {!imgUrl && <Image src={rankingImg} alt={`프로필 이미지`} width={180} height={180} />}
           </div>
-          {/* <div className={styles.btn_file}>
+          <div className={styles.btn_file}>
             <input type="file" ref={imgRef} onChange={onChangeImage} />
             <button onClick={imageChangeHandler}>
               <Image src={ico_profile_img_file} alt="프로필 이미지 변경하기" width={18} height={18} />
             </button>
-          </div> */}
+          </div>
         </div>
         <Box mt="3" className={styles.txt_box}>
           <Strong>{userInfo?.name}</Strong>

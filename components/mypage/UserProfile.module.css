@@ -2,17 +2,22 @@
   font-size: 0;
   text-align: center;
 }
+
 .img_box {
   position: relative;
   display: inline-block;
 }
+
 .back_img {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   border-radius: 100%;
   background-size: cover;
   overflow: hidden;
+  width: 180px;
+  height: 180px;
 }
+
 .back_img span {
   width: 180px;
   height: 180px;
@@ -21,6 +26,7 @@
 .btn_file input[type='file'] {
   display: none;
 }
+
 .btn_file button {
   position: absolute;
   right: 0px;

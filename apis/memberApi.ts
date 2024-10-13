@@ -17,3 +17,16 @@ export const postPwUpdate = async ({ oldPassword, newPassword }: { oldPassword: 
   });
   return response;
 };
+
+//프로필 이미지 조회 
+
+
+
+//프로필 이미지 post
+export const postPorfileImg = async() => {
+  const response = await instance('members/image',{
+    body:JSON.stringify(),
+    method:''
+  });
+  return response;
+}
