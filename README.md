@@ -127,12 +127,12 @@ yarn start
 
 <br>
 
-### 💙 UI 스타일 가이드라인  💙
+## 💙 UI 스타일 가이드라인  💙
 ![스타일 가이드 (github 용) 무시하세요](https://github.com/user-attachments/assets/50fdb176-756b-4ec9-85d2-a90d75b0e2f9)
 
 <br>
 
-### 💙 ESLint 룰셋 목록 💙
+## 💙 ESLint 룰셋 목록 💙
 ```
  {
      rules: {
@@ -159,19 +159,19 @@ yarn start
 
 <br>
 
-### 💙 Lighthouse 성능 지표 💙
-#### 개선 전
+## 💙 Lighthouse 성능 지표 💙
+### 개선 전
  - 문제점: <img> 태그에서 alt 누락
 <img width=800px src="https://github.com/woorifisa-service-dev-3rd/frontend-1st-woohaengshi/assets/23547185/890129f5-fdc6-4a64-96f4-93e88309acab">
 <img width=800px src="https://github.com/woorifisa-service-dev-3rd/frontend-1st-woohaengshi/assets/23547185/d1c42379-833a-44ca-8443-9a789a118494">
 
-#### 개선 후
+### 개선 후
 <img width=800px src="https://github.com/woorifisa-service-dev-3rd/frontend-1st-woohaengshi/assets/23547185/84455224-1711-40f6-8679-8e54cca17043">
 
 <br>
 
 
-### 💙 Commit 방법 💙  
+## 💙 Commit 방법 💙  
 꼭 다음의 방법을 따라서 커밋할 필요는 없지만, 알아보기 쉽게하기 위함.
 \
 커밋의 제목은 타입을 기재 후 간단한 요약(명령조)을 기재 함.
