@@ -10,7 +10,7 @@ import {
   useSelectedMonthStore,
   useSelectedYearStore,
   useTodayStore,
-} from '@/store/recordStore';
+} from '@/stores/recordStore';
 import useSWR from 'swr';
 import { getRecordYearly } from '@/apis/recordApi';
 import { formatTime } from '@/utils/formatTimeUtils';

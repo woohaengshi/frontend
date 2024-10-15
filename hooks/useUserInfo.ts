@@ -1,4 +1,4 @@
-import { useUserInfoStore } from '@/store/memberStore';
+import { useUserInfoStore } from '@/stores/memberStore';
 import { useEffect } from 'react';
 
 const useUserInfo = () => {

@@ -2,7 +2,7 @@
 
 import { postPwUpdate } from '@/apis/memberApi';
 import PwUpdateForm from '@/components/mypage/PwUpdateForm';
-import { usePwUpdateStore } from '@/store/memberStore';
+import { usePwUpdateStore } from '@/stores/memberStore';
 
 export default function PwUpdate() {
   const { oldPassword, newPassword, setAllEmpty } = usePwUpdateStore();

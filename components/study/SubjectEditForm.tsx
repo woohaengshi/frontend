@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
-import { useSubjectStore } from '@/store/subjectStore';
+import { useSubjectStore } from '@/stores/subjectStore';
 import { postSubjectItem } from '@/apis/subjectFormApi';
 import { getSubjectEditList } from '@/apis/subjectFormApi';
 import useSWR from 'swr';
