@@ -12,7 +12,7 @@ import {
   useTodayStore,
 } from '@/store/recordStore';
 import useSWR from 'swr';
-import { getRecordYearly } from '@/api/recordApi';
+import { getRecordYearly } from '@/apis/recordApi';
 import { formatTime } from '@/utils/formatTimeUtils';
 
 interface IOnClose {

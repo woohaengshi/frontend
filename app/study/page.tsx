@@ -2,7 +2,7 @@ import Timer from '@/components/study/Timer';
 import { Container } from '@radix-ui/themes';
 import styles from './page.module.css';
 import SubjectSelectButton from '@/components/study/SubjectSelectButton';
-import { getTimer } from '@/api/studyApi';
+import { getTimer } from '@/apis/studyApi';
 
 export default async function Study() {
   const { time, subjects } = await getTimer();

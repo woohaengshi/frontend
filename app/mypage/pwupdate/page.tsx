@@ -1,6 +1,6 @@
 'use client';
 
-import { postPwUpdate } from '@/api/memberApi';
+import { postPwUpdate } from '@/apis/memberApi';
 import PwUpdateForm from '@/components/mypage/PwUpdateForm';
 import { usePwUpdateStore } from '@/store/memberStore';
 

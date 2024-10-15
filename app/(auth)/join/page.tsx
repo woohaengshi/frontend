@@ -1,6 +1,6 @@
 'use client';
 
-import { signUp } from '@/api/authApi';
+import { signUp } from '@/apis/authApi';
 import JoinForm from '@/components/auth/JoinForm';
 import { useJoinStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';

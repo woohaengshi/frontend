@@ -9,13 +9,8 @@ import { Subject } from '@/types/studyType';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
 import { useSubjectStore } from '@/store/subjectStore';
 import Cookies from 'js-cookie';
-import { postTimer } from '@/api/studyApi';
-import { useUserInfoStore } from '@/store/memberStore';
-import useSWR from 'swr';
-import { getUserInfo } from '@/api/memberApi';
+import { postTimer } from '@/apis/studyApi';
 import { useRouter } from 'next/navigation';
-import { instance } from '@/api/instance';
-import { usePathname } from 'next/navigation';
 
 interface ITimer {
   maxTime: number;
@@ -45,8 +40,6 @@ export default function Timer({ maxTime, currentTime, initialSubjects }: ITimer)
   const router = useRouter();
 
   const saveTimer = async (time: number, subjects: Subject[]) => {
-    console.log('saveTimer호출');
-
     const date = getCurrentDate();
     const subjectIds = subjects.map((subject) => subject.id);
     const response = await postTimer({ date, time, subjects: subjectIds });

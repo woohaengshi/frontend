@@ -1,4 +1,4 @@
-import { getRecordMonthly } from '@/api/recordApi';
+import { getRecordMonthly } from '@/apis/recordApi';
 import useSWR from 'swr';
 
 // 달력 이동 버튼을 누를때만 갱신된 데이터 가져옴

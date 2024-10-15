@@ -5,7 +5,7 @@ import useSWR from 'swr';
 import { Text } from '@radix-ui/themes';
 import styles from './SubjectForm.module.css';
 import { useSubjectStore } from '@/store/subjectStore';
-import { getSubjectEditList } from '@/api/subjectFormApi';
+import { getSubjectEditList } from '@/apis/subjectFormApi';
 
 interface SubjectSelectProps {
   onEditClick: () => void;
