@@ -101,12 +101,10 @@ yarn start
 <br/>
 
 ## 👻 팀원구성
-|       팀원       | 팀원 |       팀원       | 팀장 |
-|:--------------:|:--:|:--------------:|:--:|
-|    **공소연**     |**김민정**|    **윤석규**     |**이지민**|
-|     **FE**     |**BE**|   **BE**    |**FE**|
-|   **경제학과**   |**의생명공학과**|   **통계학과**   |**수학과**|
-|   **2020110210**   |**2019111791**|   **2020113296**   |**2020110408**|g
+|<img src="https://github.com/riverkite0708.png" width="200" height="200" />|<img src="https://github.com/khwoowoo.png" width="200" height="200" />|<img src="https://github.com/Kong-E.png" width="200" height="200" />|
+|:---:|:---:|:---:|
+|[강재연](https://github.com/riverkite0708)|[강현우](https://github.com/khwoowoo)|[공소연](https://github.com/Kong-E)|
+|프론트엔드|백엔드|프론트엔드|
 
 ### 💙  이용 방법 💙
 <img width=800px src="https://github.com/user-attachments/assets/b5d300f4-778d-4983-9129-e69c3a6516a2">
