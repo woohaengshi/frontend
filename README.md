@@ -34,7 +34,7 @@ https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-
 
 > 로그인 상태인 경우
 
-<b>'탈중앙화'라는 프로젝트 특성을 가장 많이 반영한 부분입니다.<b/>
+<b>'탈중앙화'라는 프로젝트 특성을 가장 많이 반영한 부분입니다.</b>
 
 https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/8d8ee6c3-4df4-4741-927b-1ef0b67dc947
 
@@ -80,23 +80,58 @@ yarn start
 <br/>
 
 ## 🗂️ 폴더구조
-### - public 
-### - server
-   admin ⇒ 관리자 모드 <br/>
-   middlewares ⇒ JWT 경로 저장파일 <br/>
-   models ⇒ 데이터 타입 관리 <br/>
-   routes ⇒ api 호출 관리 <br/>
-   utils ⇒ util 파일 관리 <br/>
-### - src
-  api ⇒ api 목록 <br/>
-  assets ⇒ 이미지와 icon 관리 <br/>
-  components ⇒ 공통 컴포넌트 관리 <br/>
-  db ⇒ mocking 데이터 관리 <br/>
-  pages ⇒ router 페이지 관리 <br/>
-  routes/Layout ⇒ router 기본 틀 컴포넌트 <br/>
-  stores ⇒ 리코일 관련 모듈 <br/>
-  utils ⇒ util 파일 관리 <br/>
-  types ⇒ 타입 지정 <br/>
+
+```yaml
+
+├── .next ▶️ Next의 빌드 결과물 폴더
+├── node_modules ▶️ 프로젝트 관련 JS 라이브러리가 설치된 폴더
+├── public ▶️ 이미지, 폰트와 같은 정적 자원들을 배치하는 폴더
+│   ├── easteregg/ ▶️ 이스터에그 폴더
+│   ├── icons/ ▶️ 아이콘 폴더
+│   ├── imgs/ ▶️ 이미지 폴더
+│   └── fonts/ 폰트 폴더 
+├── app/ ▶️ 앱 라우팅 폴더
+│   ├── (auth)/ ▶️ 인증 인가 폴더 
+│   ├── actions/ ▶️ auth.js 함수 호출 폴더 
+│   ├── api/auth/[...nextauth]/ ▶️ auth.js 설정 폴더
+│   ├── mypage/ ▶️ 마이페이지 폴더
+│   ├── ranking/ ▶️ 순위조회 폴더
+│   ├── record/ ▶️ 기록확인 폴더
+│   ├── study/ ▶️ 공부시작 폴더
+│   ├── page.tsx ▶️ root 경로 페이지 
+│   └── layout.tsx ▶️ root 경로 레이아웃 구조 
+├── components/ ▶️ 컴포넌트 폴더 
+│   ├── common/ ▶️ 공통 컴포넌트 폴더
+│   │   ├── Header/
+│   │   │   ├── Header컴포넌트.tsx
+│   │   │   └── Header컴포넌트.module.css
+│   │   ├── Modal/
+│   │   │   ├── Modal컴포넌트.tsx
+│   │   │   └── Modal컴포넌트.module.css
+│   │   ├── 컴포넌트.tsx
+│   │   └── 컴포넌트.module.css
+│   ├── 라우팅폴더명/컴포넌트.tsx
+│   └── 라우팅폴더명/컴포넌트.module.css 
+├── constants/
+│   └── 상수명.ts
+├── hooks/
+│   └── 커스텀훅.ts
+├── apis/
+│   ├──  instancs.ts ▶️ api 요청 기본 설정 파일
+│   └──  도메인Api.ts
+├── stores/
+│   └──  도메인Store.ts
+├── types/
+│   └──  도메인Type.ts
+├── utils/
+│   └──  기능명Utils.ts
+├── .eslintrc.json ▶️ ESLint 설정 파일
+├── .gitignore ▶️ 깃 이그노어 파일
+├── jsconfig.json ▶️ VSCode 설정 파일
+├── next.config.mjs ▶️ 넥스트 설정 파일
+├── package-lock.json ▶️ 라이브러리 의존 관계 설정 파일
+└── package.json ▶️ NPM 프로젝트 설정 파일
+```
 
 <br/>
 
