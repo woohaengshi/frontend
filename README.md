@@ -119,9 +119,9 @@ yarn start
 ├── apis/
 │   ├──  instancs.ts ▶️ api 요청 기본 설정 파일
 │   └──  도메인Api.ts
-├── stores/
+├── stores/ ▶️ Zustand Store 폴더 
 │   └──  도메인Store.ts
-├── types/
+├── types/ ▶️ TypeScript Interface 설정 폴더
 │   └──  도메인Type.ts
 ├── utils/
 │   └──  기능명Utils.ts
