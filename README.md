@@ -117,14 +117,14 @@ yarn start
 ├── hooks/
 │   └── 커스텀훅.ts
 ├── apis/
-│   ├──  instancs.ts ▶️ api 요청 기본 설정 파일
-│   └──  도메인Api.ts
+│   ├── instancs.ts ▶️ api 요청 기본 설정 파일
+│   └── 도메인Api.ts
 ├── stores/ ▶️ Zustand Store 폴더 
-│   └──  도메인Store.ts
+│   └── 도메인Store.ts
 ├── types/ ▶️ TypeScript Interface 설정 폴더
-│   └──  도메인Type.ts
+│   └── 도메인Type.ts
 ├── utils/
-│   └──  기능명Utils.ts
+│   └── 기능명Utils.ts
 ├── .eslintrc.json ▶️ ESLint 설정 파일
 ├── .gitignore ▶️ 깃 이그노어 파일
 ├── jsconfig.json ▶️ VSCode 설정 파일
