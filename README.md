@@ -136,14 +136,14 @@ yarn start
 <br/>
 
 ## 👻 팀원구성
-| <img src="https://github.com/riverkite0708.png" width="200" height="200" /> | <img src="https://github.com/Kong-E.png" width="200" height="200" /> | <img src="https://github.com/doyi0107.png" width="200" height="200" /> |
+| <img src="https://github.com/riverkite0708.png" width="200" /> | <img src="https://github.com/Kong-E.png" width="200" /> | <img src="https://github.com/doyi0107.png" width="200" /> |
 |:---:|:---:|:---:|
 | [강재연](https://github.com/riverkite0708) | [공소연](https://github.com/Kong-E) | [이도이](https://github.com/doyi0107) |
 | 프론트엔드 | 프론트엔드 | 프론트엔드 |
 
-| <img src="https://github.com/khwoowoo.png" width="200" height="200" /> | <img src="https://github.com/rlfrkdms1.png" width="200" height="200" /> | <img src="https://github.com/doyi0107.png" width="200" height="200" /> | <img src="https://github.com/doyi0107.png" width="200" height="200" /> |
+| <img src="https://github.com/khwoowoo.png" width="200" /> | <img src="https://github.com/rlfrkdms1.png" width="200" /> | <img src="https://github.com/qbobl5.png" width="200" /> | <img src="https://github.com/yaejinkong.png" width="200" /> |
 |:---:|:---:|:---:|:---:|
-| [강현우](https://github.com/khwoowoo) | [길가은](https://github.com/rlfrkdms1) | [김혜빈](https://github.com/doyi0107) | [공예진](https://github.com/doyi0107) |
+| [강현우](https://github.com/khwoowoo) | [길가은](https://github.com/rlfrkdms1) | [김혜빈](https://github.com/qbobl5) | [공예진](https://github.com/yaejinkong) |
 | 백엔드 | 백엔드 | 백엔드 | 백엔드 |
 
 
