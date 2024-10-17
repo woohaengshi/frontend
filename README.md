@@ -45,20 +45,28 @@ https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=flat-square&logo=github&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white)
 
+### UI/UX   
+![Radix UI](https://img.shields.io/badge/radix%20ui-161618.svg?style=flat-square&logo=radix-ui&logoColor=white)
+![figma](https://img.shields.io/badge/figma-f24e1e?style=flat-square&logo=figma&logoColor=ffffff)
+
 ### Frontend   
 ![Next JS](https://img.shields.io/badge/Next.js-black?style=flat-square&logo=next.js&logoColor=white)
 ![Zustand](https://img.shields.io/badge/Zustand-orange?style=flat-square&logo=zustand&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-%23007ACC.svg?style=flat-square&logo=typescript&logoColor=white)
 ![authjs](https://img.shields.io/badge/Auth.js-1eabf4?style=flat-square&logo=nextauth&logoColor=black)
-![Radix UI](https://img.shields.io/badge/radix%20ui-161618.svg?style=flat-square&logo=radix-ui&logoColor=white)
 ![SWR](https://img.shields.io/badge/SWR-black.svg?style=flat-square&logo=swr&logoColor=white)   
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=flat-square&logo=ESLint&logoColor=white)
 ![Prettier](https://img.shields.io/badge/prettier-%23F7B93E.svg?style=flat-square&logo=prettier&logoColor=black)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=Vercel&logoColor=white)
-![figma](https://img.shields.io/badge/figma-f24e1e?style=flat-square&logo=figma&logoColor=ffffff)
 
 ### Backend    
-<img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat-square&logo=Amazon AWS&logoColor=white">
+<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white"> <img src="https://img.shields.io/badge/SpringDataJpa-6DB33F?style=flat-square&logo=SpringDataJpat&logoColor=white"> <img src="https://img.shields.io/badge/QueryDsl-137CBD?style=flat-square&logo=QueryDsl&logoColor=white"> <img src="https://img.shields.io/badge/Gradle-02303A?style=flat-square&logo=Gradle&logoColor=white"> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=Swagger&logoColor=white"> <img src="https://img.shields.io/badge/JWT-black?style=flat-square&logo=JSON%20web%20tokens">
+
+### Infra & DB   
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/AmazonEC2-FF9900?style=flat-square&logo=AmazonEC2&logoColor=white"> <img src="https://img.shields.io/badge/AmazonRDS-527FFF?style=flat-square&logo=AmazonRDS&logoColor=white"> <img src="https://img.shields.io/badge/AmazonS3-569A31?style=flat-square&logo=AmazonS3&logoColor=white"> <img src="https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=Redis&logoColor=white">
+
+### CI/CD   
+<img src="https://img.shields.io/badge/GithubActions-2088FF?style=flat-square&logo=GithubActions&logoColor=white"> <img src="https://img.shields.io/badge/AmazonElasticBeanstalk-yellow?style=flat-square&logo=AmazonAWS&logoColor=white" alt="Amazon Elastic Beanstalk Status" />
 
 <br/>
 
