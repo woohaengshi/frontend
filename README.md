@@ -6,10 +6,6 @@
 - 테스트 유저 ID: test@test.com 
 - 테스트 유저 PW: test1234!
 
-
-
-
-
 <br/>
 
 ## 👻 팀원구성
@@ -17,7 +13,7 @@
 |:---:|:---:|:---:|
 | [강재연](https://github.com/riverkite0708) | [공소연](https://github.com/Kong-E) | [이도이](https://github.com/doyi0107) |
 | 프론트엔드 | 프론트엔드 | 프론트엔드 |
-| 기록확인, 마이페이지 구현 | 인증/인가 담당, 공부하기 구현, API 설정 | 과목선택, 순위조회 구현 |
+| UI 가이드라인, <br /> 기록확인, 마이페이지 구현 | 인증/인가,공부하기 구현, <br /> API 설정 | 랜딩 페이지, 과목선택, <br /> 순위조회 구현 |
 
 | <img src="https://github.com/khwoowoo.png" width="200" /> | <img src="https://github.com/rlfrkdms1.png" width="200" /> | <img src="https://github.com/qbobl5.png" width="200" /> | <img src="https://github.com/yaejinkong.png" width="200" /> |
 |:---:|:---:|:---:|:---:|
@@ -32,10 +28,10 @@ https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-
 
 ## ⚙️ 시스템 아키텍처
 ### 프로젝트 구조도   
-![Group 292](https://github.com/user-attachments/assets/97c151ee-4875-4c52-b446-0f5b88dabaaa)
+![프로젝트 구조도](https://github.com/user-attachments/assets/97c151ee-4875-4c52-b446-0f5b88dabaaa)
 ---
 ### 인프라 구조도   
-![image](https://github.com/user-attachments/assets/81017061-93c3-4720-9abc-eafc10874017)
+![인프라 구조도](https://github.com/user-attachments/assets/81017061-93c3-4720-9abc-eafc10874017)
 
 <br/>
 
@@ -67,14 +63,6 @@ https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-
 
 ### CI/CD   
 <img src="https://img.shields.io/badge/GithubActions-2088FF?style=flat-square&logo=GithubActions&logoColor=white"> <img src="https://img.shields.io/badge/AmazonElasticBeanstalk-yellow?style=flat-square&logo=AmazonAWS&logoColor=white" alt="Amazon Elastic Beanstalk Status" />
-
-<br/>
-
-## 🫧 기대효과
-- 탈중앙적 구조의 Q&A 게시판으로 한 게시글에 속한 모든 요소들을 객체화시켰습니다.
-- 투표 기능을 추가하여 정보 판별에 유용합니다.
-- 해시태그 기능이 있어 정보를 카테고리화할 수 있습니다.
-- 검색기능을 추가하여 원하는 정보를 원활하게 찾을 수 있습니다.
 
 <br/>
 
@@ -133,41 +121,6 @@ https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-
 
 <br/>
 
-### 💙  이용 방법 💙
-<img width=800px src="https://github.com/user-attachments/assets/b5d300f4-778d-4983-9129-e69c3a6516a2">
-<img width=800px src="https://github.com/user-attachments/assets/c4586f30-75b2-4617-a1d6-c27180aaaff6">
-<img width=800px src="https://github.com/user-attachments/assets/da35bb36-fab1-422c-9499-15c512981eb9">
-
-
-<br>
-
- - L1: 과목 선택 및 추가하기
- - L2: 재생/정지 버튼을 클릭해서 시간 측정하기
- - L3: 랭커 확인하기
- - L4: 나머지 등수 확인하기
- - L5: 이름으로 검색하기
- - L6: 학습한 과목 확인하기
- - L7: 총/평균 시간 확인하기
- - L8: 달력으로 학습기록 확인하기
-
-<br>
-
-## 💙 UI 스타일 가이드라인  💙
-![스타일 가이드 (github 용) 무시하세요](https://github.com/user-attachments/assets/50fdb176-756b-4ec9-85d2-a90d75b0e2f9)
-
-## 💙 ESLint 룰셋 목록 💙
-```
- {
-    "useTabs": false,
-    "tabWidth": 2,
-    "printWidth": 120,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "semi": true,
-    "arrowParens": "always"
-}
-```
-
 ## 💙 Lighthouse 성능 지표 💙
 ### 개선 전
  - 문제점: <img> 태그에서 alt 누락
@@ -201,4 +154,4 @@ https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-
 * !HOTFIX : 급하게 치명적인 버그를 고쳐야 하는 경우
 
 예시
-feat : 타워 추가
+`[feat/#이슈번호]: 타워 추가`
