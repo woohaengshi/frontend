@@ -1,63 +1,41 @@
-🐾 제목
-> 2023년 여름학기, 산학연계프로젝트 5조 딩동팀입니다.
-> 
-<br/>
-
 ## 🧑‍💻 프로젝트 소개
-> 프로젝트명
+### 우리들의 행복한 시간 ⏰   
+> 우리FIS 아카데미 교육생들을 대상으로 공부한 시간을 측정하여 학습 기록을 확인할 수 있는 서비스
 
-딩동 커뮤니티✈️   
-[딩동커뮤니티에 접속하고 싶다면? 클릭해주세요! 👀](https://dingdong-front.vercel.app/)   
-<div>테스트 유저 ID: user1@email ~ user6@email</div>   
-<div>테스트 유저 PW: user1 ~ user6   </div>
+[우행시에 접속하고 싶다면? 클릭해주세요! 👀](https://woohangshi.vercel.app/)   
+- 테스트 유저 ID: test@test.com 
+- 테스트 유저 PW: test1234!
 
-<br/>
 
-> 프로젝트 목표
 
-하나의 게시글에서 독립적인 댓글이 허용된 커뮤니티로 댓글이 하나의 '객체'로 작용하도록 구현하는 것을 목표로 합니다.
+
 
 <br/>
 
-> 과제 접근 방법
+## 👻 팀원구성
+| <img src="https://github.com/riverkite0708.png" width="200" /> | <img src="https://github.com/Kong-E.png" width="200" /> | <img src="https://github.com/doyi0107.png" width="200" /> |
+|:---:|:---:|:---:|
+| [강재연](https://github.com/riverkite0708) | [공소연](https://github.com/Kong-E) | [이도이](https://github.com/doyi0107) |
+| 프론트엔드 | 프론트엔드 | 프론트엔드 |
+| 기록확인, 마이페이지 구현 | 인증/인가 담당, 공부하기 구현, API 설정 | 과목선택, 순위조회 구현 |
 
-사용자가 게시글, 답변 그리고 댓글을 스크랩하는 동작을 보이면 전체 복제본을 사용자가 가지게 됩니다.<p> 따라서 본문이나 다른 요소들이 삭제되더라도 저장된 요소는 사용자의 마이페이지에서 확인할 수 있습니다.
-
-<br/>
+| <img src="https://github.com/khwoowoo.png" width="200" /> | <img src="https://github.com/rlfrkdms1.png" width="200" /> | <img src="https://github.com/qbobl5.png" width="200" /> | <img src="https://github.com/yaejinkong.png" width="200" /> |
+|:---:|:---:|:---:|:---:|
+| [강현우](https://github.com/khwoowoo) | [길가은](https://github.com/rlfrkdms1) | [김혜빈](https://github.com/qbobl5) | [공예진](https://github.com/yaejinkong) |
+| 백엔드 | 백엔드 | 백엔드 | 백엔드 |
+| 백엔드 | 백엔드 | 백엔드 | 백엔드 |
 
 ## 🎞️ 시연영상
-> 비로그인 상태인 경우
-
 https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-48e9-a07e-87b7f9f425e9
 
 <br/>
 
-> 로그인 상태인 경우
-
-<b>'탈중앙화'라는 프로젝트 특성을 가장 많이 반영한 부분입니다.</b>
-
-https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/8d8ee6c3-4df4-4741-927b-1ef0b67dc947
-
-<br/>
-
 ## ⚙️ 시스템 아키텍처
-> 다음은 프로젝트 구조도입니다.
-<p align="center"><img src="https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/87259219/05093568-9cfe-49ca-8954-53550fc90bf8" width="70%" height="50%"></p>
-
-<br/>
-
-## 🧨 패키지설치
-- backend
-```
-cd server
-yarn install
-node server.js
-```
-- frontend
-```
-yarn install
-yarn start
-```
+### 프로젝트 구조도   
+![Group 292](https://github.com/user-attachments/assets/97c151ee-4875-4c52-b446-0f5b88dabaaa)
+---
+### 인프라 구조도   
+![image](https://github.com/user-attachments/assets/81017061-93c3-4720-9abc-eafc10874017)
 
 <br/>
 
@@ -69,10 +47,11 @@ yarn start
 
 ### Frontend   
 ![Next JS](https://img.shields.io/badge/Next.js-black?style=flat-square&logo=next.js&logoColor=white)
-![Zustand](https://img.shields.io/badge/zustand-orange?style=flat-square&logo=zustand&logoColor=white)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat-square&logo=typescript&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-orange?style=flat-square&logo=zustand&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-%23007ACC.svg?style=flat-square&logo=typescript&logoColor=white)
 ![authjs](https://img.shields.io/badge/Auth.js-1eabf4?style=flat-square&logo=nextauth&logoColor=black)
-![Radix UI](https://img.shields.io/badge/radix%20ui-161618.svg?style=flat-square&logo=radix-ui&logoColor=white)   
+![Radix UI](https://img.shields.io/badge/radix%20ui-161618.svg?style=flat-square&logo=radix-ui&logoColor=white)
+![SWR](https://img.shields.io/badge/SWR-black.svg?style=flat-square&logo=swr&logoColor=white)   
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=flat-square&logo=ESLint&logoColor=white)
 ![Prettier](https://img.shields.io/badge/prettier-%23F7B93E.svg?style=flat-square&logo=prettier&logoColor=black)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=Vercel&logoColor=white)
@@ -93,8 +72,7 @@ yarn start
 
 ## 🗂️ 폴더구조
 
-```yaml
-
+```
 ├── .next ▶️ Next의 빌드 결과물 폴더
 ├── node_modules ▶️ 프로젝트 관련 JS 라이브러리가 설치된 폴더
 ├── public ▶️ 이미지, 폰트와 같은 정적 자원들을 배치하는 폴더
@@ -147,18 +125,6 @@ yarn start
 
 <br/>
 
-## 👻 팀원구성
-| <img src="https://github.com/riverkite0708.png" width="200" /> | <img src="https://github.com/Kong-E.png" width="200" /> | <img src="https://github.com/doyi0107.png" width="200" /> |
-|:---:|:---:|:---:|
-| [강재연](https://github.com/riverkite0708) | [공소연](https://github.com/Kong-E) | [이도이](https://github.com/doyi0107) |
-| 프론트엔드 | 프론트엔드 | 프론트엔드 |
-
-| <img src="https://github.com/khwoowoo.png" width="200" /> | <img src="https://github.com/rlfrkdms1.png" width="200" /> | <img src="https://github.com/qbobl5.png" width="200" /> | <img src="https://github.com/yaejinkong.png" width="200" /> |
-|:---:|:---:|:---:|:---:|
-| [강현우](https://github.com/khwoowoo) | [길가은](https://github.com/rlfrkdms1) | [김혜빈](https://github.com/qbobl5) | [공예진](https://github.com/yaejinkong) |
-| 백엔드 | 백엔드 | 백엔드 | 백엔드 |
-
-
 ### 💙  이용 방법 💙
 <img width=800px src="https://github.com/user-attachments/assets/b5d300f4-778d-4983-9129-e69c3a6516a2">
 <img width=800px src="https://github.com/user-attachments/assets/c4586f30-75b2-4617-a1d6-c27180aaaff6">
@@ -181,34 +147,18 @@ yarn start
 ## 💙 UI 스타일 가이드라인  💙
 ![스타일 가이드 (github 용) 무시하세요](https://github.com/user-attachments/assets/50fdb176-756b-4ec9-85d2-a90d75b0e2f9)
 
-<br>
-
 ## 💙 ESLint 룰셋 목록 💙
 ```
  {
-     rules: {
-         semi: ['error', 'always'],
-         quotes: ['warn', 'single'],
-         'no-unused-vars': 'warn',
-         indent: ['error', 4],
-     },
- }
+    "useTabs": false,
+    "tabWidth": 2,
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "semi": true,
+    "arrowParens": "always"
+}
 ```
-#### 1. `semi`
-**설정:** `"semi": ["error", "always"]` <br>
-**이유:** 모든 문장 끝에 세미콜론을 사용하도록 강제. 자동 세미콜론 삽입(ASI)로 인한 예기치 않은 동작을 방지할 수 있기 때문에 추가.
-#### 2. `quotes`
-**설정:** `"quotes": ["warn", "single"]` <br>
-**이유:** 코드 내에서 일관된 따옴표 스타일을 유지. 'single'로 통일하기 위해 추가.
-#### 3. `no-unused-vars`
-**설정:** `"no-unused-vars": "warn"` <br>
-**이유:** 선언했지만 사용하지 않은 변수가 있으면 경고를 해줌. 불필요한 코드와 잠재적인 버그를 방지하기위해 추가.
-#### 4. `indent`
-**설정:** `"indent": ["error", 4]` <br>
-**이유:** 코드 가독성과 일관성을 위해 들여쓰기를 4칸으로 통일. 
-
-
-<br>
 
 ## 💙 Lighthouse 성능 지표 💙
 ### 개선 전
@@ -218,8 +168,6 @@ yarn start
 
 ### 개선 후
 <img width=800px src="https://github.com/woorifisa-service-dev-3rd/frontend-1st-woohaengshi/assets/23547185/84455224-1711-40f6-8679-8e54cca17043">
-
-<br>
 
 
 ## 💙 Commit 방법 💙  
