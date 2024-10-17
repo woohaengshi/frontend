@@ -17,9 +17,9 @@
 
 | <img src="https://github.com/khwoowoo.png" width="200" /> | <img src="https://github.com/rlfrkdms1.png" width="200" /> | <img src="https://github.com/qbobl5.png" width="200" /> | <img src="https://github.com/yaejinkong.png" width="200" /> |
 |:---:|:---:|:---:|:---:|
-| [강현우](https://github.com/khwoowoo) | [길가은](https://github.com/rlfrkdms1) | [김혜빈](https://github.com/qbobl5) | [공예진](https://github.com/yaejinkong) |
+| [강현우(팀장)](https://github.com/khwoowoo) | [길가은](https://github.com/rlfrkdms1) | [김혜빈](https://github.com/qbobl5) | [공예진](https://github.com/yaejinkong) |
 | 백엔드 | 백엔드 | 백엔드 | 백엔드 |
-| 백엔드 | 백엔드 | 백엔드 | 백엔드 |
+| 클라우드 인프라 구축, <br /> 랭킹 API 개발 | 백엔드 | 백엔드 | 백엔드 |
 
 ## 🎞️ 시연영상
 https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-48e9-a07e-87b7f9f425e9
