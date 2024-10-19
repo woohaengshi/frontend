@@ -38,12 +38,12 @@ https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-
 ## 📚 기술 스택
 ### Common   
 ![Notion](https://img.shields.io/badge/Notion-eeeeee.svg?style=flat-square&logo=notion&logoColor=000000)
-![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=flat-square&logo=github&logoColor=white)
+![GitHub](https://img.shields.io/badge/Github-%23121011.svg?style=flat-square&logo=github&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=postman&logoColor=white)
 
 ### UI/UX   
-![Radix UI](https://img.shields.io/badge/radix%20ui-161618.svg?style=flat-square&logo=radix-ui&logoColor=white)
-![figma](https://img.shields.io/badge/figma-f24e1e?style=flat-square&logo=figma&logoColor=ffffff)
+![Radix UI](https://img.shields.io/badge/Radix%20ui-161618.svg?style=flat-square&logo=radix-ui&logoColor=white)
+![figma](https://img.shields.io/badge/Figma-f24e1e?style=flat-square&logo=figma&logoColor=ffffff)
 
 ### Frontend   
 ![Next JS](https://img.shields.io/badge/Next.js-black?style=flat-square&logo=next.js&logoColor=white)
@@ -52,7 +52,7 @@ https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-
 ![authjs](https://img.shields.io/badge/Auth.js-1eabf4?style=flat-square&logo=nextauth&logoColor=black)
 ![SWR](https://img.shields.io/badge/SWR-black.svg?style=flat-square&logo=swr&logoColor=white)   
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=flat-square&logo=ESLint&logoColor=white)
-![Prettier](https://img.shields.io/badge/prettier-%23F7B93E.svg?style=flat-square&logo=prettier&logoColor=black)
+![Prettier](https://img.shields.io/badge/Prettier-%23F7B93E.svg?style=flat-square&logo=prettier&logoColor=black)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=Vercel&logoColor=white)
 
 ### Backend    
