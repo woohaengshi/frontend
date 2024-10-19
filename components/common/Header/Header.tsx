@@ -26,8 +26,6 @@ export default function Header() {
   const refreshToken = session?.user?.refreshToken;
 
   // 루트 경로에서만 특정 이벤트 추가
-  const [isScrolled, setIsScrolled] = useState(false);
-
   const pathname = usePathname();
   const isRootPath = pathname === '/';
 
@@ -36,7 +34,7 @@ export default function Header() {
       const header = document.querySelector(`.${styles.header_landing}`);
 
       gsap.to(header, {
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         scrollTrigger: {
           trigger: document.body,
           start: '2% 0%',
@@ -46,7 +44,7 @@ export default function Header() {
         },
       });
     }
-  }, [isRootPath]); // isRootPath를 의존성 배열에 추가
+  }, [isRootPath]); 
 
   // update();
 
