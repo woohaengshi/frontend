@@ -1,0 +1,32 @@
+.landing_wrap {
+    position: relative;
+    background-color: var(--main-color-1);
+}
+
+.first {
+    width: 100%;
+}
+
+.timer_img_wrap {
+    padding: 500px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+}
+
+.timer_img_desktop,
+.timer_img_mobile {
+    position: relative;
+    width: 50%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.timer_img_desktop {}
+
+.timer_img_mobile {
+    width: 20%;
+}
