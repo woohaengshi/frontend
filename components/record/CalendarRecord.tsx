@@ -4,7 +4,7 @@ import { levelColor } from '@/utils/levelUtils';
 import { formatTime } from '@/utils/formatTimeUtils';
 import CalendarModal from './Modal/CalendarModal';
 import { useState } from 'react';
-import { useEventStore } from '@/store/recordStore';
+import { useEventStore } from '@/stores/recordStore';
 
 export default function CalendarRecord({ nowDate, record }: { nowDate: number; record: IRecord }) {
   const record_color: string = levelColor(record.time);

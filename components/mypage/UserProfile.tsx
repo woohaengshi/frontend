@@ -9,7 +9,7 @@ import MypageTabMenu from './MypageTabMenu';
 import { patchPrpfileImg } from '@/apis/authApi';
 
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
-import useUserInfo from '@/hook/useUserInfo';
+import useUserInfo from '@/hooks/useUserInfo';
 
 export default function UserProfile() {
   const [imgUrl, setImgUrl] = useState('');

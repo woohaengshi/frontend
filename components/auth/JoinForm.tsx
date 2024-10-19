@@ -4,7 +4,7 @@ import InputField from './InputField';
 import CommonButton from '@/components/common/CommonButton';
 import { Box, Flex, RadioGroup, Text } from '@radix-ui/themes';
 import AuthFormLayout from './AuthFormLayout';
-import { useJoinStore } from '@/store/authStore';
+import { useJoinStore } from '@/stores/authStore';
 import { useState } from 'react';
 import { isValidPassword } from '@/utils/validateUtils';
 
