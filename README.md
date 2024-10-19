@@ -119,19 +119,7 @@ https://github.com/CSID-DGU/2023-S-VSA-DingDong-5/assets/96400257/600cb770-32b7-
 └── package.json ▶️ NPM 프로젝트 설정 파일
 ```
 
-<br/>
-
-## 💙 Lighthouse 성능 지표 💙
-### 개선 전
- - 문제점: <img> 태그에서 alt 누락
-<img width=800px src="https://github.com/woorifisa-service-dev-3rd/frontend-1st-woohaengshi/assets/23547185/890129f5-fdc6-4a64-96f4-93e88309acab">
-<img width=800px src="https://github.com/woorifisa-service-dev-3rd/frontend-1st-woohaengshi/assets/23547185/d1c42379-833a-44ca-8443-9a789a118494">
-
-### 개선 후
-<img width=800px src="https://github.com/woorifisa-service-dev-3rd/frontend-1st-woohaengshi/assets/23547185/84455224-1711-40f6-8679-8e54cca17043">
-
-
-## 💙 Commit 방법 💙  
+## 🎈 Commit 방법   
 꼭 다음의 방법을 따라서 커밋할 필요는 없지만, 알아보기 쉽게하기 위함.
 \
 커밋의 제목은 타입을 기재 후 간단한 요약(명령조)을 기재 함.
