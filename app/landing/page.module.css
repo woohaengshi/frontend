@@ -17,7 +17,6 @@
     width: 100%;
     height: 100%;
     top: 0;
-
 }
 
 /* 인트로 섹션 */
@@ -80,7 +79,7 @@
 .intro_btn {
     font-weight: bold;
     background-color: white;
-    padding: 10px 20px;
+    padding: 10px 15px;
     margin-top: 20px;
     margin-right: 10px;
     font-size: 16px;
@@ -92,6 +91,16 @@
 .intro_btn:hover {
     background-color: var(--main-color-2);
     color: white;
+}
+
+.inquiry_icon {
+    width: 27px;
+    padding-right: 8px;
+}
+
+.notion_icon {
+    width: 25px;
+    padding-right: 10px;
 }
 
 .intro_arrow_wrap {
@@ -138,18 +147,24 @@
     font-weight: 500;
 }
 
+
+
 /* 타이머소개섹션 */
 
 /* animation 설정*/
-.timer_detail,
-.timer_title,
-.timer_img_wrap {
+.timer_detail_wrap,
+.timer_img_wrap,
+.ranking_detail_wrap,
+.ranking_img_wrap,
+.cal_detail_wrap,
+.cal_img_wrap {
     opacity: 0;
-    transform: translateY(200px);
+    transform: translateY(150px);
+    transition: all 0.5s;
 }
 
 
-.timer_detail_wrap{
+.timer_detail_wrap {
     padding: 100px 0px 50px 0px;
     text-align: center;
 }
@@ -191,33 +206,85 @@
     transform: translate(-30%, 20%);
 }
 
-/* 랭킹 소개*/
-.ranking {
+/* 랭킹 소개, 기록 확인*/
+
+.ranking,
+.cal {
     width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.ranking_inner,
+.cal_inner {
+    width: 80%;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.ranking_img_wrap {
+.ranking_img_wrap,
+.cal_img_wrap {
     width: 50%;
     display: flex;
+}
+
+.ranking_img_wrap {
     justify-content: flex-end;
 }
 
-.ranking_img_desktop {
+.cal_img_wrap {
+    justify-content: flex-start;
+}
+
+.ranking_img_desktop,
+.cal_img_desktop {
     border-radius: 20px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     width: 80%;
 }
 
-.ranking_title{
+.cal_img_desktop {
+    width: 85%;
+}
+
+.ranking_title {
     display: flex;
     align-items: center;
     font-weight: bold;
 }
 
-.ranking_title_icon{
+.cal_title {
+    font-weight: bold;
+}
+
+.ranking_title_icon,
+.cal_title_icon {
     width: 50px;
+}
+
+.cal_detail_wrap {
+    padding-left: 100px;
+    text-align: left;
+}
+
+.cal_title_icon {
+    padding-right: 5px;
+}
+
+/* 기록확인 */
+
+.cal_img_desktop,
+.cal_record_img {
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cal_record_img {
+    width: 50%;
+    height: 80%;
+    right: 20%;
+    transform: translate(-40%, 60%);
 }

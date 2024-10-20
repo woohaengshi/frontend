@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { Box, Text } from '@radix-ui/themes';
 import styles from './page.module.css';
 import { useEffect, useRef } from 'react';
@@ -9,28 +9,58 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Landing() {
   const timerRef = useRef(null);
+  const rankingRef = useRef(null);
+  const calRef = useRef(null);
+
   useEffect(() => {
-    const timerTitle = document.querySelector(`.${styles.timer_title}`);
-    const timerDetail = document.querySelector(`.${styles.timer_detail}`);
+    const timerDetail = document.querySelector(`.${styles.timer_detail_wrap}`);
     const timerImgWrap = document.querySelector(`.${styles.timer_img_wrap}`);
+    const rankingDetail = document.querySelector(`.${styles.ranking_detail_wrap}`);
+    const rankingImgWrap = document.querySelector(`.${styles.ranking_img_wrap}`);
+    const calDetail = document.querySelector(`.${styles.cal_detail_wrap}`);
+    const calImgWrap = document.querySelector(`.${styles.cal_img_wrap}`);
 
     const commonGsapAni = {
       y: 0,
       opacity: 1,
-      ease: "circ.out",
+      ease: 'circ.out',
     };
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: timerRef.current,
-        start: '10% 80%',
+        start: '0% 80%',
         end: '50% 50%',
         scrub: true,
         markers: false,
       },
     });
 
-    tl.to(timerTitle, commonGsapAni).to(timerDetail, commonGsapAni).to(timerImgWrap, commonGsapAni);
+    tl.to(timerDetail, commonGsapAni).to(timerImgWrap, commonGsapAni);
+
+    const t2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: rankingRef.current,
+        start: '60% bottom',
+        end: 'bottom 70%',
+        scrub: true,
+        markers: false,
+      },
+    });
+
+    t2.to(rankingDetail, commonGsapAni, 0).to(rankingImgWrap, commonGsapAni, 0);
+
+    const t3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: calRef.current,
+        start: '0% bottom',
+        end: '50% 50%',
+        scrub: true,
+        markers: false,
+      },
+    });
+
+    t3.to(calDetail, commonGsapAni, 0).to(calImgWrap, commonGsapAni, 0);
   }, []);
 
   return (
@@ -56,14 +86,20 @@ export default function Landing() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className={styles.intro_btn}>문의하기</button>
+                <button className={styles.intro_btn}>
+                  <img src="/imgs/landing/inquiry.png" alt="문의하기아이콘" className={styles.inquiry_icon} />
+                  문의하기
+                </button>
               </a>
               <a
                 href="https://ionized-toad-6ee.notion.site/woohaengshi-8e37b80ac8c64feba132ae91bde8d4c8"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className={styles.intro_btn}>노션보러가기</button>
+                <button className={styles.intro_btn}>
+                  <img src="/imgs/landing/notion.png" alt="노션아이콘" className={styles.notion_icon} />
+                  노션보러가기
+                </button>
               </a>
             </div>
           </div>
@@ -87,7 +123,7 @@ export default function Landing() {
             공부시작
             <br />
           </Text>
-          <Text size="6" className={styles.timer_detail}>
+          <Text size="5" className={styles.timer_detail}>
             <br />
             내가 선택한 과목으로 공부 시간을 실시간으로 측정할 수 있어요. <br />
             언제 어디서든 공부를 시작하고 시간을 기록해보세요.
@@ -107,49 +143,58 @@ export default function Landing() {
         </div>
       </section>
       {/* 순위조회 소개 섹션 */}
-      <section className={styles.ranking}>
-        <div className={styles.ranking_detail_wrap}>
-          <Text size="8" className={styles.ranking_title}>
-            <img src="/imgs/landing/trophy.png" alt="트로피아이콘" className={styles.ranking_title_icon} />
-            순위조회
-            <br />
-          </Text>
-          <Text size="6" className={styles.ranking_detail}>
-            <br />
-            일, 주, 월별로 나의 학습 순위를 확인하고, <br />
-            다른 반 학생들과 경쟁할 수 있어요. <br />
-            매일 꾸준히 공부한 시간만큼 높은 순위에 오를 수 있습니다!
-          </Text>
-        </div>
-        <div className={styles.ranking_img_wrap}>
-          <img
-            src="/imgs/landing/landing_ranking_desktop.png"
-            alt="랜딩랭킹데스크탑"
-            className={styles.ranking_img_desktop}
-          />
+      <section ref={rankingRef} className={styles.ranking}>
+        <div className={styles.ranking_inner}>
+          <div className={styles.ranking_detail_wrap}>
+            <Text size="8" className={styles.ranking_title}>
+              <img src="/imgs/landing/trophy.png" alt="트로피아이콘" className={styles.ranking_title_icon} />
+              순위조회
+              <br />
+            </Text>
+            <Text size="5" className={styles.ranking_detail}>
+              <br />
+              일, 주, 월별로 나의 학습 순위를 확인하고, <br />
+              다른 반 학생들과 경쟁할 수 있어요. <br />
+              매일 꾸준히 공부한 시간만큼 높은 순위에 오를 수 있습니다!
+            </Text>
+          </div>
+          <div className={styles.ranking_img_wrap}>
+            <img
+              src="/imgs/landing/landing_ranking_desktop.png"
+              alt="랜딩랭킹데스크탑"
+              className={styles.ranking_img_desktop}
+            />
+          </div>
         </div>
       </section>
       {/* 기록확인 소개 섹션 */}
-      <section className={styles.ranking}>
-        <div className={styles.ranking_img_wrap}>
-          <img
-            src="/imgs/landing/landing_cal_desktop.png"
-            alt="랜딩랭킹데스크탑"
-            className={styles.ranking_img_desktop}
-          />
-        </div>
-        <div className={styles.ranking_detail_wrap}>
-          <Text size="8" className={styles.ranking_title}>
-            <img src="/imgs/landing/trophy.png" alt="트로피아이콘" className={styles.ranking_title_icon} />
-            랭킹확인
-            <br />
-          </Text>
-          <Text size="6" className={styles.ranking_detail}>
-            <br />
-            일, 주, 월별로 나의 학습 순위를 확인하고, <br />
-            다른 반 학생들과 경쟁할 수 있어요. <br />
-            매일 꾸준히 공부한 시간만큼 높은 순위에 오를 수 있습니다!
-          </Text>
+      <section ref={calRef} className={styles.cal}>
+        <div className={styles.cal_inner}>
+          <div className={styles.cal_img_wrap}>
+            <img src="/imgs/landing/landing_cal_desktop.png" alt="랜딩캘린더모달" className={styles.cal_img_desktop} />
+            <img
+              src="/imgs/landing/landing_cal_record.png"
+              alt="랜딩캘린더기록확인"
+              className={styles.cal_record_img}
+            />
+          </div>
+          <div className={styles.cal_detail_wrap}>
+            <Text size="8" className={styles.cal_title}>
+              <img src="/imgs/landing/cal.png" alt="트로피아이콘" className={styles.cal_title_icon} />
+              기록확인
+              <br />
+            </Text>
+            <Text size="5" className={styles.cal_detail}>
+              <br />
+              한눈에 나의 학습 기록을 확인해보세요.
+              <br />
+              일별로 공부한 시간을 달력에 표시하고, <br />
+              어떤 과목을 공부했는지 쉽게 확인 가능합니다.
+              <br />
+              해당 날짜를 클릭하면, <br />
+              모달창에서 나만의 회고록을 작성할 수 있어요.
+            </Text>
+          </div>
         </div>
       </section>
     </Box>
