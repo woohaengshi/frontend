@@ -1,10 +1,11 @@
-'use client'
 import { Box, Text } from '@radix-ui/themes';
 import styles from './page.module.css';
 
 export default function Landing() {
+
+
   return (
-    <Box px="9" className={styles.landing_wrap}>
+    <Box className={styles.landing_wrap}>
       <section className={styles.intro}>
         <div className={styles.intro_section}>
           <div className={styles.timer_icon_wrap}>
@@ -42,8 +43,27 @@ export default function Landing() {
           <img src="/imgs/landing/arrow.png" alt="스크롤 유도 아이콘" className={styles.arrow} />
         </div>
       </section>
+      <section className={styles.add_explane}>
+        <Text size="8" className={styles.add_explane_text}>
+          시간 측정부터 과목 선택, 랭킹 확인까지 한 번에! <br />
+          교육생의 학습 시간을 체계적으로 관리할 수 있는 서비스, <br />
+          우행시와 함께라면 성장을 눈으로 확인할 수 있습니다.
+        </Text>
+      </section>
       {/* 타이머 소개 섹션 */}
-      <section className={styles.timer_detail}>
+      <section  className={styles.timer}>
+        <div className={styles.timer_detail_wrap}>
+          <Text size="8" className={styles.timer_title}>
+            <img src="/imgs/landing/clock.png" alt="타이머소개아이콘" className={styles.timer_title_icon} />
+            공부시작
+            <br />
+          </Text>
+          <Text size="5" className={styles.timer_detail}>
+            <br />
+            내가 선택한 과목으로 공부 시간을 실시간으로 측정할 수 있어요. <br />
+            언제 어디서든 공부를 시작하고 시간을 기록해보세요.
+          </Text>
+        </div>
         <div className={styles.timer_img_wrap}>
           <img
             src="/imgs/landing/landing_timer_desktop.png"
@@ -57,7 +77,6 @@ export default function Landing() {
           />
         </div>
       </section>
-      <section>3</section>
     </Box>
   );
 }
