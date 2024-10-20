@@ -76,13 +76,22 @@ export const signOut = async () => {
 };
 
 //프로필 이미지 업데이트
-export const patchPrpfileImg = async (formData: FormData) => {
-  console.log(typeof(formData));
-  
+export const patchProfileImg = async (formData: FormData) => {
+
+  console.log('in call()');
+
   const response = await instance('members/image', {
     body: formData,
     method: 'PATCH',
+    header : {
+      'Content-Type': 'multipart/form-data',
+    },
+    credentials: 'include',
+    isMultipart: true, //멀티파트 폼 데이터가 서버로 전송된다는 것을 명시
   });
+  console.log('in call()22');
+
+  
 
   return response;
 };

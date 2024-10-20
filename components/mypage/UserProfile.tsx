@@ -6,10 +6,10 @@ import styles from './UserProfile.module.css';
 import ico_profile_img_file from '@/assets/icons/profile_img_file.png';
 import Image from 'next/image';
 import MypageTabMenu from './MypageTabMenu';
-import { patchPrpfileImg } from '@/apis/authApi';
+import { patchProfileImg } from '@/apis/authApi';
 
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
-import useUserInfo from '@/hook/useUserInfo';
+import useUserInfo from '@/hooks/useUserInfo';
 
 export default function UserProfile() {
   const [imgUrl, setImgUrl] = useState('');
@@ -26,24 +26,37 @@ export default function UserProfile() {
       return; // 파일이 선택되지 않은 경우 함수 종료
     }
 
+    //FileReader(브라우저에서 파일을 읽을 수 있도록 도와주는 API)객체 생성
     const reader = new FileReader();
+    // readAsDataURL 메서드가 파일을 읽고, 그 결과를 Base64로 인코딩된 데이터 URL로 변환
     reader.readAsDataURL(file);
+
+    // onloadend는 파일을 읽는 작업이 완료된 후 호출되는 이벤트 핸들러
     reader.onloadend = async () => {
-      const result = reader.result as string; // 이미지 데이터 URL
-      console.log(result);
-      
+
+      //파일이 성공적으로 읽히면, 그 결과(reader.result)는 데이터 URL -> 화면에 미리보기
+      const result = reader.result as string; 
+       
       setImgUrl(result); // 읽은 결과를 imgUrl에 설정
 
+      //이미지 파일을 서버로 전송하기 위해 FormData 객체를 생성
       const formData = new FormData();  
+      // FormData는 key-value 형태로 데이터를 담아 전송할 수 있는 객체로, 파일을 포함한 데이터를 서버에 보낼 때 유용
       formData.append('image', file);
+ 
 
-      const response = await patchPrpfileImg(formData);
+      console.log(formData);
+      
 
-      if (response.ok) {
+      const response = await patchProfileImg(formData);
+      console.log(response);
+      
+
+      if (response.ok) {  
         console.log('프로필 이미지 업데이트 성공');
         alert('프로필 이미지가 성공적으로 업데이트 되었습니다.');
       } else {
-        const errorData = await response.json();
+        const errorData = await response;
         console.error('프로필 이미지 업데이트 실패', errorData);
       }
     };

@@ -2,7 +2,7 @@ import React from 'react';
 import SubjectSelectForm from './SubjectSelectForm';
 import SubjectEditForm from './SubjectEditForm';
 import styles from './SubjectForm.module.css';
-import { useSubjectStore } from '@/store/subjectStore';
+import { useSubjectStore } from '@/stores/subjectStore';
 
 interface SubjectEditFormProps {
   closeSubjectEditForm: () => void;

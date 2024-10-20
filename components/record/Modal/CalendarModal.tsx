@@ -3,7 +3,7 @@
 import styles from './CalendarModal.module.css';
 import { Box, Dialog, Flex, Inset, Tabs, Text } from '@radix-ui/themes';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import { useEventStore, useSelectedMonthStore, useSelectedYearStore, useTextareaStore } from '@/store/recordStore';
+import { useEventStore, useSelectedMonthStore, useSelectedYearStore, useTextareaStore } from '@/stores/recordStore';
 import { levelColor } from '@/utils/levelUtils';
 import ModalInTabEdit from './ModalInTabEdit';
 import { useEffect } from 'react';

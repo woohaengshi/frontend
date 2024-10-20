@@ -1,6 +1,6 @@
 'use client';
 
-import { useEventStore, useTextareaStore } from '@/store/recordStore';
+import { useEventStore, useTextareaStore } from '@/stores/recordStore';
 import { Box, Card, Flex, Strong, Text } from '@radix-ui/themes';
 import { useEffect, useState } from 'react';
 
