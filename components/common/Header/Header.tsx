@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Box, Flex, Heading, Strong, Text } from '@radix-ui/themes';
 import styles from './Header.module.css';
 import HeaderNav from './HeaderNav';
-import rankingImg from '@/assets/icons/ranking_profile_img.png';
+import rankingImg from '@/public/imgs/ranking/ranking_profile_img.png';
 import Image from 'next/image';
 
 import { useUserInfoStore } from '@/stores/memberStore';

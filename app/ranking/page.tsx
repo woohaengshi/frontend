@@ -4,7 +4,7 @@ import TopRankings from '@/components/ranking/topRanking';
 import FullRankingList from '@/components/ranking/fullRankingList';
 import { Box, Flex } from '@radix-ui/themes';
 import styles from './page.module.css';
-import rankingImg from '@/assets/icons/ranking_profile_img.png';
+import rankingImg from '@/public/imgs/ranking/ranking_profile_img.png';
 import { getMemberRanking } from '@/apis/rankingApi';
 import { Student, ApiResponse } from '@/types/rankingType';
 

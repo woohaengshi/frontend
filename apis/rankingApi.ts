@@ -1,6 +1,6 @@
 import { instance } from './instance';
 import { ApiResponse } from '../types/rankingType';
-import rankingImg from '../assets/icons/ranking_profile_img.png';
+import rankingImg from '@/public/imgs/ranking/ranking_profile_img.png';
 
 //랭킹 조회 api
 export const getMemberRanking = async ({
