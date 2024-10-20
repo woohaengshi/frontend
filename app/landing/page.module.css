@@ -17,6 +17,7 @@
     width: 100%;
     height: 100%;
     top: 0;
+
 }
 
 /* 인트로 섹션 */
@@ -128,46 +129,31 @@
     width: 100%;
     background-color: #fdfdfd;
     text-align: center;
-    padding: 200px 0px;
+    padding: 150px 0px;
 }
 
 .add_explane_text {
+    font-size: 30px;
     line-height: 55px;
     font-weight: 500;
 }
 
 /* 타이머소개섹션 */
 
-.timer {
-    background-color: #fff;
-}
-
 /* animation 설정*/
-.timer_detail_wrap,
+.timer_detail,
 .timer_title,
 .timer_img_wrap {
-    animation: 1.5s ease 0s 1 normal forwards running up;
-    animation-timeline: view();
-    opacity: 1;
-}
-
-@keyframes up {
-    0% {
-        opacity: 0;
-        transform: translate3d(0px, 10%, 0px);
-    }
-
-    70% {
-        opacity: 1;
-        transform: translateZ(0px);
-    }
+    opacity: 0;
+    transform: translateY(200px);
 }
 
 
-.timer_detail_wrap {
-    padding: 0px 0px 50px 0px;
+.timer_detail_wrap{
+    padding: 100px 0px 50px 0px;
     text-align: center;
 }
+
 
 .timer_title {
     font-weight: bold;
@@ -181,14 +167,15 @@
     padding-right: 10px;
 }
 
+
 .timer_img_wrap {
-    padding: 0px 0px 150px 0px;
+    padding-bottom: 100px;
 }
 
 .timer_img_desktop,
 .timer_img_mobile {
     position: relative;
-    width: 50%;
+    width: 45%;
     border-radius: 20px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
@@ -199,7 +186,38 @@
 }
 
 .timer_img_mobile {
-    width: 17%;
-    left: 20%;
+    width: 15%;
+    left: 25%;
     transform: translate(-30%, 20%);
+}
+
+/* 랭킹 소개*/
+.ranking {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ranking_img_wrap {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ranking_img_desktop {
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    width: 80%;
+}
+
+.ranking_title{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.ranking_title_icon{
+    width: 50px;
 }
