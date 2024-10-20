@@ -9,8 +9,13 @@ import Image from 'next/image';
 
 import { useUserInfoStore } from '@/stores/memberStore';
 import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getUserInfo } from '@/apis/memberApi';
+import { usePathname } from 'next/navigation';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Header() {
   const { userInfo, setUserInfo } = useUserInfoStore();
@@ -19,6 +24,29 @@ export default function Header() {
 
   const accessToken = session?.user?.accessToken;
   const refreshToken = session?.user?.refreshToken;
+
+  // 루트 경로에서만 특정 이벤트 추가
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const pathname = usePathname();
+  const isRootPath = pathname === '/';
+
+  useEffect(() => {
+    if (isRootPath) {
+      const header = document.querySelector(`.${styles.header_landing}`);
+
+      gsap.to(header, {
+        backgroundColor: '#fff',
+        scrollTrigger: {
+          trigger: document.body,
+          start: '2% 0%',
+          end: '10% 20%',
+          scrub: true,
+          markers: false,
+        },
+      });
+    }
+  }, [isRootPath]); // isRootPath를 의존성 배열에 추가
 
   // update();
 
@@ -46,7 +74,7 @@ export default function Header() {
 
   return (
     <Box px="5" asChild>
-      <header className={styles.header}>
+      <header className={`${isRootPath ? styles.header_landing : styles.header}`}>
         <Box className={styles.header_inner}>
           <Heading as="h1" className={styles.logo}>
             <Link href="/">
