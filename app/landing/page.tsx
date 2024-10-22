@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,7 +69,15 @@ export default function Landing() {
       <section className={styles.intro}>
         <div className={styles.intro_section}>
           <div className={styles.timer_icon_wrap}>
-            <img src="/imgs/landing/landing_timer_icon.png" alt="랜딩타이머아이콘" className={styles.timer_icon} />
+            <Image
+              src="/imgs/landing/landing_timer_icon.png"
+              alt="랜딩타이머아이콘"
+              className={styles.timer_icon}
+              width={500}
+              height={500}
+              quality={100}
+              layout="responsive"
+            />
           </div>
           <div className={styles.intro_text_wrap}>
             <Text className={styles.intro_text}>
@@ -147,7 +156,14 @@ export default function Landing() {
         <div className={styles.ranking_inner}>
           <div className={styles.ranking_detail_wrap}>
             <Text size="8" className={styles.ranking_title}>
-              <img src="/imgs/landing/trophy.png" alt="트로피아이콘" className={styles.ranking_title_icon} />
+              <Image
+                src="/imgs/landing/trophy.png"
+                width={50}
+                height={50}
+                quality={100}
+                alt="트로피아이콘"
+                className={styles.ranking_title_icon}
+              />
               순위조회
               <br />
             </Text>
@@ -180,7 +196,14 @@ export default function Landing() {
           </div>
           <div className={styles.cal_detail_wrap}>
             <Text size="8" className={styles.cal_title}>
-              <img src="/imgs/landing/cal.png" alt="트로피아이콘" className={styles.cal_title_icon} />
+              <Image
+                src="/imgs/landing/cal.png"
+                width={50}
+                height={50}
+                quality={100}
+                alt="트로피아이콘"
+                className={styles.cal_title_icon}
+              />
               기록확인
               <br />
             </Text>
@@ -188,11 +211,11 @@ export default function Landing() {
               <br />
               한눈에 나의 학습 기록을 확인해보세요.
               <br />
-              일별로 공부한 시간을 달력에 표시하고, <br />
-              어떤 과목을 공부했는지 쉽게 확인 가능합니다.
+              일별 공부 시간을 달력에 표시하고, <br />
+              각 날짜에 공부한 과목을 쉽게 확인할 수 있어요.
               <br />
               해당 날짜를 클릭하면, <br />
-              모달창에서 나만의 회고록을 작성할 수 있어요.
+              모달창에서 나만의 회고록을 작성할 수 있습니다.
             </Text>
           </div>
         </div>
