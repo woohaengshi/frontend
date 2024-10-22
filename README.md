@@ -19,7 +19,7 @@
 |:---:|:---:|:---:|:---:|
 | [강현우(팀장)](https://github.com/khwoowoo) | [길가은](https://github.com/rlfrkdms1) | [김혜빈](https://github.com/qbobl5) | [공예진](https://github.com/yaejinkong) |
 | 백엔드 | 백엔드 | 백엔드 | 백엔드 |
-| 클라우드 인프라 구축, <br /> 랭킹 API 개발 | 백엔드 | CI 환경 구축, <br /> 캘린더 API 개발 | 백엔드 |
+| 클라우드 인프라 구축, <br /> 랭킹 API 개발 | 공부시간 기록 API, <br /> 인증 및 인가, 이메일 인증 기능 | CI 환경 구축, <br /> 캘린더 API 개발 | 백엔드 |
 
 <br/>
 
