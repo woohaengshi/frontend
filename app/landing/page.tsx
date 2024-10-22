@@ -53,8 +53,8 @@ export default function Landing() {
     const t3 = gsap.timeline({
       scrollTrigger: {
         trigger: calRef.current,
-        start: '0% bottom',
-        end: '50% 50%',
+        start: '0% 50%',
+        end: '50% 30%',
         scrub: true,
         markers: false,
       },
