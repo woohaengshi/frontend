@@ -25,19 +25,17 @@
     top: 0;
     left: 0;
     height: 95vh;
-    padding: 0px 90px;
-    background: linear-gradient(to bottom, #F9F9FF 10%, #e7dcfd 50%, #d0d4ff 100%);
+    background: linear-gradient(to bottom, #FFF 3%, #F9F9FF 10%, #e7dcfd 50%, #d0d4ff 100%);
 }
 
 .intro_section {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 20px 0px;
 }
 
 .timer_icon_wrap {
-    width: 37%;
+    width: 35%;
     height: auto;
 }
 
@@ -60,7 +58,7 @@
 }
 
 .intro_text_wrap {
-    padding: 0px 80px;
+    padding: 0px 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -175,10 +173,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 .timer_title_icon {
-    width: 30px;
+    width: 35px;
+    height: 35px;
     padding-right: 10px;
 }
 
