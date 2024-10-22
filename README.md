@@ -13,13 +13,13 @@
 |:---:|:---:|:---:|
 | [강재연](https://github.com/riverkite0708) | [공소연](https://github.com/Kong-E) | [이도이](https://github.com/doyi0107) |
 | 프론트엔드 | 프론트엔드 | 프론트엔드 |
-| UI 가이드라인, <br /> 기록확인, 마이페이지 구현 | 인증/인가,공부하기 구현, <br /> API 설정 | 랜딩 페이지, 과목선택, <br /> 순위조회 구현 |
+| UI 가이드라인, <br /> 기록확인, 마이페이지 구현 | 인증/인가, 공부하기 구현, <br /> API 설정 | 랜딩 페이지, 과목선택, <br /> 순위조회 구현 |
 
 | <img src="https://github.com/khwoowoo.png" width="200" /> | <img src="https://github.com/rlfrkdms1.png" width="200" /> | <img src="https://github.com/qbobl5.png" width="200" /> | <img src="https://github.com/yaejinkong.png" width="200" /> |
 |:---:|:---:|:---:|:---:|
 | [강현우(팀장)](https://github.com/khwoowoo) | [길가은](https://github.com/rlfrkdms1) | [김혜빈](https://github.com/qbobl5) | [공예진](https://github.com/yaejinkong) |
 | 백엔드 | 백엔드 | 백엔드 | 백엔드 |
-| 클라우드 인프라 구축, <br /> 랭킹 API 개발 | 공부시간 기록 API, <br /> 인증 및 인가, 이메일 인증 기능 | CI 환경 구축, <br /> 캘린더 API 개발 | 백엔드 |
+| 클라우드 인프라 구축, <br /> 랭킹 API 개발 | 인증/인가, 이메일 인증 기능, <br /> 공부시간 기록 API 개발 | CI 환경 구축, <br /> 캘린더 API 개발 | 백엔드 |
 
 <br/>
 
