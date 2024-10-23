@@ -77,8 +77,8 @@ export const signOut = async () => {
 
 //프로필 이미지 업데이트
 export const patchPrpfileImg = async (formData: FormData) => {
-  console.log(typeof(formData));
-  
+  console.log(typeof formData);
+
   const response = await instance('members/image', {
     body: formData,
     method: 'PATCH',

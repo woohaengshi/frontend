@@ -52,7 +52,6 @@ const fetchInstance = async (url: string, options: RequestOptions = {}) => {
     } else {
       return await response.text();
     }
-    
   } catch (error) {
     console.error('Fetch Error:', error);
     throw error;

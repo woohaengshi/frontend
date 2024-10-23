@@ -17,6 +17,3 @@ export const postPwUpdate = async ({ oldPassword, newPassword }: { oldPassword: 
   });
   return response;
 };
-
-
-

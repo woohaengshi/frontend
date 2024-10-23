@@ -1,7 +1,6 @@
 import { Box } from '@radix-ui/themes';
 import Image from 'next/image';
-import Landing from './landing/page';
- 
+import Landing from '@/components/landing/Landing';
 
 export default function Page() {
   // const rand = Math.floor(Math.random() * 3);

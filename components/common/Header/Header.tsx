@@ -34,8 +34,8 @@ export default function Header() {
       const header = document.querySelector(`.${styles.header_landing}`);
 
       gsap.to(header, {
-        backgroundColor: 'rgba(255, 255, 255, 0.5)', 
-        backdropFilter: 'blur(8px)', 
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backdropFilter: 'blur(8px)',
         scrollTrigger: {
           trigger: document.body,
           start: '2% 0%',
@@ -45,7 +45,7 @@ export default function Header() {
         },
       });
     }
-  }, [isRootPath]); 
+  }, [isRootPath]);
 
   // update();
 

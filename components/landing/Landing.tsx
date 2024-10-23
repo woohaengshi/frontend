@@ -1,6 +1,6 @@
 'use client';
 import { Box, Text } from '@radix-ui/themes';
-import styles from './page.module.css';
+import styles from './Landing.module.css';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

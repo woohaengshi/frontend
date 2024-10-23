@@ -31,10 +31,10 @@ export default function UserProfile() {
     reader.onloadend = async () => {
       const result = reader.result as string; // 이미지 데이터 URL
       console.log(result);
-      
+
       setImgUrl(result); // 읽은 결과를 imgUrl에 설정
 
-      const formData = new FormData();  
+      const formData = new FormData();
       formData.append('image', file);
 
       const response = await patchPrpfileImg(formData);
