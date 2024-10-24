@@ -7,7 +7,9 @@ import { redirect } from 'next/dist/server/api-utils';
 
 interface RequestOptions {
   headers?: Record<string, string>;
-  [key: string]: string | Record<string, string> | undefined;
+  isMultipart?: boolean; // 멀티파트 여부를 나타내는 속성 추가
+  body?: any; // 요청 본문에 대한 타입 정의
+  [key: string]: any; // 다른 속성 허용
 }
 
 const fetchInstance = async (url: string, options: RequestOptions = {}) => {
@@ -15,9 +17,15 @@ const fetchInstance = async (url: string, options: RequestOptions = {}) => {
   const accessToken = session?.user?.accessToken;
 
   const headers: RequestOptions['headers'] = {
-    'Content-Type': 'application/json',
     ...options.headers,
   };
+
+  // FormData인 경우 Content-Type 설정 제거
+  if (options.body instanceof FormData) {
+    delete headers['Content-Type'];
+  } else {
+    headers['Content-Type'] = 'application/json';
+  }
 
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`;
@@ -35,7 +43,7 @@ const fetchInstance = async (url: string, options: RequestOptions = {}) => {
         console.error('Token Expired');
       }
       console.error('Fetch Error:', errorResponse);
-      return { error: errorResponse };
+      return response;
     }
 
     if (response.headers.get('Content-Type')?.includes('application/json')) {
