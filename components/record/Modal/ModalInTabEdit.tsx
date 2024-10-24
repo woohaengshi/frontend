@@ -7,7 +7,7 @@ import {
   useCommentStore,
   useAddedSubjectStore,
   useDeletedSubjectStore,
-} from '@/store/recordStore';
+} from '@/stores/recordStore';
 import { Box, Card, Flex, Strong } from '@radix-ui/themes';
 import { useEffect, useState } from 'react';
 

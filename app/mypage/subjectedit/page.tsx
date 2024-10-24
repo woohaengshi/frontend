@@ -2,7 +2,7 @@
 'use client';
 
 import SubjectEditForm from '@/components/study/SubjectEditForm';
-import { useSubjectStore } from '@/store/subjectStore';
+import { useSubjectStore } from '@/stores/subjectStore';
 export default function Page() {
   const { setEditing, saveEditing } = useSubjectStore((state) => ({
     setEditing: state.setEditing,

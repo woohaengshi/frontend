@@ -1,6 +1,6 @@
 import { Box, Text } from '@radix-ui/themes';
 import CommonButton from '@/components/common/CommonButton';
-import { usePwUpdateStore } from '@/store/memberStore';
+import { usePwUpdateStore } from '@/stores/memberStore';
 import { useState } from 'react';
 import { isValidPassword } from '@/utils/validateUtils';
 

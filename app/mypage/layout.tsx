@@ -7,7 +7,7 @@ import SmallButton from '@/components/common/SmallButton';
 import { signOut as signOutFromBackend } from '@/apis/authApi';
 import { signOut as signOutFromAuth } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useUserInfoStore } from '@/store/memberStore';
+import { useUserInfoStore } from '@/stores/memberStore';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const route = useRouter();

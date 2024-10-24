@@ -7,7 +7,7 @@ import HeaderNav from './HeaderNav';
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
 import Image from 'next/image';
 
-import { useUserInfoStore } from '@/store/memberStore';
+import { useUserInfoStore } from '@/stores/memberStore';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { getUserInfo } from '@/apis/memberApi';

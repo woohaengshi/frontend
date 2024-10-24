@@ -2,7 +2,7 @@
 
 import { signUp } from '@/apis/authApi';
 import JoinForm from '@/components/auth/JoinForm';
-import { useJoinStore } from '@/store/authStore';
+import { useJoinStore } from '@/stores/authStore';
 import { useRouter } from 'next/navigation';
 
 export default function Join() {

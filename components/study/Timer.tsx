@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import TimerToggleBtn from './TimerToggleBtn';
 import { Subject } from '@/types/studyType';
 import { formatTime, getCurrentDate } from '@/utils/formatTimeUtils';
-import { useSubjectStore } from '@/store/subjectStore';
+import { useSubjectStore } from '@/stores/subjectStore';
 import Cookies from 'js-cookie';
 import { postTimer } from '@/apis/studyApi';
 import { useRouter } from 'next/navigation';

@@ -5,10 +5,10 @@ import { Box, Container, Flex, Heading, Text } from '@radix-ui/themes';
 import { useCallback, useEffect, useState } from 'react';
 import styles from './FullCalendar.module.css';
 import MonthPicker from './MonthPicker';
-import { useFetchStore, useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/store/recordStore';
+import { useFetchStore, useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/stores/recordStore';
 import CalendarRecord from './CalendarRecord';
-import useRefreshMonthlyData from '@/hook/useRefreshMonthlyData';
-import useIsMobile from '@/hook/useIsMobile';
+import useRefreshMonthlyData from '@/hooks/useRefreshMonthlyData';
+import useIsMobile from '@/hooks/useIsMobile';
 
 interface IMonthlyData {
   year: number;

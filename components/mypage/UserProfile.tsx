@@ -8,7 +8,7 @@ import Image from 'next/image';
 import MypageTabMenu from './MypageTabMenu';
 
 import rankingImg from '@/assets/icons/ranking_profile_img.png';
-import useUserInfo from '@/hook/useUserInfo';
+import useUserInfo from '@/hooks/useUserInfo';
 
 export default function UserProfile() {
   const [imgUrl, setImgUrl] = useState('');
