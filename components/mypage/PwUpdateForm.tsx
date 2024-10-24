@@ -66,7 +66,7 @@ export default function PwUpdateForm({ onUpdate }: IUpdateForm) {
   };
 
   return (
-    <Box className="form_box">
+    <Box className="form_box" p="1">
       <form onSubmit={submitHandler}>
         <Box className="row">
           <Text as="label" weight="medium">

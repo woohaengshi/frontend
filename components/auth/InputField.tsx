@@ -11,13 +11,13 @@ interface InputFieldProps {
 
 export default function InputField({ label, id, type = 'text', placeholder, value, onChange }: InputFieldProps) {
   return (
-    <Box mt="3" className="row">
+    <>
       <Text as="label" weight="medium" htmlFor={id}>
         {label}
       </Text>
       <Box mt="2">
         <input type={type} id={id} placeholder={placeholder} value={value} onChange={onChange} />
       </Box>
-    </Box>
+    </>
   );
 }

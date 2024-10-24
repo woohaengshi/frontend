@@ -15,12 +15,10 @@ import { getUserInfo } from '@/apis/memberApi';
 export default function Header() {
   const { userInfo, setUserInfo } = useUserInfoStore();
 
-  const { data: session, update } = useSession();
+  const { data: session } = useSession();
 
   const accessToken = session?.user?.accessToken;
   const refreshToken = session?.user?.refreshToken;
-
-  // update();
 
   useEffect(() => {
     const storedUserInfo = localStorage.getItem('userInfo');
@@ -42,7 +40,7 @@ export default function Header() {
         }
       }
     })();
-  }, [accessToken, refreshToken, setUserInfo]);
+  });
 
   return (
     <Box px="5" asChild>

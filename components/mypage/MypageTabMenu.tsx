@@ -18,6 +18,7 @@ export default function MypageTabMenu() {
     { link: '/mypage', title: '내 배지 조회' },
     { link: '/mypage/subjectedit', title: '과목 편집' },
     { link: '/mypage/pwupdate', title: '비밀번호 수정' },
+    { link: '/mypage/infoupdate', title: '회원정보 수정' },
   ];
 
   const [pathTabTitle] = tabMenu.filter((tab) => {
