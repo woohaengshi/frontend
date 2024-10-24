@@ -6,12 +6,12 @@ import { useJoinStore } from '@/stores/authStore';
 import { useRouter } from 'next/navigation';
 
 export default function Join() {
-  const { email, name, password, image, course, setAllEmpty } = useJoinStore();
+  const { email, name, password, course, setAllEmpty } = useJoinStore();
   const route = useRouter();
 
   const handleJoin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await signUp({ email, name, password, image, course });
+    const response = await signUp({ email, name, password, course });
 
     // response가 error 속성을 가지고 있다면 에러 처리
     if (response.error) {
