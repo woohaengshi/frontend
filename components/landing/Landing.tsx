@@ -13,14 +13,14 @@ export default function Landing() {
   const rankingRef = useRef(null);
   const calRef = useRef(null);
 
-  useEffect(() => {
-    const timerDetail = document.querySelector(`.${styles.timer_detail_wrap}`);
-    const timerImgWrap = document.querySelector(`.${styles.timer_img_wrap}`);
-    const rankingDetail = document.querySelector(`.${styles.ranking_detail_wrap}`);
-    const rankingImgWrap = document.querySelector(`.${styles.ranking_img_wrap}`);
-    const calDetail = document.querySelector(`.${styles.cal_detail_wrap}`);
-    const calImgWrap = document.querySelector(`.${styles.cal_img_wrap}`);
+  const timerDetailRef = useRef(null);
+  const timerImgWrapRef = useRef(null);
+  const rankingDetailRef = useRef(null);
+  const rankingImgWrapRef = useRef(null);
+  const calDetailRef = useRef(null);
+  const calImgWrapRef = useRef(null);
 
+  useEffect(() => {
     const commonGsapAni = {
       y: 0,
       opacity: 1,
@@ -37,7 +37,7 @@ export default function Landing() {
       },
     });
 
-    tl.to(timerDetail, commonGsapAni).to(timerImgWrap, commonGsapAni);
+    tl.to(timerDetailRef.current, commonGsapAni).to(timerImgWrapRef.current, commonGsapAni);
 
     const t2 = gsap.timeline({
       scrollTrigger: {
@@ -49,7 +49,7 @@ export default function Landing() {
       },
     });
 
-    t2.to(rankingDetail, commonGsapAni, 0).to(rankingImgWrap, commonGsapAni, 0);
+    t2.to(rankingDetailRef.current, commonGsapAni, 0).to(rankingImgWrapRef.current, commonGsapAni, 0);
 
     const t3 = gsap.timeline({
       scrollTrigger: {
@@ -61,7 +61,7 @@ export default function Landing() {
       },
     });
 
-    t3.to(calDetail, commonGsapAni, 0).to(calImgWrap, commonGsapAni, 0);
+    t3.to(calDetailRef.current, commonGsapAni, 0).to(calImgWrapRef.current, commonGsapAni, 0);
   }, []);
 
   return (
@@ -80,10 +80,7 @@ export default function Landing() {
             />
           </div>
           <div className={styles.intro_text_wrap}>
-            <Text className={styles.intro_text}>
-              우행시
-              <br />
-            </Text>
+            <Text className={styles.intro_text}>우행시</Text>
             <Text size="6" className={styles.intro_text_detail}>
               <strong>우</strong>리들의 <strong>행</strong>복한 <strong>시</strong>간을 효율적으로 관리하자!
               <br />
@@ -94,21 +91,19 @@ export default function Landing() {
                 href="https://docs.google.com/forms/d/1N7evntVJ_DmTpZdOxVvR3y8IHkLWBoiKxLxFbTDtFtE/edit?ts=66ce99ee"
                 target="_blank"
                 rel="noopener noreferrer"
+                className={styles.intro_btn}
               >
-                <button className={styles.intro_btn}>
-                  <img src="/imgs/landing/inquiry.png" alt="문의하기아이콘" className={styles.inquiry_icon} />
-                  문의하기
-                </button>
+                <img src="/imgs/landing/inquiry.png" alt="문의하기아이콘" className={styles.inquiry_icon} />
+                문의하기
               </a>
               <a
                 href="https://ionized-toad-6ee.notion.site/woohaengshi-8e37b80ac8c64feba132ae91bde8d4c8"
                 target="_blank"
                 rel="noopener noreferrer"
+                className={styles.intro_btn}
               >
-                <button className={styles.intro_btn}>
-                  <img src="/imgs/landing/notion.png" alt="노션아이콘" className={styles.notion_icon} />
-                  노션보러가기
-                </button>
+                <img src="/imgs/landing/notion.png" alt="노션아이콘" className={styles.notion_icon} />
+                노션보러가기
               </a>
             </div>
           </div>
@@ -126,19 +121,17 @@ export default function Landing() {
       </section>
       {/* 타이머 소개 섹션 */}
       <section ref={timerRef} className={styles.timer}>
-        <div className={styles.timer_detail_wrap}>
+        <div ref={timerDetailRef} className={styles.timer_detail_wrap}>
           <Text size="8" className={styles.timer_title}>
             <img src="/imgs/landing/clock.png" alt="타이머아이콘" className={styles.timer_title_icon} />
             공부시작
-            <br />
           </Text>
           <Text size="5" className={styles.timer_detail}>
-            <br />
             내가 선택한 과목으로 공부 시간을 실시간으로 측정할 수 있어요. <br />
             언제 어디서든 공부를 시작하고 시간을 기록해보세요.
           </Text>
         </div>
-        <div className={styles.timer_img_wrap}>
+        <div ref={timerImgWrapRef} className={styles.timer_img_wrap}>
           <img
             src="/imgs/landing/landing_timer_desktop.png"
             alt="랜딩타이머데스크탑"
@@ -154,7 +147,7 @@ export default function Landing() {
       {/* 순위조회 소개 섹션 */}
       <section ref={rankingRef} className={styles.ranking}>
         <div className={styles.ranking_inner}>
-          <div className={styles.ranking_detail_wrap}>
+          <div ref={rankingDetailRef} className={styles.ranking_detail_wrap}>
             <Text size="8" className={styles.ranking_title}>
               <Image
                 src="/imgs/landing/trophy.png"
@@ -168,13 +161,12 @@ export default function Landing() {
               <br />
             </Text>
             <Text size="5" className={styles.ranking_detail}>
-              <br />
               일, 주, 월별로 나의 학습 순위를 확인하고, <br />
               다른 반 학생들과 경쟁할 수 있어요. <br />
               매일 꾸준히 공부한 시간만큼 높은 순위에 오를 수 있습니다!
             </Text>
           </div>
-          <div className={styles.ranking_img_wrap}>
+          <div ref={rankingImgWrapRef} className={styles.ranking_img_wrap}>
             <img
               src="/imgs/landing/landing_ranking_desktop.png"
               alt="랜딩랭킹데스크탑"
@@ -186,7 +178,7 @@ export default function Landing() {
       {/* 기록확인 소개 섹션 */}
       <section ref={calRef} className={styles.cal}>
         <div className={styles.cal_inner}>
-          <div className={styles.cal_img_wrap}>
+          <div ref={calImgWrapRef} className={styles.cal_img_wrap}>
             <img src="/imgs/landing/landing_cal_desktop.png" alt="랜딩캘린더모달" className={styles.cal_img_desktop} />
             <img
               src="/imgs/landing/landing_cal_record.png"
@@ -194,7 +186,7 @@ export default function Landing() {
               className={styles.cal_record_img}
             />
           </div>
-          <div className={styles.cal_detail_wrap}>
+          <div ref={calDetailRef} className={styles.cal_detail_wrap}>
             <Text size="8" className={styles.cal_title}>
               <Image
                 src="/imgs/landing/cal.png"
@@ -208,7 +200,6 @@ export default function Landing() {
               <br />
             </Text>
             <Text size="5" className={styles.cal_detail}>
-              <br />
               한눈에 나의 학습 기록을 확인해보세요.
               <br />
               일별 공부 시간을 달력에 표시하고, <br />

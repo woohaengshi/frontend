@@ -69,6 +69,10 @@
   color: rgb(68, 68, 68);
 }
 
+.intro_btn_wrap {
+  margin-top: 30px;
+}
+
 .intro_text_detail {
   font-family: 'SUIT-Regular';
   color: rgb(68, 68, 68);
@@ -77,8 +81,7 @@
 .intro_btn {
   font-weight: bold;
   background-color: white;
-  padding: 10px 15px;
-  margin-top: 20px;
+  padding: 12px 15px;
   margin-right: 10px;
   font-size: 16px;
   cursor: pointer;
@@ -159,6 +162,13 @@
   opacity: 0;
   transform: translateY(150px);
   transition: all 0.5s;
+}
+
+.timer_detail,
+.ranking_detail,
+.cal_detail {
+  display: block;
+  margin-top: 15px;
 }
 
 .timer_detail_wrap {
@@ -254,7 +264,6 @@
   font-weight: bold;
 }
 
-.ranking_title_icon,
 .cal_title_icon {
   width: 42px;
 }
