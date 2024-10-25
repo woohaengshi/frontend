@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  useEventStore,
   useSelectedMonthStore,
   useSelectedYearStore,
   useCommentStore,
@@ -16,14 +15,12 @@ import styles from './ModalInTab.module.css';
 import { levelColor } from '@/utils/levelUtils';
 import CommonButton from '@/components/common/CommonButton';
 import { Subject } from '@/types/studyType';
+import { patchStudyRecord } from '@/apis/recordApi';
+import { useRouter } from 'next/navigation';
 
-export default function ModalInTabEdit({ record }: { record: IRecord }) {
+export default function ModalInTabEdit({ record }: { record: IRecord; onClose: () => void }) {
   const record_color: string = levelColor(record.time);
 
-  const [changed, setChanged] = useState(false);
-
-  // 기록 입력시 이벤트 감지
-  const { setEventChange } = useEventStore();
   // 탭 이동시에도 회고 value 유지
   const { comment, setComment } = useCommentStore();
 
@@ -37,8 +34,8 @@ export default function ModalInTabEdit({ record }: { record: IRecord }) {
   const [leftSubject, setLeftSubject] = useState<Subject[]>([]);
 
   useEffect(() => {
-    setComment('');
-  }, []);
+    setComment(record.comment || '');
+  }, [record.comment, setComment]);
 
   useEffect(() => {
     // 오늘 과목 id
@@ -50,28 +47,50 @@ export default function ModalInTabEdit({ record }: { record: IRecord }) {
     setLeftSubject(filteredSubject);
   }, [fullSubject, record]);
 
-  // setLeftSubject(filteredSubject.map((subject) => subject.id));
-  // console.log(leftSubject);
-
   // 추가할 과목
   const { addedSubject, setAddedSubject } = useAddedSubjectStore();
 
   // 삭제할 과목
   const { deletedSubject, setDeletedSubject } = useDeletedSubjectStore();
 
-  const recordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+
+  const recordSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('submit');
+    const recordUpdateResponse = await patchStudyRecord(recordDate, addedSubject, deletedSubject, comment);
+
+    if (recordUpdateResponse?.error) {
+      alert(recordUpdateResponse.error.message);
+    } else {
+      window.location.reload();
+    }
   };
 
+  // 기록할 과목 -> 전체 과목
   const removeSubjectToLeft = (subject: Subject) => {
     setLeftSubject((prev) => [...prev, subject]);
     setRecordSubject((prev) => prev.filter((s) => s.id !== subject.id));
   };
+
+  // 전체 과목 -> 기록할 과목
   const addSubjectToRecord = (subject: Subject) => {
     setRecordSubject((prev) => [...prev, subject]);
     setLeftSubject((prev) => prev.filter((s) => s.id !== subject.id));
   };
+
+  // 추가/삭제 과목 업데이트
+  useEffect(() => {
+    const deleted = record.subjects
+      .filter((subject) => !recordSubject.some((s) => s.id == subject.id))
+      .map((subject) => subject.id);
+
+    const added = recordSubject
+      .filter((subject) => !record.subjects.some((s) => s.id == subject.id))
+      .map((subject) => subject.id);
+
+    setDeletedSubject(deleted);
+    setAddedSubject(added);
+  }, [recordSubject]);
 
   return (
     <form onSubmit={recordSubmit}>
@@ -133,13 +152,13 @@ export default function ModalInTabEdit({ record }: { record: IRecord }) {
             <textarea
               placeholder="회고를 입력해주세요!"
               onChange={(e) => {
-                if (!changed) {
-                  setChanged(true);
-                  setEventChange(true);
-                }
+                // if (!changed) {
+                //   setChanged(true);
+                //   setEventChange(true);
+                // }
                 setComment(e.target.value);
               }}
-              defaultValue={comment}
+              defaultValue={record.comment || ''}
             ></textarea>
           </Card>
         </Box>

@@ -60,17 +60,6 @@ export const useFetchStore = create<FetchStoreState>((set) => ({
   setShouldFetch: (shouldFetch: boolean) => set({ shouldFetch }),
 }));
 
-// 모달에서 변경값 감지
-interface EventStoreState {
-  eventChange: boolean;
-  setEventChange: (eventChange: boolean) => void;
-}
-
-export const useEventStore = create<EventStoreState>((set) => ({
-  eventChange: false,
-  setEventChange: (eventChange: boolean) => set({ eventChange }),
-}));
-
 // 회고 comment 유지
 interface CommentStoreState {
   comment: string;

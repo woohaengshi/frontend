@@ -3,10 +3,9 @@
 import styles from './CalendarModal.module.css';
 import { Box, Dialog, Flex, Inset, Tabs, Text } from '@radix-ui/themes';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import { useEventStore, useSelectedMonthStore, useSelectedYearStore } from '@/stores/recordStore';
+import { useSelectedMonthStore, useSelectedYearStore } from '@/stores/recordStore';
 import { levelColor } from '@/utils/levelUtils';
 import ModalInTabEdit from './ModalInTabEdit';
-import { useEffect } from 'react';
 import ModalInTabView from './ModalInTabView';
 
 export default function CalendarModal({ record, onClose }: { record: IRecord; onClose: () => void }) {
@@ -14,12 +13,6 @@ export default function CalendarModal({ record, onClose }: { record: IRecord; on
 
   const { selectedYear } = useSelectedYearStore();
   const { selectedMonth } = useSelectedMonthStore();
-  const { setEventChange } = useEventStore();
-
-  // 모달 열리면 이벤트 감지 초기화
-  useEffect(() => {
-    setEventChange(false);
-  }, [setEventChange]);
 
   return (
     <Dialog.Root open={true} onOpenChange={onClose}>
@@ -57,7 +50,7 @@ export default function CalendarModal({ record, onClose }: { record: IRecord; on
                   <ModalInTabView record={record} />
                 </Tabs.Content>
                 <Tabs.Content value="edit">
-                  <ModalInTabEdit record={record} />
+                  <ModalInTabEdit record={record} onClose={onClose} />
                 </Tabs.Content>
               </Box>
             </Tabs.Root>

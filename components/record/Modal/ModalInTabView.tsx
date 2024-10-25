@@ -6,7 +6,6 @@ import { levelColor } from '@/utils/levelUtils';
 
 export default function ModalInTabView({ record }: { record: IRecord }) {
   const record_color: string = levelColor(record.time);
-  // console.log(record);
 
   return (
     <>
@@ -47,7 +46,7 @@ export default function ModalInTabView({ record }: { record: IRecord }) {
               <Text as="p">회고를 입력해주세요!</Text>
             ) : (
               <ScrollArea type="always" scrollbars="vertical" style={{ maxHeight: 180 }}>
-                <Box p="2" pr="8">
+                <Box p="2" pr="8" style={{ whiteSpace: 'pre-wrap' }}>
                   <Flex direction="column" gap="4">
                     {record.comment}
                   </Flex>

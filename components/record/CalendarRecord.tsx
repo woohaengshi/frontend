@@ -4,23 +4,13 @@ import { levelColor } from '@/utils/levelUtils';
 import { formatTime } from '@/utils/formatTimeUtils';
 import CalendarModal from './Modal/CalendarModal';
 import { useState } from 'react';
-import { useEventStore } from '@/stores/recordStore';
 
 export default function CalendarRecord({ record }: { record: IRecord }) {
   const record_color: string = levelColor(record.time);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { eventChange } = useEventStore();
 
   const onClose = () => {
-    // 모달내에서 이벤트가 일어났으면 닫기전에 확인
-    if (eventChange) {
-      const confirmClose = confirm('모달을 닫으시겠습니까? 변경 내용이 저장되지 않을 수 있습니다.');
-      if (confirmClose) {
-        setIsModalOpen(false);
-      }
-    } else {
-      setIsModalOpen(false);
-    }
+    setIsModalOpen(false);
   };
 
   const [hoverButton, setHoverButton] = useState(false);
