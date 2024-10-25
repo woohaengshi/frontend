@@ -10,13 +10,11 @@ import {
 } from '@/stores/recordStore';
 import { Box, Card, Flex, Strong } from '@radix-ui/themes';
 import { useEffect, useState } from 'react';
-
 import styles from './ModalInTab.module.css';
 import { levelColor } from '@/utils/levelUtils';
 import CommonButton from '@/components/common/CommonButton';
 import { Subject } from '@/types/studyType';
 import { patchStudyRecord } from '@/apis/recordApi';
-import { useRouter } from 'next/navigation';
 
 export default function ModalInTabEdit({ record }: { record: IRecord; onClose: () => void }) {
   const record_color: string = levelColor(record.time);
@@ -53,8 +51,6 @@ export default function ModalInTabEdit({ record }: { record: IRecord; onClose: (
   // 삭제할 과목
   const { deletedSubject, setDeletedSubject } = useDeletedSubjectStore();
 
-  const router = useRouter();
-
   const recordSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const recordUpdateResponse = await patchStudyRecord(recordDate, addedSubject, deletedSubject, comment);
@@ -68,8 +64,12 @@ export default function ModalInTabEdit({ record }: { record: IRecord; onClose: (
 
   // 기록할 과목 -> 전체 과목
   const removeSubjectToLeft = (subject: Subject) => {
-    setLeftSubject((prev) => [...prev, subject]);
-    setRecordSubject((prev) => prev.filter((s) => s.id !== subject.id));
+    if (recordSubject.length > 1) {
+      setLeftSubject((prev) => [...prev, subject]);
+      setRecordSubject((prev) => prev.filter((s) => s.id !== subject.id));
+    } else {
+      alert('최소 하나의 과목은 기록해야 합니다.');
+    }
   };
 
   // 전체 과목 -> 기록할 과목
@@ -90,7 +90,7 @@ export default function ModalInTabEdit({ record }: { record: IRecord; onClose: (
 
     setDeletedSubject(deleted);
     setAddedSubject(added);
-  }, [recordSubject]);
+  }, [record.subjects, recordSubject, setAddedSubject, setDeletedSubject]);
 
   return (
     <form onSubmit={recordSubmit}>
@@ -152,10 +152,6 @@ export default function ModalInTabEdit({ record }: { record: IRecord; onClose: (
             <textarea
               placeholder="회고를 입력해주세요!"
               onChange={(e) => {
-                // if (!changed) {
-                //   setChanged(true);
-                //   setEventChange(true);
-                // }
                 setComment(e.target.value);
               }}
               defaultValue={record.comment || ''}

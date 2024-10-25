@@ -34,7 +34,5 @@ export const patchStudyRecord = async (
     body: JSON.stringify({ date, addedSubject, deletedSubject, comment }),
     method: 'PATCH',
   });
-
-  if (response.ok) revalidatePath('/record');
   return response;
 };
