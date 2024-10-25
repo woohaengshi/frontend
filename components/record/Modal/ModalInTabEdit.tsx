@@ -58,6 +58,7 @@ export default function ModalInTabEdit({ record }: { record: IRecord; onClose: (
     if (recordUpdateResponse?.error) {
       alert(recordUpdateResponse.error.message);
     } else {
+      alert('저장되었습니다!');
       window.location.reload();
     }
   };
