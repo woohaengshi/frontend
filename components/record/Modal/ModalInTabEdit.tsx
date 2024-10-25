@@ -94,7 +94,7 @@ export default function ModalInTabEdit({ record }: { record: IRecord; onClose: (
 
   return (
     <form onSubmit={recordSubmit}>
-      {record.subjects.length > 0 && (
+      {record.time > 0 && (
         <>
           <Box mb="5" className={styles.box}>
             <Box className={`${styles.title} title`}>
