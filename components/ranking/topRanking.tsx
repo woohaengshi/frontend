@@ -4,7 +4,7 @@ import styles from './topRankingList.module.css';
 import rankingOne from '@/public/imgs/medal_first_on.svg';
 import rankingTwo from '@/public/imgs/medal_second_on.svg';
 import rankingThird from '@/public/imgs/medal_third_on.svg';
-import rankingImg from '@/assets/icons/ranking_profile_img.png';
+import rankingImg from '@/public/imgs/ranking/ranking_profile_img.png';
 import Image from 'next/image';
 
 import { Student } from '@/types/rankingType';

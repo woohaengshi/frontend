@@ -31,5 +31,5 @@ export default async function middleware(request: NextRequest, response: NextRes
 
 // 미들웨어가 적용될 경로 설정
 export const config = {
-  matcher: ['/', '/ranking', '/record', '/study', '/mypage'],
+  matcher: ['/', '/ranking', '/record', '/study', '/mypage/:path*'],
 };

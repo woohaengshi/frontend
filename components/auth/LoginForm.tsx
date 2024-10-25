@@ -40,21 +40,25 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
     <AuthFormLayout title="로그인">
       <form onSubmit={handleLogin}>
         <div className="input_box">
-          <InputField
-            label="이메일"
-            id="user_email"
-            placeholder="이메일을 입력해주세요."
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <InputField
-            label="비밀번호"
-            id="user_pw"
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <Box mt="3" className="row">
+            <InputField
+              label="이메일"
+              id="user_email"
+              placeholder="이메일을 입력해주세요."
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Box>
+          <Box mt="3" className="row">
+            <InputField
+              label="비밀번호"
+              id="user_pw"
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Box>
         </div>
         <Box mt="6" className="btn_login">
           <CommonButton type="submit" style="dark_purple">

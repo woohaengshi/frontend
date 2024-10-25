@@ -4,21 +4,48 @@ import Link from 'next/link';
 import { Box, Flex, Heading, Strong, Text } from '@radix-ui/themes';
 import styles from './Header.module.css';
 import HeaderNav from './HeaderNav';
-import rankingImg from '@/assets/icons/ranking_profile_img.png';
+import rankingImg from '@/public/imgs/ranking/ranking_profile_img.png';
 import Image from 'next/image';
 
 import { useUserInfoStore } from '@/stores/memberStore';
 import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getUserInfo } from '@/apis/memberApi';
+import { usePathname } from 'next/navigation';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Header() {
   const { userInfo, setUserInfo } = useUserInfoStore();
 
-  const { data: session, update } = useSession();
+  const { data: session } = useSession();
 
   const accessToken = session?.user?.accessToken;
   const refreshToken = session?.user?.refreshToken;
+
+  // 루트 경로에서만 특정 이벤트 추가
+  const pathname = usePathname();
+  const isRootPath = pathname === '/';
+
+  useEffect(() => {
+    if (isRootPath) {
+      const header = document.querySelector(`.${styles.header_landing}`);
+
+      gsap.to(header, {
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backdropFilter: 'blur(8px)',
+        scrollTrigger: {
+          trigger: document.body,
+          start: '2% 0%',
+          end: '10% 20%',
+          scrub: true,
+          markers: false,
+        },
+      });
+    }
+  }, [isRootPath]);
 
   // update();
 
@@ -42,11 +69,11 @@ export default function Header() {
         }
       }
     })();
-  }, [accessToken, refreshToken, setUserInfo]);
+  });
 
   return (
     <Box px="5" asChild>
-      <header className={styles.header}>
+      <header className={`${isRootPath ? styles.header_landing : styles.header}`}>
         <Box className={styles.header_inner}>
           <Heading as="h1" className={styles.logo}>
             <Link href="/">

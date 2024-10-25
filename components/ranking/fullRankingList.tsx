@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from './fullRankingList.module.css';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Student } from '@/types/rankingType';
-import rankingImg from '@/assets/icons/ranking_profile_img.png';
+import rankingImg from '@/public/imgs/ranking/ranking_profile_img.png';
 import { formatTime } from '@/utils/formatTimeUtils';
 
 interface FullRankingListProps {
