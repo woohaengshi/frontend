@@ -6,7 +6,7 @@ import styles from './UserProfile.module.css';
 import Image from 'next/image';
 import MypageTabMenu from './MypageTabMenu';
 
-import rankingImg from '@/assets/icons/ranking_profile_img.png';
+import rankingImg from '@/public/imgs/ranking/ranking_profile_img.png';
 import useUserInfo from '@/hooks/useUserInfo';
 
 export default function UserProfile() {
