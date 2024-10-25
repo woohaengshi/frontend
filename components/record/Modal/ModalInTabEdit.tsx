@@ -64,12 +64,8 @@ export default function ModalInTabEdit({ record }: { record: IRecord; onClose: (
 
   // 기록할 과목 -> 전체 과목
   const removeSubjectToLeft = (subject: Subject) => {
-    if (recordSubject.length > 1) {
-      setLeftSubject((prev) => [...prev, subject]);
-      setRecordSubject((prev) => prev.filter((s) => s.id !== subject.id));
-    } else {
-      alert('최소 하나의 과목은 기록해야 합니다.');
-    }
+    setLeftSubject((prev) => [...prev, subject]);
+    setRecordSubject((prev) => prev.filter((s) => s.id !== subject.id));
   };
 
   // 전체 과목 -> 기록할 과목
