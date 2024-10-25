@@ -7,6 +7,7 @@ import {
   useCommentStore,
   useAddedSubjectStore,
   useDeletedSubjectStore,
+  useFullSubjectStore,
 } from '@/stores/recordStore';
 import { Box, Card, Flex, Strong } from '@radix-ui/themes';
 import { useEffect, useState } from 'react';
@@ -14,11 +15,13 @@ import { useEffect, useState } from 'react';
 import styles from './ModalInTab.module.css';
 import { levelColor } from '@/utils/levelUtils';
 import CommonButton from '@/components/common/CommonButton';
+import { Subject } from '@/types/studyType';
 
 export default function ModalInTabEdit({ record }: { record: IRecord }) {
   const record_color: string = levelColor(record.time);
 
   const [changed, setChanged] = useState(false);
+
   // 기록 입력시 이벤트 감지
   const { setEventChange } = useEventStore();
   // 탭 이동시에도 회고 value 유지
@@ -26,15 +29,29 @@ export default function ModalInTabEdit({ record }: { record: IRecord }) {
 
   const { selectedYear } = useSelectedYearStore();
   const { selectedMonth } = useSelectedMonthStore();
+  const { fullSubject } = useFullSubjectStore();
+
   const recordDate = `${selectedYear}-${selectedMonth.toString().padStart(2, '0')}-${record.day}`;
+
+  const [recordSubject, setRecordSubject] = useState<Subject[]>(record.subjects);
+  const [leftSubject, setLeftSubject] = useState<Subject[]>([]);
 
   useEffect(() => {
     setComment('');
   }, []);
 
-  // 오늘 과목
-  const todaySubject = record.subjects.map((subject) => subject.id);
-  console.log(todaySubject);
+  useEffect(() => {
+    // 오늘 과목 id
+    const todaySubject = record.subjects.map((subject) => subject.id);
+
+    // fullSubjects에서 필터링
+    const filteredSubject = fullSubject.filter((subject) => !todaySubject.includes(subject.id));
+
+    setLeftSubject(filteredSubject);
+  }, [fullSubject, record]);
+
+  // setLeftSubject(filteredSubject.map((subject) => subject.id));
+  // console.log(leftSubject);
 
   // 추가할 과목
   const { addedSubject, setAddedSubject } = useAddedSubjectStore();
@@ -45,6 +62,15 @@ export default function ModalInTabEdit({ record }: { record: IRecord }) {
   const recordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('submit');
+  };
+
+  const removeSubjectToLeft = (subject: Subject) => {
+    setLeftSubject((prev) => [...prev, subject]);
+    setRecordSubject((prev) => prev.filter((s) => s.id !== subject.id));
+  };
+  const addSubjectToRecord = (subject: Subject) => {
+    setRecordSubject((prev) => [...prev, subject]);
+    setLeftSubject((prev) => prev.filter((s) => s.id !== subject.id));
   };
 
   return (
@@ -58,10 +84,12 @@ export default function ModalInTabEdit({ record }: { record: IRecord }) {
             <Box mt="3" className={styles.content}>
               <Flex wrap="wrap" gap="15px" asChild>
                 <ul className={`${styles.subject_list} subject_list ${styles.btn_minus} ${record_color}`}>
-                  {record.subjects.map((subject) => {
+                  {recordSubject.map((subject) => {
                     return (
                       <li key={`editSubjectList${subject.name}`}>
-                        <button>{subject.name}</button>
+                        <button type="button" onClick={() => removeSubjectToLeft(subject)}>
+                          {subject.name}
+                        </button>
                       </li>
                     );
                   })}
@@ -76,10 +104,17 @@ export default function ModalInTabEdit({ record }: { record: IRecord }) {
             <Box mt="3" className={styles.content}>
               <Flex wrap="wrap" gap="15px" asChild>
                 <ul className={`${styles.subject_list} subject_list ${styles.btn_plus} ${record_color}`}>
-                  {record.subjects.map((subject) => {
+                  {leftSubject.map((subject) => {
                     return (
                       <li key={`totalSubjectList${subject.name}`}>
-                        <button>{subject.name}</button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            addSubjectToRecord(subject);
+                          }}
+                        >
+                          {subject.name}
+                        </button>
                       </li>
                     );
                   })}

@@ -1,3 +1,4 @@
+import { Subject } from '@/types/studyType';
 import { create } from 'zustand';
 
 // 오늘 날짜
@@ -100,4 +101,14 @@ interface DeletedSubjectStoreState {
 export const useDeletedSubjectStore = create<DeletedSubjectStoreState>((set) => ({
   deletedSubject: [],
   setDeletedSubject: (deletedSubject: number[]) => set({ deletedSubject }),
+}));
+
+// 전체 과목 리스트
+interface useFullSubjectStoreState {
+  fullSubject: Subject[];
+  setFullSubject: (fullSubject: Subject[]) => void;
+}
+export const useFullSubjectStore = create<useFullSubjectStoreState>((set) => ({
+  fullSubject: [],
+  setFullSubject: (fullSubject: Subject[]) => set({ fullSubject }),
 }));

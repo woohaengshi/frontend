@@ -1,4 +1,5 @@
 import { getRecordMonthly } from '@/apis/recordApi';
+import { getTimer } from '@/apis/studyApi';
 import FullCalendar from '@/components/record/FullCalendar';
 
 export default async function Record() {
@@ -12,9 +13,11 @@ export default async function Record() {
     console.log(monthlyResponse.error.message);
   }
 
+  const { subjects } = await getTimer();
+
   return (
     <section>
-      <FullCalendar monthlyData={monthlyResponse} />
+      <FullCalendar monthlyData={monthlyResponse} subjects={subjects} />
     </section>
   );
 }
