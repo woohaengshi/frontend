@@ -38,6 +38,7 @@ export default function InfoUpdate() {
     startTransition(() => {
       patchUserInfo(userInfo); // 유저 정보 패치
       localStorage.removeItem('userInfo'); // 로컬 스토리지에서 유저 정보 제거
+      alert('회원정보가 수정되었습니다.');
     });
   };
 
