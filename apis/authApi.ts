@@ -69,3 +69,16 @@ export const signOut = async () => {
 
   return response;
 };
+
+//프로필 이미지 업데이트
+export const patchProfileImg = async (formData: FormData) => {
+  console.log('in call()');
+
+  const response = await instance('members/image', {
+    body: formData,
+    method: 'PATCH',
+  });
+  console.log('in call()22');
+
+  return response;
+};
