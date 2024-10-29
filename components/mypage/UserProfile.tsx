@@ -27,9 +27,13 @@ export default function UserProfile() {
     }
 
     //FileReader(브라우저에서 파일을 읽을 수 있도록 도와주는 API)객체 생성
+    //FileReader(브라우저에서 파일을 읽을 수 있도록 도와주는 API)객체 생성
     const reader = new FileReader();
     // readAsDataURL 메서드가 파일을 읽고, 그 결과를 Base64로 인코딩된 데이터 URL로 변환
+    // readAsDataURL 메서드가 파일을 읽고, 그 결과를 Base64로 인코딩된 데이터 URL로 변환
     reader.readAsDataURL(file);
+
+    // onloadend는 파일을 읽는 작업이 완료된 후 호출되는 이벤트 핸들러
 
     // onloadend는 파일을 읽는 작업이 완료된 후 호출되는 이벤트 핸들러
     reader.onloadend = async () => {
