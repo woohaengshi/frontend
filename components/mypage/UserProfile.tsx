@@ -69,7 +69,11 @@ export default function UserProfile() {
         <div className={styles.img_box}>
           {/* 유저 프로필 이미지 */}
           <div className={styles.back_img} style={{ backgroundImage: `url(${imgUrl ? imgUrl : ''})` }}>
-            {!imgUrl && <Image src={rankingImg} alt={`프로필 이미지`} width={180} height={180} />}
+            {imgUrl ? (
+              <img src={imgUrl} alt="유저 프로필 이미지" width={180} height={180} />
+            ) : (
+              <Image src={rankingImg} alt="프로필 이미지" width={180} height={180} />
+            )}
           </div>
 
           <div className={styles.btn_file}>
