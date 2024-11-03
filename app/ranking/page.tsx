@@ -18,7 +18,6 @@ export default function Ranking() {
   const size = 10;
 
   const fetchData = async (pageNumber: number) => {
-    try {
       setLoading(true);
       const {
         member,
@@ -41,18 +40,11 @@ export default function Ranking() {
           image: member.image || rankingImg,
         });
       } else {
-        console.log(pageNumber);
-
         setRankings((prevRankings) => [...prevRankings, ...newRankings]);
       }
 
       setHasMore(hasNext);
-      setPage(pageNumber);
-    } catch (error) {
-      console.error('데이터 로드 에러:', error);
-    } finally {
-      setLoading(false);
-    }
+      setPage(pageNumber);  
   };
 
   useEffect(() => {
