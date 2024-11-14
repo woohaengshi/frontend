@@ -42,27 +42,17 @@ export default function ModalInTabView({ record }: { record: IRecord }) {
         </Box>
         <Box mt="3" className={styles.content}>
           <Card>
-            <ScrollArea type="always" scrollbars="vertical" style={{ height: 180 }}>
-              <Box p="2" pr="8">
-                <Flex direction="column" gap="4">
-                  <Text as="p">회고를 입력해주세요!</Text>
-
-                  {/* <Text as="p">
-                    Legibility describes how easily individual characters can be distinguished from one another. It is
-                    described by Walter Tracy as “the quality of being decipherable and recognisable”. For instance, if
-                    a “b” and an “h”, or a “3” and an “8”, are difficult to distinguish at small sizes, this is a
-                    problem of legibility.
-                  </Text>
-
-                  <Text as="p">
-                    Typographers are concerned with legibility insofar as it is their job to select the correct font to
-                    use. Brush Script is an example of a font containing many characters that might be difficult to
-                    distinguish. The selection of cases influences the legibility of typography because using only
-                    uppercase letters (all-caps) reduces legibility.
-                  </Text> */}
-                </Flex>
-              </Box>
-            </ScrollArea>
+            {record.comment == null || record.comment.trim() == '' ? (
+              <Text as="p">회고를 입력해주세요!</Text>
+            ) : (
+              <ScrollArea type="always" scrollbars="vertical" style={{ maxHeight: 180 }}>
+                <Box p="2" pr="8" style={{ whiteSpace: 'pre-wrap' }}>
+                  <Flex direction="column" gap="4">
+                    {record.comment}
+                  </Flex>
+                </Box>
+              </ScrollArea>
+            )}
           </Card>
         </Box>
       </Box>

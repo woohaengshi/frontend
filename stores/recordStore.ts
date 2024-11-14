@@ -1,3 +1,4 @@
+import { Subject } from '@/types/studyType';
 import { create } from 'zustand';
 
 // 오늘 날짜
@@ -59,23 +60,44 @@ export const useFetchStore = create<FetchStoreState>((set) => ({
   setShouldFetch: (shouldFetch: boolean) => set({ shouldFetch }),
 }));
 
-// 모달에서 변경값 감지
-interface EventStoreState {
-  eventChange: boolean;
-  setEventChange: (eventChange: boolean) => void;
+// 회고 comment 유지
+interface CommentStoreState {
+  comment: string;
+  setComment: (comment: string) => void;
 }
-
-export const useEventStore = create<EventStoreState>((set) => ({
-  eventChange: false,
-  setEventChange: (eventChange: boolean) => set({ eventChange }),
+export const useCommentStore = create<CommentStoreState>((set) => ({
+  comment: '',
+  setComment: (comment: string) => set({ comment }),
 }));
 
-// 회고 textarea value 유지
-interface TextareaStoreState {
-  textValue: string;
-  setTextValue: (textValue: string) => void;
+// 회고 추가할 과목
+interface AddedSubjectStoreState {
+  addedSubject: number[];
+  setAddedSubject: (addedSubject: number[]) => void;
 }
-export const useTextareaStore = create<TextareaStoreState>((set) => ({
-  textValue: '',
-  setTextValue: (textValue: string) => set({ textValue }),
+
+export const useAddedSubjectStore = create<AddedSubjectStoreState>((set) => ({
+  addedSubject: [],
+  setAddedSubject: (addedSubject: number[]) => set({ addedSubject }),
+}));
+
+// 회고 삭제할 과목
+interface DeletedSubjectStoreState {
+  deletedSubject: number[];
+  setDeletedSubject: (deletedSubject: number[]) => void;
+}
+
+export const useDeletedSubjectStore = create<DeletedSubjectStoreState>((set) => ({
+  deletedSubject: [],
+  setDeletedSubject: (deletedSubject: number[]) => set({ deletedSubject }),
+}));
+
+// 전체 과목 리스트
+interface useFullSubjectStoreState {
+  fullSubject: Subject[];
+  setFullSubject: (fullSubject: Subject[]) => void;
+}
+export const useFullSubjectStore = create<useFullSubjectStoreState>((set) => ({
+  fullSubject: [],
+  setFullSubject: (fullSubject: Subject[]) => set({ fullSubject }),
 }));

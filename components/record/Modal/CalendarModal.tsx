@@ -3,31 +3,16 @@
 import styles from './CalendarModal.module.css';
 import { Box, Dialog, Flex, Inset, Tabs, Text } from '@radix-ui/themes';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import { useEventStore, useSelectedMonthStore, useSelectedYearStore, useTextareaStore } from '@/stores/recordStore';
+import { useSelectedMonthStore, useSelectedYearStore } from '@/stores/recordStore';
 import { levelColor } from '@/utils/levelUtils';
 import ModalInTabEdit from './ModalInTabEdit';
-import { useEffect } from 'react';
 import ModalInTabView from './ModalInTabView';
 
-export default function CalendarModal({
-  nowDate,
-  record,
-  onClose,
-}: {
-  nowDate: number;
-  record: IRecord;
-  onClose: () => void;
-}) {
+export default function CalendarModal({ record, onClose }: { record: IRecord; onClose: () => void }) {
   const record_color: string = levelColor(record.time);
 
   const { selectedYear } = useSelectedYearStore();
   const { selectedMonth } = useSelectedMonthStore();
-  const { setEventChange } = useEventStore();
-
-  // 모달 열리면 이벤트 감지 초기화
-  useEffect(() => {
-    setEventChange(false);
-  }, [setEventChange]);
 
   return (
     <Dialog.Root open={true} onOpenChange={onClose}>
@@ -37,7 +22,7 @@ export default function CalendarModal({
             <Flex align="center" className="modal_header">
               <Flex justify="between" align="center">
                 <Dialog.Title>
-                  {selectedYear}.{selectedMonth}.{nowDate}
+                  {selectedYear}.{selectedMonth}.{record.day}
                 </Dialog.Title>
                 <Flex align="center" gap="10px" className="right">
                   <Text as="p" className={`${styles.level_rank} ${styles.record_color}`}>
@@ -57,7 +42,7 @@ export default function CalendarModal({
               <Box className={styles.tab_tit}>
                 <Tabs.List>
                   <Tabs.Trigger value="view">그날의 기록</Tabs.Trigger>
-                  {/* <Tabs.Trigger value="edit">편집하기</Tabs.Trigger> */}
+                  <Tabs.Trigger value="edit">편집하기</Tabs.Trigger>
                 </Tabs.List>
               </Box>
               <Box pt="4" className={styles.tab_cont}>

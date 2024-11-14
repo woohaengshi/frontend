@@ -5,31 +5,33 @@ import { Box, Container, Flex, Heading, Text } from '@radix-ui/themes';
 import { useCallback, useEffect, useState } from 'react';
 import styles from './FullCalendar.module.css';
 import MonthPicker from './MonthPicker';
-import { useFetchStore, useSelectedMonthStore, useSelectedYearStore, useTodayStore } from '@/stores/recordStore';
+import {
+  useFetchStore,
+  useFullSubjectStore,
+  useSelectedMonthStore,
+  useSelectedYearStore,
+  useTodayStore,
+} from '@/stores/recordStore';
 import CalendarRecord from './CalendarRecord';
 import useRefreshMonthlyData from '@/hooks/useRefreshMonthlyData';
 import useIsMobile from '@/hooks/useIsMobile';
+import { Subject } from '@/types/studyType';
 
 interface IMonthlyData {
   year: number;
   month: number;
-  records: IMonthlyDataRecord[];
+  records: IRecord[];
 }
 
-interface IMonthlyDataRecord {
-  day: number;
-  time: number;
-  subjects: any[];
-}
-
-export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyData }) {
+export default function FullCalendar({ monthlyData, subjects }: { monthlyData: IMonthlyData; subjects: Subject[] }) {
   const today = useTodayStore();
   const { selectedYear, setSelectedYear } = useSelectedYearStore();
   const { selectedMonth, setSelectedMonth } = useSelectedMonthStore();
+  const { setFullSubject } = useFullSubjectStore();
 
   // 초기 렌더링시 데이터 패치를 막기 위함
   const { shouldFetch, setShouldFetch } = useFetchStore();
-  const [records, setRecords] = useState<IMonthlyDataRecord[]>(monthlyData?.records);
+  const [records, setRecords] = useState<IRecord[]>(monthlyData?.records);
 
   // 매월 시작일 index (0 ~ 6)
   const startDay = new Date(selectedYear, selectedMonth - 1, 1).getDay();
@@ -86,6 +88,10 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
     }
   }, [refreshMonthlyData, setShouldFetch]);
 
+  useEffect(() => {
+    setFullSubject(subjects);
+  }, [subjects, setFullSubject]);
+
   const returnDayCalendar = useCallback(() => {
     let days = [];
     let daysArr = [];
@@ -114,11 +120,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
                   {nowDate}
                 </Text>
                 {records?.map((record) => {
-                  return (
-                    record.day == nowDate && (
-                      <CalendarRecord key={`calendarRecord${nowDate}`} nowDate={nowDate} record={record} />
-                    )
-                  );
+                  return record.day == nowDate && <CalendarRecord key={`calendarRecord${nowDate}`} record={record} />;
                 })}
               </Flex>
             </td>,
@@ -169,7 +171,7 @@ export default function FullCalendar({ monthlyData }: { monthlyData: IMonthlyDat
                     <i>MON</i>
                   </div>
                   <Box className={styles.list_con}>
-                    <CalendarRecord key={`listRecord${nowDate}`} nowDate={nowDate} record={records[nowDate - 1]} />
+                    <CalendarRecord key={`listRecord${nowDate}`} record={records[nowDate - 1]} />
                   </Box>
                 </li>
               ),
